@@ -1,6 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 
- export PATH=$HOME/bin:/usr/local/bin:$PATH
+ export GOPATH=$HOME/go
+ export PATH=$HOME/bin:/usr/local/bin:$GOROOT/bin:$GOPATH/bin:$PATH
  export SSH_ASKPASS="/usr/bin/ksshaskpass"
  export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
