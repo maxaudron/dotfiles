@@ -22,9 +22,9 @@ URxvt.keysym.M-v:   perl:clipboard:paste
 URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
 ! transparency
-! URxvt.transparent: true
-! URxvt.shading:     20
-! URxvt.fading:      15
+!URxvt.transparent: true
+!URxvt.shading:     30
+!URxvt.fading:      30
 
 ! tabs
 URxvt.tabbed.tabbar-bg: -1
@@ -69,63 +69,85 @@ rofi.separator-style: none
 
 ! Colors
 !----------------------------------------------------------------------
-!#include "/home/mxmanz/.Xresources.d/.colors"
+!#include "/home/mxmanz/dotfiles/colors"
 
 ! special
-*.foreground:   #ffffff
-*.background:   #161616
-*.cursorColor:  #ffffff
+!*.foreground:   #ffffff
+!*.background:   #161616
+!*.cursorColor:  #ffffff
 
 ! black
-*.color0:       #222222
-*.color8:       #666666
+!*.color0:       #222222
+!*.color8:       #666666
 
 ! red
-*.color1:       #e84f4f
-*.color9:       #d23d3d
+!*.color1:       #e84f4f
+!*.color9:       #d23d3d
 
 ! green
-*.color2:       #b7ce42
-*.color10:      #bde077
+!*.color2:       #b7ce42
+!*.color10:      #bde077
 
 ! yellow
-*.color3:       #fea63c
-*.color11:      #ffe863
+!*.color3:       #fea63c
+!*.color11:      #ffe863
 
 ! blue
-*.color4:       #66aabb
-*.color12:      #aaccbb
+!*.color4:       #66aabb
+!*.color12:      #aaccbb
 
 ! magenta
-*.color5:       #b7416e
-*.color13:      #e16a98
+!*.color5:       #b7416e
+!*.color13:      #e16a98
 
 ! cyan
-*.color6:       #6d878d
-*.color14:      #42717b
+!*.color6:       #6d878d
+!*.color14:      #42717b
 
 ! white
-*.color7:       #dddddd
-*.color15:      #cccccc
+!*.color7:       #dddddd
+!*.color15:      #cccccc
 
+! -- Title:     arch_earth
+! -- Author:    maxaudron
+! -- Created:   2017
+
+#define bg    #161616
+#define fg    #ffffff
+#define blk   #161616
+#define bblk  #0a0e21
+#define red   #B37731
+#define grn   #F5961F
+#define ylw   #B49572
+#define blu   #3F6F91
+#define mag   #628FAA
+#define cyn   #95A0A6
+#define wht   #C3CACB
+#define bred  #B37731
+#define bgrn  #F5961F
+#define bylw  #B49572
+#define bblu  #3F6F91
+#define bmag  #628FAA
+#define bcyn  #95A0A6
+#define bwht  #C3CACB
 
 ! Define Colors
-!*background:   bg
-!*foreground:   fg
+*background:   bg
+*foreground:   fg
 
-!*color0:      blk
-!*color8:      bblk
-!*color1:      red
-!*color9:      bred
-!*color2:      grn
-!*color10:     bgrn
-!*color3:      ylw
-!*color11:     bylw
-!*color4:      blu
-!*color12:     bblu
-!*color5:      mag
-!*color13:     bmag
-!*color6:      cyn
-!*color14:     bcyn
-!*color7:      wht
-!*color15:     bwht
+*color0:      blk
+*color8:      bblk
+*color1:      red
+*color9:      bred
+*color2:      grn
+*color10:     bgrn
+*color3:      ylw
+*color11:     bylw
+*color4:      blu
+*color12:     bblu
+*color5:      mag
+*color13:     bmag
+*color6:      cyn
+*color14:     bcyn
+*color7:      wht
+*color15:     bwht

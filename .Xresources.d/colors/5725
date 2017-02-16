@@ -2,21 +2,21 @@
 ! -- Author:    dkeg
 ! -- Created:   2016
 
-#define bg    #353234
-#define blk   #363334
-#define fg    #c3c1b8
-#define bblk  #5c575b
-#define red   #97544d
-#define grn   #97a293
-#define ylw   #c29f6f
-#define blu   #5e606c
-#define mag   #7a6054
-#define cyn   #78746c
-#define wht   #c3c1b8
-#define bred  #97544d
-#define bgrn  #97a293
-#define bylw  #c29f6f
-#define bblu  #5e606c
-#define bmag  #7a6054
-#define bcyn  #78746c
-#define bwht  #c3c1b8
+#define bg    #161616
+#define fg    #ffffff
+#define blk   #000000
+#define bblk  #0a0e21
+#define red   #151e4c
+#define grn   #1d306c
+#define ylw   #154b95
+#define blu   #006cbd
+#define mag   #008bd4
+#define cyn   #42a8dd
+#define wht   #6cb6e0
+#define bred  #91c4e1
+#define bgrn  #b8c4d3
+#define bylw  #9cb2c7
+#define bblu  #8da1b3
+#define bmag  #778fa0
+#define bcyn  #567a91
+#define bwht  #3b6b88
