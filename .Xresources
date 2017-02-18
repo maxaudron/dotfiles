@@ -17,8 +17,8 @@ URxvt.perl-ext-common: default,matcher,selection-to-clipboard,clipboard,tabbedex
 URxvt.url-launcher: google-chrome-stable
 URxvt.matcher.button: 1
 
-URxvt.keysym.M-c:   perl:clipboard:copy
-URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.Control_L-Shift_L-c:   perl:clipboard:copy
+URxvt.keysym.Control_L-Shift_L-v:   perl:clipboard:paste
 URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
 ! transparency
