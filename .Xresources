@@ -72,82 +72,39 @@ rofi.separator-style: none
 !#include "/home/mxmanz/dotfiles/colors"
 
 ! special
-!*.foreground:   #ffffff
-!*.background:   #161616
-!*.cursorColor:  #ffffff
+*.foreground:   #ffffff
+*.background:   #161616
+*.cursorColor:  #ffffff
 
 ! black
-!*.color0:       #222222
-!*.color8:       #666666
+*.color0:       #161616
+*.color8:       #0a0e21
 
 ! red
-!*.color1:       #e84f4f
-!*.color9:       #d23d3d
+*.color1:       #B37731
+*.color9:       #ce914b
 
 ! green
-!*.color2:       #b7ce42
-!*.color10:      #bde077
+*.color2:       #F5961F
+*.color10:      #f6a23c
 
 ! yellow
-!*.color3:       #fea63c
-!*.color11:      #ffe863
+*.color3:       #B49572
+*.color11:      #c1a88a
 
 ! blue
-!*.color4:       #66aabb
-!*.color12:      #aaccbb
+*.color4:       #3F6F91
+*.color12:      #4e88b1
 
 ! magenta
-!*.color5:       #b7416e
-!*.color13:      #e16a98
+*.color5:       #628FAA
+*.color13:      #7aa0b8
 
 ! cyan
-!*.color6:       #6d878d
-!*.color14:      #42717b
+*.color6:       #95A0A6
+*.color14:      #acb5b9
 
 ! white
-!*.color7:       #dddddd
-!*.color15:      #cccccc
+*.color7:       #C3CACB
+*.color15:      #d6dbdb
 
-! -- Title:     arch_earth
-! -- Author:    maxaudron
-! -- Created:   2017
-
-#define bg    #161616
-#define fg    #ffffff
-#define blk   #161616
-#define bblk  #0a0e21
-#define red   #B37731
-#define grn   #F5961F
-#define ylw   #B49572
-#define blu   #3F6F91
-#define mag   #628FAA
-#define cyn   #95A0A6
-#define wht   #C3CACB
-#define bred  #B37731
-#define bgrn  #F5961F
-#define bylw  #B49572
-#define bblu  #3F6F91
-#define bmag  #628FAA
-#define bcyn  #95A0A6
-#define bwht  #C3CACB
-
-! Define Colors
-*background:   bg
-*foreground:   fg
-
-*color0:      blk
-*color8:      bblk
-*color1:      red
-*color9:      bred
-*color2:      grn
-*color10:     bgrn
-*color3:      ylw
-*color11:     bylw
-*color4:      blu
-*color12:     bblu
-*color5:      mag
-*color13:     bmag
-*color6:      cyn
-*color14:     bcyn
-*color7:      wht
-*color15:     bwht

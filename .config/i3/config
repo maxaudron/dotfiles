@@ -179,7 +179,7 @@ for_window [class="^.*"] border pixel 0px
 gaps outer 0
 gaps inner 15
 
-exec --no-startup-id xrdb ~/.Xresources
+# exec --no-startup-id xrdb ~/.Xresources
 
 exec --no-startup-id eval `ssh-agent`
 exec --no-startup-id ssh-add ~/.ssh/*
