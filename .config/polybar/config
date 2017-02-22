@@ -123,6 +123,10 @@ format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-9 = 10;
+
 ; Only show workspaces on the same output as the bar
 ;pin-workspaces = true
 
