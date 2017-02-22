@@ -8,8 +8,8 @@
 ;=====================================================
 
 [colors]
-background = ${xrdb:color0:#222}
-;background = #222
+;background = ${xrdb:color0:#222}
+background = #00000000
 background-alt = #444
 foreground = ${xrdb:color7:#222}
 ;foreground = #dfdfdf
@@ -21,7 +21,7 @@ alert = #bd2c40
 [bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 25
 ;offset-x = 10%
 ;offset-y = 10%
 radius = 0.0
@@ -33,15 +33,31 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 0
+;border-size = 0
+;border-bottom-size = 0
+;border-color = #fea63c
+
 border-bottom-size = 0
-border-color = #fea63c
+;border-bottom-color = #CA4A4B
+border-bottom-color = ${colors.background}
 
-padding-left = 3
-padding-right = 2
+border-top-size = 10
+;border-top-color = #CA4A4B
+border-top-color = ${colors.background}
 
-module-margin-left = 1
-module-margin-right = 2
+border-left-size = 15
+;border-left-color = #CA4A4B
+border-left-color = ${colors.background}
+
+border-right-size = 15
+;border-right-color = #CA4A4B
+border-right-color = ${colors.background}
+
+padding-left = 0 
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 0
 
 font-0 = Roboto Mono for Powerline:size=8:weight=bold
 font-1 = FontAwesome:size=10:fontformat=truetype
@@ -52,7 +68,7 @@ modules-left = powermenu i3
 modules-center = date
 modules-right = mpd volume temperature
 
-tray-position = none
+tray-position = right
 tray-padding = 2
 ;tray-transparent = true
 ;tray-background = #0063ff
@@ -122,10 +138,11 @@ type = internal/i3
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
+strip-wsnumbers = true
 
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-9 = 10;
+ws-icon-0 = 1;I
+ws-icon-1 = 2;II
+ws-icon-9 = 10;III
 
 ; Only show workspaces on the same output as the bar
 ;pin-workspaces = true
@@ -135,23 +152,23 @@ label-mode-foreground = #000
 label-mode-background = ${colors.primary}
 
 ; focused = Active workspace on focused monitor
-label-focused = %index%
+label-focused = %icon%
 label-focused-background = ${module/bspwm.label-focused-background}
 ; label-focused-underline = ${module/bspwm.label-focused-underline}
 label-focused-padding = ${module/bspwm.label-focused-padding}
 
 ; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
+label-unfocused = %icon%
 label-unfocused-padding = ${module/bspwm.label-occupied-padding}
 
 ; visible = Active workspace on unfocused monitor
-label-visible = %index%
+label-visible = %icon%
 label-visible-background = ${self.label-focused-background}
 ; label-visible-underline = ${self.label-focused-underline}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
-label-urgent = %index%
+label-urgent = %icon%
 label-urgent-background = ${module/bspwm.label-urgent-background}
 label-urgent-padding = ${module/bspwm.label-urgent-padding}
 
@@ -251,17 +268,15 @@ format-disconnected =
 type = internal/date
 interval = 1
 
-date =
-date-alt = " %d-%m-%Y"
+date = " %a, %d %B |"
+time = "%H:%M:%S "
 
-time = %H:%M:%S
-time-alt = %H:%M:%S
+format-prefix = 
+format-prefix-foreground = ${colors.background}
+format-background = #885522
+format-foreground = ${colors.background}
 
-;format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-;format-underline = #0a6cf5
-
-label = %date% %time%
+label = "%{A1:steam:}  %date% %time%  %{A}"
 
 [module/volume]
 type = internal/volume
@@ -371,6 +386,11 @@ screenchange-reload = true
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
+
+;format-prefix = 
+;format-prefix-foreground = ${colors.background}
+;format-background = #885522
+;format-foreground = ${colors.background}
 
 [global/wm]
 margin-top = 5
