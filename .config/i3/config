@@ -79,7 +79,7 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Lock screen
-bindsym --release $mod+l exec lock -pf Raleway -- scrot -z
+bindsym --release $mod+l exec i3lock-fancy 
 
 # start rofi
 bindsym --release $mod+r exec rofi -show run
@@ -228,5 +228,5 @@ exec --no-startup-id autocutsel
 
 # Startup programs
 exec chromium
-exec teamspeak3
+#exec teamspeak3
 exec steam

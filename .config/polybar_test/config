@@ -1,0 +1,412 @@
+############
+## Colors ##
+############
+
+[colors]
+background = #00000000
+background-alt = #000000
+foreground = #ffffff
+foreground-alt = #555555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+
+##################
+## Bar settings ##
+##################
+
+[bar/main]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 25
+offset-x = 0
+offset-y = 0
+
+bottom = false
+
+;background = ${xrdb:color1}
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+
+overline-size = 0
+overline-color = #f00
+underline-size = 2
+underline-color = #CA4A4B
+
+border-bottom-size = 0
+;border-bottom-color = #CA4A4B
+border-bottom-color = ${colors.background}
+
+border-top-size = 10
+;border-top-color = #CA4A4B
+border-top-color = ${colors.background}
+
+border-left-size = 15
+;border-left-color = #CA4A4B
+border-left-color = ${colors.background}
+
+border-right-size = 15
+;border-right-color = #CA4A4B
+border-right-color = ${colors.background}
+
+padding-left = 0
+padding-right = 0
+module-margin-left = 0
+module-margin-right = 0
+
+
+###########
+## Fonts ##
+###########
+
+font-0 = Fira Sans:size=9:weight=regular;2
+font-1 = FontAwesome:size=10;2
+
+
+
+######################
+## Modules position ##
+######################
+
+modules-left = i3
+modules-center =
+modules-right = date
+;modules-right = xbacklight xkeyboard temperature memory cpu wlan eth battery weather date powermenu
+
+tray-position = right
+tray-padding = 3
+;tray-transparent = false
+tray-background = ${xrdb:background}
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
+
+
+########
+## i3 ##
+########
+
+[module/i3]
+type = internal/i3
+strip-wsnumbers = true
+pin-workspaces = false
+
+ws-icon-0 = 1;I
+ws-icon-1 = 2;II
+ws-icon-2 = 3;III
+ws-icon-3 = 4;IV
+ws-icon-4 = 5;V
+ws-icon-5 = 6;VI
+ws-icon-6 = 7;VII
+ws-icon-7 = 8;VIII
+ws-icon-8 = 9;IX
+ws-icon-9 = 10;X
+ws-icon-default = |
+
+format = <label-state> <lable-mode>
+
+label-mode = "%mode%"
+label-mode-foreground = ${colors.foreground}
+label-mode-background = ${xrdb:background}
+label-mode-padding = 3
+
+label-focused = 
+label-focused-foreground = ${colors.background}
+label-focused-background = #885522
+label-focused-underline = 
+label-focused-padding = 3
+
+label-unfocused = 
+label-unfocused-background = ${xrdb:background}
+label-unfocused-foreground = ${xrdb:foreground}
+label-unfocused-padding = 3
+
+label-urgent = 
+label-urgent-foreground = ${colors.foreground}
+label-urgent-background = ${xrdb:background}
+label-urgent-padding = 4
+
+label-visible-foreground = ${colors.foreground}
+label-visible-background = ${colors.background}
+label-visible-padding = 4
+
+
+#############
+## XWindow ##
+#############
+
+[module/xwindow]
+type = internal/xwindow
+
+format-background = 
+format-foreground = #ffffff
+format-padding = 0
+
+
+label = "   %title%"
+label-maxlen = 50
+
+
+##############
+## Keyboard ##
+##############
+
+[module/xkeyboard]
+## type = internal/xkeyboard
+blacklist-0 = num lock
+label-layout = %{F#55}%{F-} %layout%
+label-layout-underline = ${colors.secondary}
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-background = ${colors.secondary}
+label-indicator-underline = ${colors.secondary}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+mount-1 = /home
+mount-2 = /invalid/mountpoint
+
+label-mounted = %mountpoint%: %percentage_free%%
+
+label-unmounted = %mountpoint%: not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
+
+
+###############
+## Backlight ##
+################
+
+[module/xbacklight]
+# type = internal/xbacklight
+
+format = <label> <bar>
+label = BL
+
+bar-width = 10
+bar-indicator = │
+bar-indicator-foreground = #ff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+
+#########
+## CPU ##
+#########
+
+[module/cpu]
+## type = internal/cpu
+interval = 2
+format-prefix = " "
+format-prefix-foreground = #FFFFFF
+format-underline = 
+label = %percentage%%
+
+
+#########
+## RAM ##
+#########
+
+[module/memory]
+## type = internal/memory
+interval = 2
+format-prefix = " "
+format-prefix-foreground = #FFFFFF
+format-underline = 
+label = %percentage_used%%
+
+
+##############
+## Wireless ##
+##############
+
+[module/wlan]
+type = internal/network
+interface = wlp7s0
+interval = 3.0
+
+format-connected = "<ramp-signal><label-connected>"
+format-connected-underline = 
+format-disconnected-underline = 
+format-connected-background = ${xrdb:background}
+format-disconnected-background = ${xrdb:background}
+
+label-connected = "  %{A1:urxvt -e nmtui:}  %essid%%{A}   "
+label-disconnected = "  %{A1:urxvt -e nmtui:} %ifname% disconnected %{A}   "
+label-disconnected-foreground = ${colors.foreground-alt}
+
+label-connected-background = ${xrdb:background}
+label-disconnected-background = ${xrdb:background}
+
+ramp-signal-0 = "   "
+ramp-signal-1 = "   "
+ramp-signal-2 = "   "
+ramp-signal-3 = "   "
+ramp-signal-4 = "   "
+ramp-signal-foreground = #FFFFFF
+ramp-signal-background = ${xrdb:background}
+
+
+##########
+## Date ##
+##########
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = " %a, %d %B |"
+time = "%H:%M:%S "
+
+format-prefix = 
+format-prefix-foreground = ${colors.background}
+format-background = #885522
+format-foreground = ${colors.background}
+
+label = "%{A1:steam:}  %date% %time%  %{A}"
+
+
+############
+## Volume ##
+############
+
+[module/volume]
+type = internal/volume
+master-mixer = Master
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = 
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = │
+bar-volume-indicator-font = 2
+bar-volume-indicator-foreground = #ff
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+
+#############
+## Battery ##
+#############
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+full-at = 98
+
+format-charging = "   <ramp-capacity> <label-charging>   "
+format-charging-underline = 
+format-charging-background = ${xrdb:background}
+
+format-discharging = "   <ramp-capacity> <label-discharging>   "
+format-discharging-underline = 
+format-discharging-background = ${xrdb:background}
+
+format-full = "   <label-full>   "
+format-full-prefix = "      "
+format-full-prefix-foreground = #FFFFFF
+format-full-background = ${xrdb:background}
+
+ramp-capacity-0 = "   "
+ramp-capacity-1 = "   "
+ramp-capacity-2 = "   "
+ramp-capacity-3 = "   "
+ramp-capacity-foreground = #FFFFFF
+ramp-capacity-underline =
+
+click-left = urxvt
+
+##############
+## CPU Temp ##
+##############
+
+[module/temperature]
+## type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+
+format = <ramp> <label>
+format-underline = 
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label =  %temperature% 
+label-warn = %temperature%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+
+
+
+[module/weather]
+type = custom/script
+interval = 10
+format = "  %{A:urxvt -hold -e curl wttr.in/Roznava:}<label>%{A}    "
+format-prefix = "     "
+format-prefix-foreground = ${colors.foreground}
+format-background = ${xrdb:background}
+
+exec = ~/.config/polybar/weather.sh
+
+
+[module/redshift]
+type = custom/script
+interval = 5
+
+exec = ~/.config/polybar/redshift.sh
+
+
+[module/music]
+type = custom/script
+interval = 2
+
+label = "   %output:0:45:...%"
+exec = ~/.config/polybar/mpris.sh
