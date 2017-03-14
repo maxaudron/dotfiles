@@ -1,17 +1,18 @@
 # If you come from bash you might have to change your $PATH.
-
- export GOPATH=$HOME/go
- export PATH=$HOME/bin:/usr/local/bin:$GOROOT/bin:$GOPATH/bin:$PATH
- export SSH_ASKPASS="/usr/bin/ksshaskpass"
- export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-ZSH=/usr/share/oh-my-zsh/
+  export ZSH=/home/mxmanz/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="minimal"
+ZSH_THEME="geometry/geometry"
+
+GEOMETRY_SYMBOL_PROMPT=">"                  # default prompt symbol
+GEOMETRY_SYMBOL_PROMPT2=">"                 # multiline prompts
+GEOMETRY_SYMBOL_EXIT_VALUE=">"              # displayed when exit value is != 0
+GEOMETRY_SYMBOL_ROOT=">"                    # when logged in user is root
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -21,7 +22,7 @@ ZSH_THEME="minimal"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+# DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -55,8 +56,9 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git, archlinux, systemd, bower, sudo, npm)
+plugins=(git)
 
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -84,14 +86,5 @@ plugins=(git, archlinux, systemd, bower, sudo, npm)
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
- alias zshconfig="vim ~/.zshrc"
+# alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi="vim"
-alias mplayer="ncmpcpp"
-
-ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir $ZSH_CACHE_DIR
-fi
-
-source $ZSH/oh-my-zsh.sh
