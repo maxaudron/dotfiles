@@ -18,56 +18,65 @@ primary = #ffb52a
 secondary = #ff9933
 alert = #bd2c40
 
-[bar/main]
-;monitor = ${env:MONITOR:HDMI-1}
-width = 100%
-height = 25
-;offset-x = 10%
-;offset-y = 10%
-radius = 0.0
-fixed-center = true
+[colors]
+white = #d1d1d1
+gray = #585858
+black = #090909
+red = #c795ae
+blue = #95aec7
+yellow = #c7ae95
+green = #aec795
 
-background = ${colors.background}
-foreground = ${colors.foreground}
+[bar/Fix]
+bottom = false
+dock = false
+wm-restack = i3
+height = 24
+width = 1
+background = #00000000
+modules-left = i3
 
-line-size = 3
-line-color = #f00
+[bar/Bar]
+bottom = false
+dock = true
+wm-restack = i3
+height = 22
+radius = 5.5
+enable-ipc = true
+width = 80%
+offset-x = 10%
+override-redirect = false
+offset-y = 4
 
-border-size = 0
-border-bottom-size = 0
-border-color = #fea63c
+padding-left = 1
+padding-right = 1
 
-padding-left = 0
-;padding-top = 5
-padding-right = 0
-
-module-margin-left = 0
 module-margin-right = 0
+module-margin-left = 0
+
+modules-right = updates filesystem battery date menu0
+modules-center = mpd volume
+modules-left = i3 wlan eth cpu memory
+
+background = #99090909
+foreground = ${colors.white}
+
+underline-size = 2
+underline-color = ${colors.white}
+
+tray-detached = false
+tray-position = right
+;tray-offset-x = 
+;tray-maxsize = 
+;tray-padding = 
+
+i;font-0 = Hack:size=8;0
+font-1 = FontAwesome:size=10;0
+font-2 = Hack:size=10;0
+font-3 = FontAwesome:size=8;0
 
 font-0 = Lato:size=10:weight=bold:fontformat=truetype
-font-1 = FontAwesome:size=10:fontformat=truetype
-font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-3 = siji:pixelsize=10;1
-
-modules-left = powermenu i3
-modules-center = date
-modules-right = mpd volume temperature
-
-tray-position = none
-tray-padding = 2
-;tray-transparent = true
-;tray-background = #0063ff
-
-;wm-restack = bspwm
-wm-restack = i3
-
-;override-redirect = true
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+;font-1 = FontAwesome:size=10:fontformat=truetype
 
 [module/xwindow]
 type = internal/xwindow
