@@ -1,0 +1,4 @@
+.config/nvim/plugged
+.config/nvim/sessions
+.weechat/irc.conf
+.weechat/logs/
