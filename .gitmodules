@@ -1,0 +1,6 @@
+[submodule "src/.config/awesome/lain"]
+	path = src/.config/awesome/lain
+	url = https://github.com/lcpz/lain.git
+[submodule "src/.config/awesome/freedesktop"]
+	path = src/.config/awesome/freedesktop
+	url = https://github.com/lcpz/awesome-freedesktop.git
