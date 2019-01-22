@@ -143,7 +143,7 @@ Notes
 
 Complements are provided by lain_ and freedesktop_. **Be sure** to satisfy their dependencies.
 
-Fonts are Terminus_ (Multicolor, Powerarrow, Powerarrow Dark), Roboto_ (Holo, Vertex) and Tamsyn_ (other ones).
+Fonts are Terminus_ (Multicolor, Powerarrow, Powerarrow Dark), Tamzen_ (Copland), Roboto_ (Holo, Vertex) and Tamsyn_ (other ones).
 
 Every theme has a colorscheme_.
 
@@ -163,7 +163,7 @@ Additional default software used: ::
 .. _swordfischer: https://github.com/lcpz/awesome-copycats/issues/53
 .. _foozer: http://dotshare.it/dots/499
 .. _lain: https://github.com/lcpz/lain
-.. _freedesktop: https://github.com/lcpz/awesome-freedesktop
+.. _freedesktop: https://github.com/lcpz/freedesktop
 .. _Terminus: http://terminus-font.sourceforge.net
 .. _Tamzen: https://github.com/sunaku/tamzen-font
 .. _Roboto: https://fonts.google.com/specimen/Roboto
