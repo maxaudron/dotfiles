@@ -506,7 +506,7 @@ globalkeys = my_table.join(
         {description = "show dmenu", group = "launcher"})
     --]]
     -- Prompt
-    awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
+    awful.key({ modkey }, "r", function () os.execute(string.format("rofi -show drun")) end,
               {description = "run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
@@ -655,6 +655,9 @@ awful.rules.rules = {
 
     -- Set Firefox to always map on the first tag on screen 1.
     { rule = { class = "Firefox" },
+      properties = { screen = 2, tag = awful.util.tagnames[1] } },
+
+    { rule = { class = "Quassel IRC" },
       properties = { screen = 1, tag = awful.util.tagnames[1] } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },

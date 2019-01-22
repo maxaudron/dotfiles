@@ -20,17 +20,17 @@ theme.wallpaper                                 = os.getenv("HOME") .. "/.config
 theme.font                                      = "Roboto Bold 10"
 theme.taglist_font                              = "Roboto Condensed Regular 8"
 theme.fg_normal                                 = "#FFFFFF"
-theme.fg_focus                                  = "#0099CC"
-theme.bg_focus                                  = "#303030"
-theme.bg_normal                                 = "#242424"
-theme.fg_urgent                                 = "#CC9393"
+theme.fg_focus                                  = "#E88A30"
+theme.bg_focus                                  = "#181818"
+theme.bg_normal                                 = "#181818"
+theme.fg_urgent                                 = "#D52B1D"
 theme.bg_urgent                                 = "#006B8E"
-theme.border_width                              = 3
-theme.border_normal                             = "#252525"
-theme.border_focus                              = "#0099CC"
+theme.border_width                              = 1
+theme.border_normal                             = "#181818"
+theme.border_focus                              = "#E88A30"
 theme.taglist_fg_focus                          = "#FFFFFF"
-theme.tasklist_bg_normal                        = "#222222"
-theme.tasklist_fg_focus                         = "#4CB7DB"
+theme.tasklist_bg_normal                        = "#181818"
+theme.tasklist_fg_focus                         = "#E88A30"
 theme.menu_height                               = 20
 theme.menu_width                                = 160
 theme.menu_icon_size                            = 32
@@ -71,7 +71,7 @@ theme.layout_magnifier                          = theme.icon_dir .. "/magnifier.
 theme.layout_floating                           = theme.icon_dir .. "/floating.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
-theme.useless_gap                               = 4
+theme.useless_gap                               = 0
 theme.titlebar_close_button_normal              = theme.default_dir.."/titlebar/close_normal.png"
 theme.titlebar_close_button_focus               = theme.default_dir.."/titlebar/close_focus.png"
 theme.titlebar_minimize_button_normal           = theme.default_dir.."/titlebar/minimize_normal.png"
@@ -254,7 +254,7 @@ local net = lain.widget.net({
                           .. net_now.sent) .. markup.font("Roboto 2", " "))
     end
 })
-local netbg = wibox.container.background(net.widget, theme.bg_focus, gears.shape.rectangle)
+local netbg = wibox.container.background(net.widget, "#242424", gears.shape.rectangle)
 local networkwidget = wibox.container.margin(netbg, 0, 0, 5, 5)
 
 -- Weather
@@ -319,7 +319,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 32 })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = 24 })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -356,8 +356,8 @@ function theme.at_screen_connect(s)
     }
 
     -- Create the bottom wibox
-    s.mybottomwibox = awful.wibar({ position = "bottom", screen = s, border_width = 0, height = 32 })
-    s.borderwibox = awful.wibar({ position = "bottom", screen = s, height = 1, bg = theme.fg_focus, x = 0, y = 33})
+    s.mybottomwibox = awful.wibar({ position = "bottom", screen = s, border_width = 0, height = 24 })
+    s.borderwibox = awful.wibar({ position = "bottom", screen = s, height = 1, bg = theme.fg_focus, x = 0, y = 25})
 
     -- Add widgets to the bottom wibox
     s.mybottomwibox:setup {
