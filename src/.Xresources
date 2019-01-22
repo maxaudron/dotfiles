@@ -1,0 +1,78 @@
+#define base00 #070d0f
+#define base01 #0b161a
+#define base02 #000000
+#define base03 #323232
+#define base04 #858585
+#define base05 #d0cbaf
+#define base06 #b6bdca
+#define base07 #fffdff
+#define base08 #ea5c39
+#define base09 #ea5c39
+#define base0A #ee863e
+#define base0B #ee863e
+#define base0C #ef8e6d
+#define base0D #ef8e6d
+#define base0E #fefbb0
+#define base0F #fefbb0
+
+*.foreground : #f5f5f5
+#ifdef background_opacity
+*.background:   #181818
+#else
+*.background : #181818
+#endif
+*.cursorColor : #E88A30
+
+*.color0: #181818
+*.color1: #DB4B3F
+*.color2: #E88A30
+*.color3: #F77C55
+*.color4: #FFC48C
+*.color5: #9553ac
+*.color6: #5793e0
+*.color7: #f5f5f5
+
+*.color8: #626262
+*.color9: #cc6666
+*.color10: #b5bd68
+*.color11: #f0c674
+*.color12: #81a2be
+*.color13: #b294bb
+*.color14: #8abeb7
+*.color15: #c5c8c6
+
+*.color16: #de935f
+*.color17: #a3685a
+*.color18: #282a2e
+*.color19: #373b41
+*.color20: #b4b7b4
+*.color21: #e0e0e0
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+
+rofi.color-window:    base00, base00 , base00 , base00 , base07
+rofi.color-normal:    base00 , #ffffff, base00 , base00 ,  base0A
+rofi.color-active:    base00 , base0B  , base00 , base00 , base07
+rofi.color-urgent:    base00 , base03  , base00 , base00 , base07
+
+rofi.fake-transparency : true
+rofi.font              : Hack 12
+rofi.columns           : 1
+rofi.separator-style   : none
+rofi.hide-scrollbar    : true
+rofi.location          : 0
+rofi.padding           : 12
+rofi.fullscreen        : false
+rofi.width             : 550
+rofi.lines             : 9
+
+Xft.dpi       : 96
+Xft.antialias : true
+Xft.rgba      : rgb
+Xft.hinting   : true
+Xft.hintstyle : hintslight
+Xft.autohint  : false
+Xft.lcdfilter : lcddefault

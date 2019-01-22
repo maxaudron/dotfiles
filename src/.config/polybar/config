@@ -1,0 +1,471 @@
+[colors]
+foreground = #d0cbaf
+background = #1d1e1f
+modb       = #1d1e1f
+modb1      = #1d1e1f
+modb2      = #1d1e1f
+
+red    = #ff9933
+green  = #C3E88D
+yellow = #FFCB6B
+blue   = #89DDFF
+violet = #C792EA
+cyan   = #82AAFF
+white  = #c6c8d1
+
+[global/wm]
+margin-top        = 0
+margin-bottom     = 0
+override-redirect = true
+
+[bar/bot]
+width    = 100%
+height   = 30
+offset-x = 0
+offset-y = 0
+bottom = true
+
+locale     = en_US.UTF-8
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+font-0 = "Comfortaa:size=13:weight=bold:antialias=true;4"
+font-1 = "FontAwesome:size=11:antialias=true;4"
+
+modules-left   = previous playpause next spotipy
+modules-center = date1
+modules-right  = filesystem
+
+tray-position    = none
+tray-padding     = 2
+tray-transparent = false
+tray-detached    = false
+tray-background  = ${colors.modb}
+
+spacing             = 1
+padding-left        = 2
+padding-right       = 2
+module-margin-left  = 0
+module-margin-right = 0
+
+[bar/top]
+width    = 100%
+height   = 30
+offset-x = 0
+offset-y = 0
+bottom = false
+
+locale     = en_US.UTF-8
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+font-0 = Comfortaa:size=12:antialias=true;4
+font-1 = FontAwesome:size=11:antialias=true;4
+
+modules-left   = powermenu cpu temperature memory volume
+modules-center = ewmh
+modules-right  = xbacklight xkeyboard battery
+
+tray-position    = right
+tray-padding     = 2
+tray-transparent = false
+tray-detached    = false
+tray-background  = ${colors.modb}
+
+spacing             = 1
+padding-left        = 1
+padding-right       = 2
+module-margin-left  = 0
+module-margin-right = 0
+
+[module/ewmh]
+type = internal/xworkspaces
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = false
+
+; Create click handler used to focus desktop
+; Default: true
+enable-click = true
+
+; Create scroll handlers used to cycle desktops
+; Default: true
+enable-scroll = true
+
+; Available tags:
+;   <label-monitor>
+;   <label-state> - gets replaced with <label-(active|urgent|occupied|empty)>
+; Default: <label-state>
+format = <label-state>
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-monitor = %name%
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-active = %icon% %name%
+label-active-foreground = #ffffff
+label-active-background = #3f3f3f
+label-active-underline = #fba922
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-occupied = %icon% %name%
+label-occupied-underline = #555555
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = %icon% %name%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-underline = #9b0a20
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = %icon% %name%
+label-empty-foreground = #55
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.red}
+format-padding = 1
+
+label-layout = %layout%
+label-layout-padding = 0
+
+[module/memory]
+type = internal/memory
+interval = 2
+format = <label>
+format-prefix = " "
+format-prefix-padding = 1
+format-prefix-foreground = ${colors.red}
+format-padding = 2
+label = %percentage_used%%
+
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 9
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+format-padding = 2
+
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = ${colors.red}
+
+ramp-0 = 
+ramp-0-foreground = ${colors.green}
+ramp-1 = 
+ramp-1-foreground = ${colors.yellow}
+ramp-2 = 
+ramp-2-foreground = ${colors.red}
+ramp-foreground = ${colors.red}
+
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label>
+format-prefix = 
+format-prefix-padding = 1
+format-padding = 2
+format-prefix-foreground = ${colors.red}
+label = %percentage%%
+
+
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+[module/mpd]
+type = internal/mpd
+label-song = %artist% - %title%
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next> <icon-repeat> <icon-random> <label-time> <bar-progress>
+
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+icon-next-foregound = ${colors.red}
+icon-play-foregound = ${colors.red}
+icon-pause-foregound = ${colors.red}
+
+icon-random = 
+icon-repeat = 
+
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+
+; Only applies if <bar-progress> is used
+;bar-progress-width = 45
+;bar-progress-indicator = |
+;bar-progress-fill = ─
+;bar-progress-empty = ─
+;bar-progress-fill-foreground = #00FF00
+
+bar-progress-width = 45
+bar-progress-indicator = 
+bar-progress-indicator-foreground = #bb
+bar-progress-fill = ─
+bar-progress-fill-foreground = #00FF00
+bar-progress-fill-font = 3
+bar-progress-empty = ─
+bar-progress-empty-foreground = #44
+bar-progress-empty-font = 3
+
+label-song-maxlen = 50
+label-song-ellipsis = true
+
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = ADP1
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 10
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-discharging = <ramp-capacity> <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-full = <ramp-capacity> <label-full>
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = %time% - %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %time% - %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-full = %percentage%
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.red}
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.green}
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+format-padding = 1
+
+module-margin-right = 2
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+mount-1 = /boot
+mount-2 = /home
+
+label-mounted = %{F#ff9933}%mountpoint%%{F-}: %percentage_used%% 
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.red}
+
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume><label-volume>
+
+format-volume-background = ${colors.modb}
+format-volume-padding    = 1
+
+module-margin-right = 0
+ramp-volume-0       = 
+ramp-volume-1       = 
+ramp-volume-2       = 
+
+ramp-volume-foreground = ${colors.red}
+
+label-muted-padding    = 2
+label-muted            = muted
+label-muted-background = ${colors.modb}
+
+[module/date1]
+type                     = internal/date
+interval                 = 1
+date                     = " %I:%M"
+format-prefix            = 
+format-prefix-foreground = ${colors.red}
+format-background        = ${colors.modb}
+format-padding           = 1
+
+[module/powermenu]
+type = custom/menu
+
+label-open                 = 
+label-open-foreground      = ${colors.red}
+label-open-background      = ${colors.modb2}
+label-open-padding         = 2
+label-close                = 
+label-close-padding        = 2
+label-close-foreground     = $[colors.red]
+label-separator            = |
+label-separator-foreground = #666666
+
+menu-0-0      = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1      = poweroff
+menu-0-1-exec = menu-open-2
+menu-0-2      = logout
+menu-0-2-exec = menu-open-3
+
+menu-1-0      = 
+menu-1-0-exec = shutdown -r now
+menu-1-1      = 
+menu-1-1-exec = menu-open-0
+
+menu-2-0      = 
+menu-2-0-exec = shutdown -h now
+menu-2-1      = 
+menu-2-1-exec = menu-open-0
+
+menu-3-0      = 
+menu-3-0-exec = herbstclient quit
+menu-3-1      = 
+menu-3-1-exec = menu-open-0
+
+[module/previous]
+type              = custom/script
+format-text       = <label>
+label             = 
+exec              = echo label
+click-left        = exec playerctl previous
+format-foreground = ${colors.red}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+[module/next]
+type              = custom/script
+format-text       = <label>
+label             = 
+exec              = echo label
+click-left        = exec playerctl next
+format-foreground = ${colors.red}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+[module/spotipy]
+type              = custom/script
+exec              = python3 ~/scripts/spoti.py
+exec-if           = pgrep spotify > /dev/null
+interval          = 0.01
+click-left        = playerctl -p spotify play-pause
+format-foreground = ${colors.foreground}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+[module/playpause]
+type              = custom/script
+exec              = python3 ~/scripts/spoti-play.py
+interval          = 0.01
+click-left        = playerctl -p spotify play-pause
+format-foreground = ${colors.red}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+[module/cpu]
+type                     = internal/cpu
+label                    = %percentage-core1%%
+format-prefix            = " "
+format-prefix-foreground = ${colors.red}
+format-prefix-padding	 = 1
+format-background        = ${colors.modb}
+format-padding           = 2
+
+[module/weather]
+type                     = custom/script
+interval                 = 2
+format                   = <label>
+format-padding           = 1
+format-prefix            = " "
+format-suffix            = "°C"
+format-prefix-foreground = ${colors.red}
+format-background        = ${colors.modb}
+exec                     = python2.7 /home/audron/scripts/weather.py

@@ -1,4 +1,11 @@
-.config/nvim/plugged
-.config/nvim/sessions
 .weechat/irc.conf
-.weechat/logs/
+.weechat/logs
+src/.config/nvim/plugged
+src/.antigen/.resources
+src/.antigen/.zcompdump
+src/.antigen/.zcompdump.zwc
+src/.antigen/debug.log
+src/.antigen/init.zsh
+src/.antigen/init.zsh.zwc
+src/.antigen/bundles
+src/.zshalias
