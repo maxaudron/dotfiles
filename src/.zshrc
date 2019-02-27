@@ -31,6 +31,7 @@ antigen bundles <<EOBUNDLES
   gitignore
   cp
   extract
+  paulirish/git-open
 EOBUNDLES
 
 # Load the theme.

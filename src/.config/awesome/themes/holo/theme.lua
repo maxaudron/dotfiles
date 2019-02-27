@@ -16,15 +16,15 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.default_dir                               = require("awful.util").get_themes_dir() .. "default"
 theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/holo/icons"
-theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/holo/wall.png"
+theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/holo/wall.jpg"
 theme.font                                      = "Roboto Bold 10"
 theme.taglist_font                              = "Roboto Condensed Regular 8"
 theme.fg_normal                                 = "#FFFFFF"
 theme.fg_focus                                  = "#E88A30"
 theme.bg_focus                                  = "#181818"
 theme.bg_normal                                 = "#181818"
-theme.fg_urgent                                 = "#D52B1D"
-theme.bg_urgent                                 = "#006B8E"
+theme.fg_urgent                                 = "#FFFFFF"
+theme.bg_urgent                                 = "#E88A30"
 theme.border_width                              = 1
 theme.border_normal                             = "#181818"
 theme.border_focus                              = "#E88A30"
@@ -245,6 +245,17 @@ local cpu = lain.widget.cpu({
 local cpubg = wibox.container.background(cpu.widget, theme.bg_focus, gears.shape.rectangle)
 local cpuwidget = wibox.container.margin(cpubg, 0, 0, 5, 5)
 
+-- mem
+local mem_icon = wibox.widget.imagebox(theme.mem)
+local mem = lain.widget.mem({
+    settings = function()
+        widget:set_markup(space3 .. markup.font(theme.font, "RAM " .. mem_now.used
+                          .. "MB ") .. markup.font("Roboto 5", " "))
+    end
+})
+local membg = wibox.container.background(mem.widget, theme.bg_focus, gears.shape.rectangle)
+local memwidget = wibox.container.margin(membg, 0, 0, 5, 5)
+
 -- Net
 local netdown_icon = wibox.widget.imagebox(theme.net_down)
 local netup_icon = wibox.widget.imagebox(theme.net_up)
@@ -333,7 +344,7 @@ function theme.at_screen_connect(s)
             spr_small,
             s.mypromptbox,
         },
-        nil, -- Middle widget
+        s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
@@ -366,7 +377,7 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
         },
-        s.mytasklist, -- Middle widget
+        nil,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spr_bottom_right,
@@ -376,6 +387,9 @@ function theme.at_screen_connect(s)
             bottom_bar,
             cpu_icon,
             cpuwidget,
+            bottom_bar,
+            mem_icon,
+            memwidget,
             bottom_bar,
             calendar_icon,
             calendarwidget,
