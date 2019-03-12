@@ -30,7 +30,11 @@
     enable_ale = true
 
 [[custom_plugins]]
-  name = "~/repo/hybrid_darker.vim"
+  name = "maxaudron/hybrid_darker.vim"
+  merged = 0
+
+[[custom_plugins]]
+  name = "tpope/vim-fugitive"
   merged = 0
 
 [[custom_plugins]]
@@ -40,6 +44,21 @@
 [[custom_plugins]]
   name = "chrisbra/Colorizer"
   merged = 0
+
+[[custom_plugins]]
+  name = "xolox/vim-session"
+  merged = 0
+
+[[custom_plugins]]
+  name = "xolox/vim-misc"
+  merged = 0
+
+[[custom_plugins]]
+name = "hashivim/vim-terraform"
+merged = 0
+
+[[layers]]
+name = "ctrlp"
 
 # Enable autocomplete layer
 [[layers]]
