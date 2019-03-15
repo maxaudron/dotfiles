@@ -4,14 +4,15 @@ export EDITOR="$VISUAL"
 export LANG="en_US.UTF-8"
 
 export PATH="/usr/sbin:$HOME/go/bin:$PATH"
-
-# Setup .ssh config and keys
-eval $(keychain --quiet --quick --ignore-missing ~/.ssh/*)
+export GOPATH="$HOME/go/"
 
 # PYENV
+pyenv() {
+  eval "$(command pyenv init -)"
+  eval "$(command pyenv virtualenv-init -)"
+  pyenv "$@"
+}
 export PATH="/home/mmnanz/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)" 
 
 source ~/.antigen/antigen.zsh
 # source ~/.antigen/base16-ejected.sh
@@ -20,11 +21,8 @@ source ~/.antigen/antigen.zsh
 antigen use oh-my-zsh
 
 antigen bundles <<EOBUNDLES
-  # Guess what to install when running an unknown command.
-  command-not-found
   zsh-users/zsh-syntax-highlighting
   zsh-users/zsh-autosuggestions
-  plugdev bobthecow/git-flow-completion
   pip
   git
   z
@@ -48,6 +46,10 @@ alias l.="exa -al --group-directories-first --git --time-style=long-iso -F -I '[
 alias lt="exa -al --group-directories-first --git --time-style=long-iso -I .git --tree"
 alias lab="lab-wrap"
 alias tf="terraform"
+alias tfi="terraform init"
+alias tfp="terraform plan -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
+alias tfa="terraform apply -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
+alias tfd="terraform destroy -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias gpg="gpg2"
 #alias ssh="-t -- /bin/sh -c 'tmux has-session && exec tmux attach || exec tmux'"
 
@@ -55,8 +57,6 @@ alias gpg="gpg2"
 #alias less=$PAGER
 #alias zless=$PAGER
 
-eval $(thefuck --alias)
-eval "$(jira --completion-script-zsh)"
 eval "$(lab completion zsh)"
 
 transfer(){ 

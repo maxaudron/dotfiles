@@ -37,6 +37,10 @@
   name = "tpope/vim-fugitive"
   merged = 0
 
+  [[custom_plugins]]
+  name = "vimwiki/vimwiki"
+  merged = 0
+
 [[custom_plugins]]
   name = "airblade/vim-gitgutter"
   merged = 0
@@ -99,3 +103,5 @@ name = 'lang#python'
 name = 'lang#sh'
 [[layers]]
 name = 'lang#typescript'
+[[layers]]
+name = 'lang#go'
