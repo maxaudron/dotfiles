@@ -9,3 +9,4 @@ src/.antigen/init.zsh
 src/.antigen/init.zsh.zwc
 src/.antigen/bundles
 src/.zshalias
+src/.SpaceVim.d/.netrwhist
