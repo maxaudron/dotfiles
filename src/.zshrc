@@ -53,6 +53,7 @@ alias tfd="terraform destroy -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias gpg="gpg2"
 #alias ssh="-t -- /bin/sh -c 'tmux has-session && exec tmux attach || exec tmux'"
 alias hie="hie-wrapper"
+alias kc="kubectl"
 
 #export PAGER=/usr/bin/vimpager
 #alias less=$PAGER
