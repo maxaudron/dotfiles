@@ -48,6 +48,24 @@
 *.color20: #b4b7b4
 *.color21: #e0e0e0
 
+URxvt.saveLines: 1000
+URxvt.scrollBar: false
+URxvt.secondaryScroll: true
+URxvt.font: xft:Hasklig Light:pixelsize=12
+URxvt.perl-ext-common: default,matcher
+URxvt.urlLauncher: firefox
+URxvt.matcher.button: 1
+URxvt.tabbed.saveLines: 1000
+URxvt.tabbed.scrollBar: false
+URxvt.tabbed.tabbar-fg: 3
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 0
+URxvt.tabbed.tab-bg: 1
+URxvt.tabbed.secondaryScroll: true
+URxvt.tabbed.font: xft:Hasklig Light:pixelsize=12
+URxvt*inheritPixmap: true 
+!URxvt*shading: 70
+
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
 ! ------------------------------------------------------------------------------

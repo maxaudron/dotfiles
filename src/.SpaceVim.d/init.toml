@@ -28,6 +28,7 @@
     enable_statusline_display_mode = true
     enable_neomake = false
     enable_ale = true
+#    autocomplete_method = 'coc'
 
 [[custom_plugins]]
   name = "maxaudron/hybrid_darker.vim"
@@ -37,9 +38,9 @@
   name = "tpope/vim-fugitive"
   merged = 0
 
-  [[custom_plugins]]
-  name = "vimwiki/vimwiki"
-  merged = 0
+[[custom_plugins]]
+name = "vimwiki/vimwiki"
+merged = 0
 
 [[custom_plugins]]
   name = "airblade/vim-gitgutter"
@@ -82,6 +83,8 @@ name = 'git'
 name = 'tmux'
 
 [[layers]]
+name = 'text-align'
+[[layers]]
 name = 'lang#haskell'
 [[layers]]
 name = 'lang#dockerfile'
@@ -103,5 +106,3 @@ name = 'lang#python'
 name = 'lang#sh'
 [[layers]]
 name = 'lang#typescript'
-[[layers]]
-name = 'lang#go'

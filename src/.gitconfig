@@ -67,5 +67,8 @@
 [includeIf "gitdir:~/repo/gitlab.com/"]
   path = .gitconfig-gitlab
 
+[includeIf "gitdir:~/repo/github.com/"]
+  path = .gitconfig-gitlab
+
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
   path = .gitconfig-work

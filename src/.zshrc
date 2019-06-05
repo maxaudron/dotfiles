@@ -3,7 +3,7 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 export LANG="en_US.UTF-8"
 
-export PATH="/usr/sbin:$HOME/go/bin:$PATH"
+export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/mmnanz/profile/bin/:$HOME/.linuxbrew/bin:$PATH"
 export GOPATH="$HOME/go/"
 
 # PYENV
@@ -52,6 +52,7 @@ alias tfa="terraform apply -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias tfd="terraform destroy -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias gpg="gpg2"
 #alias ssh="-t -- /bin/sh -c 'tmux has-session && exec tmux attach || exec tmux'"
+alias hie="hie-wrapper"
 
 #export PAGER=/usr/bin/vimpager
 #alias less=$PAGER
@@ -87,10 +88,19 @@ transfer(){
 
 alias transfer=transfer
 
+function git() {
+  if [[ "$1" == "clone" ]]; then
+    command $HOME/.local/bin/dit.sh "$@"
+  else
+    command git "$@"
+  fi
+}
+
+export DITSH_URL=gitlab.com
+export DITSH_BASE=$HOME/repo
+export DITSH_SSH=true
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-export PAGER=/usr/bin/vimpager
-alias less=$PAGER
-alias zless=$PAGER
