@@ -2,6 +2,8 @@ function! myspacevim#before() abort
   call SpaceVim#custom#SPC('nnoremap', ['e', 'e'], ":ALEDetail<CR>", 'keyword highlight', 1)
   call SpaceVim#custom#SPC('nnoremap', ['b', 'l'], ":CtrlPBuffer<CR>", 'keyword highlight', 1)
   
+  let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+  
   " Vim GitGutter
   let g:gitgutter_sign_added='┃'
   let g:gitgutter_sign_modified='┃'
@@ -27,7 +29,8 @@ function! myspacevim#before() abort
   let g:python_host_prog = '/home/mmnanz/.pyenv/versions/neovim2/bin/python'
   
   setlocal wrap! breakindent!
-  
+  filetype plugin on
+
   noremap <Space>ghs :GitGutterStageHunk<cr>
   noremap <Space>ghr :GitGutterUndoHunk<cr>
   noremap <Space>ghv :GitGutterPreviewHunk<cr>
@@ -36,6 +39,8 @@ endfunction
 function! myspacevim#after() abort
   let g:ale_sign_error = ''
   let g:ale_sign_warning = ''
+  
+  filetype plugin on
   
   let g:necoghc_use_stack = 1
 endfunction

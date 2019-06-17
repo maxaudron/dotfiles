@@ -35,6 +35,26 @@
   merged = 0
 
 [[custom_plugins]]
+  name = "tbabej/taskwiki"
+  merged = 0
+
+[[custom_plugins]]
+  name = "chazy/dirsettings"
+  merged = 0
+
+[[custom_plugins]]
+  name = "powerman/vim-plugin-AnsiEsc"
+  merged = 0
+
+[[custom_plugins]]
+  name = "majutsushi/tagbar"
+  merged = 0
+
+[[custom_plugins]]
+  name = "farseer90718/vim-taskwarrior"
+  merged = 0
+
+[[custom_plugins]]
   name = "tpope/vim-fugitive"
   merged = 0
 
@@ -73,17 +93,17 @@ auto-completion-tab-key-behavior = "smart"
 
 [[layers]]
 name = 'shell'
-default_position = 'top'
+default_position = 'right'
 default_height = 30
 
 [[layers]]
 name = 'git'
 
-[[layers]]
-name = 'tmux'
+# [[layers]]
+# name = 'tmux'
 
-[[layers]]
-name = 'text-align'
+# [[layers]]
+# name = 'text-align'
 [[layers]]
 name = 'lang#haskell'
 [[layers]]
@@ -98,8 +118,8 @@ name = 'lang#html'
 name = 'lang#javascript'
 [[layers]]
 name = 'lang#latex'
-[[layers]]
-name = 'lang#markdown'
+# [[layers]]
+# name = 'lang#markdown'
 [[layers]]
 name = 'lang#python'
 [[layers]]
