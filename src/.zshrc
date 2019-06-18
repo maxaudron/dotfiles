@@ -7,12 +7,9 @@ export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/mmnanz/profil
 export GOPATH="$HOME/go/"
 
 # PYENV
-pyenv() {
-  eval "$(command pyenv init -)"
-  eval "$(command pyenv virtualenv-init -)"
-  pyenv "$@"
-}
 export PATH="/home/mmnanz/.pyenv/bin:$PATH"
+eval "$(command pyenv init -)"
+eval "$(command pyenv virtualenv-init -)"
 
 source ~/.antigen/antigen.zsh
 # source ~/.antigen/base16-ejected.sh
@@ -100,6 +97,10 @@ function git() {
 export DITSH_URL=gitlab.com
 export DITSH_BASE=$HOME/repo
 export DITSH_SSH=true
+
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
