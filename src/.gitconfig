@@ -73,5 +73,5 @@
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
   path = .gitconfig-work
 [user]
-	email = audron@ejected.space
-	name = Max Audron
+  email = audron@ejected.space
+  name = Max Audron

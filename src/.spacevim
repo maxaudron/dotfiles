@@ -49,6 +49,7 @@ function! UserInit()
 
   " Add your own plugin via Plug command.
   Plug '~/repo/github.com/maxaudron/hybrid_darker.vim'
+  Plug 'tpope/vim-fugitive'
   Plug 'chrisbra/Colorizer'
   Plug 'vimwiki/vimwiki'
   Plug 'tbabej/taskwiki'
@@ -60,6 +61,7 @@ endfunction
 function! UserConfig()
   colorscheme hybrid_darker
   let g:airline_theme='hybrid_darker'
+  let g:airline_highlighting_cache = 1
 
   set mouse=a
   set noshowmode
@@ -72,6 +74,11 @@ function! UserConfig()
   filetype plugin on
   syntax on
 
+  set tabstop=4
+  set shiftwidth=4
+  set expandtab
+  
+  
   let g:airline_powerline_fonts = 1
 
   let g:vimwiki_folding = ''
