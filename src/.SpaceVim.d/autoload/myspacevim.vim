@@ -2,7 +2,7 @@ function! myspacevim#before() abort
   call SpaceVim#custom#SPC('nnoremap', ['e', 'e'], ":ALEDetail<CR>", 'keyword highlight', 1)
   call SpaceVim#custom#SPC('nnoremap', ['b', 'l'], ":CtrlPBuffer<CR>", 'keyword highlight', 1)
   
-  let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+  " let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
   
   " Vim GitGutter
   let g:gitgutter_sign_added='┃'
@@ -25,22 +25,29 @@ function! myspacevim#before() abort
   let g:ale_sign_error = ''
   let g:ale_sign_warning = ''
   
-  let g:python3_host_prog = '/home/mmnanz/.pyenv/versions/neovim3/bin/python'
-  let g:python_host_prog = '/home/mmnanz/.pyenv/versions/neovim2/bin/python'
   
   setlocal wrap! breakindent!
+ 
+  set nocompatible
   filetype plugin on
-
+  syntax on
+  
+  let g:vimwiki_folding = ''
+  let g:vimwiki_conceallevel = 0
+ 
   noremap <Space>ghs :GitGutterStageHunk<cr>
   noremap <Space>ghr :GitGutterUndoHunk<cr>
   noremap <Space>ghv :GitGutterPreviewHunk<cr>
 endfunction
 
 function! myspacevim#after() abort
+
   let g:ale_sign_error = ''
   let g:ale_sign_warning = ''
   
-  filetype plugin on
+  
+  let g:vimwiki_folding = ''
+  let g:vimwiki_conceallevel = 0
   
   let g:necoghc_use_stack = 1
 endfunction
