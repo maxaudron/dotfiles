@@ -49,7 +49,7 @@ let g:spacevim_enable_true_color = 1
 function! UserInit()
 
   " Add your own plugin via Plug command.
-  Plug '~/repo/github.com/maxaudron/hybrid_darker.vim'
+  Plug 'maxaudron/hybrid_darker.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'chrisbra/Colorizer'
   Plug 'vimwiki/vimwiki'
@@ -122,8 +122,8 @@ function! UserConfig()
 
   let g:vim_current_word#highlight_current_word = 0
 
-  let g:python_host_prog="/home/mmnanz/.pyenv/versions/neovim2/bin/python"
-  let g:python3_host_prog="/home/mmnanz/.pyenv/versions/neovim3/bin/python"
+  let g:python_host_prog= expand($HOME) . "/.pyenv/versions/neovim2/bin/python"
+  let g:python3_host_prog= expand($HOME) . "/.pyenv/versions/neovim3/bin/python"
 
   " if executable('hie')
     " au User lsp_setup call lsp#register_server({

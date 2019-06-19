@@ -1,18 +1,4 @@
-# Setting Editor
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-export LANG="en_US.UTF-8"
-
-export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/mmnanz/profile/bin/:$HOME/.linuxbrew/bin:$PATH"
-export GOPATH="$HOME/go/"
-
-# PYENV
-export PATH="/home/mmnanz/.pyenv/bin:$PATH"
-eval "$(command pyenv init -)"
-eval "$(command pyenv virtualenv-init -)"
-
 source ~/.antigen/antigen.zsh
-# source ~/.antigen/base16-ejected.sh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -35,6 +21,25 @@ antigen theme https://gitlab.com/ejectedspace/ejected-zsh-theme ejected
 # Tell Antigen that you're done.
 antigen apply
 
+###############################################################################
+# Settings
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export LANG="en_US.UTF-8"
+export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/$USER/profile/bin/:$HOME/.linuxbrew/bin:$HOME/.local/bin:$PATH"
+export GOPATH="$HOME/go/"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+###############################################################################
+# PYENV - Load only if pyenv is installed
+if [ -d $HOME/.pyenv ]; then
+    export PATH="$HOME/.pyenv/bin:$PATH"
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)"
+fi
+
+
+###############################################################################
 # Alias
 alias cl="clear"
 alias v="nvim"
@@ -48,16 +53,11 @@ alias tfp="terraform plan -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias tfa="terraform apply -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias tfd="terraform destroy -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias gpg="gpg2"
-#alias ssh="-t -- /bin/sh -c 'tmux has-session && exec tmux attach || exec tmux'"
 alias hie="hie-wrapper"
 alias kc="kubectl"
 
-#export PAGER=/usr/bin/vimpager
-#alias less=$PAGER
-#alias zless=$PAGER
-
-eval "$(lab completion zsh)"
-
+###############################################################################
+# Functions
 transfer(){ 
   if [ $# -eq 0 ];then 
     echo "No arguments specified.
@@ -83,20 +83,21 @@ transfer(){
     curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;
   fi;
 }
-
 alias transfer=transfer
 
-function git() {
-  if [[ "$1" == "clone" ]]; then
-    command $HOME/.local/bin/dit.sh "$@"
-  else
-    command git "$@"
-  fi
-}
-
-export DITSH_URL=gitlab.com
-export DITSH_BASE=$HOME/repo
-export DITSH_SSH=true
+if [[ -f $HOME/.local/bin/dit.sh ]]; then
+    function git() {
+      if [[ "$1" == "clone" ]]; then
+        command $HOME/.local/bin/dit.sh "$@"
+      else
+        command git "$@"
+      fi
+    }
+    
+    export DITSH_URL=gitlab.com
+    export DITSH_BASE=$HOME/repo
+    export DITSH_SSH=true
+fi
 
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
   source "${VIRTUAL_ENV}/bin/activate"
@@ -104,5 +105,4 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 

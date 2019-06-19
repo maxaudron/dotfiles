@@ -1,0 +1,1 @@
+/home/mmnanz/.space-vim/init.vim
