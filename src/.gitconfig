@@ -73,3 +73,7 @@
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
     path = .gitconfig-work
 
+[user]
+	signingkey = 9A22B3E6EA3804E3
+	email = audron@ejected.space
+	name = Max Audron
