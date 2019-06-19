@@ -12,6 +12,7 @@ let g:spacevim_plug_home = '~/.vim/plugged'
 " Refer to https://github.com/liuchengxu/space-vim/blob/master/layers/LAYERS.md for all available layers.
 let g:spacevim_layers = [
       \ 'fzf', 'better-defaults', 'which-key',
+      \ 'auto-completion',
       \ 'file-manager',
       \ 'airline',
       \ 'git',
@@ -20,7 +21,7 @@ let g:spacevim_layers = [
       \ 'text-align',
       \ 'cscope',
       \ 'syntax-checking',
-      \ 'auto-completion',
+      \ 'deoplete',
       \ 'editing',
       \ 'programming',
       \ 'unite',
@@ -33,6 +34,7 @@ let g:spacevim_layers = [
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
 let g:spacevim_enable_true_color = 1
+"let g:spacevim_lsp_engine = 'coc'
 
 " Uncomment the following if you have some nerd font installed.
 " let g:spacevim_nerd_fonts = 1
@@ -77,24 +79,36 @@ function! UserConfig()
   set tabstop=4
   set shiftwidth=4
   set expandtab
-  
+  set wrap linebreak nolist
+
+  " Use deoplete.
+  "let g:deoplete#enable_at_startup = 1
+
   " Linter
   let g:ale_linters = { 'javascript': ['eslint'] , 'python': ['flake8', 'prospector', 'vulture'] , 'haskell': ['hie'], 'go': ['go-fmt'] }
   let g:ale_haskell_hie_executable = "hie-wrapper"
   let g:ale_go_bingo_executable = "bingo"
   let g:ale_open_list = 1
+	let g:ale_set_loclist = 0
+	let g:ale_set_quickfix = 1
   let g:ale_list_window_size = 4
-  let g:ale_completion_enabled = 1
+  let g:ale_completion_enabled = 0
   let g:ale_lint_on_save = 1
   let g:ale_lint_on_text_changed = 1
-  
+  let g:ale_fix_on_save = 0
+
   let g:ale_sign_error = ''
   let g:ale_sign_warning = ''
 
-  
-  let g:LanguageClient_serverCommands = {
-      \ 'languageServerHaskell': ['hie-wrapper', '--lsp'],
-      \ }
+  let g:pymode_python = 'python3'
+
+  " let g:LanguageClient_serverCommands = {
+      " \ 'languageServerHaskell': ['hie', '--lsp'],
+      " \ }
+  let g:LanguageClient_diagnosticsEnable = 0
+  let g:LanguageClient_useVirtualText = 0
+
+  nnoremap <Leader>el :copen<CR>
 
   " enable ncm2 for all buffers
   autocmd BufEnter * call ncm2#enable_for_buffer()
@@ -111,6 +125,14 @@ function! UserConfig()
   let g:python_host_prog="/home/mmnanz/.pyenv/versions/neovim2/bin/python"
   let g:python3_host_prog="/home/mmnanz/.pyenv/versions/neovim3/bin/python"
 
+  " if executable('hie')
+    " au User lsp_setup call lsp#register_server({
+        " \ 'name': 'hie',
+        " \ 'cmd': {server_info->[&shell, &shellcmdflag, 'hie-wrapper --lsp']},
+        " \ 'whitelist': ['haskell'],
+        " \ })
+  " endif
+ 
 
   " Vim GitGutter
   let g:signify_sign_add               = '┃'
@@ -118,13 +140,26 @@ function! UserConfig()
   let g:signify_sign_delete_first_line = '◥'
   let g:signify_sign_change            = '◢'
   let g:signify_sign_changedelete = g:signify_sign_change
-  
-  noremap <Space>ghs :GitGutterStageHunk<cr>
-  noremap <Space>ghr :GitGutterUndoHunk<cr>
-  noremap <Space>ghv :GitGutterPreviewHunk<cr>
 
-  let g:completor_filetype_map = {}
-  let g:completor_filetype_map.haskell = {'ft': 'lsp', 'cmd': 'hie-wrapper'}
+  " noremap <Space>ghs :GitGutterStageHunk<cr>
+  " noremap <Space>ghr :GitGutterUndoHunk<cr>
+  " noremap <Space>ghv :GitGutterPreviewHunk<cr>
+
+  "let g:completor_filetype_map = {}
+  "let g:completor_filetype_map.haskell = {'ft': 'lsp', 'cmd': 'hie-wrapper'}
+
+  " let g:LanguageClient_serverCommands = {
+  " \ 'haskell': ['hie-wrapper']
+  " \ }
+
+
+  inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+    \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+  
+  inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
   " Uncomment the following line to disable relative number.
   " set norelativenumber
 
