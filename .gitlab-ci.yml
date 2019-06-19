@@ -1,0 +1,31 @@
+# This file is a template, and might need editing before it works on your project.
+# Official docker image.
+image: 
+  name: gcr.io/kaniko-project/executor:latest
+  entrypoint: [""]
+
+before_script:
+  - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}, \"https://index.docker.io/v1/\":{\"username\":\"$CI_DOCKERHUB_USER\",\"password\":\"$CI_DOCKERHUB_PASSWORD\"}}}" > /kaniko/.docker/config.json
+
+build:master:
+  stage: build
+  script:
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG --destination $CI_DOCKERHUB_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_REF_SLUG
+  only:
+    - master
+  
+build:branches:
+  stage: build
+  script:
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  except:
+    - master
+    - tags
+
+build:tags:
+  stage: build
+  script:
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG --destination $CI_REGISTRY_IMAGE:latest --destination $CI_DOCKERHUB_NAMESPACE/CI_PROJECT_NAME:$CI_COMMIT_TAG --destination $CI_DOCKERHUB_NAMESPACE/CI_PROJECT_NAME:latest
+  only:
+    - tags
+
