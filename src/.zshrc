@@ -8,6 +8,7 @@ source $HOME/.zsh/plugins/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plug
 source $HOME/.zsh/plugins/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
 #source $HOME/.zsh/plugins/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
+source $HOME/.zsh/lib/completion.zsh
 
 source $HOME/.zsh/lib/completion.zsh
 
