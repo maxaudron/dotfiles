@@ -13,8 +13,9 @@ source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 #antigen theme https://gitlab.com/ejectedspace/ejected-zsh-theme ejected
 #antigen theme romkatv/powerlevel10k
 POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(ssh dir vcs virtualenv)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs virtualenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator host)
+POWERLEVEL9K_HOST_TEMPLATE="%3m"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_DELIMITER=""
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
