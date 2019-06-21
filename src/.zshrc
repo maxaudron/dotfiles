@@ -1,23 +1,17 @@
-source ~/.antigen/antigen.zsh
+#source ~/.antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
-antigen use oh-my-zsh
+#antigen use oh-my-zsh
 
-antigen bundles <<EOBUNDLES
-  zsh-users/zsh-syntax-highlighting
-  zsh-users/zsh-autosuggestions
-  pip
-  git
-  z
-  gitignore
-  cp
-  extract
-  paulirish/git-open
-EOBUNDLES
+source $HOME/.zsh/plugins/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source $HOME/.zsh/plugins/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source $HOME/.zsh/plugins/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
+#source $HOME/.zsh/plugins/zsh-users/zsh-completions/zsh-completions.plugin.zsh
+source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 
 # Load the theme.
 #antigen theme https://gitlab.com/ejectedspace/ejected-zsh-theme ejected
-antigen theme romkatv/powerlevel10k
+#antigen theme romkatv/powerlevel10k
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(ssh dir vcs virtualenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator host)
@@ -71,7 +65,7 @@ POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=' '
 
 
 # Tell Antigen that you're done.
-antigen apply
+#antigen apply
 
 ###############################################################################
 # Settings
@@ -82,7 +76,34 @@ export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/$USER/profile
 export GOPATH="$HOME/go/"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-setopt share_history # Share history between multiple shells
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt inc_append_history     # add commands to HISTFILE in order of execution
+setopt share_history # share command history data
+
+SAVEHIST=10000
+HISTSIZE=10000
+HISTFILE=$HOME/.zsh_history
+
+setopt extendedglob local_options
+autoload -Uz compinit
+local zcd=${ZDOTDIR:-$HOME}/.zsh/.zcompdump
+local zcdc="$HOME/.zsh/$zcd.zwc"
+# Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
+# in the background as this is doesn't affect the current session
+if [[ -f "$zcd"(#qN.m+1) ]]; then
+      compinit -i -d "$zcd"
+      { rm -f "$zcdc" && zcompile "$zcd" } &!
+else
+      compinit -C -d "$zcd"
+      { [[ ! -f "$zcdc" || "$zcd" -nt "$zcdc" ]] && rm -f "$zcdc" && zcompile "$zcd" } &!
+fi
 
 ###############################################################################
 # PYENV - Load only if pyenv is installed
@@ -109,6 +130,9 @@ alias tfd="terraform destroy -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
 alias gpg="gpg2"
 alias hie="hie-wrapper"
 alias kc="kubectl"
+alias ga="git add"
+alias gc="git commit"
+alias glg="git glog"
 
 ###############################################################################
 # Functions

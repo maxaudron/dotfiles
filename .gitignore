@@ -1,12 +1,7 @@
 .weechat/irc.conf
 .weechat/logs
 src/.config/nvim/plugged
-src/.antigen/.resources
-src/.antigen/.zcompdump
-src/.antigen/.zcompdump.zwc
-src/.antigen/debug.log
-src/.antigen/init.zsh
-src/.antigen/init.zsh.zwc
-src/.antigen/bundles
 src/.zshalias
+src/.zsh/.zcompdump
+src/.zsh/.zcompdump.zwc
 src/.SpaceVim.d/.netrwhist
