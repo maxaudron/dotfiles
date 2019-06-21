@@ -133,6 +133,7 @@ alias kc="kubectl"
 alias ga="git add"
 alias gc="git commit"
 alias glg="git glog"
+alias gp="git push"
 
 ###############################################################################
 # Functions
