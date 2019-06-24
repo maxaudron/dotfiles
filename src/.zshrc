@@ -9,6 +9,8 @@ source $HOME/.zsh/plugins/zsh-users/zsh-history-substring-search/zsh-history-sub
 #source $HOME/.zsh/plugins/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 
+source $HOME/.zsh/lib/completion.zsh
+
 # Load the theme.
 #antigen theme https://gitlab.com/ejectedspace/ejected-zsh-theme ejected
 #antigen theme romkatv/powerlevel10k
@@ -135,6 +137,23 @@ alias ga="git add"
 alias gc="git commit"
 alias glg="git glog"
 alias gp="git push"
+
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+alias -- -='cd -'
+alias 1='cd -'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
 
 ###############################################################################
 # Functions
