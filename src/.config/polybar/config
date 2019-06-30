@@ -5,7 +5,7 @@ modb       = #1d1e1f
 modb1      = #1d1e1f
 modb2      = #1d1e1f
 
-red    = #ff9933
+red    = #E88A30
 green  = #C3E88D
 yellow = #FFCB6B
 blue   = #89DDFF
@@ -18,39 +18,9 @@ margin-top        = 0
 margin-bottom     = 0
 override-redirect = true
 
-[bar/bot]
-width    = 100%
-height   = 30
-offset-x = 0
-offset-y = 0
-bottom = true
-
-locale     = en_US.UTF-8
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-font-0 = "Comfortaa:size=13:weight=bold:antialias=true;4"
-font-1 = "FontAwesome:size=11:antialias=true;4"
-
-modules-left   = previous playpause next spotipy
-modules-center = date1
-modules-right  = filesystem
-
-tray-position    = none
-tray-padding     = 2
-tray-transparent = false
-tray-detached    = false
-tray-background  = ${colors.modb}
-
-spacing             = 1
-padding-left        = 2
-padding-right       = 2
-module-margin-left  = 0
-module-margin-right = 0
-
 [bar/top]
 width    = 100%
-height   = 30
+height   = 25
 offset-x = 0
 offset-y = 0
 bottom = false
@@ -59,24 +29,88 @@ locale     = en_US.UTF-8
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = Comfortaa:size=12:antialias=true;4
-font-1 = FontAwesome:size=11:antialias=true;4
+font-0 = FuraCode Nerd Font:style=Retina:size=11,Regular;3
+font-1 = FuraCode Nerd Font:style=Retina:size=22,Regular;3
 
-modules-left   = powermenu cpu temperature memory volume
+modules-left   = powermenu date s
 modules-center = ewmh
-modules-right  = xbacklight xkeyboard battery
+modules-right  = b cpu temperature memory
 
-tray-position    = right
+tray-position    = none
 tray-padding     = 2
 tray-transparent = false
 tray-detached    = false
 tray-background  = ${colors.modb}
 
 spacing             = 1
-padding-left        = 1
-padding-right       = 2
+padding-left        = 0
+padding-right       = 0
 module-margin-left  = 0
 module-margin-right = 0
+
+
+[module/s]
+type = custom/text
+
+content = " "
+content-font = 2
+content-foreground = ${colors.red}
+
+[module/b]
+type = custom/text
+
+content = " "
+content-font = 2
+content-foreground = ${colors.red}
+
+[module/d]
+type = custom/text
+
+content-prefix = ""
+content-prefix-foreground = ${colors.background-main}
+content-prefix-background = ${colors.background}
+
+content = ""
+content-foreground = ${colors.background}
+content-background = ${colors.background-main}
+
+[module/xwindow]
+type = internal/xwindow
+format-background = #E88A30
+format-foreground = #181818
+
+[module/date]
+type = internal/date
+
+; Seconds to sleep between updates
+interval = 1.0
+
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %Y-%m-%d%
+
+; Available tags:
+;   <label> (default)
+format = <label>
+format-padding = 3
+format-background = #E88A30
+format-foreground = #181818
+
+; Available tokens:
+;   %date%
+;   %time%
+; Default: %date%
+label = %date% %time%
+label-font = 3
+;label-foreground = #9A32DB
+
+; Optional time format
+time = %H:%M
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt = %A, %d %B %Y
+time-alt = %H:%M:%S
 
 [module/ewmh]
 type = internal/xworkspaces
@@ -87,7 +121,7 @@ type = internal/xworkspaces
 ; on different bars
 ;
 ; Default: false
-pin-workspaces = false
+pin-workspaces = true
 
 ; Create click handler used to focus desktop
 ; Default: true
@@ -95,7 +129,11 @@ enable-click = true
 
 ; Create scroll handlers used to cycle desktops
 ; Default: true
-enable-scroll = true
+enable-scroll = false
+
+; Filter out any workspaces that don't match the expression
+; Default: ""
+filter = "(^1_)(.?)"
 
 ; Available tags:
 ;   <label-monitor>
@@ -160,35 +198,39 @@ label-layout-padding = 0
 type = internal/memory
 interval = 2
 format = <label>
-format-prefix = " "
+format-prefix = ""
 format-prefix-padding = 1
-format-prefix-foreground = ${colors.red}
-format-padding = 2
-label = %percentage_used%%
+format-prefix-foreground = ${colors.background}
+format-foregound = ${colors.background}
+format-background = ${colors.red}
+format-padding = 1
+label = %mb_used%
+label-foreground = ${colors.background}
 
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 9
-warn-temperature = 60
 
-format = <ramp> <label>
+format = <ramp><label>
+format-background = ${colors.red}
 format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
+format-warn = <ramp><label-warn>
 format-warn-underline = ${self.format-underline}
-format-padding = 2
+format-padding = 0
 
 label = %temperature%
+label-foreground = ${colors.background}
+label-background = ${colors.red}
 label-warn = %temperature%
 label-warn-foreground = ${colors.red}
 
 ramp-0 = 
-ramp-0-foreground = ${colors.green}
+ramp-0-foreground = ${colors.background}
 ramp-1 = 
-ramp-1-foreground = ${colors.yellow}
+ramp-1-foreground = ${colors.background}
 ramp-2 = 
-ramp-2-foreground = ${colors.red}
-ramp-foreground = ${colors.red}
+ramp-2-foreground = ${colors.background}
+ramp-foreground = ${colors.background}
 
 
 [module/xbacklight]
@@ -380,36 +422,57 @@ format-padding           = 1
 type = custom/menu
 
 label-open                 = 
-label-open-foreground      = ${colors.red}
-label-open-background      = ${colors.modb2}
-label-open-padding         = 2
+label-open-foreground      = ${colors.background}
+label-open-background      = ${colors.red}
+label-open-padding         = 1
 label-close                = 
-label-close-padding        = 2
-label-close-foreground     = $[colors.red]
+label-close-padding        = 1
+label-close-foreground     = ${colors.background}
+label-close-background     = ${colors.red}
 label-separator            = |
-label-separator-foreground = #666666
+label-separator-margin    = 0
+label-separator-foreground = ${colors.background}
+label-separator-background = ${colors.red}
 
 menu-0-0      = reboot
 menu-0-0-exec = menu-open-1
+menu-0-0-foreground     = ${colors.background}
+menu-0-0-background     = ${colors.red}
 menu-0-1      = poweroff
 menu-0-1-exec = menu-open-2
+menu-0-1-foreground     = ${colors.background}
+menu-0-1-background     = ${colors.red}
 menu-0-2      = logout
 menu-0-2-exec = menu-open-3
+menu-0-2-foreground     = ${colors.background}
+menu-0-2-background     = ${colors.red}
 
 menu-1-0      = 
 menu-1-0-exec = shutdown -r now
+menu-1-0-foreground     = ${colors.background}
+menu-1-0-background     = ${colors.red}
 menu-1-1      = 
 menu-1-1-exec = menu-open-0
+menu-1-1-foreground     = ${colors.background}
+menu-1-1-background     = ${colors.red}
 
 menu-2-0      = 
 menu-2-0-exec = shutdown -h now
+menu-2-0-foreground     = ${colors.background}
+menu-2-0-background     = ${colors.red}
 menu-2-1      = 
 menu-2-1-exec = menu-open-0
+menu-2-1-foreground     = ${colors.background}
+menu-2-1-background     = ${colors.red}
 
 menu-3-0      = 
 menu-3-0-exec = herbstclient quit
+menu-3-0-foreground     = ${colors.background}
+menu-3-0-background     = ${colors.red}
 menu-3-1      = 
 menu-3-1-exec = menu-open-0
+menu-3-1-foreground     = ${colors.background}
+menu-3-1-background     = ${colors.red}
 
 [module/previous]
 type              = custom/script
@@ -452,12 +515,13 @@ format-padding    = 1
 
 [module/cpu]
 type                     = internal/cpu
-label                    = %percentage-core1%%
-format-prefix            = " "
-format-prefix-foreground = ${colors.red}
+label                    = %percentage-sum%%
+format-prefix            = ""
+format-prefix-foreground = ${colors.background}
 format-prefix-padding	 = 1
-format-background        = ${colors.modb}
-format-padding           = 2
+format-background        = ${colors.red}
+format-foreground        = ${colors.background}
+format-padding           = 1
 
 [module/weather]
 type                     = custom/script

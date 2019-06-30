@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=herbstluft GNOME
+Comment=This session logs you into GNOME with herbstluft as the window manager
+Exec=gnome-session-herbstluft
+TryExec=herbstluft-gnome
+Icon=
+Type=Application
+DesktopNames=GNOME

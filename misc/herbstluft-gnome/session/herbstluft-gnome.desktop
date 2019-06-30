@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=herbstluft-gnome
+NoDisplay=true
+Comment=improved dynamic tiling window manager
+Exec=herbstluft-gnome
+X-GNOME-WMName=herbstluft-gnome
+X-GNOME-Autostart-Phase=WindowManager
+X-GNOME-Provides=windowmanager
+X-GNOME-Autostart-Notify=false

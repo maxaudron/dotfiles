@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Register with gnome-session so that it does not kill the whole session thinking it is dead.
+test -n "$DESKTOP_AUTOSTART_ID" && {
+    dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.RegisterClient "string:awesome-gnome" "string:$DESKTOP_AUTOSTART_ID"
+}
+
+procs=("/usr/bin/gnome-flashback" "/usr/lib/gnome-settings-daemon/gsd-xsettings" "/usr/bin/gnome-keyring-daemon -f")
+procslength=${#procs[@]}
+
+for (( i=0; i<${procslength}; i++ )); do
+    ${procs[$i]} &
+    pids[$i]=$!
+done
+
+sleep 3
+herbstluftwm --locked
+
+for pid in ${pids[*]}; do
+    kill $pid
+done
+
+test -n "$DESKTOP_AUTOSTART_ID" && {
+    dbus-send --print-reply --session --dest=org.gnome.SessionManager "/org/gnome/SessionManager" org.gnome.SessionManager.Logout "uint32:1"
+}
