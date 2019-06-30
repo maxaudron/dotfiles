@@ -33,7 +33,7 @@ font-0 = FuraCode Nerd Font:style=Retina:size=11,Regular;3
 font-1 = FuraCode Nerd Font:style=Retina:size=22,Regular;3
 
 modules-left   = powermenu date s
-modules-center = ewmh
+modules-center = b ewmh s
 modules-right  = b cpu temperature memory
 
 tray-position    = none
@@ -140,6 +140,7 @@ filter = "(^1_)(.?)"
 ;   <label-state> - gets replaced with <label-(active|urgent|occupied|empty)>
 ; Default: <label-state>
 format = <label-state>
+format-background = ${colors.red}
 
 ; Available tokens:
 ;   %name%
