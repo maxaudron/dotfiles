@@ -1,6 +1,16 @@
+;---------------------------------------------------------------------------
+; --                                                                    -- ;
+; -- Polybar Config                                                     -- ;
+; --                                                                    -- ;
+;---------------------------------------------------------------------------
+
+
+;---------------------------------------------------------------------------
+; -- Colors
+;---------------------------------------------------------------------------
 [colors]
 foreground = #d0cbaf
-background = #1d1e1f
+background = #181818
 modb       = #1d1e1f
 modb1      = #1d1e1f
 modb2      = #1d1e1f
@@ -13,24 +23,21 @@ violet = #C792EA
 cyan   = #82AAFF
 white  = #c6c8d1
 
-[global/wm]
-margin-top        = 0
-margin-bottom     = 0
-override-redirect = true
+;---------------------------------------------------------------------------
+; -- Bar Template
+;---------------------------------------------------------------------------
+[section/bar-base]
+monitor = ${env:MONITOR:}
 
-[bar/top]
 width    = 100%
 height   = 25
-offset-x = 0
-offset-y = 0
-bottom = false
 
 locale     = en_US.UTF-8
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 font-0 = FuraCode Nerd Font:style=Retina:size=11,Regular;3
-font-1 = FuraCode Nerd Font:style=Retina:size=22,Regular;3
+font-1 = FuraCode Nerd Font:style=Retina:size=19,Regular;3
 
 modules-left   = powermenu date s
 modules-center = b ewmh s
@@ -42,45 +49,51 @@ tray-transparent = false
 tray-detached    = false
 tray-background  = ${colors.modb}
 
-spacing             = 1
-padding-left        = 0
-padding-right       = 0
-module-margin-left  = 0
-module-margin-right = 0
+[sides]
+background = #292929
+foreground = #E88A30
+
+[section/sides]
+format-background = ${sides.background}
+format-foreground = ${sides.foreground}
+
+;---------------------------------------------------------------------------
+; -- Bars
+;---------------------------------------------------------------------------
+[bar/one]
+inherit = section/bar-base
+ewmh-filter = "(^1_)(.?)"
+
+[bar/two]
+inherit = section/bar-base
+ewmh-filter = "(^2_)(.?)"
 
 
+;---------------------------------------------------------------------------
+; -- helper powerline
 [module/s]
 type = custom/text
 
 content = " "
 content-font = 2
-content-foreground = ${colors.red}
+content-foreground = ${sides.background}
 
+
+;---------------------------------------------------------------------------
 [module/b]
 type = custom/text
 
-content = " "
+content = ""
 content-font = 2
-content-foreground = ${colors.red}
+content-foreground = ${sides.background}
 
-[module/d]
-type = custom/text
 
-content-prefix = ""
-content-prefix-foreground = ${colors.background-main}
-content-prefix-background = ${colors.background}
-
-content = ""
-content-foreground = ${colors.background}
-content-background = ${colors.background-main}
-
-[module/xwindow]
-type = internal/xwindow
-format-background = #E88A30
-format-foreground = #181818
-
+;---------------------------------------------------------------------------
+; -- Modules
+;---------------------------------------------------------------------------
 [module/date]
 type = internal/date
+inherit = section/sides
 
 ; Seconds to sleep between updates
 interval = 1.0
@@ -93,8 +106,6 @@ date = %Y-%m-%d%
 ;   <label> (default)
 format = <label>
 format-padding = 3
-format-background = #E88A30
-format-foreground = #181818
 
 ; Available tokens:
 ;   %date%
@@ -112,6 +123,8 @@ time = %H:%M
 date-alt = %A, %d %B %Y
 time-alt = %H:%M:%S
 
+
+;---------------------------------------------------------------------------
 [module/ewmh]
 type = internal/xworkspaces
 
@@ -121,7 +134,7 @@ type = internal/xworkspaces
 ; on different bars
 ;
 ; Default: false
-pin-workspaces = true
+pin-workspaces = false
 
 ; Create click handler used to focus desktop
 ; Default: true
@@ -133,28 +146,42 @@ enable-scroll = false
 
 ; Filter out any workspaces that don't match the expression
 ; Default: ""
-filter = "(^1_)(.?)"
+filter = ${root.ewmh-filter}
+
+icon-0 = 1_1; 
+icon-1 = 1_2;
+icon-2 = 1_3;
+icon-3 = 1_4;
+icon-4 = 1_5;
+icon-5 = 2_1;
+icon-6 = 2_2;
+icon-7 = 2_3;
+icon-8 = 2_4;
+icon-9 = 2_5;
+icon-default = 
 
 ; Available tags:
 ;   <label-monitor>
 ;   <label-state> - gets replaced with <label-(active|urgent|occupied|empty)>
 ; Default: <label-state>
 format = <label-state>
-format-background = ${colors.red}
+format-background = ${sides.background}
 
 ; Available tokens:
 ;   %name%
 ; Default: %name%
 label-monitor = %name%
+label-monitor-background = ${sides.background}
 
 ; Available tokens:
 ;   %name%
 ;   %icon%
 ;   %index%
 ; Default: %icon%  %name%
-label-active = %icon% %name%
-label-active-foreground = #ffffff
-label-active-background = #3f3f3f
+label-active = %icon%
+label-active-padding = 1
+label-active-foreground = #E88A30
+label-active-background = ${sides.background}
 label-active-underline = #fba922
 
 ; Available tokens:
@@ -162,7 +189,10 @@ label-active-underline = #fba922
 ;   %icon%
 ;   %index%
 ; Default: %icon%  %name%
-label-occupied = %icon% %name%
+label-occupied = %icon%
+label-occupied-padding = 1
+label-occupied-foreground = #f5f5f5
+label-occupied-background = ${sides.background}
 label-occupied-underline = #555555
 
 ; Available tokens:
@@ -170,9 +200,10 @@ label-occupied-underline = #555555
 ;   %icon%
 ;   %index%
 ; Default: %icon%  %name%
-label-urgent = %icon% %name%
-label-urgent-foreground = #000000
-label-urgent-background = #bd2c40
+label-urgent = %icon%
+label-urgent-padding = 1
+label-urgent-foreground = #D52B1D
+label-urgent-background = ${sides.background}
 label-urgent-underline = #9b0a20
 
 ; Available tokens:
@@ -180,9 +211,13 @@ label-urgent-underline = #9b0a20
 ;   %icon%
 ;   %index%
 ; Default: %icon%  %name%
-label-empty = %icon% %name%
-label-empty-foreground = #55
+label-empty = %icon%
+label-empty-padding = 1
+label-empty-foreground = #b6b6b6
+label-empty-background = ${sides.background}
 
+
+;---------------------------------------------------------------------------
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
@@ -195,45 +230,42 @@ format-padding = 1
 label-layout = %layout%
 label-layout-padding = 0
 
+
+;---------------------------------------------------------------------------
 [module/memory]
 type = internal/memory
+inherit = section/sides
 interval = 2
 format = <label>
 format-prefix = ""
 format-prefix-padding = 1
-format-prefix-foreground = ${colors.background}
-format-foregound = ${colors.background}
-format-background = ${colors.red}
 format-padding = 1
 label = %mb_used%
-label-foreground = ${colors.background}
 
 
+
+;---------------------------------------------------------------------------
 [module/temperature]
 type = internal/temperature
+inherit = section/sides
 
-format = <ramp><label>
-format-background = ${colors.red}
+format = <ramp> <label>
 format-underline = #f50a4d
-format-warn = <ramp><label-warn>
+format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 format-padding = 0
 
 label = %temperature%
-label-foreground = ${colors.background}
-label-background = ${colors.red}
 label-warn = %temperature%
 label-warn-foreground = ${colors.red}
 
 ramp-0 = 
-ramp-0-foreground = ${colors.background}
 ramp-1 = 
-ramp-1-foreground = ${colors.background}
 ramp-2 = 
-ramp-2-foreground = ${colors.background}
-ramp-foreground = ${colors.background}
 
 
+
+;---------------------------------------------------------------------------
 [module/xbacklight]
 type = internal/xbacklight
 
@@ -245,11 +277,15 @@ format-prefix-foreground = ${colors.red}
 label = %percentage%%
 
 
+
+;---------------------------------------------------------------------------
 [module/backlight-acpi]
 inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
 
+
+;---------------------------------------------------------------------------
 [module/mpd]
 type = internal/mpd
 label-song = %artist% - %title%
@@ -292,6 +328,8 @@ bar-progress-empty-font = 3
 label-song-maxlen = 50
 label-song-ellipsis = true
 
+
+;---------------------------------------------------------------------------
 [module/battery]
 type = internal/battery
 
@@ -379,6 +417,8 @@ format-padding = 1
 
 module-margin-right = 2
 
+
+;---------------------------------------------------------------------------
 [module/filesystem]
 type = internal/fs
 interval = 25
@@ -391,6 +431,8 @@ label-mounted = %{F#ff9933}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.red}
 
+
+;---------------------------------------------------------------------------
 [module/volume]
 type = internal/volume
 
@@ -410,6 +452,8 @@ label-muted-padding    = 2
 label-muted            = muted
 label-muted-background = ${colors.modb}
 
+
+;---------------------------------------------------------------------------
 [module/date1]
 type                     = internal/date
 interval                 = 1
@@ -419,62 +463,67 @@ format-prefix-foreground = ${colors.red}
 format-background        = ${colors.modb}
 format-padding           = 1
 
+
+;---------------------------------------------------------------------------
 [module/powermenu]
 type = custom/menu
+inherit = section/sides
 
 label-open                 = 
-label-open-foreground      = ${colors.background}
-label-open-background      = ${colors.red}
+label-open-foreground      = ${sides.foreground}
+label-open-background      = ${sides.background}
 label-open-padding         = 1
 label-close                = 
 label-close-padding        = 1
-label-close-foreground     = ${colors.background}
-label-close-background     = ${colors.red}
+label-close-foreground     = ${sides.foreground}
+label-close-background     = ${sides.background}
 label-separator            = |
 label-separator-margin    = 0
-label-separator-foreground = ${colors.background}
-label-separator-background = ${colors.red}
+label-separator-foreground = ${sides.foreground}
+label-separator-background = ${sides.background}
 
 menu-0-0      = reboot
 menu-0-0-exec = menu-open-1
-menu-0-0-foreground     = ${colors.background}
-menu-0-0-background     = ${colors.red}
+menu-0-0-foreground     = ${sides.foreground}
+menu-0-0-background     = ${sides.background}
 menu-0-1      = poweroff
 menu-0-1-exec = menu-open-2
-menu-0-1-foreground     = ${colors.background}
-menu-0-1-background     = ${colors.red}
+menu-0-1-foreground     = ${sides.foreground}
+menu-0-1-background     = ${sides.background}
 menu-0-2      = logout
 menu-0-2-exec = menu-open-3
-menu-0-2-foreground     = ${colors.background}
-menu-0-2-background     = ${colors.red}
+menu-0-2-foreground     = ${sides.foreground}
+menu-0-2-background     = ${sides.background}
 
 menu-1-0      = 
 menu-1-0-exec = shutdown -r now
-menu-1-0-foreground     = ${colors.background}
-menu-1-0-background     = ${colors.red}
+menu-1-0-foreground     = ${sides.foreground}
+menu-1-0-background     = ${sides.background}
 menu-1-1      = 
 menu-1-1-exec = menu-open-0
-menu-1-1-foreground     = ${colors.background}
-menu-1-1-background     = ${colors.red}
+menu-1-1-foreground     = ${sides.foreground}
+menu-1-1-background     = ${sides.background}
 
 menu-2-0      = 
 menu-2-0-exec = shutdown -h now
-menu-2-0-foreground     = ${colors.background}
-menu-2-0-background     = ${colors.red}
+menu-2-0-foreground     = ${sides.foreground}
+menu-2-0-background     = ${sides.background}
 menu-2-1      = 
 menu-2-1-exec = menu-open-0
-menu-2-1-foreground     = ${colors.background}
-menu-2-1-background     = ${colors.red}
+menu-2-1-foreground     = ${sides.foreground}
+menu-2-1-background     = ${sides.background}
 
 menu-3-0      = 
 menu-3-0-exec = herbstclient quit
-menu-3-0-foreground     = ${colors.background}
-menu-3-0-background     = ${colors.red}
+menu-3-0-foreground     = ${sides.foreground}
+menu-3-0-background     = ${sides.background}
 menu-3-1      = 
 menu-3-1-exec = menu-open-0
-menu-3-1-foreground     = ${colors.background}
-menu-3-1-background     = ${colors.red}
+menu-3-1-foreground     = ${sides.foreground}
+menu-3-1-background     = ${sides.background}
 
+
+;---------------------------------------------------------------------------
 [module/previous]
 type              = custom/script
 format-text       = <label>
@@ -485,6 +534,8 @@ format-foreground = ${colors.red}
 format-background = ${colors.modb1}
 format-padding    = 1
 
+
+;---------------------------------------------------------------------------
 [module/next]
 type              = custom/script
 format-text       = <label>
@@ -495,6 +546,8 @@ format-foreground = ${colors.red}
 format-background = ${colors.modb1}
 format-padding    = 1
 
+
+;---------------------------------------------------------------------------
 [module/spotipy]
 type              = custom/script
 exec              = python3 ~/scripts/spoti.py
@@ -505,6 +558,8 @@ format-foreground = ${colors.foreground}
 format-background = ${colors.modb1}
 format-padding    = 1
 
+
+;---------------------------------------------------------------------------
 [module/playpause]
 type              = custom/script
 exec              = python3 ~/scripts/spoti-play.py
@@ -514,16 +569,18 @@ format-foreground = ${colors.red}
 format-background = ${colors.modb1}
 format-padding    = 1
 
+
+;---------------------------------------------------------------------------
 [module/cpu]
 type                     = internal/cpu
+inherit = section/sides
 label                    = %percentage-sum%%
 format-prefix            = ""
-format-prefix-foreground = ${colors.background}
 format-prefix-padding	 = 1
-format-background        = ${colors.red}
-format-foreground        = ${colors.background}
-format-padding           = 1
+format-padding           = 2
 
+
+;---------------------------------------------------------------------------
 [module/weather]
 type                     = custom/script
 interval                 = 2

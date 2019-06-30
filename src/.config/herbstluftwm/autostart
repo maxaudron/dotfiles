@@ -227,11 +227,23 @@ hc detect_monitors
 #
 #done
 
-hc pad 0 25
+for m in $(herbstclient list_monitors | cut -d":" -f1); do
+  hc pad $m 25
+done
 
 killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
-polybar top -r &
+#polybar top -r &
+
+for m in $(polybar --list-monitors | cut -d":" -f1); do
+  if [[ $(hostname) == "ejectedtower" ]]; then
+    if [[ $m == "DP-4.8" ]]; then
+      MONITOR=$m polybar --reload one &
+    elif [[ $m == "DVI-D-0" ]]; then
+      MONITOR=$m polybar --reload two &
+    fi
+  fi
+done
 
 killall -q compton
 while pgrep -u $UID -x compton >/dev/null; do sleep 1; done
