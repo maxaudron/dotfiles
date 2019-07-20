@@ -19,7 +19,7 @@ Mod=Mod4   # Use the super key as the main modifier
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-c close
-hc keybind $Mod-Return spawn ${TERMINAL:-xfce4-terminal} # use your $TERMINAL with xterm as fallback
+hc keybind $Mod-Return spawn ${TERMINAL:-kitty} # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-r spawn rofi -show drun
 
 # basic movement
@@ -145,10 +145,11 @@ hc keybind $Mod-p pseudotile toggle
 # The following cycles through the available layouts within a frame, but skips
 # layouts, if the layout change wouldn't affect the actual window positions.
 # I.e. if there are two windows within a frame, the grid layout is skipped.
-hc keybind $Mod-space                                                           \
-            or , and . compare tags.focus.curframe_wcount = 2                   \
-                     . cycle_layout +1 vertical horizontal max vertical grid    \
-               , cycle_layout +1
+# hc keybind $Mod-space                                                           \
+            # or , and . compare tags.focus.curframe_wcount = 2                   \
+                     # . cycle_layout +1 vertical horizontal max vertical grid    \
+               # , cycle_layout +1
+hc keybind $Mod-Space cycle_layout
 
 # mouse
 hc mouseunbind --all

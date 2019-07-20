@@ -76,7 +76,7 @@ POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=' '
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export LANG="en_US.UTF-8"
-export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/$USER/profile/bin/:$HOME/.linuxbrew/bin:$HOME/.local/bin:$PATH"
+export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/$USER/profile/bin/:$HOME/.linuxbrew/bin:$HOME/.local/bin:$HOME/.kube/plugins/jordanwilson230:$PATH"
 export GOPATH="$HOME/go/"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
