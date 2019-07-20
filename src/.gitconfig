@@ -64,16 +64,18 @@
 	# Automatically --follow when given a single path
   follow = true
 
+[includeIf "gitdir:~/dotfiles"]
+    path = .gitconfig-gitlab
+
 [includeIf "gitdir:~/repo/gitlab.com/"]
   path = .gitconfig-gitlab
 
 [includeIf "gitdir:~/repo/github.com/"]
   path = .gitconfig-gitlab
 
+[includeIf "gitdir:~/dotfiles"]
+  path = .gitconfig-gitlab
+
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
     path = .gitconfig-work
 
-[user]
-	signingkey = 9A22B3E6EA3804E3
-	email = audron@ejected.space
-	name = Max Audron
