@@ -36,8 +36,8 @@ locale     = en_US.UTF-8
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-font-0 = FuraCode Nerd Font:style=Retina:size=11,Regular;3
-font-1 = FuraCode Nerd Font:style=Retina:size=19,Regular;3
+font-0 = FuraCode Nerd Font:style=Retina,Regular:size=11;3
+font-1 = FuraCode Nerd Font:style=Retina,Regular:size=19;3
 
 modules-left   = powermenu date s
 modules-center = b ewmh s
@@ -68,6 +68,9 @@ ewmh-filter = "(^1_)(.?)"
 inherit = section/bar-base
 ewmh-filter = "(^2_)(.?)"
 
+[bar/three]
+inherit = section/bar-base
+ewmh-filter = "(^3_)(.?)"
 
 ;---------------------------------------------------------------------------
 ; -- helper powerline
@@ -142,7 +145,7 @@ enable-click = true
 
 ; Create scroll handlers used to cycle desktops
 ; Default: true
-enable-scroll = false
+enable-scroll = true
 
 ; Filter out any workspaces that don't match the expression
 ; Default: ""

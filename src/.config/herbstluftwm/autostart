@@ -21,6 +21,7 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-c close
 hc keybind $Mod-Return spawn ${TERMINAL:-kitty} # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-r spawn rofi -show drun
+hc keybind $Mod-Shift-s spawn $HOME/.local/scripts/i3lock.sh
 
 # basic movement
 # focusing clients
@@ -48,7 +49,7 @@ hc keybind $Mod-Shift-l or / shift right / \
 hc keybind $Mod-u       split   bottom  0.5
 hc keybind $Mod-o       split   right   0.5
 # let the current frame explode into subframes
-hc keybind $Mod-Control-space split explode
+hc keybind $Mod-Control-Return split explode
 
 # resizing frames
 resizestep=0.05
@@ -65,11 +66,12 @@ hc keybind $Mod-Control-Right   resize right +$resizestep
 # tags
 mon1_names=( 1_{1..5} ) # tag names for monitor 1
 mon2_names=( 2_{1..5} ) # tag names for monitor 2
+mon3_names=( 3_{1..5} ) # tag names for monitor 2
 fallback_names=( {1..5} ) # tag names for all other monitors
 tag_keys=( {1..9} 0 )
 
 hc rename default "${mon1_names[0]}" || true
-for tag in "${mon1_names[@]}" "${mon2_names[@]}" "${fallback_names[@]}" ; do
+for tag in "${mon1_names[@]}" "${mon2_names[@]}" "${mon3_names[@]}" "${fallback_names[@]}" ; do
     hc try silent add "$tag"
 done
 
@@ -107,6 +109,7 @@ define-tag-cycle() {
 
 define-tag-cycle "${mon1_names[@]}"
 define-tag-cycle "${mon2_names[@]}"
+define-tag-cycle "${mon3_names[@]}"
 define-tag-cycle "${fallback_names[@]}"
 
 # cycle through tags
@@ -242,6 +245,14 @@ for m in $(polybar --list-monitors | cut -d":" -f1); do
       MONITOR=$m polybar --reload one &
     elif [[ $m == "DVI-D-0" ]]; then
       MONITOR=$m polybar --reload two &
+    fi
+  elif [[ $(hostname) == "FFMl0002" ]]; then
+    if [[ $m == "DP-3" ]]; then
+      MONITOR=$m polybar --reload one &
+    elif [[ $m == "DP-2" ]]; then
+      MONITOR=$m polybar --reload two &
+    elif [[ $m == "LVDS-1" ]]; then
+      MONITOR=$m polybar --reload three &
     fi
   fi
 done

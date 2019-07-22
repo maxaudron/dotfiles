@@ -76,9 +76,10 @@ POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=' '
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export LANG="en_US.UTF-8"
-export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/$USER/profile/bin/:$HOME/.linuxbrew/bin:$HOME/.local/bin:$HOME/.kube/plugins/jordanwilson230:$PATH"
+export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/$USER/profile/bin/:$HOME/.linuxbrew/bin:$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 export GOPATH="$HOME/go/"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
@@ -97,6 +98,19 @@ HISTFILE=$HOME/.zsh_history
 
 setopt extendedglob local_options
 autoload -Uz compinit
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' expand suffix
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|[._-]=** r:|=** l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' original true
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' verbose true
+zstyle :compinstall filename '/home/audron/.zshrc'
+
 local zcd=${ZDOTDIR:-$HOME}/.zsh/.zcompdump
 local zcdc="$HOME/.zsh/$zcd.zwc"
 # Compile the completion dump to increase startup speed, if dump is newer or doesn't exist,
@@ -135,7 +149,7 @@ alias gpg="gpg2"
 alias hie="hie-wrapper"
 alias kc="kubectl"
 alias ga="git add"
-alias gc="git commit"
+alias gc="git commit -v"
 alias glg="git glog"
 alias gp="git push"
 

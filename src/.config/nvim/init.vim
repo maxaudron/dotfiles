@@ -1,1 +1,1 @@
-/home/mmnanz/.space-vim/init.vim
+/home/audron/.space-vim/init.vim

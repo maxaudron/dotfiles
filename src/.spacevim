@@ -14,6 +14,7 @@ let g:spacevim_layers = [
       \ 'fzf', 'better-defaults', 'which-key',
       \ 'auto-completion',
       \ 'file-manager',
+      \ 'latex',
       \ 'airline',
       \ 'git',
       \ 'better-motion',
@@ -55,6 +56,7 @@ function! UserInit()
   Plug 'vimwiki/vimwiki'
   Plug 'tbabej/taskwiki'
   Plug 'majutsushi/tagbar'
+  Plug 'lervag/vimtex'
 
 endfunction
 
@@ -89,7 +91,8 @@ function! UserConfig()
   "let g:deoplete#enable_at_startup = 1
 
   " Linter
-  let g:ale_linters = { 'javascript': ['eslint'] , 'python': ['flake8', 'prospector', 'vulture'] , 'haskell': ['hie'], 'go': ['go-fmt'] }
+  let g:ale_linters = { 'javascript': ['eslint'] , 'python': ['flake8', 'prospector', 'vulture'] , 'haskell': ['hie'], 'go': ['go-fmt'], 'c': ['clangtidy'] }
+  let g:ale_fixers = {'c': ['clang-format']}
   let g:ale_haskell_hie_executable = "hie-wrapper"
   let g:ale_go_bingo_executable = "bingo"
   let g:ale_open_list = 1
@@ -126,7 +129,7 @@ function! UserConfig()
 
   let g:vim_current_word#highlight_current_word = 0
 
-  let g:python_host_prog= expand($HOME) . "/.pyenv/versions/neovim2/bin/python"
+	" let g:python_host_prog= expand($HOME) . "/.pyenv/versions/neovim2/bin/python"
   let g:python3_host_prog= expand($HOME) . "/.pyenv/versions/neovim3/bin/python"
 
   " if executable('hie')
