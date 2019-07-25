@@ -53,10 +53,10 @@ function! UserInit()
   Plug 'maxaudron/hybrid_darker.vim'
   Plug 'tpope/vim-fugitive'
   Plug 'chrisbra/Colorizer'
-  Plug 'vimwiki/vimwiki'
-  Plug 'tbabej/taskwiki'
   Plug 'majutsushi/tagbar'
   Plug 'lervag/vimtex'
+  Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+  Plug 'tbabej/taskwiki'
 
 endfunction
 
@@ -126,6 +126,7 @@ function! UserConfig()
   let g:vimwiki_folding = ''
   let g:vimwiki_conceallevel = 0
   let g:vimwiki_map_prefix = '<Leader>v'
+  let g:taskwiki_disable = 'true'
 
   let g:vim_current_word#highlight_current_word = 0
 
@@ -174,5 +175,4 @@ function! UserConfig()
   " Uncomment the following line If you have installed the powerline fonts.
   " It is good for airline layer.
   " let g:airline_powerline_fonts = 1
-
 endfunction
