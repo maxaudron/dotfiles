@@ -88,3 +88,24 @@ alias ga="git add"
 alias gc="git commit -v"
 alias glg="git glog"
 alias gp="git push"
+
+###############################################################################
+# Functions
+function pastor () {
+    curl --progress-bar -F c=@$1 https://p.cocaine.farm/
+}
+
+if [[ -f $HOME/.local/bin/dit.sh ]]; then
+    function git() {
+      if [[ "$1" == "clone" ]]; then
+        command $HOME/.local/bin/dit.sh "$@"
+      else
+        command git "$@"
+      fi
+    }
+    
+    export DITSH_URL=gitlab.com
+    export DITSH_BASE=$HOME/repo
+    export DITSH_SSH=true
+fi
+

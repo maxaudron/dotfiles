@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Sync VimWiki
+cd $HOME/vimwiki
+git add .
+git commit -m "shutdown sync"
+git push
+
+# Sync TaskWarrior
+task sync
+
+# Shutdown
+shutdown now
