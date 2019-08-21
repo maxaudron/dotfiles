@@ -57,7 +57,6 @@ function! UserInit()
   Plug 'lervag/vimtex'
   Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
   Plug 'tbabej/taskwiki'
-
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
@@ -126,12 +125,12 @@ function! UserConfig()
   let g:vimwiki_folding = ''
   let g:vimwiki_conceallevel = 0
   let g:vimwiki_map_prefix = '<Leader>v'
-  let g:taskwiki_disable = 'true'
+  " let g:taskwiki_disable = 'true'
 
   let g:vim_current_word#highlight_current_word = 0
 
 	" let g:python_host_prog= expand($HOME) . "/.pyenv/versions/neovim2/bin/python"
-  let g:python3_host_prog= expand($HOME) . "/.pyenv/versions/neovim3/bin/python"
+  " let g:python3_host_prog= expand($HOME) . "/.pyenv/versions/neovim3/bin/python"
 
   " if executable('hie')
     " au User lsp_setup call lsp#register_server({

@@ -29,14 +29,17 @@
 
 [diff]
   tool = vimdiff
-	# Use better, descriptive initials (c, i, w) instead of a/b.
-	mnemonicPrefix = true
-	# Show renames/moves as such
-	renames = true
-	# When using --word-diff, assume --word-diff-regex=.
-	wordRegex = .
-	# Display submodule-related information (commit listings)
-  submodule = log
+    # Use better, descriptive initials (c, i, w) instead of a/b.
+    mnemonicPrefix = true
+    # Show renames/moves as such
+    renames = true
+    # When using --word-diff, assume --word-diff-regex=.
+    wordRegex = .
+    # Display submodule-related information (commit listings)
+    submodule = log
+
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [push]
   # When pushing, also push tags whose commit-ishs are now reachable upstream
