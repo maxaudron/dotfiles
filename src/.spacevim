@@ -57,6 +57,8 @@ function! UserInit()
   Plug 'lervag/vimtex'
   Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
   Plug 'tbabej/taskwiki'
+  " Plug 'jeaye/color_coded'
+  Plug 'arakashic/chromatica.nvim'
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
@@ -105,6 +107,8 @@ function! UserConfig()
 
   let g:ale_sign_error = ''
   let g:ale_sign_warning = ''
+
+  let g:chromatica#libclang_path='/usr/lib64/'
 
   let g:pymode_python = 'python3'
 

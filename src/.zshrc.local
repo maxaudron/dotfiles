@@ -100,6 +100,14 @@ function docker () {
     fi
 }
 
+function helm () {
+    if [[ "$1" == "deploy" ]]; then
+        command helm install --name $2 --namespace $2 . -f ../helm-values/${2}.yaml
+    else
+        command helm $@
+    fi
+}
+
 function pastor () {
     curl --progress-bar -F c=@$1 https://p.cocaine.farm/
 }
