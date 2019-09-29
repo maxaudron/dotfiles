@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# remove all existing keybindings
+hc keyunbind --all
+
+# keybindings
+Mod=Mod4   # Use the super key as the main modifier
+
+hc keybind $Mod-Shift-q quit
+hc keybind $Mod-Shift-r reload
+hc keybind $Mod-c or / close / remove
+hc keybind $Mod-q or / remove / close
+
+hc keybind $Mod-Return spawn ${TERMINAL:-xterm} # use your $TERMINAL with xterm as fallback
+
+hc keybind $Mod-r spawn rofi -show drun
+
+hc keybind $Mod-Shift-s spawn $HOME/.local/scripts/i3lock.sh
+
+# basic movement
+# focusing clients
+hc keybind "$Mod-h" or / focus left
+hc keybind "$Mod-j" or / focus down
+hc keybind "$Mod-k" or / focus up
+hc keybind "$Mod-l" or / focus right
+
+# moving clients
+hc keybind "$Mod-Shift-h" or / shift left / chain , lock , shift_to_monitor -1 , focus_monitor -1 , unlock
+hc keybind "$Mod-Shift-j" or / shift down / chain , lock , shift_to_monitor -d , focus_monitor -d , unlock
+hc keybind "$Mod-Shift-k" or / shift up / chain , lock , shift_to_monitor -u , focus_monitor -u , unlock
+hc keybind "$Mod-Shift-l" or / shift right / chain , lock , shift_to_monitor +1 , focus_monitor +1 , unlock
+
+# splitting frames
+splitstep=0.5
+# create an empty frame at the specified direction
+hc keybind "$Mod-Alt-h"       split   left $splitstep
+hc keybind "$Mod-Alt-j"       split   bottom $splitstep
+hc keybind "$Mod-Alt-k"       split   top $splitstep
+hc keybind "$Mod-Alt-l"       split   right $splitstep
+
+# resizing frames
+resizestep=0.05
+hc keybind "$Mod-Control-h"       resize left +$resizestep
+hc keybind "$Mod-Control-j"       resize down +$resizestep
+hc keybind "$Mod-Control-k"       resize up +$resizestep
+hc keybind "$Mod-Control-l"       resize right +$resizestep
+
+# mouse
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 zoom
+hc mousebind $Mod-Button3 resize
+hc set focus_follows_mouse 1
+
+# layouting
+hc keybind "$Mod-s" floating toggle
+hc keybind "$Mod-f" fullscreen toggle
+hc keybind "$Mod-p" pseudotile toggle
+
+# focus
+hc keybind $Mod-BackSpace   cycle_monitor
+hc keybind $Mod-Tab         cycle_all +1
+hc keybind $Mod-Shift-Tab   cycle_all -1
+hc keybind $Mod-i jumpto urgent
+
+# tags
+# implement proper tags
+monitorCount=$(getMonitorCount)
+
+for (( monitorIndex=0; monitorIndex<monitorCount; monitorIndex++ )) ; do
+    for key in ${tagKeys[@]} ; do
+        hc chain , keybind "$Mod-$key" sprintf MONITOR "%s_$key" tags.focus.my_monitor use MONITOR \
+                 , keybind "$Mod-Shift-$key" sprintf MONITOR "%s_$key" tags.focus.my_monitor move MONITOR
+    done
+  done
+
+# Sound
+hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume @DEFAULT_SINK@ -5%
+hc keybind XF86AudioRaiseVolume spawn pactl set-sink-volume @DEFAULT_SINK@ +5%
+hc keybind XF86AudioMute spawn pactl set-sink-mute @DEFAULT_SINK@ toggle

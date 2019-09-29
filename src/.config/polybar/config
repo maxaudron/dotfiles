@@ -62,15 +62,15 @@ format-foreground = ${sides.foreground}
 ;---------------------------------------------------------------------------
 [bar/one]
 inherit = section/bar-base
-ewmh-filter = "(^1_)(.?)"
+ewmh-filter = "(^0_)(.?)"
 
 [bar/two]
 inherit = section/bar-base
-ewmh-filter = "(^2_)(.?)"
+ewmh-filter = "(^1_)(.?)"
 
 [bar/three]
 inherit = section/bar-base
-ewmh-filter = "(^3_)(.?)"
+ewmh-filter = "(^2_)(.?)"
 
 ;---------------------------------------------------------------------------
 ; -- helper powerline
@@ -151,16 +151,16 @@ enable-scroll = true
 ; Default: ""
 filter = ${root.ewmh-filter}
 
-icon-0 = 1_1; 
-icon-1 = 1_2;
-icon-2 = 1_3;
-icon-3 = 1_4;
-icon-4 = 1_5;
-icon-5 = 2_1;
-icon-6 = 2_2;
-icon-7 = 2_3;
-icon-8 = 2_4;
-icon-9 = 2_5;
+icon-0 = 0_1; 
+icon-1 = 0_2;
+icon-2 = 0_3;
+icon-3 = 0_4;
+icon-4 = 0_5;
+icon-5 = 1_1;
+icon-6 = 1_2;
+icon-7 = 1_3;
+icon-8 = 1_4;
+icon-9 = 1_5;
 icon-default = 
 
 ; Available tags:
@@ -257,6 +257,9 @@ format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 format-padding = 0
+
+
+thermal-zone = 3
 
 label = %temperature%
 label-warn = %temperature%

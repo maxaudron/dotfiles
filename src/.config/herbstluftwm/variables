@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+Mod=Mod4
+TERMINAL=kitty
+floatingMonitorName=floatmon
+floatingTagName=fl
+Floatkey=g
+
+tagKeys=({1..9})
+tagAmount=${#tagKeys[@]}
+
