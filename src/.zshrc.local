@@ -1,8 +1,14 @@
-source $HOME/.zsh/plugins/zsh-users/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source $HOME/.zsh/plugins/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
 source $HOME/.zsh/plugins/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source $HOME/.zsh/plugins/zsh-users/zsh-history-substring-search/zsh-history-substring-search.plugin.zsh
 #source $HOME/.zsh/plugins/zsh-users/zsh-completions/zsh-completions.plugin.zsh
 source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
+
+source $HOME/.zsh/plugins/Vifon/deer/deer
+zle -N deer
+bindkey '\ek' deer
+
 source $HOME/.zsh/lib/completion.zsh
 
 source $HOME/.fzf.zsh
