@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for m in $(polybar --list-monitors | cut -d":" -f1); do
+    if [[ $m == "DP-3" ]]; then
+      MONITOR=$m polybar --reload two &
+    elif [[ $m == "DP-2" ]]; then
+      MONITOR=$m polybar --reload one &
+    elif [[ $m == "LVDS-1" ]]; then
+      MONITOR=$m polybar --reload three &
+    fi
+done

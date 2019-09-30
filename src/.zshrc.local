@@ -5,6 +5,8 @@ source $HOME/.zsh/plugins/zsh-users/zsh-history-substring-search/zsh-history-sub
 source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.zsh/lib/completion.zsh
 
+source $HOME/.fzf.zsh
+
 # Load the theme.
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs virtualenv)

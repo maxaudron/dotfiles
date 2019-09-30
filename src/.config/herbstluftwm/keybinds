@@ -19,10 +19,10 @@ hc keybind $Mod-Shift-s spawn $HOME/.local/scripts/i3lock.sh
 
 # basic movement
 # focusing clients
-hc keybind "$Mod-h" or / focus left
-hc keybind "$Mod-j" or / focus down
-hc keybind "$Mod-k" or / focus up
-hc keybind "$Mod-l" or / focus right
+hc keybind "$Mod-h" focus left
+hc keybind "$Mod-j" focus down
+hc keybind "$Mod-k" focus up
+hc keybind "$Mod-l" focus right
 
 # moving clients
 hc keybind "$Mod-Shift-h" or / shift left / chain , lock , shift_to_monitor -1 , focus_monitor -1 , unlock
