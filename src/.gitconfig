@@ -82,3 +82,5 @@
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
     path = .gitconfig-work
 
+[url "git@git.eu.clara.net:"]
+    insteadOf = https://git.eu.clara.net/
