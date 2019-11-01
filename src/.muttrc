@@ -1,0 +1,82 @@
+### save and sync my sent messages
+set record=~/.local/mail/cocaine.farm/Sent
+## GMAIL USERS USE Sent Mail below instead:
+set spoolfile=~/.local/mail/cocaine.farm/Inbox
+# set header cache
+set header_cache=~/.local/mail/hcache
+# needed for maildir format
+set mbox_type=Maildir
+set folder=~/.local/mail/cocaine.farm
+# IMAP and INBOX (this should map to any existing IMAP folders)
+mailboxes =Inbox \
+=Archive \
+=Sent \
+=Drafts \
+=Junk \
+=Trash \
+=Lastfolder
+
+#########################
+# THEME
+#########################
+# status bar, date format, finding stuff etc.
+set status_chars = " *%A"
+set status_format = "[ Folder: %f ] [%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
+set date_format = "%d.%m.%Y %H:%M"
+set index_format = "[%Z] %?X?A&-? %D  %-20.20F  %s"
+set sort = threads
+set sort_aux = reverse-last-date-received
+set uncollapse_jump
+set sort_re
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set send_charset = "utf-8:iso-8859-1:us-ascii"
+set charset = "utf-8"
+
+# Pager View Options
+set pager_index_lines = 10
+set pager_context = 3
+set pager_stop
+set menu_scroll
+set tilde
+unset markers
+
+# email headers and attachments
+ignore *
+unignore from: to: cc: bcc: date: subject:
+unhdr_order *
+hdr_order from: to: cc: bcc: date: subject:
+alternative_order text/plain text/enriched text/html
+auto_view text/html
+
+
+# sidebar patch config
+set sidebar_visible
+set sidebar_short_path
+set sidebar_folder_indent
+set sidebar_width = 25
+set sidebar_divider_char = ' | '
+set sidebar_indent_string = '  ''
+set sidebar_format = "%B %* [%?N?%N / ?%S]"
+
+# Mailboxes to show in the sidebar.
+mailboxes =ALL-INBOXES
+mailboxes =mailbox/Inbox
+mailboxes ="==================="
+mailboxes =mailbox
+mailboxes =mailbox/Archive =mailbox/Sent =mailbox/Drafts =mailbox/Junk =mailbox/Trash
+
+# source colors and keybindings
+# keeping those in one place makes it easier for my brain
+source ~/.mutt/colors
+source ~/.mutt/bindings
+
+bind index u noop
+
+### BEGIN NOTMUCH-MUTT SETTINGS
+    macro index  \
+          "unset wait_key~/.local/scripts/mutt-notmuch --prompt search~/.cache/mutt_results" \
+          "search mail (using notmuch)"
+    macro index  \
+          "unset wait_key~/.local/scripts/mutt-notmuch thread~/.cache/mutt_resultsset wait_key" \
+          "search and reconstruct owning thread (using notmuch)"
