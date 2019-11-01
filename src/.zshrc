@@ -3805,3 +3805,11 @@ zrclocal
 # Local variables:
 # mode: sh
 # End:
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/audron/google-cloud-sdk/path.zsh.inc' ]; then . '/home/audron/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/audron/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/audron/google-cloud-sdk/completion.zsh.inc'; fi

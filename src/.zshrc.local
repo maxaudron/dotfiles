@@ -7,16 +7,18 @@ source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 
 source $HOME/.zsh/plugins/Vifon/deer/deer
 zle -N deer
-bindkey '\ek' deer
+bindkey '\ek' deer 
 
 source $HOME/.zsh/lib/completion.zsh
 
 source $HOME/.fzf.zsh
 
+(source <(kubectl completion zsh) &) &> /dev/null
+
 # Load the theme.
 POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs virtualenv)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator host)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs host)
 POWERLEVEL9K_HOST_TEMPLATE="`hostname -f`"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_DELIMITER=""
@@ -80,15 +82,16 @@ export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 # Alias
 alias cl="clear"
 alias v="nvim"
+alias vw="nvim $HOME/vimwiki/index.wiki"
 alias l="exa -al --group-directories-first --git --time-style=long-iso"
 alias l.="exa -al --group-directories-first --git --time-style=long-iso -F -I '[!^.]*'"
 alias lt="exa -al --group-directories-first --git --time-style=long-iso -I .git --tree"
 alias lab="lab-wrap"
 alias tf="terraform"
-alias tfi="terraform init"
-alias tfp="terraform plan -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
-alias tfa="terraform apply -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
-alias tfd="terraform destroy -var-file=$HOME/.terraform.d/vsphere_auth.tfvars"
+alias tfi="terraform init -upgrade"
+alias tfp="terraform plan"
+alias tfa="terraform apply"
+alias tfd="terraform destroy"
 alias gpg="gpg2"
 alias hie="hie-wrapper"
 alias kc="kubectl"
@@ -97,12 +100,17 @@ alias gc="git commit -v"
 alias glg="git glog"
 alias gp="git push"
 alias shutdown="$HOME/.local/bin/shutdown"
+alias ducker="docker"
 
 ###############################################################################
 # Functions
 function docker () {
     if [[ "$1" == "bash" ]]; then
-        command docker run -it --rm --network host -v $PWD:/work --entrypoint /bin/bash $2 $3 $4
+        shift
+        command docker run -it --rm --network host -v $PWD:/work --entrypoint $@
+    elif [[ "$1" == "ip" ]]; then
+        shift
+        docker inspect -f '{{ .NetworkSettings.IPAddress }}' "$@"
     else
         command docker $@
     fi

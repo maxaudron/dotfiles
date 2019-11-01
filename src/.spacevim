@@ -59,6 +59,7 @@ function! UserInit()
   Plug 'tbabej/taskwiki'
   " Plug 'jeaye/color_coded'
   Plug 'arakashic/chromatica.nvim'
+  Plug 'hashivim/vim-terraform'
 endfunction
 
 " Override the default settings from space-vim as well as adding extras
