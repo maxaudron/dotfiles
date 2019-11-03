@@ -1,0 +1,9 @@
+[Unit]
+Description=VoteCoin daemon
+
+[Service]
+ExecStart=%h/.local/bin/votecoind -metricsui 0 -daemon
+
+[Install]
+WantedBy=default.target
+
