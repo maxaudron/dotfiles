@@ -101,6 +101,7 @@ alias glg="git glog"
 alias gp="git push"
 alias shutdown="$HOME/.local/bin/shutdown"
 alias ducker="docker"
+alias mpc="ncmpcpp"
 
 ###############################################################################
 # Functions

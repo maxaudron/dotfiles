@@ -41,7 +41,7 @@ font-1 = FuraCode Nerd Font:style=Retina,Regular:size=19;3
 
 modules-left   = powermenu mail date s
 modules-center = b ewmh s
-modules-right  = b cpu temperature memory
+modules-right  = b mpd cpu temperature memory
 
 tray-position    = none
 tray-padding     = 2
