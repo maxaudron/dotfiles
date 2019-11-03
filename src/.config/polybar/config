@@ -39,7 +39,7 @@ foreground = ${colors.foreground}
 font-0 = FuraCode Nerd Font:style=Retina,Regular:size=11;3
 font-1 = FuraCode Nerd Font:style=Retina,Regular:size=19;3
 
-modules-left   = powermenu date s
+modules-left   = powermenu mail date s
 modules-center = b ewmh s
 modules-right  = b cpu temperature memory
 
@@ -90,6 +90,19 @@ content = ""
 content-font = 2
 content-foreground = ${sides.background}
 
+[module/mail]
+type = custom/script
+
+; Available tokens:
+;   %counter%
+; Command to be executed (using "/usr/bin/env sh -c [command]")
+exec = "notmuch count tag:unread"
+interval = 30
+format-foreground = ${sides.foreground}
+format-background = ${sides.background}
+format-prefix = 
+format-prefix-padding = 1
+format-padding = 0
 
 ;---------------------------------------------------------------------------
 ; -- Modules
@@ -108,7 +121,7 @@ date = %Y-%m-%d%
 ; Available tags:
 ;   <label> (default)
 format = <label>
-format-padding = 3
+format-padding = 2
 
 ; Available tokens:
 ;   %date%
