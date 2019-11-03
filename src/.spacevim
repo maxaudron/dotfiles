@@ -22,7 +22,6 @@ let g:spacevim_layers = [
       \ 'text-align',
       \ 'cscope',
       \ 'syntax-checking',
-      \ 'deoplete',
       \ 'editing',
       \ 'programming',
       \ 'unite',
