@@ -1,20 +1,14 @@
-### save and sync my sent messages
-set record=~/.local/mail/cocaine.farm/Sent
-## GMAIL USERS USE Sent Mail below instead:
-set spoolfile=~/.local/mail/cocaine.farm/Inbox
-# set header cache
 set header_cache=~/.local/mail/hcache
-# needed for maildir format
-set mbox_type=Maildir
-set folder=~/.local/mail/cocaine.farm
-# IMAP and INBOX (this should map to any existing IMAP folders)
-mailboxes =Inbox \
-=Archive \
-=Sent \
-=Drafts \
-=Junk \
-=Trash \
-=Lastfolder
+set folder = ~/.local/mail
+
+set realname = "Max Audron"
+set spoolfile = "+cocaine.farm/Inbox"
+source ~/.mutt/accounts/cocaine.farm
+
+# when changing into other mailboxes, use different adresses etc.
+folder-hook cocaine.farm/* source ~/.mutt/accounts/cocaine.farm
+folder-hook ejected.space/* source ~/.mutt/accounts/ejected.space
+folder-hook gmail/* source ~/.mutt/accounts/gmail
 
 #########################
 # THEME
@@ -51,32 +45,26 @@ auto_view text/html
 
 
 # sidebar patch config
-set sidebar_visible
-set sidebar_short_path
-set sidebar_folder_indent
+set sidebar_visible = yes
 set sidebar_width = 25
-set sidebar_divider_char = ' | '
-set sidebar_indent_string = '  ''
-set sidebar_format = "%B %* [%?N?%N / ?%S]"
+
+set sidebar_short_path
+set sidebar_delim_chars = '/'
+set sidebar_folder_indent
+set sidebar_indent_string = '  '
+
+# set sidebar_format = "%B %* [%?N?%N / ?%S]"
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
 
 # Mailboxes to show in the sidebar.
-mailboxes =ALL-INBOXES
-mailboxes =mailbox/Inbox
-mailboxes ="==================="
-mailboxes =mailbox
-mailboxes =mailbox/Archive =mailbox/Sent =mailbox/Drafts =mailbox/Junk =mailbox/Trash
+mailboxes =cocaine.farm
+mailboxes =cocaine.farm/Inbox =cocaine.farm/Archive =cocaine.farm/Sent =cocaine.farm/Drafts =cocaine.farm/Junk =cocaine.farm/Trash
+mailboxes =ejected.space
+mailboxes =ejected.space/Inbox =ejected.space/Archive =ejected.space/Sent =ejected.space/Drafts =ejected.space/Junk =ejected.space/Trash
+mailboxes =gmail
+mailboxes =gmail/Inbox =gmail/[Gmail]/All\ Mail =gmail/[Gmail]/Sent\ Mail
 
 # source colors and keybindings
 # keeping those in one place makes it easier for my brain
 source ~/.mutt/colors
 source ~/.mutt/bindings
-
-bind index u noop
-
-### BEGIN NOTMUCH-MUTT SETTINGS
-    macro index  \
-          "unset wait_key~/.local/scripts/mutt-notmuch --prompt search~/.cache/mutt_results" \
-          "search mail (using notmuch)"
-    macro index  \
-          "unset wait_key~/.local/scripts/mutt-notmuch thread~/.cache/mutt_resultsset wait_key" \
-          "search and reconstruct owning thread (using notmuch)"

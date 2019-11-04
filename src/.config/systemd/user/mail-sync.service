@@ -2,4 +2,4 @@
 Description=Sync mail
 
 [Service]
-ExecStart=mbsync -a && notmuch new
+ExecStart=/bin/sh -c "mbsync -a && notmuch new"
