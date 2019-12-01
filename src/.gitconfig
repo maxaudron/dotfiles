@@ -89,3 +89,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[user]
+	name = Max Audron
+	email = audron@cocaine.farm
