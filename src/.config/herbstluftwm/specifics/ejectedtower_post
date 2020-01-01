@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ladish_control sload default &
+
 for m in $(polybar --list-monitors | cut -d":" -f1); do
     if [[ $m == "DP-4.8" ]]; then
       MONITOR=$m polybar --reload one &

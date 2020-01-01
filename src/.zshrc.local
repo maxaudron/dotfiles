@@ -77,6 +77,7 @@ export PATH="/usr/sbin:$HOME/go/bin:/nix/var/nix/profiles/per-user/$USER/profile
 export GOPATH="$HOME/go/"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export HELMFILE_HELM3=1
 
 ###############################################################################
 # Alias
@@ -100,8 +101,9 @@ alias gc="git commit -v"
 alias glg="git glog"
 alias gp="git push"
 alias shutdown="$HOME/.local/bin/shutdown"
+alias docker="podman"
 alias ducker="docker"
-alias mpc="ncmpcpp"
+alias nmpc="ncmpcpp"
 
 ###############################################################################
 # Functions
@@ -131,8 +133,8 @@ files:
 EOF
 )
         echo "$c" | gpg --clearsign -o "$2.prov" $keyuser
-    elif [[ "$1" == "push" ]]; then
-        curl -u chartadmin:$(pass show Git/chartadmin) -F "chart=@$2" -F "prov=@$2.prov" https://charts.cocaine.farm/api/charts
+    # elif [[ "$1" == "push" ]]; then
+        # curl -u chartadmin:$(pass show Git/chartadmin) -F "chart=@$2" -F "prov=@$2.prov" https://charts.cocaine.farm/api/charts
     else
         command helm $@
     fi
