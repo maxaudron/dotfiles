@@ -1,0 +1,12 @@
+[Unit]
+Description=Emacs: the extensible, self-documenting text editor
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/emacs --daemon
+ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+Environment=PATH=/home/audron/google-cloud-sdk/bin:/usr/sbin:/home/audron/go/bin:/nix/var/nix/profiles/per-user/audron/profile/bin/:/home/audron/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/bin:/home/audron/.local/bin:/home/audron/.cargo/bin:/usr/local/musl/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/home/audron/bin:/home/audron/.fzf/bin
+Restart=always
+
+[Install]
+WantedBy=default.target

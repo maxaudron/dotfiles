@@ -34,7 +34,7 @@ let g:spacevim_layers = [
 
 " Uncomment the following line if your terminal(-emulator) supports true colors.
 let g:spacevim_enable_true_color = 1
-"let g:spacevim_lsp_engine = 'coc'
+let g:spacevim_lsp_engine = 'coc'
 
 " Uncomment the following if you have some nerd font installed.
 " let g:spacevim_nerd_fonts = 1
@@ -117,7 +117,7 @@ function! UserConfig()
       " \ 'languageServerHaskell': ['hie', '--lsp'],
       " \ }
   let g:LanguageClient_diagnosticsEnable = 0
-  let g:LanguageClient_useVirtualText = 0
+  let g:LanguageClient_useVirtualText = 1
 
   nnoremap <Leader>el :copen<CR>
 
