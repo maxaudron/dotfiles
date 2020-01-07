@@ -66,7 +66,26 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+      (doom-themes
+        :config
+        ;; Global settings (defaults)
+        (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+              doom-themes-enable-italic t) ; if nil, italics is universally disabled
+        (load-theme 'doom-one t)
+
+        ;; Enable flashing mode-line on errors
+        (doom-themes-visual-bell-config)
+
+        ;; Enable custom neotree theme (all-the-icons must be installed!)
+        (doom-themes-neotree-config)
+        ;; or for treemacs users
+        (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
+        (doom-themes-treemacs-config)
+
+        ;; Corrects (and improves) org-mode's native fontification.
+        (doom-themes-org-config)
+      ))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -191,7 +210,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-night
+   dotspacemacs-themes '(doom-tomorrow-night
+                         sanityinc-tomorrow-night
                          spacemacs-dark
                          spacemacs-light)
 
@@ -488,10 +508,8 @@ before packages are loaded."
     (interactive)
     (message current-project-path))
 
-  (dolist (dir '(
-                 vendor
-                ))
-    (push dir lsp-file-watch-ignored))
+  ;; (dolist (dir '(vendor))
+  ;;   (push dir lsp-file-watch-ignored))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -506,9 +524,13 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(doom-modeline-buffer-modification-icon t)
+ '(doom-modeline-icon t)
+ '(doom-modeline-unicode-fallback t)
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (yasnippet-snippets xterm-color vterm unfill treemacs-magit terminal-here smeargle shell-pop orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain org-ql peg ov org-super-agenda ts mwim multi-term mmm-mode markdown-toc magit-svn magit-gitflow magit-popup lsp-ui lsp-treemacs htmlize helm-org-rifle helm-org helm-lsp helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help company-statistics company-lsp lsp-mode markdown-mode dash-functional company browse-at-remote auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler writeroom-mode visual-fill-column winum volatile-highlights vi-tilde-fringe uuidgen treemacs-projectile treemacs-evil treemacs ht pfuture toc-org symon symbol-overlay string-inflection spaceline-all-the-icons spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode password-generator paradox spinner lv overseer org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile projectile helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio flycheck-package package-lint flycheck pkg-info epl let-alist flycheck-elsa flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump doom-modeline shrink-path all-the-icons memoize devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup use-package pcre2el org-plus-contrib dotenv-mode diminish bind-map bind-key which-key hydra hybrid-mode font-lock+ evil-unimpaired async aggressive-indent ace-window))))
+    (doom-themes yasnippet-snippets xterm-color vterm unfill treemacs-magit terminal-here smeargle shell-pop orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-cliplink org-brain org-ql peg ov org-super-agenda ts mwim multi-term mmm-mode markdown-toc magit-svn magit-gitflow magit-popup lsp-ui lsp-treemacs htmlize helm-org-rifle helm-org helm-lsp helm-gitignore helm-git-grep helm-company helm-c-yasnippet gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ fringe-helper git-gutter+ gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip evil-org evil-magit magit git-commit with-editor transient eshell-z eshell-prompt-extras esh-help company-statistics company-lsp lsp-mode markdown-mode dash-functional company browse-at-remote auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler writeroom-mode visual-fill-column winum volatile-highlights vi-tilde-fringe uuidgen treemacs-projectile treemacs-evil treemacs ht pfuture toc-org symon symbol-overlay string-inflection spaceline-all-the-icons spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode password-generator paradox spinner lv overseer org-bullets open-junk-file nameless move-text macrostep lorem-ipsum link-hint indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-xref helm-themes helm-swoop helm-purpose window-purpose imenu-list helm-projectile projectile helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio flycheck-package package-lint flycheck pkg-info epl let-alist flycheck-elsa flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state iedit evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens smartparens paredit evil-args evil-anzu anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump doom-modeline shrink-path all-the-icons memoize devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile packed ace-link ace-jump-helm-line helm helm-core popup use-package pcre2el org-plus-contrib dotenv-mode diminish bind-map bind-key which-key hydra hybrid-mode font-lock+ evil-unimpaired async aggressive-indent ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
