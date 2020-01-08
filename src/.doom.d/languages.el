@@ -6,7 +6,10 @@
 
 ;; LSP
 ;; Ignore directories
-;; (dolist (dir '(
-;;                "[/\\\\]vendor$"
-;;                ))
-;;     (push dir 'lsp-file-watch-ignored))
+(defun lsp-extend-file-watch-ignored ()
+  (setq lsp-file-watch-ignored
+        (append '("[/\\\\]vendor"
+                  "[/\\\\]build$")
+              lsp-file-watch-ignored)))
+
+(add-hook 'lsp-after-initialize-hook 'lsp-extend-file-watch-ignored)

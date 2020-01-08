@@ -10,6 +10,19 @@
 (map! :leader "w |" 'evil-window-vsplit)
 (map! :leader "w -" 'evil-window-split)
 
+;; ORG MODE
+(defun open-org-index ()
+  "Open org-mode index"
+  (interactive)
+  (find-file (concat org-directory "index.org")))
+(map! :leader :desc "Open org-mode index" "o o" 'open-org-index)
+
+(defun open-org-project ()
+  "Open org-mode project file"
+  (interactive)
+  (find-file (concat org-directory (concat (projectile-project-name) ".org"))))
+(map! :leader :desc "Open org-mode index" "p o" 'open-org-project)
+
 ;; SPC e -*- Errors
 (map! :leader :desc "Errors" "e")
 (map! :leader :desc "List all Errors" "e l" 'flycheck-list-errors)

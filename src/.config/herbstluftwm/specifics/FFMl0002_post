@@ -9,3 +9,13 @@ for m in $(polybar --list-monitors | cut -d":" -f1); do
       MONITOR=$m polybar --reload three &
     fi
 done
+
+herbstclient rule --class=quasselclient --tag=2_1 --focus=off
+herbstclient rule --class=Firefox --tag=0_1 --focus=off
+
+if [ -z "$(pgrep firefox)" ]; then
+    herbstclient spawn firefox
+fi
+if [ -z "$(pgrep quasselclient)" ]; then
+    herbstclient spawn quasselclient
+fi

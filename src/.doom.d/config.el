@@ -20,23 +20,25 @@
 ;; font string. You generally only need these two:
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 13))
 
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. These are the defaults.
+;; Config
 (setq doom-theme 'doom-tomorrow-night)
-
-;; If you intend to use org, it is recommended you change this!
 (setq org-directory "~/org/")
+(setq display-line-numbers-type 'relative)
 
-;; If you want to change the style of line numbers, change this to `relative' or
-;; `nil' to disable it:
-(setq display-line-numbers-type t)
+;; Modeline
+(setq doom-modeline-buffer-file-name-style 'file-name)
+(setq doom-modeline-icon t)
+(setq doom-modeline-buffer-state-icon t)
+(setq doom-modeline-buffer-modification-icon nil)
+(setq doom-modeline-enable-word-count t)
+
+(global-hl-line-mode nil)
+(setq epg-gpg-program "gpg2")
+(setq epa-pinentry-mode 'loopback)
 
 ;; Load external resources
 (load! "keybinds")
 (load! "languages")
-
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

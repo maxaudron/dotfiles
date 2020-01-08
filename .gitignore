@@ -6,3 +6,4 @@ src/.zsh/.zcompdump
 src/.zsh/.zcompdump.zwc
 src/.SpaceVim.d/.netrwhist
 src/.config/systemd/user/default.target.wants/
+src/.config/systemd/user/timers.target.wants/
