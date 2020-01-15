@@ -1,0 +1,10 @@
+[Unit]
+Description=Local quasselcore
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start -a quasselcore
+ExecStop=/usr/bin/podman stop -t 2 quasselcore
+
+[Install]
+WantedBy=local.target
