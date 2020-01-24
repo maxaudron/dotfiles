@@ -84,11 +84,12 @@
 
 [url "git@git.eu.clara.net:"]
     insteadOf = https://git.eu.clara.net/
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-[user]
-	name = Max Audron
-	email = audron@cocaine.farm
+
+[rebase]
+	instructionFormat = (%an <%ae>) %s
