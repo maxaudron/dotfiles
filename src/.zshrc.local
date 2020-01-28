@@ -1,3 +1,4 @@
+#!/bin/zsh
 source $HOME/.zsh/plugins/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 source $HOME/.zsh/plugins/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
@@ -95,6 +96,8 @@ alias docker="podman"
 alias ducker="docker"
 alias nmpc="ncmpcpp"
 alias ec="emacsclient"
+alias sys="systemctl"
+alias sysu="systemctl --user"
 
 ###############################################################################
 # Functions
