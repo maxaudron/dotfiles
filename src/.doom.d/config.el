@@ -33,12 +33,16 @@
 (setq doom-modeline-enable-word-count t)
 
 (global-hl-line-mode nil)
+
+(setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/S.gpg-agent.ssh")
+
 (setq epg-gpg-program "gpg2")
 (setq epa-pinentry-mode 'loopback)
 
 ;; Load external resources
 (load! "keybinds")
 (load! "languages")
+(load! "mu4e")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

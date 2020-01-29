@@ -52,3 +52,6 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 (package! doom-themes :disable)
 (package! doom-themes :recipe (:host github :repo "maxaudron/emacs-cocaine-themes"))
+
+(after! tramp
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
