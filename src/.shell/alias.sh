@@ -15,7 +15,7 @@ if command -v exa 2>/dev/null 1>/dev/null; then
     alias l.="exa -al --group-directories-first --git --time-style=long-iso -F -I '[!^.]*'"
     alias lt="exa -al --group-directories-first --git --time-style=long-iso -I .git --tree"
 else
-    alias l="ls -al --color always --group-directories-first"
+    alias l="ls -al --color=always --group-directories-first"
 fi
 
 # TERRAFORM
