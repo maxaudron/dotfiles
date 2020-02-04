@@ -3,7 +3,7 @@
 source $HOME/.zsh/powerlevel.zsh
 # source $HOME/.zsh/powerline.zsh
 
-#source $HOME/.zsh/lib/completion.zsh
+source $HOME/.zsh/lib/completion.zsh
 source $HOME/.zsh/plugins/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $HOME/.zsh/plugins/zsh-users/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
