@@ -40,9 +40,20 @@
 (setq epa-pinentry-mode 'loopback)
 
 ;; Load external resources
-(load! "keybinds")
-(load! "languages")
-(load! "mu4e")
+(load! "~/.doom.d/keybinds")
+(load! "~/.doom.d/languages")
+(load! "~/.doom.d/mu4e")
+
+;; (after! tramp
+;;   (setq 'tramp-default-remote-shell "/bin/sh")
+;;   (add-to-list 'tramp-connection-properties
+;;               (list (regexp-quote "/ssh:testcenter02:/srv/maximilan.manz")
+;;                     "remote-shell" "/bin/bash"))
+;;   (add-to-list 'tramp-connection-properties
+;;               (list (regexp-quote "/ssh:testcenter02:/srv/maximilan.manz")
+;;                     "remote-shell-login" '("-"))))
+
+(setq explicit-shell-file-name "/bin/sh")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
