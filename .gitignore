@@ -1,5 +1,6 @@
 src/.config/nvim/plugged
 src/.zshalias
+src/.zsh/.zsh_history
 src/.zsh/.zcompdump
 src/.zsh/.zcompdump.zwc
 src/.config/systemd/user/default.target.wants/
