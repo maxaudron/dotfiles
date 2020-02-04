@@ -1,4 +1,8 @@
 #!/usr/bin/env zsh
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 
 # Configure powerlevel stuff
@@ -49,7 +53,5 @@ POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=$'\uf176'
 POWERLEVEL9K_HOME_ICON=''
 POWERLEVEL9K_HOME_SUB_ICON=''
 POWERLEVEL9K_FOLDER_ICON=''
-#POWERLEVEL9K_STATUS_OK_ICON='\UF2B0'
-POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=' '
-#POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\UE0BA'
-POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=' '
+POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
+POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''

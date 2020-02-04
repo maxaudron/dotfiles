@@ -1,16 +1,16 @@
 #!/usr/bin/env sh
 
 # VIM
-if command -v nvim 2>/dev/null; then
+if command -v nvim 2>/dev/null 1>/dev/null; then
     alias v="nvim"
-elif command -v vim 2>/dev/null; then
+elif command -v vim 2>/dev/null 1>/dev/null; then
     alias v="vim"
 else
     alias v="vi"
 fi
 
 # LS
-if command -v ls 2>/dev/null; then
+if command -v exa 2>/dev/null 1>/dev/null; then
     alias l="exa -al --group-directories-first --git --time-style=long-iso"
     alias l.="exa -al --group-directories-first --git --time-style=long-iso -F -I '[!^.]*'"
     alias lt="exa -al --group-directories-first --git --time-style=long-iso -I .git --tree"
