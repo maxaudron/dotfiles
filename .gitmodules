@@ -16,3 +16,6 @@
 [submodule "secrets"]
 	path = secrets
 	url = git@gitlab.com:audron/secrets.git
+[submodule "src/.zsh/plugins/zsh-users/zsh-completions"]
+	path = src/.zsh/plugins/zsh-users/zsh-completions
+	url = git://github.com/zsh-users/zsh-completions.git

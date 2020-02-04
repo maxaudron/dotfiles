@@ -19,5 +19,8 @@ source $HOME/.shell/functions.sh
 eval $(dircolors -b)
 
 
-autoload -U compinit && compinit
+fpath=($HOME/.zsh/plugins/zsh-users/zsh-completions/src $fpath)
+autoload -U compinit
+compinit
+
 [ -f "$HOME/.fzf.zsh" ] && source $HOME/.fzf.zsh;
