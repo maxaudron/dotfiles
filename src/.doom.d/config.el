@@ -1,9 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; refresh' after modifying this file!
-
-
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
 (setq user-full-name "Max Audron"
@@ -22,38 +18,24 @@
 
 ;; Config
 (setq doom-theme 'doom-tomorrow-night)
-(setq org-directory "~/org/")
 (setq display-line-numbers-type 'relative)
 
-;; Modeline
-(setq doom-modeline-buffer-file-name-style 'file-name)
-(setq doom-modeline-icon t)
-(setq doom-modeline-buffer-state-icon t)
-(setq doom-modeline-buffer-modification-icon nil)
-(setq doom-modeline-enable-word-count t)
-
-(global-hl-line-mode nil)
-
 (setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/S.gpg-agent.ssh")
+(setenv "GPG_AGENT_INFO" nil)
 
 (setq epg-gpg-program "gpg2")
 (setq epa-pinentry-mode 'loopback)
 
 ;; Load external resources
-(load! "~/.doom.d/keybinds")
 (load! "~/.doom.d/languages")
+(load! "~/.doom.d/modeline")
+(load! "~/.doom.d/keybinds")
 (load! "~/.doom.d/mu4e")
+(load! "~/.doom.d/org")
 
-;; (after! tramp
-;;   (setq 'tramp-default-remote-shell "/bin/sh")
-;;   (add-to-list 'tramp-connection-properties
-;;               (list (regexp-quote "/ssh:testcenter02:/srv/maximilan.manz")
-;;                     "remote-shell" "/bin/bash"))
-;;   (add-to-list 'tramp-connection-properties
-;;               (list (regexp-quote "/ssh:testcenter02:/srv/maximilan.manz")
-;;                     "remote-shell-login" '("-"))))
+(setq explicit-shell-file-name "/bin/bash")
+(auth-source-pass-enable)
 
-(setq explicit-shell-file-name "/bin/sh")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

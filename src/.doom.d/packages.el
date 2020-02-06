@@ -53,6 +53,7 @@
 (package! doom-themes :disable)
 (package! doom-themes :recipe (:host github :repo "maxaudron/emacs-cocaine-themes"))
 (package! ini-mode)
+(package! org-jira)
 
 (after! tramp
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path))

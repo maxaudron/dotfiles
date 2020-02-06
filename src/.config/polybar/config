@@ -96,7 +96,7 @@ type = custom/script
 ; Available tokens:
 ;   %counter%
 ; Command to be executed (using "/usr/bin/env sh -c [command]")
-exec = "notmuch count tag:unread"
+exec = "mu find flag:unread 2>/dev/null | wc -l"
 interval = 30
 format-foreground = ${sides.foreground}
 format-background = ${sides.background}
@@ -271,17 +271,31 @@ format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 format-padding = 0
 
+thermal-zone = 1
 
-thermal-zone = 3
-
-label = %temperature%
-label-warn = %temperature%
+label = %temperature-c%
+label-warn = %temperature-c%
 label-warn-foreground = ${colors.red}
 
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
 
+[module/temp0]
+inherit = module/temperature
+thermal-zone = 0
+
+[module/temp1]
+inherit = module/temperature
+thermal-zone = 1
+
+[module/temp2]
+inherit = module/temperature
+thermal-zone = 2
+
+[module/temp3]
+inherit = module/temperature
+thermal-zone = 3
 
 
 ;---------------------------------------------------------------------------
@@ -395,6 +409,20 @@ format-discharging = <ramp-capacity> <label-discharging>
 ;   <ramp-capacity>
 format-full = <ramp-capacity> <label-full>
 
+format-discharging-background = ${colors.background}
+format-charging-background = ${colors.background}
+format-full-background = ${colors.background}
+label-discharging-background = ${colors.background}
+label-charging-background = ${colors.background}
+label-full-background = ${colors.background}
+
+format-discharging-foreground = ${colors.foreground}
+format-charging-foreground = ${colors.foreground}
+format-full-foreground = ${colors.foreground}
+label-discharging-foreground = ${colors.foreground}
+label-charging-foreground = ${colors.foreground}
+label-full-foreground = ${colors.foreground}
+
 ; Available tokens:
 ;   %percentage% (default)
 ;   %time%
@@ -405,7 +433,7 @@ label-charging = %time% - %percentage%%
 ;   %percentage% (default)
 ;   %time%
 ;   %consumption% (shows current discharge rate in watts)
-label-discharging = %time% - %percentage%%
+label-discharging = %percentage%%
 
 ; Available tokens:
 ;   %percentage% (default)
@@ -428,7 +456,7 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-foreground = ${colors.green}
+;animation-charging-foreground = ${colors.green}
 ; Framerate in milliseconds
 animation-charging-framerate = 750
 

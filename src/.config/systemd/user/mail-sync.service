@@ -2,4 +2,4 @@
 Description=Sync mail
 
 [Service]
-ExecStart=/bin/sh -c "mbsync -a && notmuch new"
+ExecStart=/bin/sh -c "mbsync -a && mu index --maildir=$HOME/.local/mail"
