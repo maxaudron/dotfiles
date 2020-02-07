@@ -1,5 +1,5 @@
 [merge]
-  tool = vimdiff
+  tool = ediff
   conflictStyle = diff3
   ff = only
 
@@ -40,6 +40,21 @@
 
 [mergetool "vimdiff"]
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[mergetool.ediff]
+    cmd = emacs --eval \"\
+(progn\
+  (defun ediff-write-merge-buffer ()\
+    (let ((file ediff-merge-store-file))\
+      (set-buffer ediff-buffer-C)\
+      (write-region (point-min) (point-max) file)\
+      (message \\\"Merge buffer saved in: %s\\\" file)\
+      (set-buffer-modified-p nil)\
+      (sit-for 1)))\
+  (setq ediff-quit-hook 'kill-emacs\
+        ediff-quit-merge-hook 'ediff-write-merge-buffer)\
+  (ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\"\
+        \\\"$BASE\\\" nil \\\"$MERGED\\\"))\"
 
 [push]
   # When pushing, also push tags whose commit-ishs are now reachable upstream
