@@ -13,9 +13,9 @@ files:
   quassel-1.0.0.tgz: sha256:$shasum
 EOF
 )
-        echo "$c" | gpg --clearsign -o "$2.prov" "$keyuser"
+        echo "$c" | gpg --clearsign -o "$2.prov"
     # elif [[ "$1" == "push" ]]; then
-        # curl -u chartadmin:$(pass show Git/chartadmin) -F "chart=@$2" -F "prov=@$2.prov" https://charts.cocaine.farm/api/charts
+        # curl -u chartadmin:$(pass show git/chartadmin) -F "chart=@$2" -F "prov=@$2.prov" https://charts.cocaine.farm/api/charts
     else
         command helm $*
     fi
