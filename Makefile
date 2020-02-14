@@ -20,13 +20,12 @@ pyenv:
 #	pyenv install 2.7.9 &
 	while pgrep -u $UID -x pyenv >/dev/null; do sleep 5; done
 
-.PHONY: spacevim
-spacevim:
-	cd $(HOME)
-	git clone https://github.com/liuchengxu/space-vim.git ~/.space-vim
-	curl -fLo $(HOME)/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+.PHONY: doom
+doom:
+	/usr/bin/git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+	~/.emacs.d/bin/doom install
 
 .PHONY: depfedora
 depfedora:
-	sudo dnf install git stow gnupg2 zsh neovim @development-tools openssl-devel readline-devel
+	sudo dnf install git stow gnupg2 zsh emacs @development-tools openssl-devel readline-devel
 

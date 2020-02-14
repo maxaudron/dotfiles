@@ -2,6 +2,8 @@
 ;; ORG mode
 (after! org
   (setq org-directory "~/org/")
+  (setq org-agenda-files
+        (append "~/org/" "~/org/projects"))
 
   (setq org-log-done nil)
   (setq org-log-into-drawer t)
