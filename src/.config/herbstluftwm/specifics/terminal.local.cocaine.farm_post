@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for m in $(polybar --list-monitors | cut -d":" -f1); do
+    if [[ $m == "eDP-1" ]]; then
+      MONITOR=$m polybar --reload one &
+    fi
+done
