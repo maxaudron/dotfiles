@@ -1,20 +1,3 @@
-#define base00 #070d0f
-#define base01 #0b161a
-#define base02 #000000
-#define base03 #323232
-#define base04 #858585
-#define base05 #d0cbaf
-#define base06 #b6bdca
-#define base07 #fffdff
-#define base08 #ea5c39
-#define base09 #ea5c39
-#define base0A #ee863e
-#define base0B #ee863e
-#define base0C #ef8e6d
-#define base0D #ef8e6d
-#define base0E #fefbb0
-#define base0F #fefbb0
-
 *.foreground : #f5f5f5
 #ifdef background_opacity
 *.background:   #181818
@@ -48,23 +31,26 @@
 *.color20: #b4b7b4
 *.color21: #e0e0e0
 
-URxvt.saveLines: 1000
-URxvt.scrollBar: false
-URxvt.secondaryScroll: true
-URxvt.font: xft:Hasklig Light:pixelsize=12
-URxvt.perl-ext-common: default,matcher
-URxvt.urlLauncher: firefox
-URxvt.matcher.button: 1
-URxvt.tabbed.saveLines: 1000
-URxvt.tabbed.scrollBar: false
-URxvt.tabbed.tabbar-fg: 3
-URxvt.tabbed.tabbar-bg: 0
-URxvt.tabbed.tab-fg: 0
-URxvt.tabbed.tab-bg: 1
-URxvt.tabbed.secondaryScroll: true
-URxvt.tabbed.font: xft:Hasklig Light:pixelsize=12
-URxvt*inheritPixmap: true 
-!URxvt*shading: 70
+! Use a nice truetype font and size by default... 
+UXTerm*faceName: Fira Code Nerd Font Mono
+UXTerm*faceSize: 12
+
+! Every shell is a login shell by default (for inclusion of all necessary environment variables)
+UXTerm*loginshell: true
+
+! I like a LOT of scrollback...
+UXTerm*savelines: 16384
+
+! double-click to select whole URLs :D
+!UXTerm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+! right hand side scrollbar...
+UXTerm*rightScrollBar: true
+UXTerm*ScrollBar: false
+
+! stop output to terminal from jumping down to bottom of scroll again
+UXTerm*scrollTtyOutput: false
+
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
