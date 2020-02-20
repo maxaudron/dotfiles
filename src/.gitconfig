@@ -94,6 +94,9 @@
 [includeIf "gitdir:~/dotfiles"]
   path = .gitconfig-gitlab
 
+[includeIf "gitdir:~/org"]
+  path = .gitconfig-gitlab
+
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
     path = .gitconfig-work
 
