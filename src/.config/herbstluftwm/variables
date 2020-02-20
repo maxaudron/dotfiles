@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 Mod=Mod4
-TERMINAL=kitty
+TERMINAL=uxterm
 floatingMonitorName=floatmon
 floatingTagName=fl
 Floatkey=g

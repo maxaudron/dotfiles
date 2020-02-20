@@ -33,7 +33,8 @@
 
 ! Use a nice truetype font and size by default... 
 UXTerm*faceName: Fira Code Nerd Font Mono
-UXTerm*faceSize: 12
+UXTerm*faceSize: 11
+UXTerm*allowBoldFonts: false
 
 ! Every shell is a login shell by default (for inclusion of all necessary environment variables)
 UXTerm*loginshell: true
