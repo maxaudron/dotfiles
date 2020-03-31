@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ladish_control sload default &
+( ladish_control sload default && cadence-pulse2jack && scream-pulse -i virbr0 ) &
 
 for m in $(polybar --list-monitors | cut -d":" -f1); do
     if [[ $m == "DP-4.8" ]]; then

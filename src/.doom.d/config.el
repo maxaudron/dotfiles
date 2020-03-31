@@ -14,7 +14,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 13))
+(setq doom-font (font-spec :family "FiraCode NF" :size 13))
 
 ;; Config
 (setq doom-theme 'doom-tomorrow-night)
@@ -31,11 +31,10 @@
 (load! "~/.doom.d/modeline")
 (load! "~/.doom.d/keybinds")
 (load! "~/.doom.d/mu4e")
-(load! "~/.doom.d/org")
+(load! "~/.doom.d/usr-org")
 
 (setq explicit-shell-file-name "/bin/bash")
 (auth-source-pass-enable)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

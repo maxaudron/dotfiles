@@ -271,7 +271,7 @@ format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 format-padding = 0
 
-thermal-zone = 1
+thermal-zone = 0
 
 label = %temperature-c%
 label-warn = %temperature-c%

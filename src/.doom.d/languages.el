@@ -10,6 +10,11 @@
   (setq lsp-file-watch-ignored
         (append '("[/\\\\]vendor"
                   "[/\\\\]build$")
-              lsp-file-watch-ignored)))
+                lsp-file-watch-ignored)))
+
+;; Rust
+(after! rustic
+  (setq lsp-rust-server 'rust-analyzer)
+  (setq rustic-lsp-server 'rust-analyzer))
 
 (add-hook 'lsp-after-initialize-hook 'lsp-extend-file-watch-ignored)

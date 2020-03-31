@@ -32,7 +32,7 @@
 *.color21: #e0e0e0
 
 ! Use a nice truetype font and size by default... 
-UXTerm*faceName: Fira Code Nerd Font Mono
+UXTerm*faceName: Fira Code NF
 UXTerm*faceSize: 11
 UXTerm*allowBoldFonts: false
 
@@ -67,14 +67,13 @@ rofi.color-normal:    base00 , #ffffff, base00 , base00 ,  base0A
 rofi.color-active:    base00 , base0B  , base00 , base00 , base07
 rofi.color-urgent:    base00 , base03  , base00 , base00 , base07
 
-rofi.fake-transparency : true
-rofi.font              : Hack 12
+rofi.font              : San Francisco Display 16
 rofi.columns           : 1
 rofi.separator-style   : none
 rofi.hide-scrollbar    : true
 rofi.location          : 0
 rofi.padding           : 12
-rofi.fullscreen        : false
+rofi.fullscreen        : true
 rofi.width             : 550
 rofi.lines             : 9
 
@@ -85,3 +84,4 @@ Xft.hinting   : true
 Xft.hintstyle : hintslight
 Xft.autohint  : false
 Xft.lcdfilter : lcddefault
+

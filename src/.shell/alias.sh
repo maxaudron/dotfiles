@@ -11,9 +11,10 @@ fi
 
 # LS
 if command -v exa 2>/dev/null 1>/dev/null; then
-    alias l="exa -al --group-directories-first --git --time-style=long-iso"
-    alias l.="exa -al --group-directories-first --git --time-style=long-iso -F -I '[!^.]*'"
-    alias lt="exa -al --group-directories-first --git --time-style=long-iso -I .git --tree"
+    alias l="exa -al --git --group-directories-first --time-style=long-iso"
+    alias lg="exa -al --group-directories-first --git --time-style=long-iso"
+    alias l.="exa -al --git --group-directories-first --time-style=long-iso -F -I '[!^.]*'"
+    alias lt="exa -al --git --group-directories-first --time-style=long-iso -I .git --tree"
 else
     alias l="ls -al --color=always --group-directories-first"
 fi
@@ -40,4 +41,4 @@ alias cl="clear"
 alias gpg="gpg2"
 alias kc="kubectl"
 alias nmpc="ncmpcpp"
-alias ec="emacsclient"
+alias ec="emacsclient -nc"
