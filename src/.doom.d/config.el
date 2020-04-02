@@ -36,6 +36,13 @@
 (setq explicit-shell-file-name "/bin/bash")
 (auth-source-pass-enable)
 
+(use-package! emacs-upload
+  :demand t
+  :config
+    (emacs-upload/set-host "c-v"))
+
+(map! :leader :desc "Upload to pastebin" "y" 'emacs-upload)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

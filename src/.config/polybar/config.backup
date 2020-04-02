@@ -1,0 +1,752 @@
+;---------------------------------------------------------------------------
+; --                                                                    -- ;
+; -- Polybar Config                                                     -- ;
+; --                                                                    -- ;
+;---------------------------------------------------------------------------
+
+
+;---------------------------------------------------------------------------
+; -- Colors
+;---------------------------------------------------------------------------
+[colors]
+foreground = #d0cbaf
+background = #181818
+modb       = #1d1e1f
+modb1      = #1d1e1f
+modb2      = #1d1e1f
+
+red    = #E88A30
+green  = #C3E88D
+yellow = #FFCB6B
+blue   = #89DDFF
+violet = #C792EA
+cyan   = #82AAFF
+white  = #c6c8d1
+
+;---------------------------------------------------------------------------
+; -- Bar Template
+;---------------------------------------------------------------------------
+[section/bar-base]
+monitor = ${env:MONITOR:}
+
+width    = 100%
+height   = 25
+
+locale     = en_US.UTF-8
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+font-0 = FuraCode Nerd Font:style=Retina,Regular:size=11;3
+font-1 = FuraCode Nerd Font:style=Retina,Regular:size=19;3
+
+modules-left   = powermenu mail date s
+modules-center = b bspwm s
+modules-right  = b mpd cpu temperature memory
+
+tray-position    = none
+tray-padding     = 2
+tray-transparent = false
+tray-detached    = false
+tray-background  = ${colors.modb}
+
+[sides]
+background = #292929
+foreground = #E88A30
+
+[section/sides]
+format-background = ${sides.background}
+format-foreground = ${sides.foreground}
+
+;---------------------------------------------------------------------------
+; -- Bars
+;---------------------------------------------------------------------------
+[bar/one]
+inherit = section/bar-base
+ewmh-filter = "(^0_)(.?)"
+
+[bar/two]
+inherit = section/bar-base
+ewmh-filter = "(^1_)(.?)"
+
+[bar/three]
+inherit = section/bar-base
+ewmh-filter = "(^2_)(.?)"
+
+;---------------------------------------------------------------------------
+; -- helper powerline
+[module/s]
+type = custom/text
+
+content = " "
+content-font = 2
+content-foreground = ${sides.background}
+
+
+;---------------------------------------------------------------------------
+[module/b]
+type = custom/text
+
+content = ""
+content-font = 2
+content-foreground = ${sides.background}
+
+[module/mail]
+type = custom/script
+
+; Available tokens:
+;   %counter%
+; Command to be executed (using "/usr/bin/env sh -c [command]")
+exec = "mu find flag:unread 2>/dev/null | wc -l"
+interval = 30
+format-foreground = ${sides.foreground}
+format-background = ${sides.background}
+format-prefix = 
+format-prefix-padding = 1
+format-padding = 0
+
+;---------------------------------------------------------------------------
+; -- Modules
+;---------------------------------------------------------------------------
+[module/date]
+type = internal/date
+inherit = section/sides
+
+; Seconds to sleep between updates
+interval = 1.0
+
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %Y-%m-%d%
+
+; Available tags:
+;   <label> (default)
+format = <label>
+format-padding = 2
+
+; Available tokens:
+;   %date%
+;   %time%
+; Default: %date%
+label = %date% %time%
+label-font = 3
+;label-foreground = #9A32DB
+
+; Optional time format
+time = %H:%M
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt = %A, %d %B %Y
+time-alt = %H:%M:%S
+
+
+;---------------------------------------------------------------------------
+[module/bspwm]
+type = internal/bspwm
+
+; Only show workspaces defined on the same output as the bar
+; NOTE: The bspwm and XRandR monitor names must match, which they do by default.
+; But if you rename your bspwm monitors with bspc -n this option will no longer
+; behave correctly.
+; Default: true
+pin-workspaces = true
+
+; Output mode flags after focused state label
+; Default: false
+inline-mode = true
+
+; Create click handler used to focus workspace
+; Default: true
+enable-click = true
+
+; Create scroll handlers used to cycle workspaces
+; Default: true
+enable-scroll = false
+
+; Set the scroll cycle direction
+; Default: true
+reverse-scroll = false
+
+; Use fuzzy (partial) matching on labels when assigning
+; icons to workspaces
+; Example: code;♚ will apply the icon to all workspaces
+; containing 'code' in the label
+; Default: false
+fuzzy-match = true
+
+format = <label-state> <label-mode>
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-monitor = %name%
+
+; If any values for label-dimmed-N are defined, the workspace/mode
+; colors will get overridden with those values if the monitor is out of focus
+; To only override workspaces in a specific state, use:
+;   label-dimmed-focused
+;   label-dimmed-occupied
+;   label-dimmed-urgent
+;   label-dimmed-empty
+label-dimmed-foreground = #555
+label-dimmed-underline = ${bar/top.background}
+label-dimmed-focused-background = #f00
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-focused = %name%
+label-focused-foreground = #ffffff
+label-focused-background = #3f3f3f
+label-focused-underline = #fba922
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-occupied = %name%
+label-occupied-underline = #555555
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = %name%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-underline = #9b0a20
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = %name%
+label-empty-foreground = #55
+
+; The following labels will be used to indicate the layout/mode
+; for the focused workspace. Requires <label-mode>
+;
+; Available tokens:
+;   None
+;label-monocle = 
+;label-tiled = 
+;label-fullscreen = 
+;label-floating = 
+;label-pseudotiled = P
+;label-locked = 
+;label-locked-foreground = #bd2c40
+;label-sticky = 
+;label-sticky-foreground = #fba922
+;label-private = 
+;label-private-foreground = #bd2c40
+;label-marked = M
+
+; Separator in between workspaces
+label-separator = |
+label-separator-padding = 2
+label-separator-foreground = #ffb52a
+
+
+;---------------------------------------------------------------------------
+[module/ewmh]
+type = internal/xworkspaces
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = false
+
+; Create click handler used to focus desktop
+; Default: true
+enable-click = true
+
+; Create scroll handlers used to cycle desktops
+; Default: true
+enable-scroll = true
+
+; Filter out any workspaces that don't match the expression
+; Default: ""
+filter = ${root.ewmh-filter}
+
+icon-0 = 0_1; 
+icon-1 = 0_2;
+icon-2 = 0_3;
+icon-3 = 0_4;
+icon-4 = 0_5;
+icon-5 = 1_1;
+icon-6 = 1_2;
+icon-7 = 1_3;
+icon-8 = 1_4;
+icon-9 = 1_5;
+icon-default = 
+
+; Available tags:
+;   <label-monitor>
+;   <label-state> - gets replaced with <label-(active|urgent|occupied|empty)>
+; Default: <label-state>
+format = <label-state>
+format-background = ${sides.background}
+
+; Available tokens:
+;   %name%
+; Default: %name%
+label-monitor = %name%
+label-monitor-background = ${sides.background}
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-active = %icon%
+label-active-padding = 1
+label-active-foreground = #E88A30
+label-active-background = ${sides.background}
+label-active-underline = #fba922
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-occupied = %icon%
+label-occupied-padding = 1
+label-occupied-foreground = #f5f5f5
+label-occupied-background = ${sides.background}
+label-occupied-underline = #555555
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = %icon%
+label-urgent-padding = 1
+label-urgent-foreground = #D52B1D
+label-urgent-background = ${sides.background}
+label-urgent-underline = #9b0a20
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = %icon%
+label-empty-padding = 1
+label-empty-foreground = #b6b6b6
+label-empty-background = ${sides.background}
+
+
+;---------------------------------------------------------------------------
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = caps lock
+
+format-prefix = " "
+format-prefix-foreground = ${colors.red}
+format-padding = 1
+
+label-layout = %layout%
+label-layout-padding = 0
+
+
+;---------------------------------------------------------------------------
+[module/memory]
+type = internal/memory
+inherit = section/sides
+interval = 2
+format = <label>
+format-prefix = ""
+format-prefix-padding = 1
+format-padding = 1
+label = %mb_used%
+
+
+
+;---------------------------------------------------------------------------
+[module/temperature]
+type = internal/temperature
+inherit = section/sides
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+format-padding = 0
+
+thermal-zone = 0
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.red}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+[module/temp0]
+inherit = module/temperature
+thermal-zone = 0
+
+[module/temp1]
+inherit = module/temperature
+thermal-zone = 1
+
+[module/temp2]
+inherit = module/temperature
+thermal-zone = 2
+
+[module/temp3]
+inherit = module/temperature
+thermal-zone = 3
+
+
+;---------------------------------------------------------------------------
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label>
+format-prefix = 
+format-prefix-padding = 1
+format-padding = 2
+format-prefix-foreground = ${colors.red}
+label = %percentage%%
+
+
+
+;---------------------------------------------------------------------------
+[module/backlight-acpi]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+
+;---------------------------------------------------------------------------
+[module/mpd]
+type = internal/mpd
+label-song = %artist% - %title%
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next> <icon-repeat> <icon-random> <label-time> <bar-progress>
+
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+icon-next-foregound = ${colors.red}
+icon-play-foregound = ${colors.red}
+icon-pause-foregound = ${colors.red}
+
+icon-random = 
+icon-repeat = 
+
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+
+; Only applies if <bar-progress> is used
+;bar-progress-width = 45
+;bar-progress-indicator = |
+;bar-progress-fill = ─
+;bar-progress-empty = ─
+;bar-progress-fill-foreground = #00FF00
+
+bar-progress-width = 45
+bar-progress-indicator = 
+bar-progress-indicator-foreground = #bb
+bar-progress-fill = ─
+bar-progress-fill-foreground = #00FF00
+bar-progress-fill-font = 3
+bar-progress-empty = ─
+bar-progress-empty-foreground = #44
+bar-progress-empty-font = 3
+
+label-song-maxlen = 50
+label-song-ellipsis = true
+
+
+;---------------------------------------------------------------------------
+[module/battery]
+type = internal/battery
+
+; This is useful in case the battery never reports 100% charge
+full-at = 99
+
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
+battery = BAT0
+adapter = ADP1
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 10
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-discharging = <ramp-capacity> <label-discharging>
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-full = <ramp-capacity> <label-full>
+
+format-discharging-background = ${colors.background}
+format-charging-background = ${colors.background}
+format-full-background = ${colors.background}
+label-discharging-background = ${colors.background}
+label-charging-background = ${colors.background}
+label-full-background = ${colors.background}
+
+format-discharging-foreground = ${colors.foreground}
+format-charging-foreground = ${colors.foreground}
+format-full-foreground = ${colors.foreground}
+label-discharging-foreground = ${colors.foreground}
+label-charging-foreground = ${colors.foreground}
+label-full-foreground = ${colors.foreground}
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = %time% - %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-full = %percentage%
+
+; Only applies if <ramp-capacity> is used
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.red}
+
+; Only applies if <bar-capacity> is used
+bar-capacity-width = 10
+
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+;animation-charging-foreground = ${colors.green}
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+format-padding = 1
+
+module-margin-right = 2
+
+
+;---------------------------------------------------------------------------
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+mount-1 = /boot
+mount-2 = /home
+
+label-mounted = %{F#ff9933}%mountpoint%%{F-}: %percentage_used%% 
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.red}
+
+
+;---------------------------------------------------------------------------
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume><label-volume>
+
+format-volume-background = ${colors.modb}
+format-volume-padding    = 1
+
+module-margin-right = 0
+ramp-volume-0       = 
+ramp-volume-1       = 
+ramp-volume-2       = 
+
+ramp-volume-foreground = ${colors.red}
+
+label-muted-padding    = 2
+label-muted            = muted
+label-muted-background = ${colors.modb}
+
+
+;---------------------------------------------------------------------------
+[module/date1]
+type                     = internal/date
+interval                 = 1
+date                     = " %I:%M"
+format-prefix            = 
+format-prefix-foreground = ${colors.red}
+format-background        = ${colors.modb}
+format-padding           = 1
+
+
+;---------------------------------------------------------------------------
+[module/powermenu]
+type = custom/menu
+inherit = section/sides
+
+label-open                 = 
+label-open-foreground      = ${sides.foreground}
+label-open-background      = ${sides.background}
+label-open-padding         = 1
+label-close                = 
+label-close-padding        = 1
+label-close-foreground     = ${sides.foreground}
+label-close-background     = ${sides.background}
+label-separator            = |
+label-separator-margin    = 0
+label-separator-foreground = ${sides.foreground}
+label-separator-background = ${sides.background}
+
+menu-0-0      = reboot
+menu-0-0-exec = menu-open-1
+menu-0-0-foreground     = ${sides.foreground}
+menu-0-0-background     = ${sides.background}
+menu-0-1      = poweroff
+menu-0-1-exec = menu-open-2
+menu-0-1-foreground     = ${sides.foreground}
+menu-0-1-background     = ${sides.background}
+menu-0-2      = logout
+menu-0-2-exec = menu-open-3
+menu-0-2-foreground     = ${sides.foreground}
+menu-0-2-background     = ${sides.background}
+
+menu-1-0      = 
+menu-1-0-exec = shutdown -r now
+menu-1-0-foreground     = ${sides.foreground}
+menu-1-0-background     = ${sides.background}
+menu-1-1      = 
+menu-1-1-exec = menu-open-0
+menu-1-1-foreground     = ${sides.foreground}
+menu-1-1-background     = ${sides.background}
+
+menu-2-0      = 
+menu-2-0-exec = shutdown -h now
+menu-2-0-foreground     = ${sides.foreground}
+menu-2-0-background     = ${sides.background}
+menu-2-1      = 
+menu-2-1-exec = menu-open-0
+menu-2-1-foreground     = ${sides.foreground}
+menu-2-1-background     = ${sides.background}
+
+menu-3-0      = 
+menu-3-0-exec = herbstclient quit
+menu-3-0-foreground     = ${sides.foreground}
+menu-3-0-background     = ${sides.background}
+menu-3-1      = 
+menu-3-1-exec = menu-open-0
+menu-3-1-foreground     = ${sides.foreground}
+menu-3-1-background     = ${sides.background}
+
+
+;---------------------------------------------------------------------------
+[module/previous]
+type              = custom/script
+format-text       = <label>
+label             = 
+exec              = echo label
+click-left        = exec playerctl previous
+format-foreground = ${colors.red}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+
+;---------------------------------------------------------------------------
+[module/next]
+type              = custom/script
+format-text       = <label>
+label             = 
+exec              = echo label
+click-left        = exec playerctl next
+format-foreground = ${colors.red}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+
+;---------------------------------------------------------------------------
+[module/spotipy]
+type              = custom/script
+exec              = python3 ~/scripts/spoti.py
+exec-if           = pgrep spotify > /dev/null
+interval          = 0.01
+click-left        = playerctl -p spotify play-pause
+format-foreground = ${colors.foreground}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+
+;---------------------------------------------------------------------------
+[module/playpause]
+type              = custom/script
+exec              = python3 ~/scripts/spoti-play.py
+interval          = 0.01
+click-left        = playerctl -p spotify play-pause
+format-foreground = ${colors.red}
+format-background = ${colors.modb1}
+format-padding    = 1
+
+
+;---------------------------------------------------------------------------
+[module/cpu]
+type                     = internal/cpu
+inherit = section/sides
+label                    = %percentage-sum%%
+format-prefix            = ""
+format-prefix-padding	 = 1
+format-padding           = 2
+
+
+;---------------------------------------------------------------------------
+[module/weather]
+type                     = custom/script
+interval                 = 2
+format                   = <label>
+format-padding           = 1
+format-prefix            = " "
+format-suffix            = "°C"
+format-prefix-foreground = ${colors.red}
+format-background        = ${colors.modb}
+exec                     = python2.7 /home/audron/scripts/weather.py

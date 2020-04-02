@@ -8,4 +8,9 @@ xset s off && xset -dpms
 xset m 0 0
 
 feh --bg-fill ~/.dotfiles/wallpaper/john-towner-blured.png
-exec herbstluftwm --locked
+
+( ladish_control sload default && cadence-pulse2jack && scream-pulse -i virbr0 ) &
+
+#exec herbstluftwm --locked
+
+exec bspwm

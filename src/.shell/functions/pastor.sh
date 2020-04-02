@@ -5,5 +5,5 @@ pastor () {
 }
 
 screenshot () {
-	scrot -s -e 'curl --upload-file $f https://c-v.sh; rm $f' | xclip -selection clipboard
+	scrot -s -e 'curl -s -F c=@${f} https://c-v.sh; rm $f'
 }
