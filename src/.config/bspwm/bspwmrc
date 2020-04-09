@@ -1,11 +1,13 @@
 #!/bin/sh
 
+CONF_DIR="$HOME/.config/bspwm"
+
 # Load utility functions and config vars
-. ./functions
-. ./config
+. "$CONF_DIR/functions"
+. "$CONF_DIR/config"
 
 # Load Host specific setup
-. "./specifics/$(hostname -f)"
+. "$CONF_DIR/specifics/$(hostname -f)"
 
 # Start Polybar
 kill_running polybar

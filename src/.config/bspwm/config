@@ -1,6 +1,13 @@
 #!/bin/sh
 
+alias config="bspc config"
+
 config focus_follows_pointer true
+config pointer_follows_focus true
+
+config presel_feedback false
+
+config focused_border_color \#E88A30
 
 config border_width         1
 config window_gap          12
