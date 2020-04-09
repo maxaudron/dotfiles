@@ -51,8 +51,18 @@ border_dir() {
 
 # IF window is at border of monitor and there is an adjecent monitor
 # THEN move window to there
-if bspc query -M -m ${dir} && ! bspc query -N -n ${dir}.local ; then
+if bspc query -M -m ${dir} && ! bspc query -N -n ${dir}.local && bspc query -N -n ${dir}; then
+  # Split vertically when there is only one window on the lower screen
+  # else split horizontally
+  if [ "$(bspc query -N -d ${dir}:focused | wc -l)" -eq "1" ] ; then
+    bspc node ${dir} -p $(border_dir ${dir}) && bspc node -m ${dir} --follow
+  else
     bspc node ${dir} -p $(opposite_dir ${dir}) && bspc node -m ${dir} --follow
+  fi
+
+# IF no window is on next monitor move window to it
+elif bspc query -M -m ${dir} && ! bspc query -N -n ${dir}.local ; then
+    bspc node -m ${dir} --follow
     
 # IF at border of monitor and there is no adjecent monitor
 # THEN rotate split by 90 degree
