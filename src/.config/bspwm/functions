@@ -1,0 +1,14 @@
+#!/bin/sh
+
+kill_running() {
+  if [ -n "$(pgrep $1)" ]; then
+    kill $(pgrep $1)
+  fi
+}
+
+launch() {
+  kill_running "$1"
+  $@
+}
+
+alias config="bspc config"
