@@ -1,16 +1,18 @@
-#! /bin/sh
+#!/bin/sh
 
 kill_if_running() {
-	if [ -n "$(pgrep $1)" ]; then
-		kill $(pgrep $1)
-	fi
+  if [ -n "$(pgrep $1)" ]; then
+    kill $(pgrep $1)
+  fi
 }
 
 kill_if_running sxhkd
 sxhkd &
 
-bspc monitor "%DP-4.8" -d 1_0 1_1 1_2 1_3 1_4 1_5 1_6 1_7 1_8 1_9
-bspc monitor DVI-D-0 -d 2_0 2_1 2_2 2_3 2_4 2_5 2_6 2_7 2_8 2_9
+bspc monitor DisplayPort-2 -d 1_0 1_1 1_2 1_3 1_4 1_5 1_6 1_7 1_8 1_9
+bspc monitor HDMI-A-0 -d 2_0 2_1 2_2 2_3 2_4 2_5 2_6 2_7 2_8 2_9
+
+bspc config focus_follows_pointer true
 
 bspc config border_width         1
 bspc config window_gap          12
@@ -19,11 +21,10 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
+kill_if_running polybar
 for m in $(polybar --list-monitors | cut -d":" -f1); do
-      MONITOR=$m polybar --reload all &
+      MONITOR=$m polybar --log=error --reload all &
 done
 
-kill_if_running compton
-compton &
-
-bspc config top_padding 25
+kill_if_running picom
+picom -d :0 &

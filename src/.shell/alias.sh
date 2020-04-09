@@ -42,3 +42,14 @@ alias gpg="gpg2"
 alias kc="kubectl"
 alias nmpc="ncmpcpp"
 alias ec="emacsclient -nc"
+
+function git() {
+  if [[ "$1" == "clone" ]]; then
+    command $HOME/.local/bin/dit "$@"
+  else
+    command git "$@"
+  fi
+}
+
+export DITSH_URL=gitlab.com
+export DITSH_BASE=$HOME/repo

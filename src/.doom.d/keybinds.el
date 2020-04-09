@@ -32,5 +32,14 @@
 (map! :leader :desc "Explain Error" "e e" 'flycheck-explain-error-at-point)
 (map! :leader :desc "Clear Errors in Buffer" "e C" 'flycheck-clear)
 
+;; SPC t -*- Text modification
+(map! :leader :desc "Text Modificaton" "t")
+(map! :leader :desc "Align" "t a")
+(defun align-spaces ()
+  "Align region by spaces"
+  (interactive)
+  (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\s-"))
+(map! :leader :desc "al gn on space" "t a SPC" 'align-spaces)
+
 (provide 'keybinds)
 ;;; keybinds.el ends here

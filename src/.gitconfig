@@ -82,10 +82,10 @@
 	# Automatically --follow when given a single path
   follow = true
 
-[includeIf "gitdir:~/dotfiles"]
+[includeIf "gitdir:~/dotfiles/"]
     path = .gitconfig-gitlab
 
-[includeIf "gitdir:~/.dotfiles/"]
+[includeIf "gitdir:~/.password-store/"]
     path = .gitconfig-gitlab
 
 [includeIf "gitdir:~/repo/gitlab.com/"]

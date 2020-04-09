@@ -69,12 +69,36 @@ font-0 = FiraCode Nerd Font:size=11;1
 
 modules-left = date mpd
 modules-center = bspwm
-modules-right = temp cpu mem
+modules-right = temp0 temp1 cpu mem
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-margin-bottom = 0
+[sides]
+background = #292929
+foreground = #E88A30
+
+[section/sides]
+format-background = ${sides.background}
+format-foreground = ${sides.foreground}
+
+;---------------------------------------------------------------------------
+; -- helper powerline
+[module/s]
+type = custom/text
+
+content = " "
+content-font = 2
+content-foreground = ${sides.background}
+
+
+;---------------------------------------------------------------------------
+[module/b]
+type = custom/text
+
+content = ""
+content-font = 2
+content-foreground = ${sides.background}
 
 [module/bspwm]
 ws-icon-default = 
@@ -173,10 +197,30 @@ format-prefix-foreground = ${colors.foreground}
 
 label = %date% %time%
 
-[module/temp]
+[module/temp0]
 type = internal/temperature
-thermal-zone = 0
 warn-temperature = 80
+
+hwmon-path = /sys/class/hwmon/hwmon0/temp3_input
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.red}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground}
+
+[module/temp1]
+type = internal/temperature
+warn-temperature = 80
+
+hwmon-path = /sys/class/hwmon/hwmon0/temp4_input
 
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>
@@ -199,7 +243,7 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosinir

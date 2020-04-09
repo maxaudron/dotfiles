@@ -5,5 +5,5 @@ pastor () {
 }
 
 screenshot () {
-	scrot -s -e 'curl -s -F c=@${f} https://c-v.sh; rm $f'
+	maim -s /dev/stdout | curl -s -F c=@- https://c-v.sh | xsel --clipboard
 }

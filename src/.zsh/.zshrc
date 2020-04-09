@@ -1,6 +1,4 @@
 #!/bin/zsh
-source $HOME/.env
-
 # Load Shell theme
 source $HOME/.zsh/powerlevel.zsh
 # source $HOME/.zsh/powerline.zsh
@@ -69,3 +67,5 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 [ -f "$HOME/.fzf.zsh" ] && source $HOME/.fzf.zsh;
+
+export TERM=xterm-256color
