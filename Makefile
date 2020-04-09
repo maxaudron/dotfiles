@@ -3,7 +3,7 @@
 
 .PHONY: stow
 stow: sync
-	mkdir -p $(HOME)/.gnupg
+	mkdir -p $(HOME)/.gnupg $(HOME)/.config $(HOME)/.local/bin
 	stow src
 
 .PHONY: sync
@@ -11,14 +11,6 @@ sync:
 	git pull
 	git submodules init
 	git submodules update
-
-.PHONY: pyenv
-pyenv:
-	cd $(HOME)
-	curl https://pyenv.run | bash
-	pyenv install 3.7.3 &
-#	pyenv install 2.7.9 &
-	while pgrep -u $UID -x pyenv >/dev/null; do sleep 5; done
 
 .PHONY: doom
 doom:
