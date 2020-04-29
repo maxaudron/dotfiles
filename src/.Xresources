@@ -32,7 +32,7 @@
 *.color21: #e0e0e0
 
 ! Use a nice truetype font and size by default... 
-UXTerm*faceName: Fira Code NF
+UXTerm*faceName: IBM Plex Mono
 UXTerm*faceSize: 11
 UXTerm*allowBoldFonts: false
 

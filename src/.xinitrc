@@ -4,7 +4,8 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 # Enable GKT themes in QT
-export QT_STYLE_OVERRIDE=GTK+
+export QT_STYLE_OVERRIDE=gtk2
+export LIBVIRT_DEFAULT_URI="qemu:///system"
 
 $HOME/.screenlayout/default.sh
 

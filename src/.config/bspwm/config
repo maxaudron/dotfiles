@@ -3,7 +3,7 @@
 alias config="bspc config"
 
 config focus_follows_pointer true
-config pointer_follows_focus true
+config pointer_follows_focus false
 
 config presel_feedback false
 

@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	uxterm
+	xfce4-terminal
 
 # program launcher
 super + r

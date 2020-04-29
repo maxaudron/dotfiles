@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+rofi_command="rofi"
+
+VM_OFF="$(virsh list --name --state-shutoff)"
+VM_ON="$(virsh list --name --state-running)"
+
+
+on=""
+off=""
+trans=""
+
+choosen="$(for vm in $VM_OFF; do
+    printf "%s %s\n" "$off" "$vm"
+done | $rofi_command -p "virsh" -font "FiraCode Nerd Font 12" -dmenu)"
+
+case "${choosen:0:1}" in
+    $on)
+        virsh destroy "${choosen:2}"
+        ;;
+    $off)
+        virsh start "${choosen:2}"
+esac
+
+
+
+## Spawn the mpd menu with the "Play / Pause" entry selected by default
+#chosen="$(echo -e "$VM_OFF" | $rofi_command -p "$current" -dmenu $active $urgent -selected-row 1)"
+#printf "$chosen"
+
+
