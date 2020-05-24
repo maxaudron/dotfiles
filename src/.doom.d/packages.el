@@ -56,5 +56,10 @@
 (package! org-jira)
 (package! ebuild-mode)
 
+(use-package! emacs-upload
+  :demand t
+  :config
+    (emacs-upload/set-host "c-v"))
+
 (after! tramp
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path))

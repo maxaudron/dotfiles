@@ -67,5 +67,3 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 [ -f "$HOME/.fzf.zsh" ] && source $HOME/.fzf.zsh;
-
-export TERM=xterm-256color

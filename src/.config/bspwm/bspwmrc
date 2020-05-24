@@ -7,7 +7,7 @@ CONF_DIR="$HOME/.config/bspwm"
 . "$CONF_DIR/config"
 
 # Load Host specific setup
-. "$CONF_DIR/specifics/$(hostname -f)"
+[ -f "$CONF_DIR/specifics/$(hostname -f)" ] && . "$CONF_DIR/specifics/$(hostname -f)"
 
 # Start Polybar
 kill_running polybar
@@ -16,4 +16,4 @@ for m in $(polybar --list-monitors | cut -d":" -f1); do
 done
 
 launch sxhkd &
-launch picom -d :0 &
+launch picom &

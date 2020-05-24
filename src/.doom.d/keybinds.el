@@ -34,12 +34,19 @@
 
 ;; SPC t -*- Text modification
 (map! :leader :desc "Text Modificaton" "t")
+(map! :leader :desc "Refill Mode" "t r" 'refill-mode)
+(map! :leader :desc "Justify" "t j")
+(map! :leader :desc "Justify Full" "t j f" 'set-justification-full)
+(map! :leader :desc "Justify Left" "t j l" 'set-justification-left)
+(map! :leader :desc "Justify Right" "t j r" 'set-justification-right)
+(map! :leader :desc "Justify None" "t j n" 'set-justification-none)
+(map! :leader :desc "Justify Center" "t j c" 'set-justification-center)
 (map! :leader :desc "Align" "t a")
 (defun align-spaces ()
   "Align region by spaces"
   (interactive)
   (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\s-"))
-(map! :leader :desc "al gn on space" "t a SPC" 'align-spaces)
+(map! :leader :desc "align on space" "t a SPC" 'align-spaces)
 
 (provide 'keybinds)
 ;;; keybinds.el ends here

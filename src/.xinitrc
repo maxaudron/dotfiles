@@ -26,6 +26,9 @@ feh --bg-fill ~/.dotfiles/wallpaper/john-towner-blured.png
   && cadence-pulse2jack \
   && scream-pulse -i virbr0 ) &
 
+emacs --fg-daemon &
+
+redshift -l 50.110924:8.682127 -t 5600:2600 -b 1.0:0.75 &
 
 # Start bspwm
 exec bspwm

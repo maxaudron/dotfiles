@@ -36,11 +36,6 @@
 (setq explicit-shell-file-name "/bin/zsh")
 (auth-source-pass-enable)
 
-(use-package! emacs-upload
-  :demand t
-  :config
-    (emacs-upload/set-host "c-v"))
-
 (map! :leader :desc "Upload to pastebin" "y" 'emacs-upload)
 
 ;; Here are some additional functions/macros that could help you configure Doom:
