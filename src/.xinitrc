@@ -11,6 +11,7 @@ $HOME/.screenlayout/default.sh
 
 # Set's the default cursor to a pointer
 xsetroot -cursor_name left_ptr &
+setxkbmap -option compose:rctrl
 
 # Disables display power management system, display timeout
 # and mouse acceleration

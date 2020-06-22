@@ -38,6 +38,8 @@
 
 (map! :leader :desc "Upload to pastebin" "y" 'emacs-upload)
 
+(setq rainbow-delimiters-mode 't)
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

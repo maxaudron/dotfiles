@@ -11,7 +11,7 @@ MiscMenubarDefault=FALSE
 MiscMouseAutohide=TRUE
 MiscMouseWheelZoom=TRUE
 MiscToolbarDefault=FALSE
-MiscConfirmClose=TRUE
+MiscConfirmClose=FALSE
 MiscCycleTabs=TRUE
 MiscTabCloseButtons=TRUE
 MiscTabCloseMiddleClick=TRUE
@@ -34,4 +34,6 @@ ColorBackground=#181818181818
 ColorPalette=#181818181818;#dbdb4b4b3f3f;#e8e88a8a3030;#f7f77c7c5555;#ffffc4c48c8c;#95955353acac;#57579393e0e0;#f5f5f5f5f5f5;#626262626262;#cccc66666666;#b5b5bdbd6868;#f0f0c6c67474;#8181a2a2bebe;#b2b29494bbbb;#8a8abebeb7b7;#c5c5c8c8c6c6
 FontUseSystem=TRUE
 FontAllowBold=FALSE
+ScrollingLines=10000
+ScrollingUnlimited=TRUE
 

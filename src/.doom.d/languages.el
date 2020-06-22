@@ -17,3 +17,8 @@
 (after! rustic
   (setq lsp-rust-server 'rust-analyzer)
   (setq rustic-lsp-server 'rust-analyzer))
+
+(after! lsp-python-ms
+  (setq lsp-python-ms-extra-paths
+        (append '("/home/audron/.local/lib")
+                lsp-python-ms-extra-paths)))

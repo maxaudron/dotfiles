@@ -111,3 +111,5 @@
 
 [rebase]
 	instructionFormat = (%an <%ae>) %s
+[pull]
+	ff = only

@@ -11,8 +11,10 @@ CONF_DIR="$HOME/.config/bspwm"
 
 # Start Polybar
 kill_running polybar
+export BAR_BOTTOM=false
 for m in $(polybar --list-monitors | cut -d":" -f1); do
-      MONITOR=$m polybar --log=error --reload all &
+      [ "$m" = "DisplayPort-2" ] && export BAR_BOTTOM=true
+      MONITOR=$m polybar --reload all &
 done
 
 launch sxhkd &
