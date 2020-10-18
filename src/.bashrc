@@ -31,3 +31,5 @@ eval $(dircolors -b)
 
 [ -f "$HOME/.fzf.zsh" ] && source $HOME/.fzf.zsh;
 export TERM=xterm-256color
+
+complete -C /home/audron/.local/bin/terraform terraform

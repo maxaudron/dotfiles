@@ -22,3 +22,10 @@
   (setq lsp-python-ms-extra-paths
         (append '("/home/audron/.local/lib")
                 lsp-python-ms-extra-paths)))
+
+(add-to-list 'auto-mode-alist '("Containerfile\\'" . dockerfile-mode))
+
+(with-eval-after-load 'git-timemachine
+  (evil-make-overriding-map git-timemachine-mode-map 'normal)
+  ;; force update evil keymaps after git-timemachine-mode loaded
+  (add-hook 'git-timemachine-mode-hook #'evil-normalize-keymaps))

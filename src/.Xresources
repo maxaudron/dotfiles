@@ -56,7 +56,7 @@ UXTerm*VT100.Translations: #override \
 ! stop output to terminal from jumping down to bottom of scroll again
 UXTerm*scrollTtyOutput: true
 
-Xft.dpi       : 96
+Xft.dpi       : 110
 Xft.antialias : true
 Xft.rgba      : rgb
 Xft.hinting   : true

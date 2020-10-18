@@ -8,7 +8,7 @@ source $HOME/.zsh/plugins/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 # Configure powerlevel stuff
 POWERLEVEL9K_MODE="nerdfont-fontconfig"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs virtualenv)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs command_execution_time host)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs command_execution_time)
 POWERLEVEL9K_HOST_TEMPLATE="`hostname -f`"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_DELIMITER=""

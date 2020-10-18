@@ -46,7 +46,7 @@
 (require 'cl)
 (require 'json)
 
-(defcustom emacs-upload/host '("http://w1r3.net" "upload=@%s")
+(defcustom emacs-upload/host '("https://c-v.sh" "file=@%s")
   "Current host to upload to.")
 
 (defcustom emacs-upload/hosts '(("w1r3" . ("https://w1r3.net"  "upload=@%s"))

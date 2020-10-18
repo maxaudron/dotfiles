@@ -51,5 +51,33 @@ function git() {
   fi
 }
 
+function podman() {
+  if [[ "$1" == "shell" ]]; then
+    shift 1
+    command podman run -it --rm -v "$PWD:/work" $@
+  else
+    command podman "$@"
+  fi
+}
+
+function rollout() {
+	if [ "$1" = "test" ]; then
+		shift 1
+		ssh $@ "sudo su; exit"
+	elif [ "$1" = "bump" ]; then
+		shift 1
+		awk -i inplace '/clara-standard/ && !/version=/ {print "clara-standard version=\"v3.1\""; next} {print $0}' "./Dependencies"
+		git add ./Dependencies
+		git commit -m "pin clara-standard to version v3.1"
+		git push
+	else
+		INVENTORY=$1
+		shift 1
+		ansible-playbook -i $INVENTORY ~/repo/git.eu.clara.net/***REMOVED***/all-engulfing-test-setup/ansible/playbooks/sssd_upgrade.yaml --extra-vars "deprecation_warnings=False ansible_user=clarabot ansible_ssh_common_args='-J compliance'" $@
+
+	fi
+# ansible_ssh_common_args='-J compliance'
+}
+
 export DITSH_URL=gitlab.com
 export DITSH_BASE=$HOME/repo

@@ -48,5 +48,13 @@
   (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\s-"))
 (map! :leader :desc "align on space" "t a SPC" 'align-spaces)
 
+
+;; ORG Mode bable
+(map! :map org-mode-map
+      :localleader
+      (:prefix ("b" . "babel")
+       "r" #'org-babel-execute-maybe))
+
+
 (provide 'keybinds)
 ;;; keybinds.el ends here

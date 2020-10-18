@@ -203,7 +203,7 @@ label = %date% %time%
 type = internal/temperature
 warn-temperature = 80
 
-hwmon-path = /sys/class/hwmon/hwmon0/temp3_input
+hwmon-path = /sys/class/hwmon/hwmon1/temp3_input
 
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>
@@ -222,7 +222,7 @@ ramp-foreground = ${colors.foreground}
 type = internal/temperature
 warn-temperature = 80
 
-hwmon-path = /sys/class/hwmon/hwmon0/temp4_input
+hwmon-path = /sys/class/hwmon/hwmon1/temp4_input
 
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>

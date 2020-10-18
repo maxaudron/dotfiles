@@ -53,13 +53,13 @@
 (package! doom-themes :disable)
 (package! doom-themes :recipe (:host github :repo "maxaudron/emacs-cocaine-themes"))
 (package! ini-mode)
-(package! org-jira)
 (package! ebuild-mode)
 
-(use-package! emacs-upload
-  :demand t
-  :config
-    (emacs-upload/set-host "c-v"))
+(package! gitlab-ci-mode)
+(use-package! gitlab-ci-mode-flycheck
+  :after flycheck gitlab-ci-mode
+  :init
+  (gitlab-ci-mode-flycheck-enable))
 
 (after! tramp
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path))

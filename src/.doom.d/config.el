@@ -17,6 +17,7 @@
 (setq doom-font (font-spec :family "IBM Plex Mono" :size 13))
 
 ;; Config
+;; (load! "~/.doom.d/theme")
 (setq doom-theme 'doom-tomorrow-night)
 (setq display-line-numbers-type 'relative)
 
@@ -30,15 +31,23 @@
 (load! "~/.doom.d/languages")
 (load! "~/.doom.d/modeline")
 (load! "~/.doom.d/keybinds")
-(load! "~/.doom.d/mu4e")
 (load! "~/.doom.d/usr-org")
+(load! "~/.doom.d/mu4e")
+(load! "~/.doom.d/snippets/emacs-upload")
+
+(map! :leader :desc "Upload to pastebin" "y" 'emacs-upload)
 
 (setq explicit-shell-file-name "/bin/zsh")
 (auth-source-pass-enable)
 
-(map! :leader :desc "Upload to pastebin" "y" 'emacs-upload)
-
 (setq rainbow-delimiters-mode 't)
+
+(defun my-reverse-region (beg end)
+ "Reverse characters between BEG and END."
+ (interactive "r")
+ (let ((region (buffer-substring beg end)))
+   (delete-region beg end)
+   (insert (nreverse region))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

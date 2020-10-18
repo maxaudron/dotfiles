@@ -99,6 +99,8 @@
 
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
     path = .gitconfig-work
+[includeIf "gitdir:~/repo/git.aktion-mensch.de/"]
+    path = .gitconfig-work
 
 [url "git@git.eu.clara.net:"]
     insteadOf = https://git.eu.clara.net/
