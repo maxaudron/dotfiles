@@ -115,3 +115,5 @@
 	instructionFormat = (%an <%ae>) %s
 [pull]
 	ff = only
+[diff "sopsdiffer"]
+	textconv = sops -d

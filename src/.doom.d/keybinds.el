@@ -47,6 +47,9 @@
   (interactive)
   (align-regexp (region-beginning) (region-end) "\\(\\s-*\\)\\s-"))
 (map! :leader :desc "align on space" "t a SPC" 'align-spaces)
+(map! :leader :desc "Insert Lorem Ipsum paragraph" "t l p" 'lorem-ipsum-insert-paragraphs)
+(map! :leader :desc "Insert Lorem Ipsum sentence" "t l s" 'lorem-ipsum-insert-sentences)
+(map! :leader :desc "Insert Lorem Ipsum paragraph" "t l l" 'lorem-ipsum-insert-list)
 
 
 ;; ORG Mode bable

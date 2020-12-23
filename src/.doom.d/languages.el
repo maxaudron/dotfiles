@@ -16,7 +16,10 @@
 ;; Rust
 (after! rustic
   (setq lsp-rust-server 'rust-analyzer)
-  (setq rustic-lsp-server 'rust-analyzer))
+  (setq rustic-lsp-server 'rust-analyzer)
+  (setq lsp-ui-doc-enable 'nil)
+  (setq lsp-ui-doc-position 'top)
+  (setq lsp-ui-doc-use-webkit 'nil))
 
 (after! lsp-python-ms
   (setq lsp-python-ms-extra-paths

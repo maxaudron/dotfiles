@@ -11,9 +11,8 @@ CONF_DIR="$HOME/.config/bspwm"
 
 # Start Polybar
 kill_running polybar
-export BAR_BOTTOM=false
+export BAR_BOTTOM=true
 for m in $(polybar --list-monitors | cut -d":" -f1); do
-      [ "$m" = "DisplayPort-2" ] && export BAR_BOTTOM=true
       MONITOR=$m polybar --reload -l error all &
 done
 

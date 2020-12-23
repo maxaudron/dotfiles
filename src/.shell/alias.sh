@@ -51,6 +51,8 @@ function git() {
   fi
 }
 
+alias kc-network-toolbox="kubectl run tmp-network-toolbox --rm -i --tty --image nicolaka/netshoot -- /bin/bash"
+
 function podman() {
   if [[ "$1" == "shell" ]]; then
     shift 1

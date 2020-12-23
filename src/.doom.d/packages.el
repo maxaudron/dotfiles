@@ -54,6 +54,10 @@
 (package! doom-themes :recipe (:host github :repo "maxaudron/emacs-cocaine-themes"))
 (package! ini-mode)
 (package! ebuild-mode)
+(package! lorem-ipsum)
+(package! jsonnet-mode)
+
+(package! mingus)
 
 (package! gitlab-ci-mode)
 (use-package! gitlab-ci-mode-flycheck
