@@ -49,6 +49,21 @@
    (delete-region beg end)
    (insert (nreverse region))))
 
+(setq coverlay:fringe 't)
+(setq coverlay:fringe-position 'left-fringe)
+(setq coverlay:fringe-symbol 'flycheck-fringe-bitmap-continuation)
+
+(fringe-mode 8)
+
+(setq left-margin 10)
+(setq left-margin-width 1)
+(setq right-margin-width 1)
+
+(add-hook! 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+
+(after! gcmh
+  (setq gcmh-high-cons-threshold 33554432))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

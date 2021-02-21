@@ -7,10 +7,12 @@ config pointer_follows_focus false
 
 config presel_feedback false
 
-config focused_border_color \#E88A30
+config focused_border_color '#E88A30'
+config active_border_color '#181818'
+config normal_border_color '#181818'
 
-config border_width         1
-config window_gap          12
+config border_width         2
+config window_gap          15
 
 config split_ratio          0.52
 config borderless_monocle   true

@@ -1,7 +1,7 @@
 #!/bin/zsh
 # Load Shell theme
 source $HOME/.zsh/powerlevel.zsh
-# source $HOME/.zsh/powerline.zsh
+
 
 source $HOME/.zsh/lib/completion.zsh
 source $HOME/.zsh/plugins/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
@@ -66,4 +66,4 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
 
-[ -f "$HOME/.fzf.zsh" ] && source $HOME/.fzf.zsh;
+source /usr/share/fzf/key-bindings.zsh

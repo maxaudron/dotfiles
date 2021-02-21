@@ -26,6 +26,7 @@
 
 [core]
   whitespace = -trailing-space
+  pager = delta
 
 [diff]
   tool = vimdiff
@@ -117,3 +118,5 @@
 	ff = only
 [diff "sopsdiffer"]
 	textconv = sops -d
+[init]
+	defaultBranch = master

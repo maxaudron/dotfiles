@@ -20,7 +20,7 @@ xset s off && xset -dpms
 xset m 0 0
 
 # Set Background
-feh --bg-fill ~/.dotfiles/wallpaper/john-towner-blured.png
+hsetroot -solid '#292929'
 
 $HOME/.local/bin/start-audio-setup.sh &
 

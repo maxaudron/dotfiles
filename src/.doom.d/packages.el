@@ -56,8 +56,23 @@
 (package! ebuild-mode)
 (package! lorem-ipsum)
 (package! jsonnet-mode)
+(package! meson-mode)
 
-(package! mingus)
+(use-package! magit-delta
+  :after magit
+  :config
+  (setq
+    magit-delta-default-dark-theme "OneHalfDark"
+    magit-delta-default-light-theme "OneHalfLight")
+  (magit-delta-mode))
+
+;; Convert camelCase snake_case etc
+(package! string-inflection)
+
+;; Display code coverage
+;; (package! coverlay)
+(package! coverlay
+  :recipe (:repo "maxaudron/coverlay.el"))
 
 (package! gitlab-ci-mode)
 (use-package! gitlab-ci-mode-flycheck

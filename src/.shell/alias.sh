@@ -42,6 +42,7 @@ alias gpg="gpg2"
 alias kc="kubectl"
 alias nmpc="ncmpcpp"
 alias ec="emacsclient -nc"
+alias hi="ack --passthru"
 
 function git() {
   if [[ "$1" == "clone" ]]; then

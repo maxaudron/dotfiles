@@ -51,6 +51,13 @@
 (map! :leader :desc "Insert Lorem Ipsum sentence" "t l s" 'lorem-ipsum-insert-sentences)
 (map! :leader :desc "Insert Lorem Ipsum paragraph" "t l l" 'lorem-ipsum-insert-list)
 
+(map! :leader :desc "Set case styles" "t i")
+(map! :leader :desc "Toggle" "t i i" 'string-inflection-toggle)
+(map! :leader :desc "Set CamelCase" "t i C" 'string-inflection-camelcase)
+(map! :leader :desc "Set lowerCamelCase" "t i c" 'string-inflection-lower-camelcase)
+(map! :leader :desc "Set snake_case" "t i s" 'string-inflection-underscore)
+(map! :leader :desc "Set kebab-case" "t i k" 'string-inflection-kebab-case)
+(map! :leader :desc "Set CamelCase" "t i C" 'string-inflection-camelcase)
 
 ;; ORG Mode bable
 (map! :map org-mode-map
