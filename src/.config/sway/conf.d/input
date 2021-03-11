@@ -1,0 +1,4 @@
+#!/bin/sh
+
+c input type:keyboard xkb_layout us
+c input type:keyboard xkb_options compose:rctrl

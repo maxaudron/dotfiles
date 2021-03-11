@@ -1,0 +1,25 @@
+#!/bin/sh
+
+CONF_DIR="$HOME/.config/sway"
+
+# Load utility functions and config vars
+. "$CONF_DIR/functions"
+
+# Main Settings
+# -------------
+ 
+mod="Mod4"
+terminal="alacritty"
+menu="wofi --show drun"
+
+# -------------
+
+# Load config
+. "$CONF_DIR/conf.d/input"
+. "$CONF_DIR/conf.d/keybinds"
+. "$CONF_DIR/conf.d/theme"
+
+# Load Host specific setup
+[ -f "$CONF_DIR/specifics/$(hostname -f)" ] && . "$CONF_DIR/specifics/$(hostname -f)"
+
+launch waybar &

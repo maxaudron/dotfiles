@@ -1,0 +1,16 @@
+#!/bin/sh
+
+c -- output 'HDMI-A-1' pos 0 0
+c -- output 'DP-3' pos 3440 '-400' transform 90
+
+c workspace 1 output 'HDMI-A-1'
+c workspace 2 output 'HDMI-A-1'
+c workspace 3 output 'HDMI-A-1'
+c workspace 4 output 'HDMI-A-1'
+c workspace 5 output 'HDMI-A-1'
+
+c workspace 6 output 'DP-3'
+c workspace 7 output 'DP-3'
+c workspace 8 output 'DP-3'
+c workspace 9 output 'DP-3'
+c workspace 10 output 'DP-3'

@@ -1,0 +1,50 @@
+#!/bin/sh
+
+#
+# Color definition
+#
+
+c1=#fd472f
+c2=#e88a30
+c3=#99a2ea
+c4=#242424
+c5=#242424
+
+white=#f4f4f8
+dark=#181818
+dim=#242424
+
+focused_bgcolor=$c2
+focused_textcolor=$dark
+focused_indicator=$c3
+
+inactive_bgcolor=$c5
+inactive_textcolor=$white
+inactive_indicator=$c5
+
+unfocused_bgcolor=$c4
+unfocused_textcolor=$dim
+unfocused_indicator=$c5
+
+urgent_bgcolor=$c1
+urgent_textcolor=$c4
+urgent_indicator=$c3
+
+c default_border normal 0
+c gaps inner 10
+c -- gaps bottom -10
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+c smart_gaps off
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+c smart_borders on
+
+# Hide Title Bars
+c default_border normal 0
+c hide_edge_borders smart
+
+c client.focused $focused_bgcolor $focused_bgcolor $focused_textcolor $focused_indicator $focused_bgcolor
+c client.focused_inactive $inactive_bgcolor $inactive_bgcolor $inactive_textcolor $inactive_indicator $inactive_bgcolor
+c client.unfocused $unfocused_bgcolor $unfocused_bgcolor $unfocused_textcolor $unfocused_indicator $unfocused_bgcolor
+c client.urgent $urgent_bgcolor $urgent_bgcolor $urgent_textcolor $urgent_indicator $urgent_bgcolor
