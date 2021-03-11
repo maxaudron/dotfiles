@@ -14,7 +14,7 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "IBM Plex Mono" :size 13))
+(setq doom-font (font-spec :family "IBM Plex Mono" :size 15))
 
 ;; Config
 ;; (load! "~/.doom.d/theme")
@@ -63,6 +63,13 @@
 
 (after! gcmh
   (setq gcmh-high-cons-threshold 33554432))
+
+(after! company-mode
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0))
+
+(custom-set-faces
+  '(default ((t (:background "#181818")))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

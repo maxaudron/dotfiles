@@ -58,13 +58,13 @@
 (package! jsonnet-mode)
 (package! meson-mode)
 
-(use-package! magit-delta
-  :after magit
-  :config
-  (setq
-    magit-delta-default-dark-theme "OneHalfDark"
-    magit-delta-default-light-theme "OneHalfLight")
-  (magit-delta-mode))
+;; (use-package! magit-delta
+;;   :after magit
+;;   :config
+;;   (setq
+;;     magit-delta-default-dark-theme "OneHalfDark"
+;;     magit-delta-default-light-theme "OneHalfLight")
+;;   (magit-delta-mode))
 
 ;; Convert camelCase snake_case etc
 (package! string-inflection)
