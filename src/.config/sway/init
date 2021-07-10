@@ -15,11 +15,12 @@ menu="wofi --show drun"
 # -------------
 
 # Load config
-. "$CONF_DIR/conf.d/input"
-. "$CONF_DIR/conf.d/keybinds"
-. "$CONF_DIR/conf.d/theme"
+source "$CONF_DIR/conf.d/input"
+source "$CONF_DIR/conf.d/keybinds"
+source "$CONF_DIR/conf.d/theme"
 
 # Load Host specific setup
 [ -f "$CONF_DIR/specifics/$(hostname -f)" ] && . "$CONF_DIR/specifics/$(hostname -f)"
 
 launch waybar &
+launch wlsunset -t 3500 -T 5600 -l 50.1 -L 8.6 -g 0.9 &

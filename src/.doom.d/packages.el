@@ -50,35 +50,25 @@
 ;; This is required for some packages whose default branch isn't 'master' (which
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
-(package! doom-themes :disable)
-(package! doom-themes :recipe (:host github :repo "maxaudron/emacs-cocaine-themes"))
-(package! ini-mode)
-(package! ebuild-mode)
 (package! lorem-ipsum)
-(package! jsonnet-mode)
-(package! meson-mode)
 
-;; (use-package! magit-delta
-;;   :after magit
-;;   :config
-;;   (setq
-;;     magit-delta-default-dark-theme "OneHalfDark"
-;;     magit-delta-default-light-theme "OneHalfLight")
-;;   (magit-delta-mode))
+(package! jsonnet-mode)
+(package! ebuild-mode)
+(package! meson-mode)
+(package! ini-mode)
+
+(package! verb)
 
 ;; Convert camelCase snake_case etc
 (package! string-inflection)
 
 ;; Display code coverage
-;; (package! coverlay)
 (package! coverlay
   :recipe (:repo "maxaudron/coverlay.el"))
 
 (package! gitlab-ci-mode)
-(use-package! gitlab-ci-mode-flycheck
-  :after flycheck gitlab-ci-mode
-  :init
-  (gitlab-ci-mode-flycheck-enable))
 
-(after! tramp
-    (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+(package! emacs-upload :recipe
+  (:repo "https://git.lain.church/zdm/emacs-upload"))
+
+(package! evil-quickscope)

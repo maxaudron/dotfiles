@@ -2,3 +2,9 @@
 
 c input type:keyboard xkb_layout us
 c input type:keyboard xkb_options compose:rctrl
+
+c input '12815:8701:SONiX_USB_DEVICE' accel_profile adaptive
+c input '12815:8701:SONiX_USB_DEVICE' pointer_accel -- -0.9
+c input '12815:8701:SONiX_USB_DEVICE' scroll_button button1
+c input '12815:8701:SONiX_USB_DEVICE' scroll_method on_button_down
+c input '12815:8701:SONiX_USB_DEVICE' scroll_factor 0.15

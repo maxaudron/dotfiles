@@ -31,8 +31,8 @@ urgent_textcolor=$c4
 urgent_indicator=$c3
 
 c default_border normal 0
-c gaps inner 10
-c -- gaps bottom -10
+c gaps inner all set 10
+c -- gaps bottom all set -10
 
 # Smart gaps (gaps used if only more than one container on the workspace)
 c smart_gaps off
@@ -41,10 +41,14 @@ c smart_gaps off
 c smart_borders on
 
 # Hide Title Bars
-c default_border normal 0
+c default_border pixel 2
 c hide_edge_borders smart
 
 c client.focused $focused_bgcolor $focused_bgcolor $focused_textcolor $focused_indicator $focused_bgcolor
 c client.focused_inactive $inactive_bgcolor $inactive_bgcolor $inactive_textcolor $inactive_indicator $inactive_bgcolor
 c client.unfocused $unfocused_bgcolor $unfocused_bgcolor $unfocused_textcolor $unfocused_indicator $unfocused_bgcolor
 c client.urgent $urgent_bgcolor $urgent_bgcolor $urgent_textcolor $urgent_indicator $urgent_bgcolor
+
+gsettings set org.gnome.desktop.interface gtk-theme "Sierra Negra"
+gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
+gsettings set org.gnome.desktop.interface gtk-font-name "IBM Plex 11"

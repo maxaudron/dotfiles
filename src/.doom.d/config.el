@@ -14,62 +14,59 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "IBM Plex Mono" :size 15))
+(setq doom-font (font-spec :family "IBM Plex Mono" :size 17))
 
-;; Config
-;; (load! "~/.doom.d/theme")
+(after! ispell
+  (setq ispell-dictionary "en_US,de_DE")
+  (ispell-set-spellchecker-params)
+  (ispell-hunspell-add-multi-dic "en_US,de_DE"))
+
+;; Theme
 (setq doom-theme 'doom-tomorrow-night)
-(setq display-line-numbers-type 'relative)
+(custom-set-faces
+  '(default ((t (:background "#181818")))))
 
-(setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/S.gpg-agent.ssh")
-(setenv "GPG_AGENT_INFO" nil)
+;; Fringe size
+(fringe-mode 8)
 
-(setq epg-gpg-program "gpg2")
-(setq epa-pinentry-mode 'loopback)
+;; Margins for windows
+(setq-default left-margin-width 1)
+(setq-default right-margin-width 1)
+
+(use-package! evil-quickscope
+  :config (global-evil-quickscope-always-mode 1))
+
+(load! "~/.doom.d/modeline")
+
+;; (setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type nil)
+(setq rainbow-delimiters-mode 't)
 
 ;; Load external resources
 (load! "~/.doom.d/languages")
-(load! "~/.doom.d/modeline")
 (load! "~/.doom.d/keybinds")
-(load! "~/.doom.d/usr-org")
+(load! "~/.doom.d/org")
 (load! "~/.doom.d/mu4e")
-(load! "~/.doom.d/snippets/emacs-upload")
+(load! "~/.doom.d/utils")
 
-(map! :leader :desc "Upload to pastebin" "y" 'emacs-upload)
+;; uploader
+(use-package! emacs-upload
+  :config
+  (add-to-list 'emacs-upload/hosts '("c-v" . ("https://c-v.sh"    "file=@%s")))
+  (emacs-upload/set-host "c-v"))
 
-(setq explicit-shell-file-name "/bin/zsh")
-(auth-source-pass-enable)
-
-(setq rainbow-delimiters-mode 't)
-
-(defun my-reverse-region (beg end)
- "Reverse characters between BEG and END."
- (interactive "r")
- (let ((region (buffer-substring beg end)))
-   (delete-region beg end)
-   (insert (nreverse region))))
-
+;; Coverlay coverage overlay
 (setq coverlay:fringe 't)
 (setq coverlay:fringe-position 'left-fringe)
 (setq coverlay:fringe-symbol 'flycheck-fringe-bitmap-continuation)
-
-(fringe-mode 8)
-
-(setq left-margin 10)
-(setq left-margin-width 1)
-(setq right-margin-width 1)
-
-(add-hook! 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+(setq coverlay:tested-line-background-color "green")
 
 (after! gcmh
   (setq gcmh-high-cons-threshold 33554432))
 
-(after! company-mode
-  (setq company-minimum-prefix-length 1
+(after! company-mode (setq company-minimum-prefix-length 2
         company-idle-delay 0.0))
 
-(custom-set-faces
-  '(default ((t (:background "#181818")))))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

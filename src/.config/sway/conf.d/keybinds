@@ -28,8 +28,8 @@ for i in $(seq 0 9); do
 done
 
 # Layout stuff
-c bindsym "$mod+n" splith
-c bindsym "$mod+m" splitv
+c bindsym "$mod+m" splith
+c bindsym "$mod+n" splitv
 
 # Switch the current container between different layout styles
 # bindsym $mod+s layout stacking

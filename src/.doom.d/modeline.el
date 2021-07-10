@@ -11,6 +11,6 @@
 (setq doom-modeline-height 20)
 (setq doom-modeline-bar-width 3)
 
-(setq doom-modeline-mu4e t)
+(setq doom-modeline-mu4e nil)
 (setq doom-modeline-gnus nil)
 (setq doom-modeline-gnus-timer nil)

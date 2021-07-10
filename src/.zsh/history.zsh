@@ -11,3 +11,10 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 setopt extended_history
 setopt histignorealldups
 setopt histignorespace
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search # Up
+bindkey "^[[B" down-line-or-beginning-search # Down

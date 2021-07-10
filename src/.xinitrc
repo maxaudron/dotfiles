@@ -28,5 +28,7 @@ emacs --fg-daemon &
 
 redshift -l 50.110924:8.682127 -t 5600:2600 -b 1.0:0.75 &
 
+export LD_PRELOAD=/usr/local/lib/camlink/camlink.so
+
 # Start bspwm
 exec bspwm

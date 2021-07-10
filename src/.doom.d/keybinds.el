@@ -1,6 +1,9 @@
 ;;; ~/.dotfiles/src/.doom.d/keybinds.el -*- lexical-binding: t; -*-
 ;;; Code:
 
+;; MISC
+(map! :leader :desc "Upload to pastebin" "y" 'emacs-upload)
+
 ;; Navigate windows
 (map! :nvi "C-h" 'evil-window-left)
 (map! :nvi "C-l" 'evil-window-right)

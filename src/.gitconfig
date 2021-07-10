@@ -100,6 +100,8 @@
 
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
     path = .gitconfig-work
+[includeIf "gitdir:~/repo/git.de.clara.net/"]
+    path = .gitconfig-work
 [includeIf "gitdir:~/repo/git.aktion-mensch.de/"]
     path = .gitconfig-work
 

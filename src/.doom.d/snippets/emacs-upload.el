@@ -52,7 +52,6 @@
 (defcustom emacs-upload/hosts '(("w1r3" . ("https://w1r3.net"  "upload=@%s"))
 				("ix" . ("http://ix.io"      "f:1=@%s"))
 				("0x0" . ("https://0x0.st"    "file=@%s"))
-				("c-v" . ("https://c-v.sh"    "file=@%s"))
 				("sprunge" . ("http://sprunge.us" "sprunge=@%s"))
 				("youdieifyou.work" . ("http://youdieifyou.work/upload.php" "files[]=@%s"))
 				("catbox" . ("https://catbox.moe/user/api.php" "reqtype=fileupload" "fileToUpload=@%s"))
