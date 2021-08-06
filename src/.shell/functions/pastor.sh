@@ -5,5 +5,5 @@ pastor () {
 }
 
 screenshot () {
-	maim -s /dev/stdout | curl -s -F c=@- https://c-v.sh | xsel --clipboard
+	grim -g "$(slurp)" - | curl -s -F c=@- https://c-v.sh | wl-copy
 }
