@@ -1,3 +1,4 @@
 exec pipewire
-exec $HOME/.local/bin/start-audio-setup.sh
+exec pw-jack bitwig-studio
+exec $HOME/.local/bin/pw-default-link
 exec_always $HOME/.config/sway/init

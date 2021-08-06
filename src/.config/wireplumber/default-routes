@@ -1,0 +1,10 @@
+[default-routes]
+alsa_card.pci-0000_10_00.1:output:hdmi-output-0:channelMap=FL;FR;
+alsa_card.pci-0000_10_00.1:output:hdmi-output-0:channelVolumes=0.39999160170555;0.39999160170555;
+alsa_card.pci-0000_10_00.1:profile:output:hdmi-stereo=hdmi-output-0;
+alsa_card.pci-0000_12_00.4:input:analog-input-front-mic:channelMap=FL;FR;
+alsa_card.pci-0000_12_00.4:input:analog-input-front-mic:channelVolumes=0.39999160170555;0.39999160170555;
+alsa_card.pci-0000_12_00.4:output:analog-output-lineout:channelMap=FL;FR;
+alsa_card.pci-0000_12_00.4:output:analog-output-lineout:channelVolumes=0.39999160170555;0.39999160170555;
+alsa_card.pci-0000_12_00.4:profile:output:analog-stereo=analog-output-lineout;
+alsa_card.pci-0000_12_00.4:profile:output:analog-stereo+input:analog-stereo=analog-output-lineout;analog-input-front-mic;

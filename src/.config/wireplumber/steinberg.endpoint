@@ -1,0 +1,11 @@
+[match-node]
+properties = [
+  { "alsa.card_name" = "Steinberg UR242" }
+]
+
+[endpoint]
+session = "default"
+type = "si-adapter"
+
+[endpoint.config]
+name = "test"
