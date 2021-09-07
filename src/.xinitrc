@@ -22,13 +22,13 @@ xset m 0 0
 # Set Background
 hsetroot -solid '#292929'
 
-$HOME/.local/bin/start-audio-setup.sh &
+# $HOME/.local/bin/start-audio-setup.sh &
 
 emacs --fg-daemon &
 
-redshift -l 50.110924:8.682127 -t 5600:2600 -b 1.0:0.75 &
+# redshift -l 50.110924:8.682127 -t 5600:2600 -b 1.0:0.75 &
 
-export LD_PRELOAD=/usr/local/lib/camlink/camlink.so
+# export LD_PRELOAD=/usr/local/lib/camlink/camlink.so
 
 # Start bspwm
 exec bspwm

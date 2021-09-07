@@ -1,7 +1,15 @@
 #!/bin/zsh
+
+if [ ! -f "/tmp/audron-first-login" ]; then
+  touch /tmp/audron-first-login
+  dbus-launch --sh-syntax --exit-with-session sway
+fi
+
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 # Load Shell theme
 source $HOME/.zsh/powerlevel.zsh
-
 
 source $HOME/.zsh/lib/completion.zsh
 source $HOME/.zsh/plugins/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh

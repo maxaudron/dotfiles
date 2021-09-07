@@ -14,9 +14,9 @@
 (add-hook 'lsp-after-initialize-hook 'lsp-extend-file-watch-ignored)
 
 ;; Rust
-(after! rustic
-  (setq lsp-rust-analyzer-server-command
-        '("~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/rust-analyzer")))
+;; (after! rustic
+;;   (setq lsp-rust-analyzer-server-command
+;;         '("rustup run nightly rust-analyzer")))
 ;; (after! rustic
 ;;   (setq lsp-rust-analyzer-server-command
 ;;         '("~/.rustup/toolchains/nightly-2021-01-07-x86_64-unknown-linux-gnu/bin/rust-analyzer")))

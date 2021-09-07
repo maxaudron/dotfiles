@@ -1,4 +1,3 @@
 exec pipewire
 exec pw-jack bitwig-studio
-exec $HOME/.local/bin/pw-default-link
 exec_always $HOME/.config/sway/init
