@@ -4,13 +4,15 @@
 (setq user-full-name "Max Audron"
       user-mail-address "audron@cocaine.farm")
 
-
 ;;
 ;; Look
 
 ;; set theme and font
-(setq doom-theme 'doom-one)
-(setq doom-font (font-spec :family "IBM Plex Mono" :size 14))
+(setq doom-theme 'doom-tomorrow-night)
+(custom-set-faces
+  '(default ((t (:background "#181818")))))
+
+(setq doom-font (font-spec :family "IBM Plex Mono" :size 17))
 
 ;; set fringe to be 8px wide on both sides
 (fringe-mode 8)
@@ -21,6 +23,10 @@
 
 ;; disable line numbers
 (setq display-line-numbers-type nil)
+
+;; Disable solair mode
+(after! solaire-mode
+  (solaire-global-mode -1))
 
 
 ;;

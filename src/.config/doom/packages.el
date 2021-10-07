@@ -5,6 +5,9 @@
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
 
+;; disable solair mode
+(package! solaire-mode :disable t)
+
 ;; MODES
 (package! gitlab-ci-mode)
 (package! jsonnet-mode)
