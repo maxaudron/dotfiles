@@ -1,6 +1,9 @@
 #!/bin/zsh
 
 if [ ! -f "/tmp/audron-first-login" ]; then
+  export XDG_CURRENT_DESKTOP=sway
+  export XDG_SESSION_TYPE=wayland
+
   touch /tmp/audron-first-login
   dbus-launch --sh-syntax --exit-with-session sway
 fi
