@@ -23,6 +23,6 @@ source "$CONF_DIR/conf.d/theme"
 [ -f "$CONF_DIR/specifics/$(hostname -f)" ] && . "$CONF_DIR/specifics/$(hostname -f)"
 
 launch waybar &
-launch wlsunset -t 3500 -T 5600 -l 50.1 -L 8.6 -g 0.9 &
+launch wlsunset -t 3500 -T 5600 -l 50.1 -L 8.6 &
 
 (sleep 30 && $HOME/.local/bin/pw-default-link) &

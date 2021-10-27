@@ -23,3 +23,8 @@
 (package! coverlay
   :recipe (:repo "maxaudron/coverlay.el"))
 (package! verb)
+
+;; JIRA
+(package! org-jira)
+(package! ejira
+  :recipe (:repo "https://github.com/nyyManni/ejira"))

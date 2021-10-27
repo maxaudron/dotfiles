@@ -2,11 +2,25 @@
   border: none;
   border-radius: 0;
   font-family: "IBM Plex", "Font Awesome 5 Free";
-  font-size: 13px;
+  font-size: 18px;
+}
+
+#custom-bottom_edge {
+  margin-right: 10px;
+  border-style: solid;
+  border-width: 15px 0px 0px 20px;
+  border-color: #181818 transparent transparent transparent;
+}
+
+#custom-top_edge {
+  margin-right: 10px;
+  border-style: solid;
+  border-width: 0 15px 15px 0px;
+  border-color: transparent transparent #181818 transparent;
 }
 
 window#waybar {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   color: #ffffff;
 }
 
@@ -24,41 +38,19 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-  margin: 10px 0 10px 10px;
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #242424;
+  margin-right: 10px;
+  padding: 5px 0px;
+  background-color: #181818;
   color: #ffffff;
-}
-
-#workspaces button:hover {
-  background-color: #242424;
-  box-shadow: inherit;
-  text-shadow: inherit;
 }
 
 #workspaces button.focused {
-  background-color: #e88a30;
-  color: #000000;
+  background-color: #181818;
+  color: #e88a30;
 }
 
 #workspaces button.urgent {
-  background-color: #e3574d;
-}
-
-#mode {
-  margin: 10px 0 10px 10px;
-  font-size: 13px;
-  padding: 0 10px;
-  border-radius: 5px;
-  background-color: #242424;
-  color: #ffffff;
-}
-
-#window {
-  font-weight: 600;
-  margin: 10px 0 10px 10px;
+  color: #e3574d;
 }
 
 #idle_inhibitor,
@@ -75,16 +67,13 @@ window#waybar.hidden {
 #mpd,
 #custom-power,
 #custom-nordvpn {
-  margin: 10px 10px 10px 0;
-  padding: 7px 15px;
+  margin-right: 10px;
+  padding: 10px 10px 5px 10px;
   color: #ffffff;
-  font-size: 13px;
-  border-radius: 5px;
-  background-color: #242424;
+  background-color: #181818;
 }
 
 #backlight {
-  font-size: 15px;
 }
 
 #battery.charging {

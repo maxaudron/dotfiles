@@ -8,3 +8,7 @@ c input '12815:8701:SONiX_USB_DEVICE' pointer_accel -- -0.9
 c input '12815:8701:SONiX_USB_DEVICE' scroll_button button1
 c input '12815:8701:SONiX_USB_DEVICE' scroll_method on_button_down
 c input '12815:8701:SONiX_USB_DEVICE' scroll_factor 0.15
+
+c input '1149:32792:Kensington_Expert_Wireless_TB_Mouse' accel_profile adaptive
+c input '1149:32792:Kensington_Expert_Wireless_TB_Mouse' pointer_accel 0.5
+c input '1149:32792:Kensington_Expert_Wireless_TB_Mouse' scroll_factor 0.5

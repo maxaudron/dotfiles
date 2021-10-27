@@ -31,14 +31,14 @@ urgent_textcolor=$c4
 urgent_indicator=$c3
 
 c default_border normal 0
+c gaps inner 10
 c gaps inner all set 10
-c -- gaps bottom all set -10
 
 # Smart gaps (gaps used if only more than one container on the workspace)
 c smart_gaps off
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace)
-c smart_borders on
+c smart_borders off
 
 # Hide Title Bars
 c default_border pixel 2
@@ -52,3 +52,10 @@ c client.urgent $urgent_bgcolor $urgent_bgcolor $urgent_textcolor $urgent_indica
 gsettings set org.gnome.desktop.interface gtk-theme "Sierra Negra"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 gsettings set org.gnome.desktop.interface gtk-font-name "IBM Plex 11"
+
+c output '*' bg "$HOME/.dotfiles/wallpaper/blade_runner/mpv-shot0003.jpg" fill
+
+c border_images.focused "$CONF_DIR/shadows.png"
+c border_images.focused_inactive "$CONF_DIR/shadows.png"
+c border_images.unfocused "$CONF_DIR/shadows.png"
+c border_images.urgent "$CONF_DIR/shadows.png"

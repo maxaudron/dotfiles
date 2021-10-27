@@ -63,11 +63,19 @@
 (map! :nvi "C-l" 'evil-window-right)
 (map! :nvi "C-k" 'evil-window-up)
 (map! :nvi "C-j" 'evil-window-down)
+(map! :leader "w s" 'ace-swap-window)
 
 ;; Split windows
 (map! :leader "w |" 'evil-window-vsplit)
 (map! :leader "w -" 'evil-window-split)
 
+;; SPC e -*- Errors
+(map! :leader :desc "Errors" "e")
+(map! :leader :desc "List all Errors" "e l" 'flycheck-list-errors)
+(map! :leader :desc "Next Error" "e n" 'flycheck-next-error)
+(map! :leader :desc "Previous Error" "e p" 'flycheck-previous-error)
+(map! :leader :desc "Explain Error" "e e" 'flycheck-explain-error-at-point)
+(map! :leader :desc "Clear Errors in Buffer" "e C" 'flycheck-clear)
 
 ;;
 ;; Config imports
@@ -83,3 +91,4 @@
 ;; load secrets
 (load! "secrets/forge")
 (load! "secrets/mu4e")
+(load! "secrets/jira")
