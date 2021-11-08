@@ -33,8 +33,8 @@ c bindsym "$mod+n" splitv
 
 # Switch the current container between different layout styles
 # bindsym $mod+s layout stacking
-c bindsym "$mod+w" layout tabbed
-c bindsym "$mod+t" layout toggle split
+# c bindsym "$mod+w" layout tabbed
+c bindsym "$mod+t" layout toggle tabbed split
 c bindsym "$mod+f" fullscreen
 c bindsym "$mod+s" floating toggle
 c bindsym "$mod+space" focus mode_toggle

@@ -1,7 +1,7 @@
 [merge]
-  tool = ediff
-  conflictStyle = diff3
-  ff = only
+	tool = ediff
+	conflictStyle = diff3
+	ff = only
 
 [mergetool]
 	# Clean up backup files created by merge tools on tool exit
@@ -11,39 +11,40 @@
 	# Put the temp files in a dedicated dir anyway
 	writeToTemp = true
 	# Auto-accept file prompts when launching merge tools
-  prompt = false
+	prompt = false
 
 [color]
 	# Enable colors in color-supporting terminals
-  ui = auto
+	ui = auto
 
 [alias]
 	st = status
 	ci = commit
-	lg = log --graph --date=relative --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ad)%Creset'
-  oops = commit --amend --no-edit
-  glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	oops = commit --amend --no-edit
+	glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
 [core]
-  whitespace = -trailing-space
-  pager = delta
+	# ignore trailing whitespace changes in diffs
+	whitespace = -trailing-space
+	# use delta to show diffs
+	pager = delta
 
 [diff]
-  tool = vimdiff
-    # Use better, descriptive initials (c, i, w) instead of a/b.
-    mnemonicPrefix = true
-    # Show renames/moves as such
-    renames = true
-    # When using --word-diff, assume --word-diff-regex=.
-    wordRegex = .
-    # Display submodule-related information (commit listings)
-    submodule = log
+	tool = ediff
+	# Use better, descriptive initials (c, i, w) instead of a/b.
+	mnemonicPrefix = true
+	# Show renames/moves as such
+	renames = true
+	# When using --word-diff, assume --word-diff-regex=.
+	wordRegex = .
+	# Display submodule-related information (commit listings)
+	submodule = log
 
 [mergetool "vimdiff"]
-  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 
 [mergetool.ediff]
-    cmd = emacs --eval \"\
+	cmd = emacs --eval \"\
 (progn\
   (defun ediff-write-merge-buffer ()\
     (let ((file ediff-merge-store-file))\
@@ -58,12 +59,12 @@
         \\\"$BASE\\\" nil \\\"$MERGED\\\"))\"
 
 [push]
-  # When pushing, also push tags whose commit-ishs are now reachable upstream
-  followTags = true
+	# When pushing, also push tags whose commit-ishs are now reachable upstream
+	followTags = true
 
 [tag]
 	# Sort tags as version numbers whenever applicable, so 1.10.2 is AFTER 1.2.0.
-  sort = version:refname
+	sort = version:refname
 
 [versionsort]
 	prereleaseSuffix = -pre
@@ -71,42 +72,42 @@
 	prereleaseSuffix = -beta
 	prereleaseSuffix = .beta
 	prereleaseSuffix = -rc
-  prereleaseSuffix = .rc
+	prereleaseSuffix = .rc
 
 [grep]
 	# Consider most regexes to be ERE
-  extendedRegexp = true
+	extendedRegexp = true
 
 [log]
 	# Use abbrev SHAs whenever possible/relevant instead of full 40 chars
 	abbrevCommit = true
 	# Automatically --follow when given a single path
-  follow = true
+	follow = true
 
 [includeIf "gitdir:~/dotfiles/"]
-    path = .gitconfig-gitlab
+	path = .gitconfig-gitlab
 
 [includeIf "gitdir:~/.password-store/"]
-    path = .gitconfig-gitlab
+	path = .gitconfig-gitlab
 
 [includeIf "gitdir:~/repo/gitlab.com/"]
-  path = .gitconfig-gitlab
+	path = .gitconfig-gitlab
 
 [includeIf "gitdir:~/repo/github.com/"]
-  path = .gitconfig-gitlab
+	path = .gitconfig-gitlab
 
 [includeIf "gitdir:~/org"]
-  path = .gitconfig-gitlab
+	path = .gitconfig-gitlab
 
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
-    path = .gitconfig-work
+	path = .gitconfig-work
 [includeIf "gitdir:~/repo/git.de.clara.net/"]
-    path = .gitconfig-work
+	path = .gitconfig-work
 [includeIf "gitdir:~/repo/git.aktion-mensch.de/"]
-    path = .gitconfig-work
+	path = .gitconfig-work
 
 [url "git@git.eu.clara.net:"]
-    insteadOf = https://git.eu.clara.net/
+	insteadOf = https://git.eu.clara.net/
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -116,9 +117,11 @@
 
 [rebase]
 	instructionFormat = (%an <%ae>) %s
+	autoStash = true
+
 [pull]
+	# never start a merge on pull
 	ff = only
-[diff "sopsdiffer"]
-	textconv = sops -d
+
 [init]
 	defaultBranch = master

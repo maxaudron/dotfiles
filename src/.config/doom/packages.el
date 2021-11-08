@@ -14,6 +14,7 @@
 (package! ebuild-mode)
 (package! meson-mode)
 (package! ini-mode)
+(package! graphql-mode)
 
 ;; TOOLS
 (package! string-inflection)
