@@ -55,6 +55,9 @@
   :init
   (gitlab-ci-mode-flycheck-enable))
 
+(after! lsp-ui
+  (setq lsp-ui-doc-enable nil))
+
 ;;
 ;; Keybinds
 
@@ -88,7 +91,39 @@
 (load! "functions/yaml-to-json")
 (load! "functions/reverse-region-horizontal")
 
+;; load modes
+(load! "modes/jinja2")
+
 ;; load secrets
 (load! "secrets/forge")
 (load! "secrets/mu4e")
 (load! "secrets/jira")
+
+(after! rustic
+  (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"])
+  (setq lsp-rust-all-features nil))
+
+(defvar auto-minor-mode-alist ()
+  "Alist of filename patterns vs correpsonding minor mode functions, see `auto-mode-alist'
+All elements of this alist are checked, meaning you can enable multiple minor modes for the same regexp.")
+
+(defun enable-minor-mode-based-on-extension ()
+  "Check file name against `auto-minor-mode-alist' to enable minor modes
+the checking happens for all pairs in auto-minor-mode-alist"
+  (when buffer-file-name
+    (let ((name (file-name-sans-versions buffer-file-name))
+          (remote-id (file-remote-p buffer-file-name))
+          (case-fold-search auto-mode-case-fold)
+          (alist auto-minor-mode-alist))
+      ;; Remove remote file name identification.
+      (when (and (stringp remote-id)
+                 (string-match-p (regexp-quote remote-id) name))
+        (setq name (substring name (match-end 0))))
+      (while (and alist (caar alist) (cdar alist))
+        (if (string-match-p (caar alist) name)
+            (funcall (cdar alist) 1))
+        (setq alist (cdr alist))))))
+
+(add-hook 'find-file-hook #'enable-minor-mode-based-on-extension)
+
+(add-to-list 'auto-minor-mode-alist '("\\.j2\\'" . jinja2-mode))

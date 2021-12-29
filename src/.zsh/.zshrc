@@ -1,11 +1,8 @@
 #!/bin/zsh
 
 if [ ! -f "/tmp/audron-first-login" ]; then
-  export XDG_CURRENT_DESKTOP=sway
-  export XDG_SESSION_TYPE=wayland
-
   touch /tmp/audron-first-login
-  dbus-launch --sh-syntax --exit-with-session sway
+  ~/.local/bin/start-sway
 fi
 
 export GPG_TTY=$(tty)
@@ -31,8 +28,10 @@ eval $(dircolors -b)
 
 
 fpath=($HOME/.zsh/plugins/zsh-users/zsh-completions/src $fpath)
-autoload -U compinit
-compinit
+autoload -U compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+source $HOME/.shell/davis.bash
 
 bindkey -v
 

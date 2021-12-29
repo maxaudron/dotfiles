@@ -1,5 +1,4 @@
 [{
-  "output": "HDMI-A-1",
   "position": "right",
   "modules-left": [
     "custom/top_edge"
