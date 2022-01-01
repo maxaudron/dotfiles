@@ -1,5 +1,0 @@
-[default-profile]
-alsa_card.pci-0000_10_00.1=output:hdmi-stereo
-alsa_card.pci-0000_12_00.4=output:analog-stereo
-alsa_card.usb-Elgato_Cam_Link_4K_00051F10CE000-03=input:analog-stereo
-alsa_card.usb-Yamaha_Corporation_Steinberg_UR242-00=output:analog-stereo+input:analog-surround-40

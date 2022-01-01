@@ -1,4 +1,2 @@
 exec pipewire
-exec bitwig-studio
-exec /opt/bitwig-studio/bin/BitwigAudioEngine-X64-AVX2
 exec_always $HOME/.config/sway/init
