@@ -38,19 +38,10 @@ alias sysu="systemctl --user"
 
 # MISC
 alias cl="clear"
-alias gpg="gpg2"
 alias kc="kubectl"
 alias nmpc="ncmpcpp"
 alias ec="emacsclient -nc"
 alias hi="ack --passthru"
-
-function git() {
-  if [[ "$1" == "clone" ]]; then
-    command $HOME/.local/bin/dit "$@"
-  else
-    command git "$@"
-  fi
-}
 
 alias kc-network-toolbox="kubectl run tmp-network-toolbox --rm -i --tty --image nicolaka/netshoot -- /bin/bash"
 

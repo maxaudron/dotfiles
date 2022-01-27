@@ -1,0 +1,63 @@
+{
+ "CPUs": 1,
+ "CmdLine": [
+  "/run/current-system/sw/bin/qemu-system-aarch64",
+  "-m",
+  "2048",
+  "-smp",
+  "1",
+  "-fw_cfg",
+  "name=opt/com.coreos/config,file=/Users/***REMOVED***/.config/containers/podman/machine/qemu/podman.ign",
+  "-qmp",
+  "unix://var/folders/t1/mzstkwss06sclcjp0b9ly81h0000gp/T/podman/qmp_podman.sock,server=on,wait=off",
+  "-netdev",
+  "socket,id=vlan,fd=3",
+  "-device",
+  "virtio-net-pci,netdev=vlan,mac=5a:94:ef:e4:0c:ee",
+  "-device",
+  "virtio-serial",
+  "-chardev",
+  "socket,path=/var/folders/t1/mzstkwss06sclcjp0b9ly81h0000gp/T/podman/podman_ready.sock,server=on,wait=off,id=podman_ready",
+  "-device",
+  "virtserialport,chardev=podman_ready,name=org.fedoraproject.port.0",
+  "-accel",
+  "hvf",
+  "-accel",
+  "tcg",
+  "-cpu",
+  "cortex-a57",
+  "-M",
+  "virt,highmem=off",
+  "-drive",
+  "file=edk2-aarch64-code.fd,if=pflash,format=raw,readonly=on",
+  "-drive",
+  "file=/Users/***REMOVED***/.local/share/containers/podman/machine/qemu/podman_ovmf_vars.fd,if=pflash,format=raw",
+  "-virtfs",
+  "local,path=/Users,mount_tag=vol0,security_model=mapped-xattr",
+  "-drive",
+  "if=virtio,file=/Users/***REMOVED***/.local/share/containers/podman/machine/qemu/podman_fedora-coreos-35.20220116.2.0-qemu.aarch64.qcow2"
+ ],
+ "Mounts": [
+  {
+   "Type": "9p",
+   "Tag": "vol0",
+   "Source": "/Users",
+   "Target": "/mnt/Users",
+   "ReadOnly": false
+  }
+ ],
+ "IdentityPath": "/Users/***REMOVED***/.ssh/podman",
+ "IgnitionFilePath": "/Users/***REMOVED***/.config/containers/podman/machine/qemu/podman.ign",
+ "ImageStream": "testing",
+ "ImagePath": "/Users/***REMOVED***/.local/share/containers/podman/machine/qemu/podman_fedora-coreos-35.20220116.2.0-qemu.aarch64.qcow2",
+ "Memory": 2048,
+ "DiskSize": 100,
+ "Name": "podman",
+ "Port": 49633,
+ "QMPMonitor": {
+  "Address": "/var/folders/t1/mzstkwss06sclcjp0b9ly81h0000gp/T/podman/qmp_podman.sock",
+  "Network": "unix",
+  "Timeout": 2000000000
+ },
+ "RemoteUsername": "core"
+}

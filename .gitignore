@@ -1,9 +1,13 @@
 src/.config/nvim/plugged
 src/.zshalias
 src/.zsh/.zsh_history
+src/.zsh/.zsh_sessions
 src/.zsh/.zcompdump
 src/.zsh/.zcompcache
 src/.zsh/.zcompdump.zwc
 src/.config/systemd/user/default.target.wants/
 src/.config/systemd/user/timers.target.wants/
 src/.config/systemd/user/sockets.target.wants/
+
+.DS_Store
+*.swp

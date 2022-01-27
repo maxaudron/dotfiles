@@ -1,49 +1,78 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, ... }:
+
 {
-  # Nix configuration ------------------------------------------------------------------------------
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  environment.systemPackages =
+    [ pkgs.go
+      pkgs.go-md2man
+      pkgs.vim
+      pkgs.exa
+      pkgs.mpv
+      pkgs.fzf
+      pkgs.qemu
+      pkgs.htop
+      pkgs.inxi
+      pkgs.stow
+      pkgs.pass
+      pkgs.gnupg
+      pkgs.yabai
+      pkgs.gvproxy
+      pkgs.emacsUnstable
+      # pkgs.pulseaudio
+    ];
 
-  nix.binaryCaches = [
-    "https://cache.nixos.org/"
-  ];
-  nix.binaryCachePublicKeys = [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-  ];
-  nix.trustedUsers = [
-    "@admin"
-  ];
-  users.nix.configureBuildUsers = true;
+  fonts = {
+    enableFontDir = true;
+    fonts = 
+      [ pkgs.ibm-plex
+        pkgs.nerdfonts
+        pkgs.emacs-all-the-icons-fonts
+      ];
+  };
 
-  # Enable experimental nix command and flakes
-  # nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-    auto-optimise-store = true
-    experimental-features = nix-command flakes
-  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-    extra-platforms = x86_64-darwin aarch64-darwin
+  services.emacs.package = pkgs.emacsUnstable;
+
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    }))
+    # (final: prev: {
+    #   useSystemd = false;
+    #   bluetoothSupport = false;
+    #   pulseaudio = prev.pulseaudio.overrideDerivation (old: {
+    #     configureFlags = old.configureFlags ++ [
+    #       "--with-mac-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
+    #       "--with-mac-version-min=12.1"
+    #     ];
+    #     NIX_CFLAGS_COMPILE = "-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk " + (old.NIX_CFLAGS_COMPILE or "");
+    #   });
+    # })
+  ];
+
+  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent.enableSSHSupport = true;
+
+  environment.shellInit = ''
+    gpg-connect-agent /bye
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
 
-  # Create /etc/bashrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;
+  # services.emacs.enable = true;
+
+  # Use a custom configuration.nix location.
+  # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
+  environment.darwinConfig = "$HOME/.config/nix/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
+  # nix.package = pkgs.nix;
 
-  # environment.systemPackages = with pkgs; [];
+  # Create /etc/bashrc that loads the nix-darwin environment.
+  # programs.zsh.enable = true;  # default shell on catalina
+  # programs.fish.enable = true;
 
-  # environment.variables = {};
-  # programs.nix-index.enable = true;
-
-  # Fonts
-  # fonts.enableFontDir = true;
-  # fonts.fonts = with pkgs; [
-  #    recursive
-  #    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  #  ];
-
-  # Keyboard
-  # system.keyboard.enableKeyMapping = true;
-  # system.keyboard.remapCapsLockToEscape = true;
-
-  # Add ability to used TouchID for sudo authentication
-  security.pam.enableSudoTouchIdAuth = true;
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 4;
 }
