@@ -7,5 +7,3 @@ export GOPATH="$HOME/go/"
 export SSH_AUTH_SOCK="/run/user/$(id -u)/gnupg/S.gpg-agent.ssh"
 
 export ZDOTDIR=$HOME/.zsh
-
-eval "$(/opt/homebrew/bin/brew shellenv)"

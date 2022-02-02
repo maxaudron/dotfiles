@@ -98,6 +98,7 @@
 (load! "secrets/forge")
 (load! "secrets/mu4e")
 (load! "secrets/jira")
+(load! "secrets/grip")
 
 (after! rustic
   (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"])
