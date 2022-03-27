@@ -5,6 +5,8 @@ export PATH="$HOME/go/bin:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.emacs.d/bin:$
 # Load host specific setup
 [ -f "$HOME/.zsh/specifics/$(hostname -f).zsh" ] && source "$HOME/.zsh/specifics/$(hostname -f).zsh"
 
+export KUBECONFIG="$HOME/.kube/config:$(for i in $(find "$HOME/.kube/configs/" -iname '*.yaml') ; do echo -n ":$i"; done | cut -c 2-)"
+
 # Load Shell theme
 source $HOME/.zsh/powerlevel.zsh
 

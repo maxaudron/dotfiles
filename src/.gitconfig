@@ -96,8 +96,12 @@
 [includeIf "gitdir:~/repo/github.com/"]
 	path = .gitconfig-gitlab
 
+[includeIf "gitdir:~/repo/git.deuxfleurs.fr/"]
+	path = .gitconfig-gitlab
+
 [includeIf "gitdir:~/org"]
 	path = .gitconfig-gitlab
+
 
 [includeIf "gitdir:~/repo/git.eu.clara.net/"]
 	path = .gitconfig-work
