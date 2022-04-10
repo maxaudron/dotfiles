@@ -55,14 +55,25 @@ in {
     enable = true;
 
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
-    defaultKeymap = "emacs";
+    defaultKeymap = "viins";
 
-    plugins = [{
-      name = "fzf";
-      file = "share/fzf/key-bindings.zsh";
-      src = pkgs.fzf;
-    }];
+    plugins = [
+      {
+        name = "fzf";
+        file = "share/fzf/key-bindings.zsh";
+        src = pkgs.fzf;
+      }
+      {
+        name = "fast-syntax-highlighting";
+        file = "fast-syntax-highlighting.plugin.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "zdharma-continuum";
+          repo = "fast-syntax-highlighting";
+          rev = "ef8ba84c3a76c768f49a0bdd2a620b2f53c2478a";
+          hash = "sha256:058s55r8gq1giwnb2si8k38nvd0qy8jlhd9zhvsxyl0mvi7wk9ar";
+        };
+      }
+    ];
 
     dotDir = ".config/zsh";
     history = {
@@ -76,19 +87,6 @@ in {
       autoload -U +X bashcompinit && bashcompinit
     '';
 
-    initExtra = ''
-      export GPG_TTY="$(tty)"
-      export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-
-      autoload -U up-line-or-beginning-search
-      autoload -U down-line-or-beginning-search
-      zle -N up-line-or-beginning-search
-      zle -N down-line-or-beginning-search
-      bindkey "^[[A" up-line-or-beginning-search # Up
-      bindkey "^[[B" down-line-or-beginning-search # Down
-
-      bindkey -- "^[[H" beginning-of-line
-      bindkey -- "^[[F" end-of-line
-    '';
+    initExtra = lib.readFile ./zshrc;
   };
 }
