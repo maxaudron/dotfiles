@@ -3,11 +3,11 @@
 {
   wayland.windowManager.sway.config = {
     output = {
-      "DP-4" = {
+      "Goldstar Company Ltd 34GN850 005NTVSHE463" = {
         pos = "0 0";
         mode = "3440x1440@99.982Hz";
       };
-      "DP-6" = {
+      "Goldstar Company Ltd LG ULTRAWIDE 0x00000101" = {
         pos = "450 1440";
         transform = "180";
       };

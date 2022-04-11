@@ -27,6 +27,7 @@
   xdg.portal.wlr.enable = true;
 
   nix.trustedUsers = [ "@wheel" ];
+  security.sudo.wheelNeedsPassword = false;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.audron = {
