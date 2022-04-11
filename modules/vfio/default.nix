@@ -1,6 +1,17 @@
 { config, lib, pkgs, ... }:
 
-{
+let
+  startWindowsDesktopItem = pkgs.makeDesktopItem {
+    name = "start-windows";
+    desktopName = "Start Windows VM";
+    exec = "${pkgs.libvirt}/bin/virsh -c qemu:///system start windows";
+  };
+  stopWindowsDesktopItem = pkgs.makeDesktopItem {
+    name = "stop-windows";
+    desktopName = "Stop Windows VM";
+    exec = "${pkgs.libvirt}/bin/virsh -c qemu:///system destroy windows";
+  };
+in {
   boot = {
     kernelParams = [
       "amd_iommu=on"
@@ -34,7 +45,12 @@
     '';
   };
 
-  environment.systemPackages = with pkgs; [ edk2 virt-manager ];
+  environment.systemPackages = with pkgs; [
+    edk2
+    virt-manager
+    startWindowsDesktopItem
+    stopWindowsDesktopItem
+  ];
 
   virtualisation.libvirtd = {
     enable = true;
