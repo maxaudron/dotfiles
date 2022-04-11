@@ -14,6 +14,8 @@
       ../../modules/home-manager
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages-rt_latest;
+
   # Use the systemd-boot EFI boot loader.
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/";
@@ -62,6 +64,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-
 }
-
