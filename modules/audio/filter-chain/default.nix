@@ -30,6 +30,7 @@ in {
     pipewire-filter-microphone = {
       wantedBy = [ "pipewire.service" ];
       requires = [ "pipewire.service" ];
+      after = [ "pipewire.service" ];
       description = "Start the microphone filter chain";
       serviceConfig = {
         Type = "simple";

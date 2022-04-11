@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 
-let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+
+  sampleSize = 128;
 
 in {
   disabledModules = [ "services/desktops/pipewire/pipewire.nix" ];
@@ -45,9 +48,9 @@ in {
           "link.max-buffers" = 64;
           "log.level" = 2;
           "default.clock.rate" = 48000;
-          "default.clock.quantum" = 256;
-          "default.clock.min-quantum" = 256;
-          "default.clock.max-quantum" = 256;
+          "default.clock.quantum" = sampleSize;
+          "default.clock.min-quantum" = sampleSize;
+          "default.clock.max-quantum" = sampleSize;
           "core.daemon" = true;
           "core.name" = "pipewire-0";
         };
@@ -103,17 +106,17 @@ in {
           {
             name = "libpipewire-module-protocol-pulse";
             args = {
-              "pulse.min.req" = "256/48000";
-              "pulse.default.req" = "256/48000";
-              "pulse.max.req" = "256/48000";
-              "pulse.min.quantum" = "256/48000";
-              "pulse.max.quantum" = "256/48000";
+              "pulse.min.req" = "${toString sampleSize}/48000";
+              "pulse.default.req" = "${toString sampleSize}/48000";
+              "pulse.max.req" = "${toString sampleSize}/48000";
+              "pulse.min.quantum" = "${toString sampleSize}/48000";
+              "pulse.max.quantum" = "${toString sampleSize}/48000";
               "server.address" = [ "unix:native" ];
             };
           }
         ];
         "stream.properties" = {
-          "node.latency" = "256/48000";
+          "node.latency" = "${toString sampleSize}/48000";
           "resample.quality" = 1;
         };
       };
