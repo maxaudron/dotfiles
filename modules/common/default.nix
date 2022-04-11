@@ -13,7 +13,7 @@
     wget
     htop
     nixfmt
-    firefox
+    firefox-wayland
 
     xfce.thunar
 

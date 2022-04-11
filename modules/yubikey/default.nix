@@ -14,7 +14,13 @@
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
-      pinentryFlavor = "curses";
+      pinentryFlavor = "qt";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    pinentry
+    pinentry-curses
+    pinentry-qt
+  ];
 }

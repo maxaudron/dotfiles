@@ -8,6 +8,7 @@ in {
     modules/shell
     modules/sway
     modules/git
+    modules/gpg
   ];
 
   home.username = "audron";
@@ -15,7 +16,9 @@ in {
 
   programs.home-manager.enable = true;
 
-  home.packages = with pkgs; [ unstable.quasselClient ];
+  home.packages = with pkgs; [
+    unstable.quasselClient
+  ];
 
   home.stateVersion = "21.11";
 }
