@@ -12,6 +12,7 @@
       ../../modules/common
       ../../modules/yubikey
       ../../modules/home-manager
+      ../../modules/vfio
     ];
 
   boot.kernelPackages = pkgs.linuxPackages-rt_latest;

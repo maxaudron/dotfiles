@@ -29,11 +29,13 @@
   nix.trustedUsers = [ "@wheel" ];
   security.sudo.wheelNeedsPassword = false;
 
+  programs.dconf.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "libvirtd" ];
     shell = pkgs.zsh;
   };
 
