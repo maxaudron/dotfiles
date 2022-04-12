@@ -24,11 +24,11 @@ in {
       { workspace = "4"; output = "\"${displayTop}\""; }
       { workspace = "5"; output = "\"${displayTop}\""; }
 
-      { workspace = "6"; output = "\"${displayBottom}\""; }
-      { workspace = "7"; output = "\"${displayBottom}\""; }
-      { workspace = "8"; output = "\"${displayBottom}\""; }
-      { workspace = "9"; output = "\"${displayBottom}\""; }
-      { workspace = "0"; output = "\"${displayBottom}\""; }
+      { workspace = "6"; output = "\"${displayBottom}\" gaps top 150"; }
+      { workspace = "7"; output = "\"${displayBottom}\" gaps top 150"; }
+      { workspace = "8"; output = "\"${displayBottom}\" gaps top 150"; }
+      { workspace = "9"; output = "\"${displayBottom}\" gaps top 150"; }
+      { workspace = "0"; output = "\"${displayBottom}\" gaps top 150"; }
     ];
   };
 }

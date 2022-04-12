@@ -7,6 +7,7 @@ in {
     modules/alacritty
     modules/shell
     modules/sway
+    modules/dev
     modules/git
     modules/gpg
   ];
@@ -17,7 +18,9 @@ in {
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
-    unstable.quasselClient
+    quasselClient
+
+    unstable.teamspeak_client
   ];
 
   home.stateVersion = "21.11";

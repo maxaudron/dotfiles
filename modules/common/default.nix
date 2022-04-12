@@ -69,6 +69,17 @@
 
   fonts.fonts = with pkgs; [ ibm-plex nerdfonts ];
 
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      serif = [ "IBM Plex Serif" ];
+      sansSerif = [ "IBM Plex Sans" ];
+      monospace = [ "IBM Plex Mono" ];
+
+      emoji = [ "Noto Color Emoji" ];
+    };
+  };
+
   # Enable zsh completion for system packages
   environment.pathsToLink = [ "/share/zsh" ];
 
@@ -80,9 +91,5 @@
       ref = "master";
       rev = "4a128aff2349006582335b835831519bf4413ed0";
     }))
-
-    (self: super: {
-      teamspeak5 = super.callPackage ../../pkgs/teamspeak5 { };
-    })
   ];
 }

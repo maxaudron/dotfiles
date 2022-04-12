@@ -21,8 +21,6 @@ in {
     pulseaudio
     rnnoise-plugin
     lsp-plugins
-
-    unstable.teamspeak_client
   ];
 
   sound.enable = true;
