@@ -21,6 +21,8 @@ in {
     pulseaudio
     rnnoise-plugin
     lsp-plugins
+
+    scream
   ];
 
   sound.enable = true;

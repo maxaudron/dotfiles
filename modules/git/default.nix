@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ delta ];
+  home.packages = with pkgs; [ delta bfg-repo-cleaner ];
 
   programs.git = {
     enable = true;

@@ -37,11 +37,18 @@
       { devices = [ "/dev/nvme0n1" ]; path = "/boot/1"; }
       { devices = [ "/dev/nvme1n1" ]; path = "/boot/2"; }
     ];
+
+    memtest86.enable = true;
   };
 
   services.zfs.trim.enable = true;
   services.zfs.autoScrub.enable = true;
   services.zfs.autoScrub.pools = [ "rpool" ];
+
+  boot.kernel.sysctl = {
+    "net.ipv6.conf.enp9s0.autoconf" = "0";
+    "net.ipv6.conf.enp9s0.accept_ra" = "0";
+  };
 
   networking = {
     hostName = "liduur";
@@ -50,12 +57,19 @@
     dhcpcd.enable = false;
     usePredictableInterfaceNames = true;
     enableIPv6 = true;
-    interfaces.enp9s0.ipv4.addresses = [{
+    interfaces.enp8s0.tempAddress = "disabled";
+    interfaces.br0.tempAddress = "disabled";
+    interfaces.br0.ipv4.addresses = [{
       address = "192.168.144.10";
       prefixLength = 24;
     }];
     defaultGateway = "192.168.144.1";
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    bridges = {
+      "br0" = {
+        interfaces = [ "enp8s0" ];
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default

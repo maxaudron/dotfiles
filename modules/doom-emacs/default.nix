@@ -1,7 +1,12 @@
 { pkgs, config, lib, ... }:
 
 with lib;
-{
+
+let
+  conf = lib.importTOML ../../config.toml;
+  emacsPackage =
+    if pkgs.stdenv.isLinux then pkgs.emacsPgtkGcc else pkgs.emacs;
+in {
   home = {
     sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
     sessionVariables = {
@@ -13,8 +18,8 @@ with lib;
   xdg = {
     enable = true;
     configFile = {
-      "doom" = { 
-        source = ./files; 
+      "doom" = {
+        source = ./files;
         onChange = "${pkgs.writeShellScript "doom-config-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
@@ -36,17 +41,16 @@ with lib;
     };
   };
 
-
   programs.emacs = {
     enable = true;
-    package = pkgs.emacsPgtkGcc;
+    package = emacsPackage;
   };
 
   services.emacs = {
-    enable = true;
-    package = pkgs.emacsPgtkGcc;
+    enable = pkgs.stdenv.isLinux;
+    package = emacsPackage;
   };
-  
+
   home.packages = with pkgs; [
     fd
     zstd
