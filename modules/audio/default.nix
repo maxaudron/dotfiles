@@ -5,6 +5,21 @@ let
 
   sampleSize = 128;
 
+  defaultLinks = [
+    {
+      input =
+        "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX8";
+      output =
+        "alsa_output.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-output-0:playback_AUX0";
+    }
+    {
+      input =
+        "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX9";
+      output =
+        "alsa_output.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-output-0:playback_AUX1";
+    }
+  ];
+
 in {
   disabledModules = [ "services/desktops/pipewire/pipewire.nix" ];
 
@@ -14,6 +29,20 @@ in {
 
     ./filter-chain
   ];
+
+  systemd.user.services = {
+    pipewire-setup-links = {
+      wantedBy = [ "pipewire.service" ];
+      requires = [ "pipewire.service" ];
+      after = [ "pipewire.service" ];
+      description = "Setup default pipewire links";
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = map ({ input, output }:
+          ''${pkgs.pipewire}/bin/pw-link "${input}" "${output}"'') defaultLinks;
+      };
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     helvum
