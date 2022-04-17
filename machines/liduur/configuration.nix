@@ -5,43 +5,29 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/audio
-      ../../modules/common
-      ../../modules/yubikey
-      ../../modules/home-manager
-      ../../modules/vfio
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/audio
+    ../../modules/common
+    ../../modules/yubikey
+    ../../modules/home-manager
+    ../../modules/vfio
+  ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.supportedFilesystems = [ "zfs" ];
-  boot.zfs.devNodes = "/dev/";
-
-  boot.loader.efi = {
-    canTouchEfiVariables = true;
-    efiSysMountPoint = "/boot";
-  };
-
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    zfsSupport = true;
-    efiSupport = true;
-    device = "nodev";
-    mirroredBoots = lib.mkForce [
-      { devices = [ "/dev/nvme0n1" ]; path = "/boot/1"; }
-      { devices = [ "/dev/nvme1n1" ]; path = "/boot/2"; }
-    ];
-
-    memtest86.enable = true;
-  };
-
-  services.zfs.trim.enable = true;
-  services.zfs.autoScrub.enable = true;
-  services.zfs.autoScrub.pools = [ "rpool" ];
+  audio.defaultLinks = [
+    {
+      input =
+        "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX8";
+      output =
+        "alsa_output.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-output-0:playback_AUX0";
+    }
+    {
+      input =
+        "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX9";
+      output =
+        "alsa_output.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-output-0:playback_AUX1";
+    }
+  ];
 
   boot.kernel.sysctl = {
     "net.ipv6.conf.enp5s0.autoconf" = "0";
@@ -63,11 +49,7 @@
     }];
     defaultGateway = "192.168.144.1";
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
-    bridges = {
-      "br0" = {
-        interfaces = [ "enp5s0" ];
-      };
-    };
+    bridges = { "br0" = { interfaces = [ "enp5s0" ]; }; };
   };
 
   # This value determines the NixOS release from which the default

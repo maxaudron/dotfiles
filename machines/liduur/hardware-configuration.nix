@@ -4,90 +4,131 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" =
-    { device = "rpool/root";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
+  boot = {
+    initrd = {
+      availableKernelModules =
+        [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
     };
 
-  fileSystems."/nix" =
-    { device = "rpool/root/nix";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+    kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
+    extraModulePackages = [ ];
 
-  fileSystems."/etc" =
-    { device = "rpool/root/etc";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+    # Use the systemd-boot EFI boot loader.
+    supportedFilesystems = [ "zfs" ];
+    zfs.devNodes = "/dev/";
 
-  fileSystems."/home" =
-    { device = "rpool/root/home";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+    loader = {
+      efi = { canTouchEfiVariables = true; };
 
-  fileSystems."/srv" =
-    { device = "rpool/root/srv";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+      # Use the GRUB 2 boot loader.
+      grub = {
+        enable = true;
+        version = 2;
+        zfsSupport = true;
+        efiSupport = true;
+        device = "nodev";
 
-  fileSystems."/var" =
-    { device = "rpool/root/var";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+        # Force this list to only contain these entries
+        # by default /boot is in here too, breaking my setup
+        mirroredBoots = lib.mkForce [
+          {
+            devices = [ "/dev/nvme0n1" ];
+            path = "/boot/1";
+          }
+          {
+            devices = [ "/dev/nvme1n1" ];
+            path = "/boot/2";
+          }
+        ];
 
-  fileSystems."/var/lib" =
-    { device = "rpool/root/var/lib";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
+        memtest86.enable = true;
+      };
     };
+  };
 
-  fileSystems."/var/lib/containers" =
-    { device = "rpool/root/var/lib/containers";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
+  services.zfs = {
+    trim.enable = true;
+    autoScrub = {
+      enable = true;
+      pools = [ "rpool" ];
     };
+  };
 
-  fileSystems."/var/log" =
-    { device = "rpool/root/var/log";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+  fileSystems."/" = {
+    device = "rpool/root";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
-  fileSystems."/var/spool" =
-    { device = "rpool/root/var/spool";
-      fsType = "zfs";
-      options = [ "zfsutil" ];
-    };
+  fileSystems."/nix" = {
+    device = "rpool/root/nix";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
-  fileSystems."/boot/1" =
-    { device = "/dev/disk/by-id/nvme-WDS100T1X0E-00AFY0_2152BE442809-part2";
-      fsType = "vfat";
-      options = [ "X-mount.mkdir" ];
-    };
-  
-  fileSystems."/boot/2" =
-    { device = "/dev/disk/by-id/nvme-WDS100T1X0E-00AFY0_2152BE442510-part2";
-      fsType = "vfat";
-      options = [ "X-mount.mkdir" ];
-    };
+  fileSystems."/etc" = {
+    device = "rpool/root/etc";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
-  swapDevices = [ ];
+  fileSystems."/home" = {
+    device = "rpool/root/home";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  fileSystems."/srv" = {
+    device = "rpool/root/srv";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var" = {
+    device = "rpool/root/var";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var/lib" = {
+    device = "rpool/root/var/lib";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var/lib/containers" = {
+    device = "rpool/root/var/lib/containers";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var/log" = {
+    device = "rpool/root/var/log";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var/spool" = {
+    device = "rpool/root/var/spool";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/boot/1" = {
+    device = "/dev/disk/by-id/nvme-WDS100T1X0E-00AFY0_2152BE442809-part2";
+    fsType = "vfat";
+    options = [ "X-mount.mkdir" ];
+  };
+
+  fileSystems."/boot/2" = {
+    device = "/dev/disk/by-id/nvme-WDS100T1X0E-00AFY0_2152BE442510-part2";
+    fsType = "vfat";
+    options = [ "X-mount.mkdir" ];
+  };
+
+  hardware.cpu.amd.updateMicrocode = false;
+  hardware.video.hidpi.enable = true;
 }
