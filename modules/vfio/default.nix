@@ -16,23 +16,25 @@ in {
     kernelParams = [
       "amd_iommu=on"
       "video=efifb:off"
-
-      "hugepagesz=2MB"
-      "hugepages=8192"
     ];
 
     kernel.sysctl = {
-      "vm.nr_hugepages" = 8600;
+      "vm.nr_hugepages" = 8129;
       "kernel.shmmax" = 18035507200;
     };
 
     kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     blacklistedKernelModules = [ "nvidia" "nvidiafb" "nouveau" ];
 
+    extraModprobeConfig = ''
+      options vfio-pci disable_vga=0
+      options vfio-pci disable_idle_d3=0
+    '';
+
     postBootCommands = ''
       #!/bin/sh
 
-      DEVS="0000:0e:00.0 0000:0e:00.1 0000:13:00.3"
+      DEVS="0000:09:00.0 0000:09:00.1 0000:0e:00.3"
 
       if [ ! -z "$(ls -A /sys/class/iommu)" ]; then
           for DEV in $DEVS; do

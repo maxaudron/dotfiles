@@ -15,8 +15,6 @@
       ../../modules/vfio
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages-rt_latest;
-
   # Use the systemd-boot EFI boot loader.
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.devNodes = "/dev/";
@@ -46,8 +44,8 @@
   services.zfs.autoScrub.pools = [ "rpool" ];
 
   boot.kernel.sysctl = {
-    "net.ipv6.conf.enp9s0.autoconf" = "0";
-    "net.ipv6.conf.enp9s0.accept_ra" = "0";
+    "net.ipv6.conf.enp5s0.autoconf" = "0";
+    "net.ipv6.conf.enp5s0.accept_ra" = "0";
   };
 
   networking = {
@@ -57,7 +55,7 @@
     dhcpcd.enable = false;
     usePredictableInterfaceNames = true;
     enableIPv6 = true;
-    interfaces.enp8s0.tempAddress = "disabled";
+    interfaces.enp5s0.tempAddress = "disabled";
     interfaces.br0.tempAddress = "disabled";
     interfaces.br0.ipv4.addresses = [{
       address = "192.168.144.10";
@@ -67,7 +65,7 @@
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
     bridges = {
       "br0" = {
-        interfaces = [ "enp8s0" ];
+        interfaces = [ "enp5s0" ];
       };
     };
   };
