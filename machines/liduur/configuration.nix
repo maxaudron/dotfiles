@@ -14,6 +14,8 @@
     ../../modules/vfio
   ];
 
+  vfio.devices = [ "0000:09:00.0" "0000:09:00.1" "0000:0e:00.3" ];
+
   audio.defaultLinks = [
     {
       input =
