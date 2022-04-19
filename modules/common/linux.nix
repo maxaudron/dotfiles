@@ -24,7 +24,7 @@
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups = [ "wheel" "libvirtd" ];
+    extraGroups = [ "wheel" "libvirtd" "audio" ];
     shell = pkgs.zsh;
   };
 
