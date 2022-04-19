@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-if [ -n "$(which dit)" ]; then
+if command -v dit; then
     export DITSH_BASE="$HOME/repo"
 
     git() {
