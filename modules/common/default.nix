@@ -3,7 +3,7 @@
 let conf = lib.importTOML ../../config.toml;
 
 in {
-  imports = [ (if conf.os.type == "linux" then ./linux.nix else null) ];
+  imports = (if conf.os.type == "linux" then [ ./linux.nix ] else []);
 
   nixpkgs.config.allowUnfree = true;
 
