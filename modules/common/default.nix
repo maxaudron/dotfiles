@@ -18,6 +18,9 @@ in {
     htop
 
     nixfmt
+
+    pass
+    passff-host
   ];
 
   nix.trustedUsers = [ "@wheel" ];
