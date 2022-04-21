@@ -1,13 +1,15 @@
 { config, lib, pkgs, ... }:
 
-{
+let conf = lib.importTOML ../../config.toml;
+
+in {
   home.packages = with pkgs; [ delta bfg-repo-cleaner ];
 
   programs.git = {
     enable = true;
 
-    userName = "Max Audron";
-    userEmail = "audron@cocaine.farm";
+    userName = conf.user.fullname;
+    userEmail = conf.user.email;
 
     extraConfig = {
       init = { defaultBranch = "master"; };
