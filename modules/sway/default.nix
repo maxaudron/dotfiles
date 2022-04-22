@@ -46,6 +46,7 @@ in {
     ./waybar
 
     ./keybinds.nix
+    ./input.nix
     ./theme.nix
 
     (./specifics + "/${sysconfig.networking.hostName}.nix")
@@ -65,6 +66,8 @@ in {
     lxappearance
 
     unstable.rofi-wayland
+
+    xdotool
   ];
 
   wayland.windowManager.sway = {

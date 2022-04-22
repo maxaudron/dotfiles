@@ -1,0 +1,26 @@
+app-id: farm.cocaine.TeamSpeak5
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '21.08'
+command: /app/TeamSpeak
+modules:
+  - name: teamspeak5
+    sources:
+      - type: archive
+        url: 'https://files.teamspeak-services.com/pre_releases/client/5.0.0-beta68.1/teamspeak-client.tar.gz'
+        sha256: 41462345a1688f02140b57dd763e4d6451f59b13b525b49cfc7134f79d50224f
+        strip-components: 0
+    buildsystem: simple
+    subdir: "."
+    build-commands:
+      - pwd
+      - cp -r * /app
+      - ls -al /app
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --share=network
+  - --socket=system-bus

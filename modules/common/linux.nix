@@ -35,6 +35,8 @@ in {
     xfce.thunar
 
     qt5.qtwayland
+
+    dfu-util
   ];
 
   services.flatpak.enable = true;
