@@ -1,7 +1,31 @@
 { config, lib, pkgs, ... }:
 
-{
+let grub2-theme = pkgs.callPackage ../../pkgs/grub2-theme {};
+in {
+  imports = [ ];
+
   security.sudo.wheelNeedsPassword = false;
+
+  boot.loader = {
+    grub = {
+      configurationLimit = 3;
+
+      theme = "${grub2-theme}/grub/themes/vimix";
+      splashImage = "${grub2-theme}/grub/themes/vimix/background.jpg";
+      gfxmodeEfi = "3440x1440x32,auto";
+      gfxmodeBios = "3440x1440x32,auto";
+      gfxpayloadEfi = "keep";
+      gfxpayloadBios = "keep";
+      font = "${pkgs.ibm-plex}/share/fonts/opentype/IBMPlexMono-Regular.otf";
+      extraConfig = ''
+        insmod gfxterm
+        insmod png
+        set icondir=($root)/theme/icons
+      '';
+    };
+
+    timeout = 1;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
