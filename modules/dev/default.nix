@@ -37,5 +37,9 @@ in {
     };
   };
 
-  config = { };
+  config = {
+    home.packages = with pkgs; [
+      morph
+    ];
+  };
 }
