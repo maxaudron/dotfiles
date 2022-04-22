@@ -60,5 +60,9 @@ in {
     editorconfig-core-c
     emacs-all-the-icons-fonts
     (ripgrep.override { withPCRE2 = true; })
+
+    hunspell
+    hunspellDicts.de_DE
+    hunspellDicts.en_US
   ];
 }
