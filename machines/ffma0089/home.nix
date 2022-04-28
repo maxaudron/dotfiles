@@ -12,7 +12,14 @@ in {
     ../../modules/git
     ../../modules/gpg
     ../../modules/dev
+    ../../modules/podman/machine.nix
   ];
+
+  podman.machine = {
+    memory = 2048;
+    cpus = 4;
+    diskSize = 100;
+  };
 
   home.username = conf.user.name;
   home.homeDirectory = lib.mkForce conf.user.home;

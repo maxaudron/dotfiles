@@ -129,3 +129,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
 (add-hook 'find-file-hook #'enable-minor-mode-based-on-extension)
 
 (add-to-list 'auto-minor-mode-alist '("\\.j2\\'" . jinja2-mode))
+
+;; fix home and end keys on mac
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<end>") 'move-end-of-line)
