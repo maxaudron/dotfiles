@@ -8,6 +8,8 @@ let
 
   microphone = json.generate "microphone.conf" (microphone_data pkgs);
   system-out = json.generate "system-out.conf" (system-out_data pkgs);
+
+  cfg = config.audio;
 in {
   environment.etc."pipewire/filter-chain/microphone.conf" = {
     source = microphone;
@@ -18,15 +20,16 @@ in {
   };
 
   systemd.user.services = {
-    # pipewire-filter-system-out = {
-    #   wantedBy = [ "pipewire.service" ];
-    #   requires = [ "pipewire.service" ];
-    #   description = "Start the system output filter chain";
-    #   serviceConfig = {
-    #     Type = "simple";
-    #     ExecStart = "${pkgs.pipewire}/bin/pipewire -c ${system-out}";
-    #   };
-    # };
+    pipewire-filter-system-out = {
+      wantedBy = [ "pipewire.service" ];
+      requires = [ "pipewire.service" ];
+      after = [ "pipewire.service" ];
+      description = "Start the system output filter chain";
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${cfg.package}/bin/pipewire -c ${system-out}";
+      };
+    };
     pipewire-filter-microphone = {
       wantedBy = [ "pipewire.service" ];
       requires = [ "pipewire.service" ];
@@ -34,7 +37,7 @@ in {
       description = "Start the microphone filter chain";
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.pipewire}/bin/pipewire -c ${microphone}";
+        ExecStart = "${cfg.package}/bin/pipewire -c ${microphone}";
       };
     };
   };

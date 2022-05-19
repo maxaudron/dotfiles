@@ -9,6 +9,17 @@ let
 
   cfg = config.audio;
 
+  pkgPipewire = (unstable.pipewire.overrideAttrs (old: {
+        src = pkgs.fetchFromGitLab {
+          domain = "gitlab.freedesktop.org";
+          owner = "pipewire";
+          repo = "pipewire";
+          rev = "0c8cd4ab52557681df70e24df9072e2df7c7d6ff";
+          sha256 = "sha256-zBcM/rTsnKfANrswAPMFaLr+6w4YEsS2c9x7rvW6UL4=";
+        };
+        mesonFlags = old.mesonFlags ++ [ "-Dbluez5-codec-lc3plus=disabled" ];
+      }));
+
 in {
   disabledModules = [ "services/desktops/pipewire/pipewire.nix" ];
 
@@ -29,6 +40,11 @@ in {
           input = "a";
           output = "b";
         }];
+      };
+
+      package = mkOption {
+        type = types.package;
+        default = pkgPipewire;
       };
     };
   };
@@ -88,7 +104,8 @@ in {
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
-      package = unstable.pipewire;
+      package = cfg.package;
+      # package = unstable.pipewire;
 
       jack = { enable = true; };
       pulse = { enable = true; };

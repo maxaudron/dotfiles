@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
-{
+let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+
+in {
   # System Output Sink
   #
   # One stereo pair input, two pairs output
@@ -37,8 +39,8 @@
     {
       name = "libpipewire-module-filter-chain";
       args = {
-        "node.description" = "rnnoise";
-        "media.name" = "rnnoise";
+        "node.description" = "Microphone";
+        "media.name" = "Microphone";
         "filter.graph" = {
           nodes = [
             {
@@ -48,36 +50,11 @@
               label = "noise_suppressor_mono";
               control = { "VAD Threshold (%)" = 50.0; };
             }
-          ];
-        };
-        "capture.props" = {
-          "node.name" = "effect_input.rnnoise";
-          "node.target" =
-            "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0";
-          "node.passive" = true;
-          "audio.channels" = 1;
-          "audio.position" = [ "AUX0" ];
-        };
-        "playback.props" = {
-          "media.class" = "Audio/Source";
-          "node.name" = "effect_output.rnnoise";
-          "node.passive" = true;
-          "audio.channels" = 1;
-          "audio.position" = [ "AUX0" ];
-        };
-      };
-    }
-    {
-      name = "libpipewire-module-filter-chain";
-      args = {
-        "node.description" = "Microphone";
-        "media.name" = "Microphone";
-        "filter.graph" = {
-          nodes = [
             {
               type = "ladspa";
               name = "comp";
-              plugin = "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
+              plugin =
+                "${unstable.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
               label = "http://lsp-plug.in/plugins/ladspa/compressor_mono";
               control = {
                 "Input gain (G)" = 1.0;
@@ -112,12 +89,45 @@
                 "Output level visibility" = false;
               };
             }
+            {
+              type = "builtin";
+              label = "copy";
+              name = "copy";
+            }
+            {
+              type = "builtin";
+              label = "copy";
+              name = "L";
+            }
+            {
+              type = "builtin";
+              label = "copy";
+              name = "R";
+            }
           ];
+          links = [
+            {
+              output = "rnnoise:Output";
+              input = "comp:Input";
+            }
+            {
+              output = "comp:Output";
+              input = "copy:In";
+            }
+            {
+              output = "copy:Out";
+              input = "L:In";
+            }
+            {
+              output = "copy:Out";
+              input = "R:In";
+            }
+          ];
+          outputs = [ "L:Out" "R:Out" ];
         };
         "capture.props" = {
           "node.name" = "effect_input.microphone";
-          "node.target" =
-            "effect_output.rnnoise";
+          "node.target" = "effect_output.rnnoise";
           "node.passive" = true;
           "audio.channels" = 1;
           "audio.position" = [ "AUX0" ];
@@ -127,7 +137,7 @@
           "node.name" = "effect_output.microphone";
           "node.passive" = true;
           "audio.channels" = 1;
-          "audio.position" = [ "AUX0" ];
+          "audio.position" = [ "AUX0" "AUX1" ];
         };
       };
     }

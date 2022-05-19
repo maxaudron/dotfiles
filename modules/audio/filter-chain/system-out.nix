@@ -56,7 +56,7 @@
               label = "convolver";
               name = "convFL";
               config = {
-                filename = "/home/audron/media/ir_responses/speaker_eq.wav";
+                filename = "${./ir_responses/speaker_eq.wav}";
                 channel = 0;
               };
             }
@@ -65,7 +65,7 @@
               label = "convolver";
               name = "convFR";
               config = {
-                filename = "/home/audron/media/ir_responses/speaker_eq.wav";
+                filename = "${./ir_responses/speaker_eq.wav}";
                 channel = 1;
               };
             }
