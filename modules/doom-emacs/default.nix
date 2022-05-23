@@ -49,6 +49,7 @@ in {
   services.emacs = {
     enable = pkgs.stdenv.isLinux;
     package = emacsPackage;
+    defaultEditor = true;
   };
 
   home.packages = with pkgs; [
