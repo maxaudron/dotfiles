@@ -20,6 +20,7 @@ in {
     nixfmt
 
     pass
+    passExtensions.pass-update
     passff-host
   ];
 

@@ -37,7 +37,7 @@ let
 in {
   imports = [ ./powerlevel10k.nix ./functions.nix ];
 
-  home.packages = with pkgs; [ fzf exa ];
+  home.packages = with pkgs; [ fzf exa tmux tmux-cssh ];
 
   home.shellAliases = aliases;
 
