@@ -3,13 +3,9 @@
 with lib;
 let
   cfg = config.home.dev;
+  conf = lib.importTOML ../../config.toml;
 in {
-  imports = [
-    ./kubernetes.nix
-    ./terraform.nix
-    ./golang.nix
-    ./rust.nix
-  ];
+  imports = [ ./kubernetes.nix ./terraform.nix ./golang.nix ./rust.nix ];
 
   options.home.dev = {
     kubernetes = mkOption {
@@ -38,8 +34,10 @@ in {
   };
 
   config = {
-    home.packages = with pkgs; [
-      morph
-    ];
+    home.packages = with pkgs;
+      [ morph ] ++ (if conf.os.work then
+        [ (callPackage ../../pkgs/bootstrap { }) ]
+      else
+        [ ]);
   };
 }
