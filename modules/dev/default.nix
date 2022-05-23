@@ -35,9 +35,10 @@ in {
 
   config = {
     home.packages = with pkgs;
-      [ morph ] ++ (if conf.os.work then
-        [ (callPackage ../../pkgs/bootstrap { }) ]
-      else
+      [ morph ] ++ (if conf.os.work then [
+        (callPackage ../../pkgs/bootstrap { })
+        (callPackage ../../pkgs/ansible-run { })
+      ] else
         [ ]);
   };
 }
