@@ -10,6 +10,7 @@ in {
     modules/dev
     modules/git
     modules/gpg
+    modules/podman
   ];
 
   home.username = "audron";
