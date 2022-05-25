@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let conf = lib.importTOML ../../config.toml;
+let conf = import ../config { inherit lib; };
 
 in {
   home.packages = with pkgs; [ delta bfg-repo-cleaner ];

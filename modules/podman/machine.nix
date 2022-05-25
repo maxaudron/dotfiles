@@ -2,8 +2,8 @@
 
 with lib;
 
-let conf = lib.importTOML ../../config.toml;
-    cfg = config.podman.machine;
+let cfg = config.podman.machine;
+    conf = import ../config { inherit lib; };
 in {
   options.podman.machine = {
     name = mkOption {

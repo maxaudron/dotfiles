@@ -3,7 +3,7 @@
 with lib;
 
 let
-  conf = lib.importTOML ../../config.toml;
+  conf = import ../../modules/config { inherit lib; };
 in {
   imports = [
     ../../modules/doom-emacs

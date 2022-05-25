@@ -3,7 +3,7 @@
 with lib;
 
 let
-  conf = lib.importTOML ../../config.toml;
+  conf = import ../config { inherit lib; };
   emacsPackage =
     if pkgs.stdenv.isLinux then pkgs.emacsPgtkGcc else pkgs.emacs;
 in {

@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let conf = lib.importTOML ../../config.toml;
+let conf = import ../../modules/config { inherit lib; };
 in {
   imports = [ <home-manager/nix-darwin> ../../modules/common ];
 

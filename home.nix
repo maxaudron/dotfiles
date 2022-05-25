@@ -1,6 +1,7 @@
 { config, pkgs, lib, builtins, ... }:
 
 let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+    conf = import modules/config { inherit lib; };
 in {
   imports = [
     modules/doom-emacs
@@ -13,8 +14,8 @@ in {
     modules/podman
   ];
 
-  home.username = "audron";
-  home.homeDirectory = "/home/audron";
+  home.username = conf.user.name;
+  home.homeDirectory = conf.user.home;
 
   programs.home-manager.enable = true;
 

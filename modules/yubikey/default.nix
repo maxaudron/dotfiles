@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 
-let conf = lib.importTOML ../../config.toml;
+let conf = import ../config { inherit lib; };
 in {
   config = lib.mkMerge [
     {
