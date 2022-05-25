@@ -50,8 +50,12 @@ in {
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups = [ "wheel" "libvirtd" "audio" ];
+    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" ];
     shell = pkgs.zsh;
+  };
+
+  programs.wireshark = {
+    enable = true;
   };
 
   fonts.fontconfig = {
