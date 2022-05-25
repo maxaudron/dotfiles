@@ -4,6 +4,7 @@ with lib;
 let
   cfg = config.home.dev;
   conf = lib.importTOML ../../config.toml;
+  unstable = import <nixos-unstable> { };
 in {
   imports = [ ./kubernetes.nix ./terraform.nix ./golang.nix ./rust.nix ];
 
@@ -35,7 +36,15 @@ in {
 
   config = {
     home.packages = with pkgs;
-      [ morph ] ++ (if conf.os.work then [
+      [
+        gnumake
+
+        morph
+
+        gcc
+        glibc
+        openssl
+      ] ++ (if conf.os.work then [
         (callPackage ../../pkgs/bootstrap { })
         (callPackage ../../pkgs/ansible-run { })
       ] else
