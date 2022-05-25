@@ -52,6 +52,36 @@
     defaultGateway = "192.168.144.1";
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
     bridges = { "br0" = { interfaces = [ "enp5s0" ]; }; };
+
+    hosts = { "192.168.144.74" = [ "home.fritz.box" ]; };
+
+    wireguard = {
+      enable = true;
+      interfaces.wg0 = {
+        privateKeyFile = "/etc/wireguard/privatekey";
+        ips = [
+          "10.10.0.10/24"
+          "2a0f:9400:8020:beef::10/128"
+          "fd15:3d8c:d429:beef::10/128"
+        ];
+        peers = [{
+          endpoint = "ettves.vapor.systems:51820";
+          publicKey = "5OTaf4MnSzTcCR10CGSrLFngGa3gdzajbqUKkRF+WlY=";
+          allowedIPs = [
+            # Wireguard peers
+            "10.10.0.0/24"
+            "2a0f:9400:8020:beef::/64"
+            "fd15:3d8c:d429:beef::/64"
+
+            # Kubernetes cluster internal networks
+            "10.102.0.0/16"
+            "10.101.0.0/16"
+            "fd15:3d8c:d429:101::/64"
+            "fd15:3d8c:d429:102::/64"
+          ];
+        }];
+      };
+    };
   };
 
   # This value determines the NixOS release from which the default
