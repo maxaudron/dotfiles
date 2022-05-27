@@ -27,7 +27,12 @@ in {
         ''}";
       };
       "emacs" = {
-        source = fetchGit "https://github.com/hlissner/doom-emacs";
+        source = pkgs.fetchFromGitHub {
+          owner = "doomemacs";
+          repo = "doomemacs";
+          rev = "master";
+          hash = "sha256:1ps05vhk0zxrda1fxzpjwrrqvpr5iqi4qhvsms0w1j8c2d7frash";
+        };
         onChange = "${pkgs.writeShellScript "doom-emacs-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
