@@ -11,8 +11,8 @@ in {
 
     home.file.".cargo/config.toml".text = if pkgs.stdenv.isLinux then ''
       [target.x86_64-unknown-linux-gnu]
-      linker = "${unstable.clang}/bin/clang"
-      rustflags = ["-C", "link-arg=-fuse-ld=${unstable.mold}/bin/mold"]
+      linker = "${pkgs.clang}/bin/clang"
+      rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
     '' else "";
   };
 }

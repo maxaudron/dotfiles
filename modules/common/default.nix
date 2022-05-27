@@ -44,7 +44,7 @@ in {
     (import (builtins.fetchGit {
       url = "https://github.com/oxalica/rust-overlay";
       ref = "master";
-      rev = "bed82617ca9e139ff1374eb49f98d25ca781eb04";
+      rev = "77c13b096bdd5f39b9017f75d3b98dcc64b893e8";
     }))
   ];
 

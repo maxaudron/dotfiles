@@ -44,6 +44,8 @@ in {
         gcc
         glibc
         openssl
+
+        linuxKernel.packages.linux_zen.perf
       ] ++ (if conf.os.work then [
         (callPackage ../../pkgs/bootstrap { })
         (callPackage ../../pkgs/ansible-run { })
