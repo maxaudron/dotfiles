@@ -3,7 +3,7 @@
 let conf = import ../config { inherit lib; };
 
 in {
-  imports = (if conf.os.type == "linux" then [ ./linux.nix ] else []);
+  imports = (if conf.os.type == "linux" then [ ./linux.nix ] else [ ]);
 
   nixpkgs.config.allowUnfree = true;
 
@@ -50,6 +50,11 @@ in {
 
   # Setup caches
   nix = {
+    extraOptions = ''
+      keep-outputs = true
+      keep-derivations = true
+    '';
+
     binaryCaches = [
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"

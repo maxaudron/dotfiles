@@ -51,5 +51,10 @@ in {
         (callPackage ../../pkgs/ansible-run { })
       ] else
         [ ]);
+
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
   };
 }

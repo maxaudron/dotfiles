@@ -21,13 +21,13 @@
       input =
         "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX8";
       output =
-        "alsa_output.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-output-0:playback_AUX0";
+        "System Output:playback_FL";
     }
     {
       input =
         "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX9";
       output =
-        "alsa_output.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-output-0:playback_AUX1";
+        "System Output:playback_FR";
     }
   ];
 

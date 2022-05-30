@@ -1,4 +1,5 @@
 function tmpdir() {
+  mkdir -p $1
   sudo mount -t tmpfs -o size=4G tmpfs $1
-  sudo chown $USER:$USER $1
+  sudo chown $(id -u):$(id -g) $1
 }
