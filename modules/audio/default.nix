@@ -3,13 +3,11 @@
 with lib;
 
 let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-
   sampleSize = 128;
 
   cfg = config.audio;
 
-  pkgPipewire = (unstable.pipewire.overrideAttrs (old: {
+  pkgPipewire = (pkgs.pipewire.overrideAttrs (old: {
         src = pkgs.fetchFromGitLab {
           domain = "gitlab.freedesktop.org";
           owner = "pipewire";
@@ -21,12 +19,7 @@ let
       }));
 
 in {
-  disabledModules = [ "services/desktops/pipewire/pipewire.nix" ];
-
   imports = [
-    <nixos-unstable/nixos/modules/services/desktops/pipewire/wireplumber.nix>
-    <nixos-unstable/nixos/modules/services/desktops/pipewire/pipewire.nix>
-
     ./filter-chain
   ];
 
@@ -105,7 +98,6 @@ in {
     services.pipewire = {
       enable = true;
       package = cfg.package;
-      # package = unstable.pipewire;
 
       jack = { enable = true; };
       pulse = { enable = true; };
@@ -113,7 +105,6 @@ in {
       media-session.enable = false;
       wireplumber = {
         enable = true;
-        package = unstable.wireplumber;
       };
 
       config = {

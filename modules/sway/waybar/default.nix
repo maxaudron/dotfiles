@@ -15,31 +15,29 @@
         [ "custom/top_edge" "sway/workspaces" "custom/bottom_edge" ];
       modules-right = [ "custom/top_edge" "clock" "custom/bottom_edge" ];
 
-      modules = {
-        "custom/bottom_edge" = {
-          format = " ";
-          interval = "once";
-          tooltip = false;
-        };
+      "custom/bottom_edge" = {
+        format = " ";
+        interval = "once";
+        tooltip = false;
+      };
 
-        "custom/top_edge" = {
-          format = " ";
-          interval = "once";
-          tooltip = false;
+      "custom/top_edge" = {
+        format = " ";
+        interval = "once";
+        tooltip = false;
+      };
+      "sway/workspaces" = {
+        format = "{icon}";
+        format-icons = {
+          default = "";
+          urgent = "";
+          focused = "";
         };
-        "sway/workspaces" = {
-          format = "{icon}";
-          format-icons = {
-            default = "";
-            urgent = "";
-            focused = "";
-          };
-        };
-        clock = {
-          format = ''
-            {:%H
-            %M}'';
-        };
+      };
+      clock = {
+        format = ''
+          {:%H
+          %M}'';
       };
     }];
   };

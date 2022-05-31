@@ -4,7 +4,6 @@ with lib;
 let
   cfg = config.home.dev;
   conf = import ../config { inherit lib; };
-  unstable = import <nixos-unstable> { };
 in {
   imports = [ ./kubernetes.nix ./terraform.nix ./golang.nix ./rust.nix ];
 

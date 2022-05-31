@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
-let unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-
-in {
+ {
   # System Output Sink
   #
   # One stereo pair input, two pairs output
@@ -48,13 +46,13 @@ in {
               name = "rnnoise";
               plugin = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
               label = "noise_suppressor_mono";
-              control = { "VAD Threshold (%)" = 50.0; };
+              control = { "VAD Threshold (%)" = 70.0; };
             }
             {
               type = "ladspa";
               name = "comp";
               plugin =
-                "${unstable.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
+                "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
               label = "http://lsp-plug.in/plugins/ladspa/compressor_mono";
               control = {
                 "Input gain (G)" = 1.0;
@@ -73,9 +71,9 @@ in {
                 "Low-pass filter frequency (Hz)" = 20000.0;
                 "Compression mode" = 0;
                 "Attack threshold (G)" = 5.020606e-2;
-                "Attack time (ms)" = 20.00019073;
+                "Attack time (ms)" = 2.0;
                 "Release threshold (G)" = 0.0;
-                "Release time (ms)" = 323.3508606;
+                "Release time (ms)" = 500.0;
                 "Ratio" = 100.0;
                 "Knee (G)" = 0.50329852;
                 "Boost threshold (G)" = 2.51190009e-4;

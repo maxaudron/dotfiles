@@ -65,7 +65,7 @@ in {
     gsettings-desktop-schemas
     lxappearance
 
-    unstable.rofi-wayland
+    rofi-wayland
 
     xdotool
   ];
