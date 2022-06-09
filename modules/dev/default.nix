@@ -41,21 +41,20 @@ in {
 
         morph
 
-        gcc
-        glibc
         openssl
-
-        blackmagic
-        gcc-arm-embedded
 
         nodejs
 
-        linuxKernel.packages.linux_zen.perf
+        blackmagic
+        gcc-arm-embedded
       ] ++ (if conf.os.work then [
         bootstrap
         ansible-run
       ] else
-        [ ]);
+        [ ]) ++ (if conf.os.type == "linux" then [
+          linuxKernel.packages.linux_zen.perf
+        ] else
+          [ ]);
 
     programs.direnv = {
       enable = true;
