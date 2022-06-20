@@ -13,6 +13,29 @@ in {
       DOOMDIR = "${config.xdg.configHome}/doom";
       DOOMLOCALDIR = "${config.home.homeDirectory}/.local/doom";
     };
+
+    file.".vale.ini".text = ''
+      StylesPath = .local/share/vale/styles
+
+      MinAlertLevel = suggestion
+      Vocab = Base
+
+      Packages = Google, write-good
+
+      [*]
+      BasedOnStyles = Vale, Google, write-good
+      Annotations    = suggestion
+      ComplexWords   = NO
+      Editorializing = warning
+      GenderBias     = suggestion
+      Hedging        = NO
+      Litotes        = suggestion
+      PassiveVoice   = NO
+      Redundancy     = error
+      Repetition     = error
+      Uncomparables  = error
+      Wordiness      = warning
+    '';
   };
 
   xdg = {
@@ -23,7 +46,7 @@ in {
         onChange = "${pkgs.writeShellScript "doom-config-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
-          ${config.xdg.configHome}/emacs/bin/doom -y sync
+          ${config.xdg.configHome}/emacs/bin/doom --force sync
         ''}";
       };
       "emacs" = {
@@ -31,15 +54,15 @@ in {
           owner = "doomemacs";
           repo = "doomemacs";
           rev = "master";
-          hash = "sha256:1ps05vhk0zxrda1fxzpjwrrqvpr5iqi4qhvsms0w1j8c2d7frash";
+          hash = "sha256:PIilrjaqgolPm6ghwO4yIMP1sbgVov6GTeAQZhGOu74=";
         };
         onChange = "${pkgs.writeShellScript "doom-emacs-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
           if [ ! -d "$DOOMLOCALDIR" ]; then
-            ${config.xdg.configHome}/emacs/bin/doom -y install
+            ${config.xdg.configHome}/emacs/bin/doom --force install
           else
-            ${config.xdg.configHome}/emacs/bin/doom -y sync -u
+            ${config.xdg.configHome}/emacs/bin/doom --force sync -u
           fi
         ''}";
       };
@@ -69,5 +92,7 @@ in {
     hunspell
     hunspellDicts.de_DE
     hunspellDicts.en_US
+
+    vale
   ];
 }
