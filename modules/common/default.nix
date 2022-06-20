@@ -63,11 +63,14 @@ in {
       "https://cache.nixos.org/"
       "https://nix-community.cachix.org"
       "https://nix.web.deuxfleurs.fr"
+      "https://nix.cache.vapor.systems"
     ];
+
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nix.web.deuxfleurs.fr:eTGL6kvaQn6cDR/F9lDYUIP9nCVR/kkshYfLDJf1yKs="
+      "nix.cache.vapor.systems-1:OjV+eZuOK+im1n8tuwHdT+9hkQVoJORdX96FvWcMABk="
     ];
   };
 }
