@@ -37,6 +37,7 @@ in {
     qt5.qtwayland
 
     dfu-util
+    usbutils
   ];
 
   services.flatpak.enable = true;
@@ -50,7 +51,7 @@ in {
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" ];
+    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" "dialout" ];
     shell = pkgs.zsh;
   };
 
@@ -92,4 +93,14 @@ in {
       };
     };
   };
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="block", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", ACTION=="add", SYMLINK+="rp2040upl%n"
+
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="6018", GROUP="users", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", GROUP="users", MODE="0666"
+
+    SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic GDB Server", SYMLINK+="ttyBMPGDB"
+    SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic UART Port", SYMLINK+="ttyBMPUart"
+  '';
 }

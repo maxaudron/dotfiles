@@ -16,6 +16,9 @@ in {
     unzip
     wget
     htop
+    rclone
+
+    bind.dnsutils
 
     nixfmt
 
@@ -46,6 +49,7 @@ in {
       ref = "master";
       rev = "77c13b096bdd5f39b9017f75d3b98dcc64b893e8";
     }))
+    (import ../../pkgs)
   ];
 
   # Setup caches
@@ -54,6 +58,7 @@ in {
       keep-outputs = true
       keep-derivations = true
       experimental-features = nix-command flakes
+      secret-key-files = /etc/nix/cache-priv-key.pem
     '';
 
     binaryCaches = [

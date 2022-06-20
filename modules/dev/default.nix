@@ -37,6 +37,7 @@ in {
     home.packages = with pkgs;
       [
         gnumake
+        file
 
         morph
 
@@ -44,10 +45,15 @@ in {
         glibc
         openssl
 
+        blackmagic
+        gcc-arm-embedded
+
+        nodejs
+
         linuxKernel.packages.linux_zen.perf
       ] ++ (if conf.os.work then [
-        (callPackage ../../pkgs/bootstrap { })
-        (callPackage ../../pkgs/ansible-run { })
+        bootstrap
+        ansible-run
       ] else
         [ ]);
 
