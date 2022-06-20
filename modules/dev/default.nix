@@ -43,16 +43,15 @@ in {
 
         openssl
 
-        nodejs
-
-        blackmagic
         gcc-arm-embedded
+        nodejs
       ] ++ (if conf.os.work then [
         bootstrap
         ansible-run
       ] else
         [ ]) ++ (if conf.os.type == "linux" then [
           linuxKernel.packages.linux_zen.perf
+          blackmagic
         ] else
           [ ]);
 

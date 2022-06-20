@@ -18,8 +18,6 @@ in {
     htop
     rclone
 
-    bind.dnsutils
-
     nixfmt
 
     pass

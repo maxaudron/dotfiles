@@ -19,7 +19,7 @@ in {
 
   home-manager.extraSpecialArgs = { inherit builtins; };
 
-  environment.systemPackages = with pkgs; [ qemu podman ];
+  environment.systemPackages = with pkgs; [ qemu ];
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   # environment.systemPackages =
