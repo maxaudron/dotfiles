@@ -9,6 +9,7 @@
       kubectl
       helmfile
       kubernetes-helm
+      jsonnet-bundler
 
       (callPackage ../../pkgs/kubectx {})
     ];
