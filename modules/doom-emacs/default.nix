@@ -54,7 +54,7 @@ in {
           owner = "doomemacs";
           repo = "doomemacs";
           rev = "master";
-          hash = "sha256:PIilrjaqgolPm6ghwO4yIMP1sbgVov6GTeAQZhGOu74=";
+          hash = "sha256:NybDqJ+fNFNlQhSP+mrUnsXwhsYiZHjK9H5SxLC9fg4=";
         };
         onChange = "${pkgs.writeShellScript "doom-emacs-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
