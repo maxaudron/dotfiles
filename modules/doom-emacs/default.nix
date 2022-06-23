@@ -4,8 +4,10 @@ with lib;
 
 let
   conf = import ../config { inherit lib; };
-  emacsPackage =
-    if pkgs.stdenv.isLinux then pkgs.emacsPgtkNativeComp else pkgs.emacs28NativeComp;
+  emacsPackage = if pkgs.stdenv.isLinux then
+    pkgs.emacsPgtkNativeComp
+  else
+    pkgs.emacs28NativeComp;
 in {
   home = {
     sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
@@ -14,47 +16,58 @@ in {
       DOOMLOCALDIR = "${config.home.homeDirectory}/.local/doom";
     };
 
-    file.".vale.ini".text = ''
-      StylesPath = .local/share/vale/styles
+    file = {
+      ".vale.ini".text = ''
+        StylesPath = .local/share/vale/styles
 
-      MinAlertLevel = suggestion
-      Vocab = Base
+        MinAlertLevel = suggestion
+        Vocab = Base
 
-      Packages = Google, write-good
+        Packages = Google, write-good
 
-      [*]
-      BasedOnStyles = Vale, Google, write-good
-      Annotations    = suggestion
-      ComplexWords   = NO
-      Editorializing = warning
-      GenderBias     = suggestion
-      Hedging        = NO
-      Litotes        = suggestion
-      PassiveVoice   = NO
-      Redundancy     = error
-      Repetition     = error
-      Uncomparables  = error
-      Wordiness      = warning
-    '';
+        [*]
+        BasedOnStyles = Vale, Google, write-good
+        Annotations    = suggestion
+        ComplexWords   = NO
+        Editorializing = warning
+        GenderBias     = suggestion
+        Hedging        = NO
+        Litotes        = suggestion
+        PassiveVoice   = NO
+        Redundancy     = error
+        Repetition     = error
+        Uncomparables  = error
+        Wordiness      = warning
+      '';
+    };
   };
 
   xdg = {
     enable = true;
     configFile = {
       "doom" = {
-        source = ./files;
+        source = pkgs.symlinkJoin {
+          name = "doom";
+          paths = [
+            ./files
+            (pkgs.runCommand "secrets" { } ''
+              mkdir -p $out
+              ln -s ${config.home.homeDirectory}/.dotfiles/secrets/.config/doom/secrets $out/secrets
+            '')
+          ];
+        };
         onChange = "${pkgs.writeShellScript "doom-config-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
+          export PATH=$PATH:${emacsPackage}/bin
           ${config.xdg.configHome}/emacs/bin/doom --force sync
         ''}";
       };
       "emacs" = {
-        source = pkgs.fetchFromGitHub {
-          owner = "doomemacs";
-          repo = "doomemacs";
-          rev = "master";
-          hash = "sha256:NybDqJ+fNFNlQhSP+mrUnsXwhsYiZHjK9H5SxLC9fg4=";
+        source = builtins.fetchGit {
+          url = "https://github.com/doomemacs/doomemacs";
+          ref = "master";
+          rev = "8df91f0b33a2d771f246ed344a83e77d5aa4246b";
         };
         onChange = "${pkgs.writeShellScript "doom-emacs-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"

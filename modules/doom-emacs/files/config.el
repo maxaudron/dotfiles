@@ -84,8 +84,8 @@
 ;; Config imports
 
 ;; load config files
-(load! "textmodification")
-(load! "org")
+(load! "config/textmodification")
+(load! "config/org")
 
 ;; load functions
 (load! "functions/yaml-to-json")
