@@ -6,13 +6,14 @@ let
   conf = import ../../modules/config { inherit lib; };
 in {
   imports = [
+    ../../modules/podman/machine.nix
     ../../modules/doom-emacs
     ../../modules/alacritty
     ../../modules/shell
     ../../modules/git
     ../../modules/gpg
     ../../modules/dev
-    ../../modules/podman/machine.nix
+    ../../modules/ssh
   ];
 
   podman.machine = {

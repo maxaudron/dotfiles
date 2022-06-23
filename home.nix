@@ -11,6 +11,7 @@ in {
     modules/dev
     modules/git
     modules/gpg
+    modules/ssh
   ];
 
   home.username = conf.user.name;
