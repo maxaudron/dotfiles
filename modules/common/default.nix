@@ -39,13 +39,13 @@ in {
     (import (builtins.fetchGit {
       url = "https://github.com/nix-community/emacs-overlay";
       ref = "master";
-      rev = "4a128aff2349006582335b835831519bf4413ed0";
+      rev = "2fb72619761bb2478715f7a5f64aad619e94da99";
     }))
 
     (import (builtins.fetchGit {
       url = "https://github.com/oxalica/rust-overlay";
       ref = "master";
-      rev = "77c13b096bdd5f39b9017f75d3b98dcc64b893e8";
+      rev = "2182aac936971fcefbf08a1a0c5ef4c81d5e6bdb";
     }))
     (import ../../pkgs)
   ];
