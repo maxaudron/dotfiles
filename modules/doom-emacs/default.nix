@@ -1,11 +1,11 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, system, inputs, ... }:
 
 with lib;
 
 let
   conf = import ../config { inherit lib; };
   emacsPackage = if pkgs.stdenv.isLinux then
-    pkgs.emacsPgtkNativeComp
+    inputs.emacs.packages.${system}.emacsPgtkNativeComp
   else
     pkgs.emacs28NativeComp;
 in {

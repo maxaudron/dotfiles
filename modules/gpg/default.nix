@@ -17,12 +17,20 @@
 
     publicKeys = [
       {
-        source = builtins.fetchurl https://keys.openpgp.org/vks/v1/by-fingerprint/81040D00839B1C5903D07D067828577F894C55C0;
+        source = builtins.fetchurl {
+          url =
+            "https://keys.openpgp.org/vks/v1/by-fingerprint/81040D00839B1C5903D07D067828577F894C55C0";
+          sha256 = "0jya2ak2vgqvz8zpafmjvx714s01pxwgn18q7bkvg7bvc9vj4hnm";
+        };
         trust = 5;
       }
 
       {
-        source = builtins.fetchurl https://keys.openpgp.org/vks/v1/by-fingerprint/4FB3D12CC95D9055B2D507168E43B2378F0BD40B;
+        source = builtins.fetchurl {
+          url =
+            "https://keys.openpgp.org/vks/v1/by-fingerprint/4FB3D12CC95D9055B2D507168E43B2378F0BD40B";
+          sha256 = "0c6vl684a92i42fcj4jbrngfgd98wzvlgljrnq2y29j9462w1sjn";
+        };
         trust = 4;
       }
     ];

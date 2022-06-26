@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, system, inputs, ... }:
 
 let
-  unstable = import <nixos-unstable> {
+  unstable = import inputs.nixpkgs-unstable {
+    inherit system;
     overlays = [
       (import "${
           builtins.fetchGit {
@@ -49,7 +50,8 @@ in {
     ./input.nix
     ./theme.nix
 
-    (./specifics + "/${sysconfig.networking.hostName}.nix")
+    # (./specifics + "/${sysconfig.networking.hostName}.nix")
+    (./specifics/liduur.nix)
   ];
 
   # programs.qt5ct.enable = true;

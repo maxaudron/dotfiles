@@ -1,17 +1,19 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, system, inputs, ... }:
 
 let
-  unstable = import <nixos-unstable> { };
-  rust = pkgs.rust-bin.stable.latest.default.override {
-    extensions = [ "rust-src" ];
-    targets = [ "x86_64-unknown-linux-gnu" "x86_64-unknown-linux-musl" "thumbv6m-none-eabi" ];
-  };
+  rust = with inputs.fenix.packages.${system};
+    combine [
+      stable.defaultToolchain
+      targets.x86_64-unknown-linux-musl.stable.rust-std
+      targets.thumbv6m-none-eabi.stable.rust-std
+
+      rust-analyzer
+    ];
 in {
   config = lib.mkIf config.home.dev.rust {
     home.packages = with pkgs; [
       rust
 
-      unstable.rust-analyzer
       cargo-outdated
     ];
 
