@@ -1,0 +1,9 @@
+[user]
+name = "audron"
+home = "/home/audron"
+email = "audron@cocaine.farm"
+fullname = "Max Audron"
+
+[os]
+type = "linux"
+work = false

@@ -2,7 +2,7 @@
 
 let conf = import ../../modules/config { inherit lib; };
 in {
-  imports = [ <home-manager/nix-darwin> ../../modules/common ];
+  imports = [ ../../modules/common ];
 
   users.users."${conf.user.name}" = {
     name = conf.user.name;
@@ -16,8 +16,6 @@ in {
   home-manager.users."${conf.user.name}" = import ./home.nix;
 
   programs.zsh.enable = true;
-
-  home-manager.extraSpecialArgs = { inherit builtins; };
 
   environment.systemPackages = with pkgs; [ qemu ];
   # List packages installed in system profile. To search by name, run:
