@@ -1,7 +1,7 @@
 { config, lib, pkgs, system, inputs, ... }:
 
 let
-  unstable = import inputs.nixpkgs-unstable {
+  unstable = import inputs.nixpkgs {
     inherit system;
     overlays = [
       (import "${
@@ -32,7 +32,7 @@ let
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
       # needs qt5.qtwayland in systemPackages
-      export QT_QPA_PLATFORM=wayland
+      export QT_QPA_PLATFORM="wayland;xcb"
       # export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
       # Fix for some Java AWT applications (e.g. Android Studio),
       # use this if they aren't displayed properly:
@@ -90,11 +90,15 @@ in {
       };
     };
 
+    xwayland = true;
+
     extraConfig = ''
       border_images.focused "${./shadows.png}"
       border_images.focused_inactive "${./shadows.png}"
       border_images.unfocused "${./shadows.png}"
       border_images.urgent "${./shadows.png}"
+
+      xwayland enable
     '';
   };
 }
