@@ -15,11 +15,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacs.url = "github:nix-community/emacs-overlay";
-    # wayland.url = "github:nix-community/nixpkgs-wayland";
+
+    hyprland = {
+      url = "github:vaxerski/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, home-manager
-    , fenix, emacs }: {
+    , fenix, emacs, hyprland }: {
       nixosConfigurations.liduur = let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
         inherit system;
@@ -33,9 +37,17 @@
                 inherit builtins;
                 inherit system;
               };
-              users.audron = import ./home.nix;
             };
           }
+
+          hyprland.nixosModules.default
+          {
+            programs.hyprland = {
+              enable = true;
+              extraPackages = nixpkgs.lib.mkForce [ ];
+            };
+          }
+
           ./machines/liduur/configuration.nix
         ];
       };

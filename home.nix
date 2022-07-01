@@ -8,6 +8,7 @@ in {
     modules/podman
     modules/shell
     modules/sway
+    modules/hyprland
     modules/dev
     modules/git
     modules/gpg
