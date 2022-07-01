@@ -40,9 +40,13 @@ in {
   # Enable zsh completion for system packages
   environment.pathsToLink = [ "/share/zsh" ];
 
-  nixpkgs.overlays = [
-    (import ../../pkgs)
-  ];
+  nixpkgs.overlays = [ (import ../../pkgs) ];
+
+  environment.etc = {
+    "nix/channels/nixpkgs".source = inputs.nixpkgs.outPath;
+    "nix/channels/nixpkgs-unstable".source = inputs.nixpkgs-unstable.outPath;
+    "nix/channels/home-manager".source = inputs.home-manager.outPath;
+  };
 
   # Setup caches
   nix = {
@@ -67,6 +71,21 @@ in {
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "nix.web.deuxfleurs.fr:eTGL6kvaQn6cDR/F9lDYUIP9nCVR/kkshYfLDJf1yKs="
       "nix.cache.vapor.systems-1:OjV+eZuOK+im1n8tuwHdT+9hkQVoJORdX96FvWcMABk="
+    ];
+
+    registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+      nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
+      home-manager.flake = inputs.home-manager;
+      darwin.flake = inputs.darwin;
+      fenix.flake = inputs.fenix;
+      emacs.flake = inputs.emacs;
+    };
+
+    nixPath = [
+      "nixpkgs=/etc/nix/channels/nixpkgs"
+      "nixpkgs-unstable=/etc/nix/channels/nixpkgs-unstable"
+      "home-manager=/etc/nix/channels/home-manager"
     ];
   };
 }
