@@ -28,13 +28,23 @@
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, home-manager
     , fenix, emacs, hyprland }:
-    let specialArgs = inputs // { inherit inputs; };
+    let
+      specialArgs = inputs // { inherit inputs; };
+
+      overlay-unstable = final: prev: {
+        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+      };
+      overlays = { config, pkgs, ... }: {
+        nixpkgs.overlays = [ overlay-unstable ];
+      };
     in {
       nixosConfigurations.liduur = let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = specialArgs // { inherit system; };
         modules = [
+          overlays
+
           home-manager.nixosModules.home-manager
           hyprland.nixosModules.default
           {
@@ -52,11 +62,12 @@
         inherit system;
         specialArgs = specialArgs // { inherit system; };
         modules = [
+          overlays
+
           home-manager.darwinModules.home-manager
           {
             home-manager = {
-              extraSpecialArgs = {
-                inherit inputs;
+              extraSpecialArgs = specialArgs // {
                 inherit builtins;
                 inherit system;
               };
