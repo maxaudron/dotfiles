@@ -1,4 +1,5 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, nixpkgs, nixpkgs-unstable, darwin, home-manager, fenix
+, emacs, ... }:
 
 let conf = import ../config { inherit lib; };
 
@@ -43,9 +44,9 @@ in {
   nixpkgs.overlays = [ (import ../../pkgs) ];
 
   environment.etc = {
-    "nix/channels/nixpkgs".source = inputs.nixpkgs.outPath;
-    "nix/channels/nixpkgs-unstable".source = inputs.nixpkgs-unstable.outPath;
-    "nix/channels/home-manager".source = inputs.home-manager.outPath;
+    "nix/channels/nixpkgs".source = nixpkgs.outPath;
+    "nix/channels/nixpkgs-unstable".source = nixpkgs-unstable.outPath;
+    "nix/channels/home-manager".source = home-manager.outPath;
   };
 
   # Setup caches
@@ -74,12 +75,12 @@ in {
     ];
 
     registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
-      home-manager.flake = inputs.home-manager;
-      darwin.flake = inputs.darwin;
-      fenix.flake = inputs.fenix;
-      emacs.flake = inputs.emacs;
+      nixpkgs.flake = nixpkgs;
+      nixpkgs-unstable.flake = nixpkgs-unstable;
+      home-manager.flake = home-manager;
+      darwin.flake = darwin;
+      fenix.flake = fenix;
+      emacs.flake = emacs;
     };
 
     nixPath = [

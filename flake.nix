@@ -23,23 +23,18 @@
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, home-manager
-    , fenix, emacs, hyprland }: {
+    , fenix, emacs, hyprland }:
+    let specialArgs = inputs;
+    in {
       nixosConfigurations.liduur = let system = "x86_64-linux";
       in nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = inputs // {
+          inherit inputs;
+          inherit system;
+        };
         modules = [
           home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit builtins;
-                inherit system;
-              };
-            };
-          }
-
           hyprland.nixosModules.default
           {
             programs.hyprland = {
@@ -54,7 +49,10 @@
       darwinConfigurations.ffma0089 = let system = "aarch64-darwin";
       in darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = inputs // {
+          inherit inputs;
+          inherit system;
+        };
         modules = [
           home-manager.darwinModules.home-manager
           {

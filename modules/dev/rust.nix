@@ -1,7 +1,7 @@
-{ config, lib, pkgs, system, inputs, ... }:
+{ config, lib, pkgs, system, fenix, ... }:
 
 let
-  rust = with inputs.fenix.packages.${system};
+  rust = with fenix.packages.${system};
     combine [
       stable.defaultToolchain
       targets.x86_64-unknown-linux-musl.stable.rust-std
