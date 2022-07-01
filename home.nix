@@ -10,6 +10,7 @@ in {
     modules/sway
     modules/hyprland
     modules/dev
+    modules/mpd
     modules/git
     modules/gpg
     modules/ssh
