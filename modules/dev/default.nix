@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, gtree, system, ... }:
 
 with lib;
 let
@@ -45,6 +45,8 @@ in {
 
         gcc-arm-embedded
         nodejs
+
+        gtree.packages.${system}.default
       ] ++ (if conf.os.work then [
         bootstrap
         ansible-run

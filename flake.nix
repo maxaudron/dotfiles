@@ -24,10 +24,15 @@
       url = "github:vaxerski/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    gtree = {
+      url = "gitlab:cocainefarm/gtree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, home-manager
-    , fenix, emacs, hyprland }:
+    , fenix, emacs, hyprland, gtree }:
     let
       specialArgs = inputs // { inherit inputs; };
 
