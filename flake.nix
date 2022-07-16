@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -31,16 +32,25 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, home-manager
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, darwin, home-manager
     , fenix, emacs, hyprland, gtree }:
     let
       specialArgs = inputs // { inherit inputs; };
 
       overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+        unstable = import nixpkgs-unstable {
+          system = prev.system;
+          config.allowUnfree = true;
+        };
+      };
+      overlay-master = final: prev: {
+        master = import nixpkgs-master {
+          system = prev.system;
+          config.allowUnfree = true;
+        };
       };
       overlays = { config, pkgs, ... }: {
-        nixpkgs.overlays = [ overlay-unstable ];
+        nixpkgs.overlays = [ overlay-unstable overlay-master ];
       };
     in {
       nixosConfigurations.liduur = let system = "x86_64-linux";

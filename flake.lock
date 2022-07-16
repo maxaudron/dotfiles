@@ -189,6 +189,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1657993158,
+        "narHash": "sha256-9Hg3k0ABDWNyu91AjvmvdH/xiUEU6RpLSjKpJhtaDEM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "78f38ff361e2103a08aad14745869ced99e41bcc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1657447684,
@@ -230,6 +246,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
     },
