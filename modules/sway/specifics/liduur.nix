@@ -8,7 +8,7 @@ in {
     output = {
       "${displayTop}" = {
         pos = "0 0";
-        mode = "3440x1440@99.982Hz";
+        mode = "3440x1440@143.923Hz";
       };
       "${displayBottom}" = {
         pos = "450 1440";
