@@ -25,6 +25,8 @@ in {
 
   home.packages = with pkgs; [
     quasselClient
+    imv
+    rawtherapee
   ];
 
   home.stateVersion = "22.05";
