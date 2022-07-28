@@ -50,7 +50,7 @@ or other application using the libvirt API.
   <features>
     <acpi/>
     <apic/>
-    <hyperv>
+    <hyperv mode='custom'>
       <relaxed state='on'/>
       <vapic state='on'/>
       <spinlocks state='on' retries='8191'/>
@@ -95,16 +95,25 @@ or other application using the libvirt API.
     <emulator>/run/libvirt/nix-emulators/qemu-kvm</emulator>
     <disk type='block' device='disk'>
       <driver name='qemu' type='raw' cache='none' io='native'/>
+      <source dev='/dev/zvol/rpool/windows'/>
+      <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
+      <address type='pci' domain='0x0000' bus='0x0d' slot='0x00' function='0x0' multifunction='on'/>
+    </disk>
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none' io='threads'/>
+      <source dev='/dev/disk/by-id/ata-ST6000DM004-2EH11C_ZA18FYYX'/>
+      <target dev='vdc' bus='virtio'/>
+      <address type='pci' domain='0x0000' bus='0x0d' slot='0x00' function='0x2'/>
+    </disk>
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none' io='threads'/>
       <source dev='/dev/disk/by-id/ata-Samsung_SSD_840_PRO_Series_S1ATNSAD857828E'/>
       <target dev='sda' bus='sata'/>
-      <boot order='2'/>
       <address type='drive' controller='0' bus='0' target='0' unit='0'/>
     </disk>
     <controller type='usb' index='0' model='qemu-xhci' ports='15'>
       <address type='pci' domain='0x0000' bus='0x02' slot='0x00' function='0x0'/>
-    </controller>
-    <controller type='sata' index='0'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>
     </controller>
     <controller type='pci' index='0' model='pcie-root'/>
     <controller type='pci' index='1' model='pcie-root-port'>
@@ -174,9 +183,12 @@ or other application using the libvirt API.
     <controller type='virtio-serial' index='0'>
       <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
     </controller>
-    <interface type='network'>
+    <controller type='sata' index='0'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1f' function='0x2'/>
+    </controller>
+    <interface type='bridge'>
       <mac address='52:54:00:42:a0:f7'/>
-      <source network='default'/>
+      <source bridge='br0'/>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
     </interface>
@@ -188,16 +200,6 @@ or other application using the libvirt API.
     <console type='pty'>
       <target type='serial' port='0'/>
     </console>
-    <channel type='spicevmc'>
-      <target type='virtio' name='com.redhat.spice.0'/>
-      <address type='virtio-serial' controller='0' bus='0' port='1'/>
-    </channel>
-    <input type='mouse' bus='virtio'>
-      <address type='pci' domain='0x0000' bus='0x09' slot='0x00' function='0x0'/>
-    </input>
-    <input type='keyboard' bus='virtio'>
-      <address type='pci' domain='0x0000' bus='0x0a' slot='0x00' function='0x0'/>
-    </input>
     <input type='mouse' bus='ps2'/>
     <input type='keyboard' bus='ps2'/>
     <sound model='ich9'>
@@ -209,32 +211,28 @@ or other application using the libvirt API.
     </audio>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
-        <address domain='0x0000' bus='0x0e' slot='0x00' function='0x0'/>
+        <address domain='0x0000' bus='0x09' slot='0x00' function='0x0'/>
       </source>
-      <rom bar='on' file='/var/lib/libvirt/bios.bin'/>
+      <rom bar='on'/>
       <address type='pci' domain='0x0000' bus='0x05' slot='0x00' function='0x0'/>
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
-        <address domain='0x0000' bus='0x0e' slot='0x00' function='0x1'/>
+        <address domain='0x0000' bus='0x09' slot='0x00' function='0x1'/>
       </source>
-      <rom bar='on' file='/var/lib/libvirt/bios.bin'/>
+      <rom bar='on'/>
       <address type='pci' domain='0x0000' bus='0x06' slot='0x00' function='0x0'/>
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <source>
-        <address domain='0x0000' bus='0x13' slot='0x00' function='0x3'/>
+        <address domain='0x0000' bus='0x0e' slot='0x00' function='0x3'/>
       </source>
+      <rom bar='off'/>
       <address type='pci' domain='0x0000' bus='0x0b' slot='0x00' function='0x0'/>
     </hostdev>
     <memballoon model='virtio'>
       <address type='pci' domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
     </memballoon>
-    <shmem name='looking-glass'>
-      <model type='ivshmem-plain'/>
-      <size unit='M'>64</size>
-      <address type='pci' domain='0x0000' bus='0x08' slot='0x01' function='0x0'/>
-    </shmem>
   </devices>
   <qemu:commandline>
     <qemu:env name='PIPEWIRE_RUNTIME_DIR' value='/run/user/1000'/>
