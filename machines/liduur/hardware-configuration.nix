@@ -3,8 +3,24 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
-{
+let kvmfr = pkgs.unstable.linuxKernel.packages.linux_xanmod_latest.kvmfr.overrideAttrs (prev: {
+      version = "B5-413-eb1774f9";
+      src = pkgs.fetchFromGitHub {
+        owner = "gnif";
+        repo = "LookingGlass";
+        rev = "eb1774f955eb194220e3d51ae320b6a0d56eb131";
+        sha256 = "sha256-CPBrIBw7oCs5v4kmoQ9f1iuWML6uueOLEmaNKh2tI44=";
+        fetchSubmodules = true;
+      };
+
+      patches = [];
+    });
+in {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="kvmfr", OWNER="audron", GROUP="users", MODE="0666"
+  '';
 
   boot = {
     zfs.forceImportRoot = false;
@@ -15,8 +31,16 @@
       kernelModules = [ ];
     };
 
-    kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
-    extraModulePackages = [ ];
+    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
+
+    kernelModules = [ "kvm-amd" "amdgpu" "zfs" "kvmfr" ];
+    extraModulePackages =
+      [ kvmfr ];
+
+
+    extraModprobeConfig = ''
+      options kvmfr static_size_mb=256
+    '';
 
     # Use the systemd-boot EFI boot loader.
     supportedFilesystems = [ "zfs" ];
