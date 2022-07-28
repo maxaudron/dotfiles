@@ -16,6 +16,7 @@ in {
     modules/ssh
 
     modules/games
+    modules/stream
   ];
 
   home.username = conf.user.name;
