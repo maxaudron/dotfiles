@@ -4,7 +4,7 @@ with lib;
 
 let
   conf = import ../config { inherit lib; };
-  emacsPackage = if pkgs.stdenv.isLinux then
+  emacsPackage = if /*pkgs.stdenv.isLinux*/ false then
     emacs.packages.${system}.emacsPgtkNativeComp
   else
     pkgs.emacs28NativeComp;
