@@ -25,7 +25,7 @@ let
     ];
   };
 
-  swayPackage = unstable.sway.override {
+  swayPackage = pkgs.sway.override {
     withBaseWrapper = true;
     withGtkWrapper = true;
 
@@ -92,12 +92,11 @@ in {
 
     xwayland = true;
 
+      # border_images.focused "${./shadows.png}"
+      # border_images.focused_inactive "${./shadows.png}"
+      # border_images.unfocused "${./shadows.png}"
+      # border_images.urgent "${./shadows.png}"
     extraConfig = ''
-      border_images.focused "${./shadows.png}"
-      border_images.focused_inactive "${./shadows.png}"
-      border_images.unfocused "${./shadows.png}"
-      border_images.urgent "${./shadows.png}"
-
       xwayland enable
     '';
   };
