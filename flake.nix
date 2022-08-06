@@ -21,6 +21,11 @@
 
     emacs.url = "github:nix-community/emacs-overlay";
 
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     gtree = {
       url = "gitlab:cocainefarm/gtree";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +33,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, darwin, home-manager
-    , fenix, emacs, gtree }:
+    , hyprland, fenix, emacs, gtree }:
     let
       specialArgs = inputs // { inherit inputs; };
 
