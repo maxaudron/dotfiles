@@ -21,11 +21,6 @@
 
     emacs.url = "github:nix-community/emacs-overlay";
 
-    hyprland = {
-      url = "github:vaxerski/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     gtree = {
       url = "gitlab:cocainefarm/gtree";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +28,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, darwin, home-manager
-    , fenix, emacs, hyprland, gtree }:
+    , fenix, emacs, gtree }:
     let
       specialArgs = inputs // { inherit inputs; };
 
@@ -61,13 +56,6 @@
           overlays
 
           home-manager.nixosModules.home-manager
-          hyprland.nixosModules.default
-          {
-            programs.hyprland = {
-              enable = true;
-              extraPackages = nixpkgs.lib.mkForce [ ];
-            };
-          }
 
           ./machines/liduur/configuration.nix
         ];
