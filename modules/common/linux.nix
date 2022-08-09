@@ -40,6 +40,11 @@ in {
     usbutils
   ];
 
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplipWithPlugin ];
+  };
+
   services.flatpak.enable = true;
 
   xdg.portal.enable = true;
