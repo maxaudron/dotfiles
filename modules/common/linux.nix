@@ -56,7 +56,7 @@ in {
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" "dialout" ];
+    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" "dialout" "video" ];
     shell = pkgs.zsh;
   };
 
