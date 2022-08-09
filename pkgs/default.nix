@@ -7,4 +7,6 @@ self: super:
   kubectx = super.callPackage ./kubectx {};
 
   libnpupnp = super.callPackage ./libnpupnp {};
+
+  obs-midi = super.callPackage ./obs-midi {};
 }

@@ -1,0 +1,33 @@
+{ lib, stdenv, fetchurl, qt5, cmake, pkg-config, obs-studio, catch2 }:
+
+stdenv.mkDerivation {
+  pname = "obs-midi";
+  version = "0.9.3";
+
+  src = fetchurl {
+    url = "https://github.com/cpyarger/obs-midi/releases/download/tag-0.9.3-ALPHA-3.66/obs-midi-Linux-0.9.3-ALPHA-3.66-x64.tar.gz";
+    sha256 = "18dqadf4vd7w2mb509zs67l67fll63rnym6jk6ip1kzkfn81rp7r";
+  };
+
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [ obs-studio catch2 qt5.qtbase ];
+
+  patches = [ ./libobs.patch ./libremidi.patch ];
+
+  cmakeFlags = [
+    "-DLIBOBS_INCLUDE_DIR=${obs-studio.src}/libobs"
+    "-DLIBOBS_LIB=${obs-studio}/lib"
+    "-DCMAKE_CXX_FLAGS=-I${obs-studio.src}/UI/obs-frontend-api"
+  ];
+
+  dontWrapQtApps = true;
+
+  meta = with lib; {
+    description =
+      "An obs-studio plugin that allows you to screen capture on wlroots based wayland compositors";
+    homepage = "https://hg.sr.ht/~scoopta/wlrobs";
+    maintainers = with maintainers; [ grahamc V ];
+    license = licenses.gpl3Plus;
+    platforms = [ "x86_64-linux" ];
+  };
+}
