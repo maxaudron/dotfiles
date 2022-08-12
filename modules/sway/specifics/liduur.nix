@@ -1,34 +1,36 @@
 { config, lib, pkgs, ... }:
 
 let
-  displayTop ="Goldstar Company Ltd 34GN850 005NTVSHE463";
-  displayBottom = "Goldstar Company Ltd LG ULTRAWIDE 0x00000101";
+  displayRight ="Goldstar Company Ltd 34GN850 005NTVSHE463";
+  displayLeft = "Samsung Electric Company Odyssey G8 HNTT600109";
 in {
   wayland.windowManager.sway.config = {
     output = {
-      "${displayTop}" = {
-        pos = "0 0";
+      "${displayRight}" = {
+        pos = "3840 0";
         mode = "3440x1440@143.923Hz";
+        transform = "270";
       };
-      "${displayBottom}" = {
-        pos = "450 1440";
-        transform = "180";
+      "${displayLeft}" = {
+        pos = "0 0";
+        mode = "3840x2160@120.000Hz";
+        # transform = "180";
       };
     };
 
     defaultWorkspace = "1";
     workspaceOutputAssign = [
-      { workspace = "1"; output = "\"${displayTop}\""; }
-      { workspace = "2"; output = "\"${displayTop}\""; }
-      { workspace = "3"; output = "\"${displayTop}\""; }
-      { workspace = "4"; output = "\"${displayTop}\""; }
-      { workspace = "5"; output = "\"${displayTop}\""; }
+      { workspace = "1"; output = "\"${displayLeft}\""; }
+      { workspace = "2"; output = "\"${displayLeft}\""; }
+      { workspace = "3"; output = "\"${displayLeft}\""; }
+      { workspace = "4"; output = "\"${displayLeft}\""; }
+      { workspace = "5"; output = "\"${displayLeft}\""; }
 
-      { workspace = "6"; output = "\"${displayBottom}\" gaps top 150"; }
-      { workspace = "7"; output = "\"${displayBottom}\" gaps top 150"; }
-      { workspace = "8"; output = "\"${displayBottom}\" gaps top 150"; }
-      { workspace = "9"; output = "\"${displayBottom}\" gaps top 150"; }
-      { workspace = "0"; output = "\"${displayBottom}\" gaps top 150"; }
+      { workspace = "6"; output = "\"${displayRight}\""; }
+      { workspace = "7"; output = "\"${displayRight}\""; }
+      { workspace = "8"; output = "\"${displayRight}\""; }
+      { workspace = "9"; output = "\"${displayRight}\""; }
+      { workspace = "0"; output = "\"${displayRight}\""; }
     ];
   };
 }
