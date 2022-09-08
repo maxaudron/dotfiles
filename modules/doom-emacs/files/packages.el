@@ -15,6 +15,8 @@
 (package! meson-mode)
 (package! ini-mode)
 (package! graphql-mode)
+(package! tera-mode
+  :recipe (:host github :repo "svavs/tera-mode"))
 
 ;; TOOLS
 (package! string-inflection)
@@ -32,4 +34,3 @@
 ;; (package! org-jira)
 ;; (package! ejira
 ;;   :recipe (:repo "https://github.com/nyyManni/ejira"))
-

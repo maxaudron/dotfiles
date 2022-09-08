@@ -104,6 +104,8 @@
   (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"])
   (setq lsp-rust-all-features nil))
 
+(require 'tera-mode)
+
 (defvar auto-minor-mode-alist ()
   "Alist of filename patterns vs correpsonding minor mode functions, see `auto-mode-alist'
 All elements of this alist are checked, meaning you can enable multiple minor modes for the same regexp.")

@@ -107,5 +107,7 @@ in {
     hunspellDicts.en_US
 
     vale
+
+    nodePackages.prettier
   ];
 }
