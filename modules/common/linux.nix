@@ -54,6 +54,7 @@ in {
   };
 
   services.flatpak.enable = true;
+  services.nfs.server.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.wlr.enable = true;
