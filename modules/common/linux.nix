@@ -38,6 +38,14 @@ in {
 
     dfu-util
     usbutils
+
+    colord
+    colord-kde
+
+    libsForQt5.bismuth
+
+    gnome.gnome-color-manager
+    sqlite
   ];
 
   services.printing = {
