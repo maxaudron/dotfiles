@@ -7,7 +7,7 @@ in {
   wayland.windowManager.sway.config = {
     output = {
       "${displayRight}" = {
-        pos = "3840 0";
+        pos = "3840 -1000";
         mode = "3440x1440@143.923Hz";
         transform = "270";
       };
