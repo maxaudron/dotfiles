@@ -28,6 +28,13 @@ in {
     quasselClient
     imv
     rawtherapee
+    davinci-resolve
+    blender
+
+    rustdesk
+    nomachine-client
+
+    nix-index
   ];
 
   home.stateVersion = "22.05";
