@@ -55,6 +55,8 @@
 
     hosts = { "192.168.144.74" = [ "home.fritz.box" ]; };
 
+    firewall.enable = false;
+
     wireguard = {
       enable = true;
       interfaces.wg0 = {
