@@ -70,9 +70,7 @@ in {
     shell = pkgs.zsh;
   };
 
-  programs.wireshark = {
-    enable = true;
-  };
+  programs.wireshark = { enable = true; };
 
   fonts.fontconfig = {
     enable = true;
