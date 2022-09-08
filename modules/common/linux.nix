@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let grub2-theme = pkgs.callPackage ../../pkgs/grub2-theme {};
+let grub2-theme = pkgs.callPackage ../../pkgs/grub2-theme { };
 in {
   imports = [ ];
 
@@ -66,7 +66,8 @@ in {
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" ];
+    extraGroups =
+      [ "wheel" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" ];
     shell = pkgs.zsh;
   };
 
@@ -96,7 +97,8 @@ in {
 
     displayManager = {
       sddm.enable = true;
-      sessionPackages = [ config.home-manager.users.audron.wayland.windowManager.sway.package ];
+      sessionPackages =
+        [ config.home-manager.users.audron.wayland.windowManager.sway.package ];
     };
     desktopManager.plasma5.enable = true;
   };
