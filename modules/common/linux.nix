@@ -92,7 +92,18 @@ in {
     keyMap = "us";
   };
 
-  services.xserver.enable = false;
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "amdgpu" ];
+
+    displayManager = {
+      sddm.enable = true;
+      sessionPackages = [ config.home-manager.users.audron.wayland.windowManager.sway.package ];
+    };
+    desktopManager.plasma5.enable = true;
+  };
+
+  services.colord.enable = true;
 
   hardware.opengl = {
     enable = true;
@@ -100,7 +111,7 @@ in {
   };
 
   services.greetd = {
-    enable = true;
+    enable = false;
     settings = {
       default_session = {
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
