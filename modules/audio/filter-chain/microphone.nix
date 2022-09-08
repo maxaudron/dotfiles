@@ -49,11 +49,12 @@
               control = { "VAD Threshold (%)" = 70.0; };
             }
             {
-              type = "ladspa";
+              type = "lv2";
               name = "comp";
-              plugin =
-                "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
-              label = "http://lsp-plug.in/plugins/ladspa/compressor_mono";
+              # plugin =
+              #   "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
+              # label = "http://lsp-plug.in/plugins/lv2/compressor_mono";
+              plugin = "http://lsp-plug.in/plugins/lv2/compressor_mono";
               control = {
                 "Input gain (G)" = 1.0;
                 "Output gain (G)" = 1.0;
@@ -106,10 +107,10 @@
           links = [
             {
               output = "rnnoise:Output";
-              input = "comp:Input";
+              input = "comp:in";
             }
             {
-              output = "comp:Output";
+              output = "comp:out";
               input = "copy:In";
             }
             {
