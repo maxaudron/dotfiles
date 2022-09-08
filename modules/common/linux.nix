@@ -60,12 +60,13 @@ in {
   xdg.portal.wlr.enable = true;
 
   programs.dconf.enable = true;
+  programs.adb.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" "dialout" "video" ];
+    extraGroups = [ "wheel" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" ];
     shell = pkgs.zsh;
   };
 
