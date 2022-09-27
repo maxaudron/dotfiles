@@ -12,8 +12,10 @@ in {
       "XF86AudioLowerVolume" = "exec xdotool keydown XF86AudioLowerVolume";
       "--release --locked XF86AudioLowerVolume" = "exec xdotool keyup XF86AudioLowerVolume";
 
-      "XF86AudioRaiseVolume" = "exec xdotool keydown XF86AudioRaiseVolume";
-      "--release --locked XF86AudioRaiseVolume" = "exec xdotool keyup XF86AudioRaiseVolume";
+      # "XF86AudioRaiseVolume" = "exec xdotool keydown XF86AudioRaiseVolume";
+      # "--release --locked XF86AudioRaiseVolume" = "exec xdotool keyup XF86AudioRaiseVolume";
+      "XF86AudioRaiseVolume" = "exec xdotool keydown F12";
+      "--release --locked XF86AudioRaiseVolume" = "exec xdotool keyup F12";
 
       "XF86AudioMute" = "exec xdotool keydown XF86AudioMute";
       "--release --locked XF86AudioMute" = "exec xdotool keyup XF86AudioMute";
