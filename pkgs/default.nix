@@ -9,4 +9,5 @@ self: super:
   libnpupnp = super.callPackage ./libnpupnp {};
 
   obs-midi = super.callPackage ./obs-midi {};
+  diskimage-builder = super.callPackage ./diskimage-builder {};
 }
