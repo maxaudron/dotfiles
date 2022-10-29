@@ -30,7 +30,6 @@ in {
     davinci-resolve
     blender
 
-    rustdesk
     nomachine-client
 
     nix-index
