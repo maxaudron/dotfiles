@@ -4,6 +4,9 @@ let
   rust = with fenix.packages.${system};
     combine [
       stable.defaultToolchain
+      (stable.withComponents [
+        "rust-src"
+      ])
       targets.x86_64-unknown-linux-musl.stable.rust-std
       targets.thumbv6m-none-eabi.stable.rust-std
 
@@ -21,6 +24,7 @@ in {
       [target.x86_64-unknown-linux-gnu]
       linker = "${pkgs.clang}/bin/clang"
       rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
-    '' else "";
+    '' else
+      "";
   };
 }
