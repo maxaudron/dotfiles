@@ -14,6 +14,7 @@ in {
     sessionVariables = {
       DOOMDIR = "${config.xdg.configHome}/doom";
       DOOMLOCALDIR = "${config.home.homeDirectory}/.local/doom";
+      DOOMPROFILELOADFILE = "${config.home.homeDirectory}/.local/cache/doom-profiles.el";
     };
 
     file = {
@@ -59,6 +60,7 @@ in {
         onChange = "${pkgs.writeShellScript "doom-config-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
+          export DOOMPROFILELOADFILE="${config.home.sessionVariables.DOOMPROFILELOADFILE}"
           export PATH=$PATH:${emacsPackage}/bin
           ${config.xdg.configHome}/emacs/bin/doom --force sync
         ''}";
@@ -67,11 +69,12 @@ in {
         source = builtins.fetchGit {
           url = "https://github.com/doomemacs/doomemacs";
           ref = "master";
-          rev = "33c5f3721a704c72e49efc5960be3785d1a80b81";
+          rev = "95bdc3b566b72169f4bed41ea51f0d0b941fa2de";
         };
         onChange = "${pkgs.writeShellScript "doom-emacs-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
+          export DOOMPROFILELOADFILE="${config.home.sessionVariables.DOOMPROFILELOADFILE}"
           if [ ! -d "$DOOMLOCALDIR" ]; then
             ${config.xdg.configHome}/emacs/bin/doom --force install
           else

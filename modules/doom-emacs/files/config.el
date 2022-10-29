@@ -86,6 +86,7 @@
 ;; load config files
 (load! "config/textmodification")
 (load! "config/org")
+(load! "config/flycheck-eglot")
 
 ;; load functions
 (load! "functions/yaml-to-json")
@@ -101,8 +102,7 @@
 (load! "secrets/grip")
 
 (after! rustic
-  (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"])
-  (setq lsp-rust-all-features nil))
+  (setq lsp-rust-analyzer-diagnostics-disabled ["unresolved-proc-macro"]))
 
 (require 'tera-mode)
 
