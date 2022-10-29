@@ -3,21 +3,7 @@
 with lib;
 
 let
-  sampleSize = 128;
-
   cfg = config.audio;
-
-  pkgPipewire = (pkgs.pipewire.overrideAttrs (old: {
-        src = pkgs.fetchFromGitLab {
-          domain = "gitlab.freedesktop.org";
-          owner = "pipewire";
-          repo = "pipewire";
-          rev = "0c8cd4ab52557681df70e24df9072e2df7c7d6ff";
-          sha256 = "sha256-zBcM/rTsnKfANrswAPMFaLr+6w4YEsS2c9x7rvW6UL4=";
-        };
-        mesonFlags = old.mesonFlags ++ [ "-Dbluez5-codec-lc3plus=disabled" ];
-      }));
-
 in {
   imports = [
     ./filter-chain
@@ -37,7 +23,12 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = pkgPipewire;
+        default = pkgs.pipewire;
+      };
+
+      sampleSize = mkOption {
+        type = types.int;
+        default = 64;
       };
     };
   };
@@ -113,9 +104,9 @@ in {
             "link.max-buffers" = 64;
             "log.level" = 2;
             "default.clock.rate" = 48000;
-            "default.clock.quantum" = sampleSize;
-            "default.clock.min-quantum" = sampleSize;
-            "default.clock.max-quantum" = sampleSize;
+            "default.clock.quantum" = cfg.sampleSize;
+            "default.clock.min-quantum" = cfg.sampleSize;
+            "default.clock.max-quantum" = cfg.sampleSize;
             "core.daemon" = true;
             "core.name" = "pipewire-0";
           };
@@ -171,17 +162,17 @@ in {
             {
               name = "libpipewire-module-protocol-pulse";
               args = {
-                "pulse.min.req" = "${toString sampleSize}/48000";
-                "pulse.default.req" = "${toString sampleSize}/48000";
-                "pulse.max.req" = "${toString sampleSize}/48000";
-                "pulse.min.quantum" = "${toString sampleSize}/48000";
-                "pulse.max.quantum" = "${toString sampleSize}/48000";
+                "pulse.min.req" = "${toString cfg.sampleSize}/48000";
+                "pulse.default.req" = "${toString cfg.sampleSize}/48000";
+                "pulse.max.req" = "${toString cfg.sampleSize}/48000";
+                "pulse.min.quantum" = "${toString cfg.sampleSize}/48000";
+                "pulse.max.quantum" = "${toString cfg.sampleSize}/48000";
                 "server.address" = [ "unix:native" ];
               };
             }
           ];
           "stream.properties" = {
-            "node.latency" = "${toString sampleSize}/48000";
+            "node.latency" = "${toString cfg.sampleSize}/48000";
             "resample.quality" = 1;
           };
         };
