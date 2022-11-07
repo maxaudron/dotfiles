@@ -46,6 +46,8 @@ in {
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
 
+  nix.settings.trusted-users = [ "@staff" ];
+
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;

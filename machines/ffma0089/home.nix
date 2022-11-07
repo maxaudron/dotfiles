@@ -29,7 +29,7 @@ in {
 
   programs.gpg.scdaemonSettings = { disable-ccid = true; };
 
-  home.packages = with pkgs; [ pass ];
+  home.packages = with pkgs; [ pass nix-index ];
 
   home.stateVersion = "22.05";
 }
