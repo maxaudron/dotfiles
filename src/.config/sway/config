@@ -1,2 +1,0 @@
-exec pipewire
-exec_always $HOME/.config/sway/init

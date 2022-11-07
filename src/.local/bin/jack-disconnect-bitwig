@@ -1,5 +1,0 @@
-#!/bin/sh
-ladish_control sdisconnect "PulseAudio JACK Source" "front-left" "Hardware Capture" "capture_1"
-ladish_control sdisconnect "PulseAudio JACK Source" "front-right" "Hardware Capture" "capture_2"
-ladish_control sdisconnect "PulseAudio JACK Source" "rear-left" "Hardware Capture" "capture_3"
-ladish_control sdisconnect "PulseAudio JACK Source" "rear-right" "Hardware Capture" "capture_4"

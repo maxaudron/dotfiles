@@ -1,9 +1,0 @@
-[Unit]
-Description=Mine Votecoin
-
-[Service]
-ExecStart=%h/.votecoin/miner --server 'mine-vot-na.equipool.1ds.us' --port 50072 --user t1VtZNbcKiqrcaggQ21256dDuZo6ornwUdK.cocainefarm --pass minpayout=5 --api --fee 0
-
-[Install]
-WantedBy=default.target
-

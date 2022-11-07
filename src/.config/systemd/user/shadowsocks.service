@@ -1,9 +1,0 @@
-[Unit]
-Description=Shadowsocks connection to cocaine.farm
-
-[Service]
-ExecStart=ss-local -s 144.76.243.142 -p 8388 -l 1080 -k mx0225mx -m aes-256-gcm
-
-[Install]
-WantedBy=default.target
-
