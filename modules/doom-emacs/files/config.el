@@ -86,7 +86,6 @@
 ;; load config files
 (load! "config/textmodification")
 (load! "config/org")
-(load! "config/flycheck-eglot")
 
 ;; load functions
 (load! "functions/yaml-to-json")
