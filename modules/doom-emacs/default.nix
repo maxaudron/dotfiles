@@ -69,7 +69,7 @@ in {
         source = builtins.fetchGit {
           url = "https://github.com/doomemacs/doomemacs";
           ref = "master";
-          rev = "95bdc3b566b72169f4bed41ea51f0d0b941fa2de";
+          rev = "9d4d5b756a8598c4b5c842e9f1f33148af2af8fd";
         };
         onChange = "${pkgs.writeShellScript "doom-emacs-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
