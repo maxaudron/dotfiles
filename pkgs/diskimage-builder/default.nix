@@ -1,16 +1,24 @@
-{ lib, python310Packages }:
+{ lib, python3Packages }:
 
-with python310Packages;
-buildPythonApplication {
+with python3Packages;
+let nativeBuildInputs = with pkgs; [ getopt qemu-utils util-linux bash ];
+in buildPythonApplication {
   pname = "diskimage-builder";
   version = "3.25.0";
 
-  propagatedBuildInputs = [ setuptools networkx pbr pyyaml stevedore flake8 ];
+  patches = [ ./disk_image_create.patch ];
 
-  nativeBuildInputs = with pkgs; [ getopt qemu-utils ];
+  propagatedBuildInputs = [ setuptools networkx pbr pyyaml stevedore ];
+  buildInputs =
+    [ flake8 yamllint coverage testtools stestr oslotest mock pylint ];
+
+  nativeBuildInputs = nativeBuildInputs;
   doCheck = false;
 
-  src = python310Packages.fetchPypi {
+  makeWrapperArgs =
+    [ "--prefix-each PATH : ${lib.makeBinPath nativeBuildInputs}" ];
+
+  src = python3Packages.fetchPypi {
     pname = "diskimage-builder";
     version = "3.25.0";
     hash = "sha256-kaiQQQbmacDKmQQUV1HFaxkmozJeE+lO9UitUJIMSCw=";

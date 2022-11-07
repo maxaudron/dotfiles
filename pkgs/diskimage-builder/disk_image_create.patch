@@ -1,0 +1,13 @@
+*** a/diskimage_builder/disk_image_create.py	1970-01-01 01:00:01.000000000 +0100
+--- b/diskimage_builder/disk_image_create.py	2022-10-29 12:47:35.695012872 +0200
+***************
+*** 37,40 ****
+      script = "%s/%s" % (diskimage_builder.paths.get_path('lib'),
+                          os.path.basename(sys.argv[0]))
+  
+!     os.execve("/bin/bash", ['bash', script] + sys.argv[1:], environ)
+--- 37,40 ----
+      script = "%s/%s" % (diskimage_builder.paths.get_path('lib'),
+                          os.path.basename(sys.argv[0]))
+  
+!     os.execvpe("bash", ['bash', script] + sys.argv[1:], environ)
