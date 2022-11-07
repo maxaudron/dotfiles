@@ -77,5 +77,7 @@
       # Set keyserver
       keyserver = "hkps://keys.openpgp.org";
     };
+
+    scdaemonSettings = { disable-ccid = true; };
   };
 }

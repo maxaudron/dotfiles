@@ -17,6 +17,8 @@ in {
         ssh.startAgent = false;
         gnupg.agent = { pinentryFlavor = "qt"; };
       };
+
+      services.pcscd.enable = true;
     })
   ];
 }

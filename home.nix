@@ -33,6 +33,7 @@ in {
     nomachine-client
 
     nix-index
+    yubioath-desktop
   ];
 
   home.stateVersion = "22.05";
