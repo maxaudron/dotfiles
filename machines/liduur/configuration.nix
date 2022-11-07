@@ -36,6 +36,10 @@
     "net.ipv6.conf.enp5s0.accept_ra" = "0";
   };
 
+  services.openssh = {
+    enable = true;
+  };
+
   networking = {
     hostName = "liduur";
     domain = "vapor.systems";

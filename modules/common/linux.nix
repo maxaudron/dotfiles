@@ -69,6 +69,10 @@ in {
     extraGroups =
       [ "wheel" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" ];
     shell = pkgs.zsh;
+
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO2eIUtbt7RM75ThjKfUjm24QkzkzCSj7hs+GLaaxMeH"
+    ];
   };
 
   programs.wireshark = { enable = true; };
