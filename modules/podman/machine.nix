@@ -36,6 +36,8 @@ in {
   };
 
   config = {
+    home.packages = [ pkgs.podman ];
+
     xdg = {
       enable = true;
       configFile = {
