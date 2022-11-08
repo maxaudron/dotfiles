@@ -22,6 +22,7 @@ in {
     unzip
     wget
     htop
+    watch
     rclone
 
     nixfmt
