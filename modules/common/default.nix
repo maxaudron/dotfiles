@@ -32,9 +32,6 @@ in {
     passff-host
   ];
 
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
-
   fonts.fonts = with pkgs; [ ibm-plex nerdfonts ];
 
   # Enable zsh completion for system packages

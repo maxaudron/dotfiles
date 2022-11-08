@@ -77,6 +77,9 @@ in {
 
   programs.wireshark = { enable = true; };
 
+  # Set your time zone.
+  time.timeZone = "Europe/Berlin";
+
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
