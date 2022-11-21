@@ -42,13 +42,6 @@
         "filter.graph" = {
           nodes = [
             {
-              type = "ladspa";
-              name = "rnnoise";
-              plugin = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
-              label = "noise_suppressor_mono";
-              control = { "VAD Threshold (%)" = 70.0; };
-            }
-            {
               type = "lv2";
               name = "comp";
               # plugin =
@@ -105,10 +98,6 @@
             }
           ];
           links = [
-            {
-              output = "rnnoise:Output";
-              input = "comp:in";
-            }
             {
               output = "comp:out";
               input = "copy:In";

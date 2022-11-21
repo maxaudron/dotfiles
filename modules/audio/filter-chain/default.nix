@@ -13,14 +13,6 @@ let
 
   cfg = config.audio;
 in {
-  environment.etc."pipewire/filter-chain/microphone.conf" = {
-    source = microphone;
-  };
-
-  environment.etc."pipewire/filter-chain/system-out.conf" = {
-    source = system-out;
-  };
-
   systemd.user.services = {
     pipewire-filter-system-out = {
       wantedBy = [ "pipewire.service" ];
