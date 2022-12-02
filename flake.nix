@@ -1,8 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+
+    secrets = {
+      url = "git+ssh://git@gitlab.com/audron/secrets.git";
+      flake = false;
+    };
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -32,7 +37,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, darwin, home-manager
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, secrets, darwin, home-manager
     , hyprland, fenix, emacs, gtree }:
     let
       specialArgs = inputs // { inherit inputs; };

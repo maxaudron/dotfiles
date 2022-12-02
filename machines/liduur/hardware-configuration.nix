@@ -11,7 +11,11 @@
   '';
 
   boot = {
-    zfs.forceImportRoot = false;
+    zfs = {
+      forceImportRoot = false;
+
+      enableUnstable = true;
+    };
 
     initrd = {
       availableKernelModules =
@@ -19,7 +23,7 @@
       kernelModules = [ ];
     };
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest;
+    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
     kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
 
