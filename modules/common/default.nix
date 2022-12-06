@@ -23,6 +23,8 @@ in {
     wget
     htop
     watch
+    rename
+    p7zip
     rclone
 
     nixfmt
@@ -69,7 +71,9 @@ in {
       "home-manager=/etc/nix/channels/home-manager"
     ];
 
+    distributedBuilds = true;
     settings = {
+      builders = "@/etc/nix/machines";
       trusted-users = [ "@wheel" ];
 
       substituters = [
