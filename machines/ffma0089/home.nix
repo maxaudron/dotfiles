@@ -6,7 +6,6 @@ let
   conf = import ../../modules/config { inherit lib; };
 in {
   imports = [
-    ../../modules/podman/machine.nix
     ../../modules/doom-emacs
     ../../modules/alacritty
     ../../modules/latex
@@ -16,12 +15,6 @@ in {
     ../../modules/dev
     ../../modules/ssh
   ];
-
-  podman.machine = {
-    memory = 2048;
-    cpus = 4;
-    diskSize = 100;
-  };
 
   home.username = conf.user.name;
   home.homeDirectory = lib.mkForce conf.user.home;
