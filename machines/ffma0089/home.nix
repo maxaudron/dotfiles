@@ -9,6 +9,7 @@ in {
     ../../modules/podman/machine.nix
     ../../modules/doom-emacs
     ../../modules/alacritty
+    ../../modules/latex
     ../../modules/shell
     ../../modules/git
     ../../modules/gpg
