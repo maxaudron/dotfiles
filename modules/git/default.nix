@@ -14,8 +14,14 @@ in {
     extraConfig = {
       init = { defaultBranch = "master"; };
 
-      push = { followTags = true; };
+      push = {
+        followTags = true;
+        autoSetupRemote = true;
+      };
+
       pull = { ff = "only"; };
+
+      submodule.recurse = true;
 
       diff = {
         tool = "ediff";
