@@ -18,6 +18,8 @@ in {
       rust
 
       cargo-outdated
+      cargo-expand
+      cargo-watch
     ];
 
     home.file.".cargo/config.toml".text = if pkgs.stdenv.isLinux then ''
