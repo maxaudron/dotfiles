@@ -25,5 +25,9 @@ in {
 
   home.packages = with pkgs; [ pass nix-index ];
 
+  home = {
+    sessionPath = [ "/opt/podman/bin" ];
+  };
+
   home.stateVersion = "22.05";
 }

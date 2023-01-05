@@ -10,6 +10,6 @@
     })
 
     python
-    pythonPackages.pygments
+    python3Packages.pygments
   ];
 }

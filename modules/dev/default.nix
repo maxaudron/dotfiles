@@ -43,7 +43,6 @@ in {
 
         openssl
 
-        gcc-arm-embedded
         nodejs
 
         gtree.packages.${system}.default
@@ -54,6 +53,7 @@ in {
         [ ]) ++ (if conf.os.type == "linux" then [
           linuxKernel.packages.linux_zen.perf
           blackmagic
+          gcc-arm-embedded
         ] else
           [ ]);
 
