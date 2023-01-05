@@ -3,4 +3,4 @@
 let
   factorio = pkgs.unstable.factorio.override
     (lib.importTOML ("${secrets}" + "/factorio.toml"));
-in { home.packages = [ factorio ]; }
+in { home.packages = [ factorio pkgs.starsector ]; }
