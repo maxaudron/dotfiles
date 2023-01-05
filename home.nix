@@ -34,6 +34,12 @@ in {
 
     nix-index
     yubioath-desktop
+
+    google-chrome
+    tdesktop
+
+    kicad-small
+    unstable.discord
   ];
 
   home.stateVersion = "22.05";
