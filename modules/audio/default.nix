@@ -28,7 +28,7 @@ in {
 
       sampleSize = mkOption {
         type = types.int;
-        default = 64;
+        default = 128;
       };
     };
   };

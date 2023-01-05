@@ -42,12 +42,12 @@
         "filter.graph" = {
           nodes = [
             {
-              type = "lv2";
+              type = "ladspa";
               name = "comp";
-              # plugin =
-              #   "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
-              # label = "http://lsp-plug.in/plugins/lv2/compressor_mono";
-              plugin = "http://lsp-plug.in/plugins/lv2/compressor_mono";
+              plugin =
+                "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa-1.2.3.so";
+              label = "http://lsp-plug.in/plugins/ladspa/compressor_mono";
+              # plugin = "http://lsp-plug.in/plugins/lv2/compressor_mono";
               control = {
                 "Input gain (G)" = 1.0;
                 "Output gain (G)" = 1.0;
@@ -99,7 +99,7 @@
           ];
           links = [
             {
-              output = "comp:out";
+              output = "comp:Output";
               input = "copy:In";
             }
             {
@@ -115,7 +115,7 @@
         };
         "capture.props" = {
           "node.name" = "effect_input.microphone";
-          "node.target" = "effect_output.rnnoise";
+          # "node.target" = "effect_output.microphone";
           "node.passive" = true;
           "audio.channels" = 1;
           "audio.position" = [ "AUX0" ];
