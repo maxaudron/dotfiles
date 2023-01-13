@@ -16,6 +16,8 @@ in {
 
     modules/games
     modules/stream
+
+    modules/kicad
   ];
 
   home.username = conf.user.name;
@@ -37,9 +39,7 @@ in {
 
     google-chrome
     tdesktop
-
-    kicad-small
-    unstable.discord
+    discord
   ];
 
   home.stateVersion = "22.05";
