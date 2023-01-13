@@ -31,6 +31,10 @@
     }
   ];
 
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
+
   boot.kernel.sysctl = {
     "net.ipv6.conf.enp5s0.autoconf" = "0";
     "net.ipv6.conf.enp5s0.accept_ra" = "0";
