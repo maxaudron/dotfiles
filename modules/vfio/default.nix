@@ -15,11 +15,46 @@ let
   };
 
   cfg = config.vfio;
+
+  switchGpu = pkgs.writeShellScriptBin "switch-gpu" ''
+    #!/bin/sh
+
+    DEVS="${concatStringsSep " " cfg.gpu}"
+
+    if [[ $1 == "switch" ]]; then
+      if [ ! -z "$(ls -A /sys/class/iommu)" ]; then
+          rmmod $2
+
+          for DEV in $DEVS; do
+              echo "$DEV" > /sys/bus/pci/devices/$DEV/driver/unbind
+              echo "$2" > /sys/bus/pci/devices/$DEV/driver_override
+          done
+
+          modprobe -i $2
+      fi
+    elif [[ $1 == "status" ]]; then
+      for DEV in $DEVS; do
+          printf "$DEV "
+          lspci -k -s "$DEV" | awk '/driver in use/ { printf $5" " }'
+          cat /sys/bus/pci/devices/$DEV/driver_override
+      done
+    fi
+  '';
 in {
   options.vfio = {
     devices = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
+      description = ''
+        PCIe device addresses that the vfio-pci kernel module will be attached to
+        can be retrieved using <literal>lspci</literal>.
+      '';
+      example = [ "0000:09:00.0" "0000:09:00.1" "0000:0e:00.3" ];
+    };
+
+    gpu = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
       description = ''
         PCIe device addresses that the vfio-pci kernel module will be attached to
         can be retrieved using <literal>lspci</literal>.
@@ -66,7 +101,7 @@ in {
       postBootCommands = ''
         #!/bin/sh
 
-        DEVS="${concatStringsSep " " cfg.devices}"
+        DEVS="${concatStringsSep " " (cfg.devices ++ cfg.gpu)}"
 
         if [ ! -z "$(ls -A /sys/class/iommu)" ]; then
             for DEV in $DEVS; do
@@ -84,6 +119,8 @@ in {
       virt-manager
       startWindowsDesktopItem
       stopWindowsDesktopItem
+
+      switchGpu
     ];
 
     virtualisation.libvirtd = {

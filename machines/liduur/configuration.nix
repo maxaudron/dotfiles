@@ -14,35 +14,33 @@
     ../../modules/vfio
   ];
 
-  vfio.devices = [ "0000:0c:00.0" "0000:0c:00.1" "0000:0e:00.3" ];
+  vfio.devices = [ "0000:0c:00.1" "0000:0e:00.3" ];
+  vfio.gpu = [ "0000:0c:00.0" ];
 
   audio.defaultLinks = [
     {
       input =
         "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX8";
-      output =
-        "System Output:playback_FL";
+      output = "System Output:playback_FL";
     }
     {
       input =
         "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX9";
-      output =
-        "System Output:playback_FR";
+      output = "System Output:playback_FR";
     }
   ];
 
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-  ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   boot.kernel.sysctl = {
     "net.ipv6.conf.enp5s0.autoconf" = "0";
     "net.ipv6.conf.enp5s0.accept_ra" = "0";
   };
 
-  services.openssh = {
-    enable = true;
-  };
+  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+  services.openssh = { enable = true; };
 
   networking = {
     hostName = "liduur";
