@@ -7,6 +7,7 @@ in {
 
   programs.git = {
     enable = true;
+    lfs.enable = true;
 
     userName = conf.user.fullname;
     userEmail = conf.user.email;
