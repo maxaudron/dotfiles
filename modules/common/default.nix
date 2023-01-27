@@ -32,8 +32,12 @@ in {
 
     pass
     passExtensions.pass-update
-    passff-host
   ];
+
+  programs.firefox = {
+    enable = true;
+    nativeMessagingHosts.passff = true;
+  };
 
   fonts.fonts = with pkgs; [ ibm-plex nerdfonts ];
 
