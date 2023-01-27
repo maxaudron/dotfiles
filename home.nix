@@ -29,10 +29,8 @@ in {
     quasselClient
     imv
     rawtherapee
-    davinci-resolve
     blender
-
-    nomachine-client
+    inkscape
 
     nix-index
     yubioath-desktop
