@@ -111,6 +111,7 @@ in {
     hunspellDicts.en_US
 
     vale
+    rnix-lsp
 
     nodePackages.prettier
   ];
