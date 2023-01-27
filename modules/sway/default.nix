@@ -72,6 +72,14 @@ in {
     xdotool
   ];
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Arc-Dark";
+      package = pkgs.arc-theme;
+    };
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     package = swayPackage;
@@ -92,10 +100,10 @@ in {
 
     xwayland = true;
 
-      # border_images.focused "${./shadows.png}"
-      # border_images.focused_inactive "${./shadows.png}"
-      # border_images.unfocused "${./shadows.png}"
-      # border_images.urgent "${./shadows.png}"
+    # border_images.focused "${./shadows.png}"
+    # border_images.focused_inactive "${./shadows.png}"
+    # border_images.unfocused "${./shadows.png}"
+    # border_images.urgent "${./shadows.png}"
     extraConfig = ''
       xwayland enable
     '';

@@ -13,7 +13,7 @@ in {
       };
       "${displayLeft}" = {
         pos = "0 0";
-        mode = "3840x2160@120.000Hz";
+        mode = "3840x2160@60.000Hz";
         # transform = "180";
       };
     };
