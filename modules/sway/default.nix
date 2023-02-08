@@ -72,6 +72,13 @@ in {
     xdotool
   ];
 
+  services.gammastep = {
+    enable = true;
+    provider = "manual";
+    latitude = 50.0;
+    longitude = 8.6;
+  };
+
   gtk = {
     enable = true;
     theme = {
