@@ -38,6 +38,7 @@ in {
     google-chrome
     tdesktop
     discord
+    teamspeak_client
   ];
 
   home.stateVersion = "22.05";
