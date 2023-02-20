@@ -132,6 +132,7 @@ in {
 
     SUBSYSTEM=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="6018", GROUP="users", MODE="0666"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", GROUP="users", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="c251", ATTRS{idProduct}=="f001", GROUP="users", MODE="0666"
 
     SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic GDB Server", SYMLINK+="ttyBMPGDB"
     SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic UART Port", SYMLINK+="ttyBMPUart"
