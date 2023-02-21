@@ -46,6 +46,8 @@ in {
 
     gnome.gnome-color-manager
     sqlite
+
+    openhantek6022
   ];
 
   services.printing = {
@@ -64,7 +66,7 @@ in {
 
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts.passff = true;
+    nativeMessagingHosts.browserpass = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -137,7 +139,7 @@ in {
 
     SUBSYSTEM=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="6018", GROUP="users", MODE="0666"
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", GROUP="users", MODE="0666"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="c251", ATTRS{idProduct}=="f001", GROUP="users", MODE="0666"
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="c251", ATTRS{idProduct}=="f001", GROUP="users", MODE="0660"
 
     SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic GDB Server", SYMLINK+="ttyBMPGDB"
     SUBSYSTEM=="tty", ATTRS{interface}=="Black Magic UART Port", SYMLINK+="ttyBMPUart"
