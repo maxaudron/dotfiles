@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  conf = import ../../modules/config { inherit lib; };
+let conf = import ../../modules/config { inherit lib; };
 in {
   imports = [
     ../../modules/doom-emacs
@@ -23,11 +22,9 @@ in {
 
   programs.gpg.scdaemonSettings = { disable-ccid = true; };
 
-  home.packages = with pkgs; [ pass nix-index ];
+  home.packages = with pkgs; [ pass nix-index wireguard-tools wireguard-go ];
 
-  home = {
-    sessionPath = [ "/opt/podman/bin" ];
-  };
+  home = { sessionPath = [ "/opt/podman/bin" ]; };
 
   home.stateVersion = "22.05";
 }
