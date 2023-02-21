@@ -62,6 +62,11 @@ in {
   programs.dconf.enable = true;
   programs.adb.enable = true;
 
+  programs.firefox = {
+    enable = true;
+    nativeMessagingHosts.passff = true;
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.audron = {
     isNormalUser = true;

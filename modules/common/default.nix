@@ -34,11 +34,6 @@ in {
     passExtensions.pass-update
   ];
 
-  programs.firefox = {
-    enable = true;
-    nativeMessagingHosts.passff = true;
-  };
-
   fonts.fonts = with pkgs; [ ibm-plex nerdfonts ];
 
   # Enable zsh completion for system packages
