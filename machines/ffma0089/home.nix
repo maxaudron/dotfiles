@@ -26,5 +26,7 @@ in {
 
   home = { sessionPath = [ "/opt/podman/bin" ]; };
 
+  programs.browserpass.enable = true;
+
   home.stateVersion = "22.05";
 }
