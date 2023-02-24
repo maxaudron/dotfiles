@@ -35,10 +35,15 @@
       url = "gitlab:cocainefarm/gtree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    doomemacs = {
+      url = "github:doomemacs/doomemacs";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, secrets, darwin, home-manager
-    , hyprland, fenix, emacs, gtree }:
+    , hyprland, fenix, emacs, gtree, doomemacs }:
     let
       specialArgs = inputs // { inherit inputs; };
 

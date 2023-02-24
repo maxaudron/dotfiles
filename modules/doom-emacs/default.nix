@@ -1,4 +1,4 @@
-{ pkgs, config, lib, system, emacs, ... }:
+{ pkgs, config, lib, system, emacs, doomemacs, ... }:
 
 with lib;
 
@@ -66,11 +66,7 @@ in {
         ''}";
       };
       "emacs" = {
-        source = builtins.fetchGit {
-          url = "https://github.com/doomemacs/doomemacs";
-          ref = "master";
-          rev = "9d4d5b756a8598c4b5c842e9f1f33148af2af8fd";
-        };
+        source = doomemacs;
         onChange = "${pkgs.writeShellScript "doom-emacs-change" ''
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
@@ -114,5 +110,6 @@ in {
     rnix-lsp
 
     nodePackages.prettier
+    languagetool
   ];
 }

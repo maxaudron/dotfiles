@@ -134,7 +134,7 @@ the checking happens for all pairs in auto-minor-mode-alist"
 (global-set-key (kbd "<home>") 'move-beginning-of-line)
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
-(add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
 (lsp-register-client
  (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                   :major-modes '(nix-mode)

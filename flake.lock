@@ -21,6 +21,22 @@
         "type": "github"
       }
     },
+    "doomemacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676968251,
+        "narHash": "sha256-2PDL4CC1mq4H+5AVgyrGaFOP7PYGsZ0W3BehMJoVLoA=",
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "rev": "986573a4a2f3e72d25a4a4c9f0c1b44986264e55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "type": "github"
+      }
+    },
     "emacs": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -267,6 +283,7 @@
     "root": {
       "inputs": {
         "darwin": "darwin",
+        "doomemacs": "doomemacs",
         "emacs": "emacs",
         "fenix": "fenix",
         "gtree": "gtree",
