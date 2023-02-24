@@ -92,6 +92,7 @@ in {
 
       jack = { enable = true; };
       pulse = { enable = true; };
+      alsa = { enable = true; };
 
       media-session.enable = false;
       wireplumber = {
