@@ -80,6 +80,9 @@ in {
       # helvum
       pavucontrol
       pulseaudio
+
+      sunvox
+      vcv-rack
     ];
 
     sound.enable = true;
