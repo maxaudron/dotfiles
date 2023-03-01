@@ -5,7 +5,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/audio
     ../../modules/common
@@ -88,6 +89,45 @@
             "fd15:3d8c:d429:102::/64"
           ];
         }];
+      };
+    };
+  };
+
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    extraConfig = ''
+      server string = liduur
+      netbios name = liduur
+      security = user
+      #use sendfile = yes
+      #max protocol = smb2
+      # note: localhost is the ipv6 localhost ::1
+      hosts allow = 192.168.144.0/24 127.0.0.1 localhost
+      # hosts deny = 0.0.0.0/0
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      # public = {
+      #   path = "/share";
+      #   browseable = "yes";
+      #   "read only" = "no";
+      #   "guest ok" = "yes";
+      #   "create mask" = "0644";
+      #   "directory mask" = "0755";
+      #   "force user" = "username";
+      #   "force group" = "groupname";
+      # };
+      private = {
+        path = "/share";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        # "force user" = "username";
+        # "force group" = "groupname";
       };
     };
   };
