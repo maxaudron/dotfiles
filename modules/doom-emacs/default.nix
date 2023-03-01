@@ -4,11 +4,13 @@ with lib;
 
 let
   conf = import ../config { inherit lib; };
-  emacsPackage = if /*pkgs.stdenv.isLinux*/ false then
-    emacs.packages.${system}.emacsPgtkNativeComp
-  else
-    pkgs.emacs28NativeComp;
-in {
+  emacsPackage =
+    if /*pkgs.stdenv.isLinux*/ false then
+      emacs.packages.${system}.emacsPgtkNativeComp
+    else
+      pkgs.emacs28NativeComp;
+in
+{
   home = {
     sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
     sessionVariables = {
@@ -111,5 +113,19 @@ in {
 
     nodePackages.prettier
     languagetool
-  ];
+
+  ] ++ (
+    let
+      pythonPackages = p: with p; [
+        pandas
+        requests
+        matplotlib
+        pygments
+        numpy
+      ];
+    in
+    [
+      (python3.withPackages pythonPackages)
+    ]
+  );
 }

@@ -8,8 +8,5 @@
         fancyvrb upquote lineno catchfile xstring framed float datetime2
         tracklang xkeyval animate zref media9 plex plex-otf fontspec moresize;
     })
-
-    python
-    python3Packages.pygments
   ];
 }
