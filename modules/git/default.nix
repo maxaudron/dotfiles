@@ -2,7 +2,8 @@
 
 let conf = import ../config { inherit lib; };
 
-in {
+in
+{
   home.packages = with pkgs; [ delta bfg-repo-cleaner ];
 
   programs.git = {
@@ -20,7 +21,9 @@ in {
         autoSetupRemote = true;
       };
 
-      pull = { ff = "only"; };
+      pull = {
+        ff = "only";
+      };
 
       submodule.recurse = true;
 
