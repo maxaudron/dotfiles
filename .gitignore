@@ -10,6 +10,7 @@ src/.config/systemd/user/timers.target.wants/
 src/.config/systemd/user/sockets.target.wants/
 
 /config.toml
+/result
 
 .DS_Store
 *.swp
