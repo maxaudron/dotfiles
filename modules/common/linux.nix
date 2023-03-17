@@ -74,13 +74,15 @@ in {
     isNormalUser = true;
     password = "audron";
     extraGroups =
-      [ "wheel" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" ];
+      [ "wheel" "input" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" ];
     shell = pkgs.zsh;
 
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO2eIUtbt7RM75ThjKfUjm24QkzkzCSj7hs+GLaaxMeH"
     ];
   };
+
+  services.xserver.wacom.enable = true;
 
   programs.wireshark = { enable = true; };
 

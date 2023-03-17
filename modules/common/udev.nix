@@ -62,6 +62,9 @@
     ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", ENV{UDISKS_AUTO}="0"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0666"
     KERNEL=="ttyACM*", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE:="0666"
+
+    # Wacom tablet
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="0303", GROUP="input", MODE="0660"
   '';
 
 }
