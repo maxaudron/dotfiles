@@ -18,6 +18,7 @@ in {
   environment.systemPackages = with pkgs; [
     jq
     git
+    dig
     vim
     zip
     unzip
