@@ -77,7 +77,7 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-      # helvum
+      unstable.helvum
       pavucontrol
       pulseaudio
 
