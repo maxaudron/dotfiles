@@ -109,25 +109,21 @@
       map to guest = bad user
     '';
     shares = {
-      # public = {
-      #   path = "/share";
-      #   browseable = "yes";
-      #   "read only" = "no";
-      #   "guest ok" = "yes";
-      #   "create mask" = "0644";
-      #   "directory mask" = "0755";
-      #   "force user" = "username";
-      #   "force group" = "groupname";
-      # };
-      private = {
+      home = {
+        path = "/home/audron/";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
+      share = {
         path = "/share";
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
-        # "force user" = "username";
-        # "force group" = "groupname";
       };
     };
   };
