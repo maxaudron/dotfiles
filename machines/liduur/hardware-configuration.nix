@@ -19,7 +19,7 @@
       kernelModules = [ ];
     };
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
+    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
 
     kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
 
