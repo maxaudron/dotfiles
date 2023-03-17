@@ -9,7 +9,6 @@ in {
     modules/shell
     modules/sway
     modules/dev
-    modules/mpd
     modules/git
     modules/gpg
     modules/ssh
@@ -39,6 +38,7 @@ in {
     tdesktop
     discord
     teamspeak_client
+    element-desktop
   ];
 
   home.stateVersion = "22.05";
