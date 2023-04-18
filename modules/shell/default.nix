@@ -34,7 +34,8 @@ let
       "exa -al --git --group-directories-first --time-style=long-iso -I .git --tree";
   };
 
-in {
+in
+{
   imports = [ ./powerlevel10k.nix ./functions.nix ];
 
   home.packages = with pkgs; [ fzf exa tmux tmux-cssh ];
@@ -87,10 +88,7 @@ in {
       path = "${config.home.homeDirectory}/.config/.zsh/.zsh_history";
     };
 
-    completionInit = ''
-      autoload -U compinit && compinit
-      autoload -U +X bashcompinit && bashcompinit
-    '';
+    completionInit = lib.readFile ./completion.zsh;
 
     initExtra = lib.readFile ./zshrc;
   };
