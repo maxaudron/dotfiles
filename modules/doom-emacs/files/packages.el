@@ -15,8 +15,12 @@
 (package! meson-mode)
 (package! ini-mode)
 (package! graphql-mode)
+(package! nyan-mode)
 (package! tera-mode
   :recipe (:host github :repo "svavs/tera-mode"))
+
+(package! moody)
+(package! parrot)
 
 ;; TOOLS
 (package! string-inflection)

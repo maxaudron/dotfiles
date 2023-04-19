@@ -10,7 +10,7 @@
 ;; set theme and font
 (setq doom-theme 'doom-tomorrow-night)
 (custom-set-faces
-  '(default ((t (:background "#181818")))))
+ '(default ((t (:background "#181818")))))
 
 (setq doom-font (font-spec :family "IBM Plex Mono" :size 17))
 
@@ -24,9 +24,28 @@
 ;; disable line numbers
 (setq display-line-numbers-type nil)
 
+(setq doom-modeline-major-mode-icon nil)
+(setq doom-modeline-buffer-state-icon nil)
+(setq doom-modeline-modal nil)
+(setq size-indication-mode nil)
+(setq doom-modeline-buffer-encoding nil)
+(setq mode-line-percent-position nil)
+
 ;; Disable solair mode
 (after! solaire-mode
   (solaire-global-mode -1))
+
+(use-package! nyan-mode
+  :config
+  (setq nyan-animate-nyancat 't)
+  (setq nyan-wavy-trail 't)
+  (nyan-mode))
+
+(use-package! parrot
+  :config
+  (setq parrot-animate-parrot 't)
+  (setq parrot-num-rotations 100)
+  (parrot-mode))
 
 
 ;;
@@ -135,7 +154,8 @@ the checking happens for all pairs in auto-minor-mode-alist"
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
 ;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-(lsp-register-client
- (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                  :major-modes '(nix-mode)
-                  :server-id 'nix))
+(after! lsp
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix)))
