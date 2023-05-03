@@ -59,7 +59,7 @@
     trim.enable = true;
     autoScrub = {
       enable = true;
-      pools = [ "rpool" ];
+      pools = [ "rpool" "storage" ];
     };
   };
 
@@ -133,6 +133,12 @@
     device = "/dev/disk/by-id/nvme-WDS100T1X0E-00AFY0_2152BE442510-part2";
     fsType = "vfat";
     options = [ "X-mount.mkdir" ];
+  };
+
+  fileSystems."/share" = {
+    device = "storage/share";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
   };
 
   hardware.enableRedistributableFirmware = true;
