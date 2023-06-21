@@ -34,6 +34,8 @@
 ;; Checkers
 (package! flycheck-vale)
 
+(package! posframe)
+
 ;; JIRA
 ;; (package! org-jira)
 ;; (package! ejira
