@@ -15,7 +15,7 @@ in {
     (lib.mkIf (conf.os.type == "linux") {
       programs = {
         ssh.startAgent = false;
-        gnupg.agent = { pinentryFlavor = "qt"; };
+        gnupg.agent = { pinentryFlavor = "curses"; enableSSHSupport = true; };
       };
 
       services.pcscd.enable = true;
