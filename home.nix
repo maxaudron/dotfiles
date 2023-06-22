@@ -17,6 +17,7 @@ in {
     modules/stream
 
     modules/kicad
+    modules/weechat
   ];
 
   home.username = conf.user.name;
@@ -39,6 +40,10 @@ in {
     discord
     teamspeak_client
     element-desktop
+    cinny-desktop
+
+    unstable.scrcpy
+    transmission
   ];
 
   home.stateVersion = "22.05";
