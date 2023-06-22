@@ -110,10 +110,15 @@ in
 
     vale
     rnix-lsp
+    python39Packages.pylsp-mypy
+    nodePackages.typescript-language-server
+    nodePackages.pyright
 
     nodePackages.prettier
     languagetool
 
+    hledger
+    hledger-web
   ] ++ (
     let
       pythonPackages = p: with p; [
