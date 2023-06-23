@@ -45,7 +45,7 @@
               type = "ladspa";
               name = "comp";
               plugin =
-                "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa-1.2.3.so";
+                "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
               label = "http://lsp-plug.in/plugins/ladspa/compressor_mono";
               # plugin = "http://lsp-plug.in/plugins/lv2/compressor_mono";
               control = {
