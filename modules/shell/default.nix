@@ -42,11 +42,6 @@ in
 
   home.shellAliases = aliases;
 
-  home.sessionVariables = {
-    EDITOR = "emacsclient -c";
-    VISUAL = "emacsclient -c";
-  };
-
   programs.bash = {
     enable = true;
     shellAliases = aliases;

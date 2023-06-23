@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  displayRight ="Goldstar Company Ltd 34GN850 005NTVSHE463";
+  displayRight ="LG Electronics 34GN850 005NTVSHE463";
   displayLeft = "Samsung Electric Company Odyssey G8 HNTT600109";
 in {
   wayland.windowManager.sway.config = {

@@ -33,14 +33,12 @@ in {
     inkscape
 
     nix-index
-    yubioath-desktop
 
     google-chrome
     tdesktop
     discord
     teamspeak_client
     element-desktop
-    cinny-desktop
 
     unstable.scrcpy
     transmission

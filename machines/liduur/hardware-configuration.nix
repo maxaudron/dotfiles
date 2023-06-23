@@ -32,7 +32,6 @@
       # Use the GRUB 2 boot loader.
       grub = {
         enable = true;
-        version = 2;
         zfsSupport = true;
         efiSupport = true;
         device = "nodev";
@@ -143,5 +142,4 @@
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = false;
-  hardware.video.hidpi.enable = true;
 }

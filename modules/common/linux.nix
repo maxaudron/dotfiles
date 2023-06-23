@@ -82,6 +82,10 @@ in {
     ];
   };
 
+  programs.zsh = {
+    enable = true;
+  };
+
   services.xserver.wacom.enable = true;
 
   programs.wireshark = { enable = true; };
