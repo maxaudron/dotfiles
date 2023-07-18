@@ -110,7 +110,7 @@ in
 
     vale
     rnix-lsp
-    python39Packages.pylsp-mypy
+    # python39Packages.pylsp-mypy
     nodePackages.typescript-language-server
     nodePackages.pyright
 
