@@ -9,6 +9,7 @@
       kubectl
       helmfile
       kubernetes-helm
+      kube-capacity
       jsonnet-bundler
       jsonnet
 
