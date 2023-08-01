@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  displayRight ="LG Electronics 34GN850 005NTVSHE463";
+  displayRight ="LG Electronics LG ULTRAWIDE 0x00000101";
   displayLeft = "Samsung Electric Company Odyssey G8 HNTT600109";
 in {
   wayland.windowManager.sway.config = {
     output = {
       "${displayRight}" = {
         pos = "3840 -1000";
-        mode = "3440x1440@143.923Hz";
-        transform = "270";
+        mode = "2560x1080@60.000Hz";
+        transform = "90";
       };
       "${displayLeft}" = {
         pos = "0 0";

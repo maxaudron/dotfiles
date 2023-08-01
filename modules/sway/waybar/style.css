@@ -19,6 +19,20 @@
   border-color: transparent transparent #181818 transparent;
 }
 
+#custom-right_edge {
+  margin-bottom: 10px;
+  border-style: solid;
+  border-width: 15px 0px 0px 20px;
+  border-color: transparent #181818 transparent transparent;
+}
+
+#custom-left_edge {
+  margin-bottom: 10px;
+  border-style: solid;
+  border-width: 0 15px 15px 0px;
+  border-color: transparent transparent transparent #181818;
+}
+
 window#waybar {
   background-color: transparent;
   color: #ffffff;
