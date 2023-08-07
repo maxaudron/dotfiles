@@ -43,7 +43,7 @@
     } {
       name = "bottom";
       position = "bottom";
-      output = "DP-3";
+      output = "DP-2";
 
       margin-bottom = 10;
 
