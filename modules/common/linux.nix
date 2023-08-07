@@ -48,6 +48,8 @@ in {
     sqlite
 
     openhantek6022
+
+    sddm-theme-chili
   ];
 
   services.printing = {
@@ -115,11 +117,13 @@ in {
     enable = true;
 
     displayManager = {
-      sddm.enable = true;
+      sddm = {
+        enable = true;
+        theme = "chili";
+      };
       sessionPackages =
-        [ config.home-manager.users.audron.wayland.windowManager.sway.package ];
+        [ config.home-manager.users.audron.wayland.windowManager.hyprland.package ];
     };
-    desktopManager.plasma5.enable = true;
   };
 
   services.colord.enable = true;

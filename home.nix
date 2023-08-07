@@ -5,9 +5,11 @@ in {
   imports = [
     modules/doom-emacs
     modules/alacritty
+    modules/hyprland
     modules/podman
     modules/shell
-    modules/sway
+    modules/rofi
+    modules/tofi
     modules/dev
     modules/git
     modules/gpg

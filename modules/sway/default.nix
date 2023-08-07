@@ -43,7 +43,7 @@ let
   sysconfig = (import <nixpkgs/nixos> { }).config;
 in {
   imports = [
-    ./rofi
+    # ./rofi
     ./waybar
 
     ./keybinds.nix
@@ -66,8 +66,6 @@ in {
     gtk_engines
     gsettings-desktop-schemas
     lxappearance
-
-    rofi-wayland
 
     xdotool
   ];
