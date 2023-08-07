@@ -40,7 +40,8 @@ let
       done
     fi
   '';
-in {
+in
+{
   options.vfio = {
     devices = mkOption {
       type = types.listOf types.str;
@@ -140,6 +141,11 @@ in {
           user = "+${toString cfg.userID}"
         '';
       };
+    };
+
+    systemd.units.virtqemud = {
+      enable = true;
+      wantedBy = [ "multi-user.target" ];
     };
   };
 }
