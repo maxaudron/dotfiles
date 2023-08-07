@@ -1,0 +1,94 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "IBM Plex", "Font Awesome 5 Free";
+  font-size: 18px;
+}
+
+window#waybar {
+    border-radius: 10px;
+    background: transparent;
+    color: #ffffff;
+}
+
+tooltip {
+    background: #181818;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #181818;
+}
+
+tooltip label{
+    color: #ffffff;
+}
+
+#workspaces button {
+    padding: 5px;
+    color: #343434;
+    margin-right: 5px;
+}
+
+#workspaces button.active {
+    color: #e88a30;
+}
+
+#workspaces button.focused {
+    color: #e88a30;
+    background: #eba0ac;
+    border-radius: 10px;
+}
+
+#workspaces button.urgent {
+    color: #181818;
+    background: #a6e3a1;
+    border-radius: 10px;
+}
+
+#workspaces button:hover {
+    background: #181818;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+#custom-launch_wofi,
+#custom-weather,
+#custom-myhyprv,
+#window,
+#clock,
+#battery,
+#network,
+#tray,
+#temperature,
+#workspaces,
+#backlight {
+    background: #181818;
+    padding: 0px 8px;
+    margin: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+#cava
+#pulseaudio,
+#cpu,
+#disk,
+#custom-updates,
+#memory,
+#custom-lock_screen,
+#custom-light_dark,
+#custom-power_btn,
+#custom-power_profile {
+    padding: 0px 8px;
+    margin: 3px;
+    border-radius: 10px;
+    opacity: 0.9;
+}
+
+#cava {
+    padding: 8px 8px;
+    margin: 6px;
+    border-radius: 10px;
+    opacity: 0.9;
+}

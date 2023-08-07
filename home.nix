@@ -10,6 +10,7 @@ in {
     modules/shell
     modules/rofi
     modules/tofi
+    modules/waybar
     modules/dev
     modules/git
     modules/gpg
