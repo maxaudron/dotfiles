@@ -13,6 +13,11 @@
       jsonnet-bundler
       jsonnet
 
+      open-policy-agent
+      konstraint
+      kube-review
+      argocd
+
       (callPackage ../../pkgs/kubectx {})
     ];
   };

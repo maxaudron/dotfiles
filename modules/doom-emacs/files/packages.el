@@ -16,6 +16,7 @@
 (package! ini-mode)
 (package! graphql-mode)
 (package! nyan-mode)
+(package! rego-mode)
 (package! tera-mode
   :recipe (:host github :repo "svavs/tera-mode"))
 

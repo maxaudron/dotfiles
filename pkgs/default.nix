@@ -10,4 +10,6 @@ self: super:
 
   obs-midi = super.callPackage ./obs-midi {};
   diskimage-builder = super.callPackage ./diskimage-builder {};
+
+  kube-review = super.callPackage ./kube-review {};
 }
