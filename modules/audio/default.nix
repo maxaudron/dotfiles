@@ -80,12 +80,9 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      unstable.helvum
+      helvum
       pavucontrol
       pulseaudio
-
-      sunvox
-      vcv-rack
     ];
 
     sound.enable = true;
