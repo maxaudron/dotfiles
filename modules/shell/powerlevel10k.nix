@@ -8,8 +8,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "romkatv";
       repo = "powerlevel10k";
-      rev = "v1.16.1";
-      hash = "sha256:0fkfh8j7rd8mkpgz6nsx4v7665d375266shl1aasdad8blgqmf0c";
+      rev = "v1.19.0";
+      sha256 = "sha256-+hzjSbbrXr0w1rGHm6m2oZ6pfmD6UUDBfPd7uMg5l5c=";
     };
   }];
 
@@ -68,9 +68,9 @@
     POWERLEVEL9K_VCS_GIT_GITHUB_ICON = " ";
     POWERLEVEL9K_VCS_GIT_GITLAB_ICON = " ";
     POWERLEVEL9K_VCS_BRANCH_ICON = " ";
-    POWERLEVEL9K_VCS_STAGED_ICON = "";
-    POWERLEVEL9K_VCS_UNSTAGED_ICON = "";
-    POWERLEVEL9K_VCS_UNTRACKED_ICON = "";
+    POWERLEVEL9K_VCS_STAGED_ICON = "";
+    POWERLEVEL9K_VCS_UNSTAGED_ICON = "";
+    POWERLEVEL9K_VCS_UNTRACKED_ICON = "󱃓";
     POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON = "";
     POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON = "";
 
