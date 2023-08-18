@@ -5,10 +5,10 @@ with lib;
 let
   conf = import ../config { inherit lib; };
   emacsPackage =
-    if /*pkgs.stdenv.isLinux*/ false then
-      emacs.packages.${system}.emacsPgtkNativeComp
+    if pkgs.stdenv.isLinux then
+      pkgs.emacs29-pgtk
     else
-      pkgs.emacs28NativeComp;
+      pkgs.emacs29;
 in
 {
   home = {
