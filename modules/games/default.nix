@@ -5,5 +5,5 @@ let
     (lib.importTOML ("${secrets}" + "/factorio.toml"));
 in
 {
-  home.packages = [ factorio pkgs.starsector pkgs.unstable.osu-lazer ];
+  home.packages = [ factorio pkgs.starsector pkgs.prismlauncher ];
 }
