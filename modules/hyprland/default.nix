@@ -4,12 +4,17 @@
   imports = [
     hyprland.homeManagerModules.default
     ./hyprpaper
+    ./mako
   ];
 
   home.packages = with pkgs; [
     wl-clipboard
     alacritty
     seatd
+
+    grim
+    slurp
+    mpv
 
     gtk-engine-murrine
     gtk_engines
@@ -23,6 +28,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = pkgs.hyprland;
     extraConfig = lib.readFile ./hyprland.conf;
     systemdIntegration = true;
     xwayland = {
