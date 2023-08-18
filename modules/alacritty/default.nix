@@ -51,7 +51,7 @@
             black = "0x1d1f21";
             red = "0xcc6666";
             green = "0xb5bd68";
-            yellow = "0xf0c674";
+            yellow = "0xedbf66";
             blue = "0x81a2be";
             magenta = "0xb294bb";
             cyan = "0x8abeb7";
@@ -63,7 +63,7 @@
             black = "0x969896";
             red = "0xcc6666";
             green = "0xb5bd68";
-            yellow = "0xf0c674";
+            yellow = "0xedbf66";
             blue = "0x81a2be";
             magenta = "0xb294bb";
             cyan = "0x8abeb7";
