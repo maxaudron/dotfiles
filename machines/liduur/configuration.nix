@@ -30,14 +30,8 @@
       output = "System Output:playback_FR";
     }
     {
-      input = "System Output:output_AUX2";
-      output =
-        "alsa_output.usb-GuangZhou_FiiO_Electronics_Co._Ltd_FiiO_USB_DAC-E10-00.analog-stereo:playback_FL";
-    }
-    {
-      input = "System Output:output_AUX3";
-      output =
-        "alsa_output.usb-GuangZhou_FiiO_Electronics_Co._Ltd_FiiO_USB_DAC-E10-00.analog-stereo:playback_FR";
+      input = "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX1";
+      output = "Microphone:input_AUX0";
     }
   ];
 

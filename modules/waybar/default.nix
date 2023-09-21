@@ -4,8 +4,6 @@
   programs.waybar = {
     enable = true;
 
-    package = pkgs.unstable.waybar-hyprland;
-
     systemd.enable = true;
 
     style = lib.readFile ./style.css;
