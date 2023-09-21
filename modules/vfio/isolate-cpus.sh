@@ -5,7 +5,7 @@
 # Ex: 1st Core -> reserved=0
 # Ex: 1st & 2nt Cores -> reserved=0,1
 # Ex: 1st Physical Core (16 Virtual Cores) -> reserved=0,8
-reserved=0-15
+reserved=0-7,16-23
 
 # Host core range numbered from 0 to core count - 1
 # You must put all the cores of your host CPU
@@ -24,11 +24,13 @@ if [[ $command == "started" ]]; then
   systemctl set-property --runtime -- system.slice AllowedCPUs=$reserved
   systemctl set-property --runtime -- user.slice AllowedCPUs=$reserved
   systemctl set-property --runtime -- init.slice AllowedCPUs=$reserved
+  echo "FF00FF00" > /sys/bus/workqueue/devices/writeback/cpumask
 elif [[ $command == "release" ]]; then
   echo "Hook/Qemu : isolate-cpus.sh : Allow all CPUS"
   systemctl set-property --runtime -- system.slice AllowedCPUs=$cores
   systemctl set-property --runtime -- user.slice AllowedCPUs=$cores
   systemctl set-property --runtime -- init.slice AllowedCPUs=$cores
+  echo "FFFFFFFF" > /sys/bus/workqueue/devices/writeback/cpumask
 elif [[ $valid_cmds =~ $command ]]; then
   echo "Hook/Qemu : isolate-cpus.sh : Supported command but do nothing"
 else

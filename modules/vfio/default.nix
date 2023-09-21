@@ -87,7 +87,7 @@ in
       kernelParams = [ "amd_iommu=on" "video=efifb:off" ];
 
       kernel.sysctl = {
-        "vm.nr_hugepages" = 8129;
+        "vm.nr_hugepages" = 8200;
         "kernel.shmmax" = 18035507200;
       };
 
