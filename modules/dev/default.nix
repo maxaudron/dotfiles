@@ -45,7 +45,7 @@ in {
 
         nodejs
 
-        # gtree.packages.${system}.default
+        gtree.packages.${system}.default
       ] ++ (if conf.os.work then [
         bootstrap
         ansible-run
