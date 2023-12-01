@@ -26,19 +26,19 @@ let
     ec = "emacsclient -nc";
     hi = "ack --passthru";
 
-    l = "exa -al --git --group-directories-first --time-style=long-iso";
-    lg = "exa -al --group-directories-first --git --time-style=long-iso";
+    l = "eza -al --git --group-directories-first --time-style=long-iso";
+    lg = "eza -al --group-directories-first --git --time-style=long-iso";
     "l." =
-      "exa -al --git --group-directories-first --time-style=long-iso -F -I '[!^.]*'";
+      "eza -al --git --group-directories-first --time-style=long-iso -F -I '[!^.]*'";
     lt =
-      "exa -al --git --group-directories-first --time-style=long-iso -I .git --tree";
+      "eza -al --git --group-directories-first --time-style=long-iso -I .git --tree";
   };
 
 in
 {
   imports = [ ./powerlevel10k.nix ./functions.nix ];
 
-  home.packages = with pkgs; [ fzf exa tmux tmux-cssh ];
+  home.packages = with pkgs; [ fzf eza tmux tmux-cssh ];
 
   home.shellAliases = aliases;
 

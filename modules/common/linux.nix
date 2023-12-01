@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let grub2-theme = pkgs.callPackage ../../pkgs/grub2-theme { };
-in {
+in
+{
   imports = [ ./udev.nix ];
 
   security.sudo.wheelNeedsPassword = false;
@@ -60,15 +61,18 @@ in {
   services.flatpak.enable = true;
   services.nfs.server.enable = true;
 
-  xdg.portal.enable = true;
-  xdg.portal.wlr.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    config.common.default = "*";
+  };
 
   programs.dconf.enable = true;
   programs.adb.enable = true;
 
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts.browserpass = true;
+    nativeMessagingHosts.packages = [ pkgs.browserpass ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
