@@ -53,7 +53,7 @@
     hostId = "faedb34d";
     dhcpcd.enable = false;
     usePredictableInterfaceNames = true;
-    enableIPv6 = false;
+    enableIPv6 = true;
     interfaces.enp5s0.tempAddress = "disabled";
     interfaces.br0.tempAddress = "disabled";
     interfaces.br0.ipv4.addresses = [{
@@ -64,7 +64,10 @@
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
     bridges = { "br0" = { interfaces = [ "enp5s0" ]; }; };
 
-    hosts = { "192.168.144.5" = [ "home.fritz.box" ]; };
+    hosts = {
+      "192.168.144.5" = [ "home.fritz.box" ];
+      "49.12.98.100" = [ "mail.cocaine.farm" ];
+    };
 
     firewall.enable = false;
 
@@ -89,8 +92,8 @@
             # Kubernetes cluster internal networks
             "10.102.0.0/16"
             "10.101.0.0/16"
-            "fd15:3d8c:d429:101::/64"
-            "fd15:3d8c:d429:102::/64"
+            # "fd15:3d8c:d429:101::/64"
+            # "fd15:3d8c:d429:102::/64"
           ];
         }];
       };
