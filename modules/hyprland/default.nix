@@ -35,4 +35,12 @@
       enable = true;
     };
   };
+
+  qt.platformTheme = "gnome";
+  gtk = {
+    theme = {
+      package = pkgs.arc-theme;
+      name = "Arc-Dark";
+    };
+  };
 }
