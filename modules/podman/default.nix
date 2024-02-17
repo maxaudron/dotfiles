@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = [ pkgs.podman ];
+  home.packages = [ pkgs.podman pkgs.docker-compose ];
 
   xdg = {
     enable = true;
