@@ -12,11 +12,7 @@
     ../../modules/common
     ../../modules/yubikey
     ../../modules/home-manager
-    ../../modules/vfio
   ];
-
-  vfio.devices = [ "0000:0c:00.1" "0000:0e:00.3" ];
-  vfio.gpu = [ "0000:0c:00.0" ];
 
   audio.defaultLinks = [
     {
@@ -35,7 +31,7 @@
     }
   ];
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
 
   boot.kernel.sysctl = {
     "net.ipv6.conf.enp5s0.autoconf" = "0";
@@ -47,6 +43,29 @@
 
   services.openssh = { enable = true; };
 
+  virtualisation.podman = {
+    enable = true;
+    enableNvidia = true;
+    dockerSocket.enable = true;
+    extraPackages = with pkgs; [ su ];
+  };
+
+  environment.systemPackages = [ pkgs.simple-scan ];
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.hplipWithPlugin ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      userServices = true;
+    };
+  };
+
   networking = {
     hostName = "liduur";
     domain = "vapor.systems";
@@ -54,15 +73,16 @@
     dhcpcd.enable = false;
     usePredictableInterfaceNames = true;
     enableIPv6 = true;
+
+    # 10G Interface
     interfaces.enp5s0.tempAddress = "disabled";
-    interfaces.br0.tempAddress = "disabled";
-    interfaces.br0.ipv4.addresses = [{
+    interfaces.enp5s0.ipv4.addresses = [{
       address = "192.168.144.10";
       prefixLength = 24;
     }];
+
     defaultGateway = "192.168.144.1";
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
-    bridges = { "br0" = { interfaces = [ "enp5s0" ]; }; };
 
     hosts = {
       "192.168.144.5" = [ "home.fritz.box" ];
@@ -110,10 +130,13 @@
       #use sendfile = yes
       #max protocol = smb2
       # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.144.0/24 127.0.0.1 localhost
+      hosts allow = 192.168.144.0/24 10.1.0.0/24 127.0.0.1 localhost
       # hosts deny = 0.0.0.0/0
       guest account = nobody
       map to guest = bad user
+
+      client min protocol = SMB2
+      client max protocol = SMB3
     '';
     shares = {
       home = {
@@ -131,6 +154,16 @@
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
+      };
+      games = {
+        path = "/mnt/games";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "vfs objects" = "acl_xattr";
+        "map acl inherit" = "yes";
       };
     };
   };
