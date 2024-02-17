@@ -51,6 +51,8 @@ in
     openhantek6022
 
     sddm-theme-chili
+
+    browserpass
   ];
 
   services.printing = {
@@ -80,7 +82,7 @@ in
     isNormalUser = true;
     password = "audron";
     extraGroups =
-      [ "wheel" "input" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" ];
+      [ "wheel" "input" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" "scanner" "lp" ];
     shell = pkgs.zsh;
 
     openssh.authorizedKeys.keys = [
@@ -117,6 +119,8 @@ in
     keyMap = "us";
   };
 
+  networking.nftables.enable = true;
+
   services.xserver = {
     enable = true;
 
@@ -135,8 +139,12 @@ in
   hardware.opengl = {
     enable = true;
     driSupport = true;
-    extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
+    extraPackages = with pkgs; [ rocmPackages.clr.icd rocmPackages.clr ];
   };
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
 
   services.greetd = {
     enable = false;
