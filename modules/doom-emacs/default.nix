@@ -73,11 +73,11 @@ in
           export DOOMDIR="${config.home.sessionVariables.DOOMDIR}"
           export DOOMLOCALDIR="${config.home.sessionVariables.DOOMLOCALDIR}"
           export DOOMPROFILELOADFILE="${config.home.sessionVariables.DOOMPROFILELOADFILE}"
-          if [ ! -d "$DOOMLOCALDIR" ]; then
-            ${config.xdg.configHome}/emacs/bin/doom --force install
-          else
-            ${config.xdg.configHome}/emacs/bin/doom --force sync -u
-          fi
+          # if [ ! -d "$DOOMLOCALDIR" ]; then
+            # ${config.xdg.configHome}/emacs/bin/doom --force install
+          # else
+            # ${config.xdg.configHome}/emacs/bin/doom --force sync -u
+          # fi
         ''}";
       };
     };
