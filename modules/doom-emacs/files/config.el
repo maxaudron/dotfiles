@@ -159,3 +159,23 @@ the checking happens for all pairs in auto-minor-mode-alist"
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                     :major-modes '(nix-mode)
                     :server-id 'nix)))
+
+(setq tramp-remote-path
+      '(tramp-own-remote-path
+        "/run/wrappers/bin"
+        "/home/audron/.nix-profile/bin"
+        "/etc/profiles/per-user/audron/bin"
+        "/nix/var/nix/profiles/default/bin"
+        "/run/current-system/sw/bin"))
+
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+(dolist (p '(
+  "/run/wrappers/bin"
+  "/home/audron/.nix-profile/bin"
+  "/etc/profiles/per-user/audron/bin"
+  "/nix/var/nix/profiles/default/bin"
+  "/run/current-system/sw/bin"))
+  (add-to-list 'tramp-remote-path p))
+
+(setq enable-remote-dir-locals t)
