@@ -1,5 +1,5 @@
 
-{ stdenv, lib, fetchFromGitHub, kubectl, openssh, makeWrapper, installShellFiles }:
+{ stdenv, lib, fetchFromGitHub, kubectl, openssh, tmux-cssh, makeWrapper, installShellFiles }:
 
 with lib;
 
@@ -20,12 +20,8 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp kubectl-ssh $out/bin
     for f in $out/bin/*; do
-      wrapProgram $f --prefix PATH : ${makeBinPath [ kubectl openssh ]}
+      wrapProgram $f --prefix PATH : ${makeBinPath [ kubectl openssh tmux-cssh ]}
     done
-
-    installShellCompletion --cmd kubectl-ssh \
-      --bash ./bash_completion
-    runHook postInstall
   '';
 
   meta = {

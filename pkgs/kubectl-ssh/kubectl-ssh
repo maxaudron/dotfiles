@@ -7,11 +7,34 @@ then
     echo "kubectl ssh ([NAME] ...)"
     echo "  SSH's to the nodes given as NAME using tmux-cssh."
     echo "  If no names are given then all nodes are targeted."
+    echo ""
+    echo "Options:"
+    echo "  --help: This help page"
+    echo "  -e: Use ExternalIP to connect to node instead of InternalIP"
     exit 0
 fi
 
-get_ips() {
-    kubectl get nodes -o jsonpath="{.items[*].status.addresses[?(@.type == 'InternalIP')].address}" $1
+TYPE="InternalIP"
+
+if [[ "$1" == "-e" ]]
+then
+    TYPE="ExternalIP"
+    shift 1
+fi
+
+get_ip() {
+    kubectl get nodes -o jsonpath="{.status.addresses[?(@.type == '$TYPE')].address}" $1
 }
 
-tmux-cssh $(get_ips $1)
+get_ips() {
+    kubectl get nodes -o jsonpath="{.items[*].status.addresses[?(@.type == '$TYPE')].address}" $1
+}
+
+if [[ "$1" =~ ( |\') || ! "$1" ]]
+then
+    NODES=$(get_ips $1)
+else
+    NODES=$(get_ip $1)
+fi
+
+tmux-cssh $NODES
