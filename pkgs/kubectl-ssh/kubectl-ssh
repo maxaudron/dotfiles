@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+#
+
+if [[ "$1" == "help" || "$1" == "--help" ]]
+then
+    echo "kubectl ssh ([NAME] ...)"
+    echo "  SSH's to the nodes given as NAME using tmux-cssh."
+    echo "  If no names are given then all nodes are targeted."
+    exit 0
+fi
+
+get_ips() {
+    kubectl get nodes -o jsonpath="{.items[*].status.addresses[?(@.type == 'InternalIP')].address}" $1
+}
+
+tmux-cssh $(get_ips $1)

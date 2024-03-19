@@ -5,6 +5,7 @@ self: super:
   ansible-run = super.callPackage ./ansible-run {};
   bootstrap = super.callPackage ./bootstrap {};
   kubectx = super.callPackage ./kubectx {};
+  kubectl-ssh = super.callPackage ./kubectl-ssh {};
 
   libnpupnp = super.callPackage ./libnpupnp {};
 

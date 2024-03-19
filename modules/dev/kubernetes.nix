@@ -13,6 +13,8 @@
       jsonnet-bundler
       jsonnet
 
+      kubectl-ssh
+
       open-policy-agent
       konstraint
       kube-review

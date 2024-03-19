@@ -1,0 +1,16 @@
+_kubectl-ssh()
+{
+  _script_commands=$(kubectl get nodes)
+
+  local cur prev opts
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  if [[ ${cur} == -* ]] ; then
+      COMPREPLY=( $(compgen -W "${_script_commands}" -- ${cur}) )
+      return 0
+  fi
+}
+
+complete -F _kubectl-ssh kubectl-ssh
