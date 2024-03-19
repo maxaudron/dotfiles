@@ -14,6 +14,8 @@ then
     exit 0
 fi
 
+set -x
+
 TYPE="InternalIP"
 
 if [[ "$1" == "-e" ]]
@@ -23,18 +25,18 @@ then
 fi
 
 get_ip() {
-    kubectl get nodes -o jsonpath="{.status.addresses[?(@.type == '$TYPE')].address}" $1
+    kubectl get nodes -o jsonpath="{.status.addresses[?(@.type == '$TYPE')].address}" "$@"
 }
 
 get_ips() {
-    kubectl get nodes -o jsonpath="{.items[*].status.addresses[?(@.type == '$TYPE')].address}" $1
+    kubectl get nodes -o jsonpath="{.items[*].status.addresses[?(@.type == '$TYPE')].address}" "$@"
 }
 
-if [[ "$1" =~ ( |\') || ! "$1" ]]
+if [[ "$@" =~ ( |\') || ! "$@" ]]
 then
-    NODES=$(get_ips $1)
+    NODES=$(get_ips "$@")
 else
-    NODES=$(get_ip $1)
+    NODES=$(get_ip "$@")
 fi
 
 tmux-cssh $NODES
