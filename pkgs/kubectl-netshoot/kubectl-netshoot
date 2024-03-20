@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+help() {
+    echo "kubectl debug netshoot [-h | -e [POD]] ([ARG] ...)"
+    echo ""
+    echo "Options:"
+    echo "  --help: this help message"
+    echo "  -h: use host networking for the pod"
+    echo "  -e [POD]: attach to an existing pod using kubectl debug"
+}
+
+while [[ $# -gt 0 ]] && [[ "$1" == "-"* ]] ;
+do
+    opt="$1";
+    shift;              #expose next argument
+    case "$opt" in
+        "--" ) break 2;;
+        "--help" ) help;;
+        "-e" )
+            EPHEMERAL=1;;
+        "-h" )
+            HOST_NET=1;;
+        *) continue;;
+   esac
+done
+
+netshoot() {
+    kubectl run netshoot --rm -i --tty --image nicolaka/netshoot "$@"
+    exit 0
+}
+
+ephemeral() {
+    POD="$1"
+    shift 1
+    kubectl debug "$POD" -it --image=nicolaka/netshoot "$@"
+    exit 0
+}
+
+if [ -n "$EPHEMERAL" ]; then
+    ephemeral "$@"
+elif [ -n "$HOST_NET" ]; then
+    netshoot --overrides='{"spec": {"hostNetwork": true}}' "$@"
+else
+    netshoot "$@"
+fi

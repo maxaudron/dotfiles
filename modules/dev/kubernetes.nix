@@ -14,6 +14,7 @@
       jsonnet
 
       kubectl-ssh
+      kubectl-netshoot
 
       open-policy-agent
       konstraint
