@@ -8,6 +8,7 @@ in {
     name = conf.user.name;
     home = conf.user.home;
     uid = 502;
+    shell = pkgs.zsh;
   };
   users.knownUsers = [ conf.user.name ];
 
