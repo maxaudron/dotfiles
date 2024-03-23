@@ -62,6 +62,8 @@
     };
   };
 
+  systemd.services.zfs-mount.enable = false;
+
   fileSystems."/" = {
     device = "rpool/root";
     fsType = "zfs";
