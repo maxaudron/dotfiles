@@ -30,7 +30,7 @@
     enable = true;
     package = pkgs.hyprland;
     extraConfig = lib.readFile ./hyprland.conf;
-    systemdIntegration = true;
+    systemd.enable = true;
     xwayland = {
       enable = true;
     };
