@@ -12,22 +12,33 @@
     ../../modules/common
     ../../modules/yubikey
     ../../modules/home-manager
+    ../../modules/xp-pen
   ];
 
-  audio.defaultLinks = [
+  audio.autoConnect = [
     {
-      input =
-        "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX8";
-      output = "System Output:playback_FL";
+      input = "System Output:*";
+      output = "FiiO USB DAC-E10:*";
+      connect = {
+        "AUX2" = "FL";
+        "AUX3" = "FR";
+      };
     }
     {
-      input =
-        "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX9";
-      output = "System Output:playback_FR";
+      input = "UMC1820:capture_*";
+      output = "System Output:*";
+      connect = {
+        "AUX8" = "FL";
+        "AUX9" = "FR";
+      };
     }
     {
-      input = "alsa_input.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-input-0:capture_AUX1";
-      output = "Microphone:input_AUX0";
+      input = "UMC1820:capture_*";
+      output = "Microphone:*";
+      connect = {
+        "AUX0" = "AUX0";
+        "AUX1" = "AUX1";
+      };
     }
   ];
 
@@ -108,6 +119,8 @@
             "10.10.0.0/24"
             "2a0f:9400:8020:beef::/64"
             "fd15:3d8c:d429:beef::/64"
+
+            # "0.0.0.0/1"
 
             # Kubernetes cluster internal networks
             "10.102.0.0/16"

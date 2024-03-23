@@ -7,19 +7,21 @@ let
 in
 {
   imports = [
+    ./wireplumber
     ./filter-chain
     ./scream.nix
   ];
 
   options = {
     audio = {
-      defaultLinks = mkOption {
+      autoConnect = mkOption {
         type = types.listOf types.attrs;
         default = [ ];
         description = "Set up pipewire links on startup.";
         example = [{
           input = "a";
           output = "b";
+          connect = {};
         }];
       };
 
@@ -54,28 +56,6 @@ in
             ""
             "-${pkgs.rtkit}/libexec/rtkit-daemon --our-realtime-priority=99 --max-realtime-priority=95"
           ];
-        };
-      };
-    };
-
-    systemd.user.services = {
-      pipewire-setup-links = {
-        wantedBy = [ "pipewire.service" "wireplumber.service" ];
-        bindsTo = [ "pipewire.service" "wireplumber.service" ];
-        after = [ "pipewire.service" "wireplumber.service" ];
-        description = "Setup default pipewire links";
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStartPre = "/run/current-system/sw/bin/sleep 2";
-          ExecStart = map
-            ({ input, output }:
-              ''${pkgs.pipewire}/bin/pw-link "${input}" "${output}"'')
-            cfg.defaultLinks;
-          ExecStop = map
-            ({ input, output }:
-              ''${pkgs.pipewire}/bin/pw-link -d "${input}" "${output}"'')
-            cfg.defaultLinks;
         };
       };
     };
