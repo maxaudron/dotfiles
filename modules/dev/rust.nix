@@ -20,6 +20,8 @@ in {
       pkgs.unstable.cargo-outdated
       cargo-expand
       cargo-watch
+      cargo-cross
+      unstable.dioxus-cli
     ];
 
     home.file.".cargo/config.toml".text = ''

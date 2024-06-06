@@ -12,7 +12,6 @@
     ../../modules/common
     ../../modules/yubikey
     ../../modules/home-manager
-    ../../modules/xp-pen
   ];
 
   audio.autoConnect = [
@@ -49,14 +48,13 @@
     "net.ipv6.conf.enp5s0.accept_ra" = "0";
   };
 
-  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.openssh = { enable = true; };
 
   virtualisation.podman = {
     enable = true;
-    enableNvidia = true;
+    enableNvidia = false;
     dockerSocket.enable = true;
     extraPackages = with pkgs; [ su ];
   };
@@ -187,5 +185,9 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "nix-2.15.3"
+  ];
 }

@@ -35,8 +35,6 @@ in {
     passExtensions.pass-update
   ];
 
-  fonts.fonts = with pkgs; [ ibm-plex nerdfonts ];
-
   # Enable zsh completion for system packages
   environment.pathsToLink = [ "/share/zsh" ];
 

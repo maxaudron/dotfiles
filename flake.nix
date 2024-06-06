@@ -24,10 +24,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs.url = "github:nix-community/emacs-overlay";
+    emacs = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hyprland = {
       url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     gtree = {
@@ -41,8 +45,20 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixpkgs-master, secrets, darwin, home-manager
-    , hyprland, fenix, emacs, gtree, doomemacs }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , nixpkgs-unstable
+    , nixpkgs-master
+    , secrets
+    , darwin
+    , home-manager
+    , hyprland
+    , fenix
+    , emacs
+    , gtree
+    , doomemacs
+    }:
     let
       specialArgs = inputs // { inherit inputs; };
 
@@ -61,37 +77,39 @@
       overlays = { config, pkgs, ... }: {
         nixpkgs.overlays = [ overlay-unstable overlay-master ];
       };
-    in {
-      nixosConfigurations.liduur = let system = "x86_64-linux";
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = specialArgs // { inherit system; };
-        modules = [
-          overlays
-
-          home-manager.nixosModules.home-manager
-
-          ./machines/liduur/configuration.nix
-        ];
-      };
-      darwinConfigurations.ffma0089 = let system = "aarch64-darwin";
-      in darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = specialArgs // { inherit system; };
-        modules = [
-          overlays
-
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs = specialArgs // {
-                inherit builtins;
-                inherit system;
+    in
+    {
+      nixosConfigurations.liduur =
+        let system = "x86_64-linux";
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = specialArgs // { inherit system; };
+          modules = [
+            overlays
+            home-manager.nixosModules.home-manager
+            ./machines/liduur/configuration.nix
+          ];
+        };
+      darwinConfigurations.ffma0089 =
+        let system = "aarch64-darwin";
+        in
+        darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = specialArgs // { inherit system; };
+          modules = [
+            overlays
+            home-manager.darwinModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = specialArgs // {
+                  inherit builtins;
+                  inherit system;
+                };
               };
-            };
-          }
-          ./machines/ffma0089/configuration.nix
-        ];
-      };
+            }
+            ./machines/ffma0089/configuration.nix
+          ];
+        };
     };
 }

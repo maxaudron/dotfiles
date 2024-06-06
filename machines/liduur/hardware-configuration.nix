@@ -141,6 +141,12 @@
     fsType = "zfs";
     options = [ "zfsutil" ];
   };
+  
+  fileSystems."/mnt/games" = {
+    device = "storage/games";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = false;

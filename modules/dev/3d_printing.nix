@@ -2,7 +2,8 @@
 
 let
   conf = import ../config { inherit lib; };
-in {
+in
+{
   config = lib.mkIf (!conf.os.work) {
     home.packages = with pkgs;
       [
