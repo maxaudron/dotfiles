@@ -8,9 +8,13 @@
 ;; Look
 
 ;; set theme and font
-(setq doom-theme 'doom-tomorrow-night)
-(custom-set-faces
- '(default ((t (:background "#181818")))))
+(setq doom-theme 'catppuccin)
+(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(add-hook 'server-after-make-frame-hook #'catppuccin-reload)
+
+;; (setq doom-theme 'doom-tomorrow-night)
+;; (custom-set-faces
+;;  '(default ((t (:background "#181818")))))
 
 (setq doom-font (font-spec :family "IBM Plex Mono" :size 17))
 
@@ -154,11 +158,11 @@ the checking happens for all pairs in auto-minor-mode-alist"
 (global-set-key (kbd "<end>") 'move-end-of-line)
 
 ;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-(after! lsp
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix)))
+; (after! lsp
+;   (lsp-register-client
+;    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+;                     :major-modes '(nix-mode)
+;                     :server-id 'nix)))
 
 (setq tramp-remote-path
       '(tramp-own-remote-path

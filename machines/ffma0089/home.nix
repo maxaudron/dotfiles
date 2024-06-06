@@ -22,7 +22,7 @@ in {
 
   programs.gpg.scdaemonSettings = { disable-ccid = true; };
 
-  home.packages = with pkgs; [ pass nix-index wireguard-tools wireguard-go ];
+  home.packages = with pkgs; [ pass nix-index wireguard-tools wireguard-go helix ];
 
   home = { sessionPath = [ "/opt/podman/bin" ]; };
 

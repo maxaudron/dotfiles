@@ -17,7 +17,7 @@ buildGoModule rec {
   cflags = [ "-I ${file}/include" ];
   ldflags = [ "-L ${file}/lib" ];
 
-  vendorSha256 = "sha256-8hhJM4jXCpXtTvVe8w8TyVm8qACjVKBiV7R9Ievclp8=";
+  vendorHash = "sha256-8hhJM4jXCpXtTvVe8w8TyVm8qACjVKBiV7R9Ievclp8=";
 
   meta = {
     description = "Bootstrap new projects based on templates";

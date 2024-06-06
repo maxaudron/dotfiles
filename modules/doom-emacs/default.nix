@@ -109,7 +109,7 @@ in
     hunspellDicts.en_US
 
     vale
-    rnix-lsp
+    # rnix-lsp
     # python39Packages.pylsp-mypy
     nodePackages.typescript-language-server
     nodePackages.pyright

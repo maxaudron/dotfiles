@@ -5,6 +5,8 @@
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 ;; use 'M-x doom/reload'.
 
+(package! catppuccin-theme)
+
 ;; disable solair mode
 (package! solaire-mode :disable t)
 
