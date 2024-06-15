@@ -9,8 +9,6 @@
     zfs = {
       forceImportRoot = false;
       devNodes = "/dev/";
-
-      enableUnstable = false;
     };
 
     initrd = {

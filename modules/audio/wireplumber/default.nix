@@ -7,8 +7,8 @@ in
 with lib; {
   environment.etc = {
     wireplumber-main = {
-      target = "wireplumber/main.lua.d/91-user-scripts.lua";
-      source = ./91-user-scripts.lua;
+      target = "wireplumber/wireplumber.conf.d/91-user-scripts.conf";
+      source = ./91-user-scripts.conf;
     };
     wireplumber-scripts = {
       target = "wireplumber/scripts/auto-connect-ports.lua";

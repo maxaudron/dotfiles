@@ -35,19 +35,9 @@ in
   environment.systemPackages = with pkgs; [
     firefox-wayland
 
-    xfce.thunar
-
-    qt5.qtwayland
-
     dfu-util
     usbutils
 
-    colord
-    colord-kde
-
-    libsForQt5.bismuth
-
-    gnome.gnome-color-manager
     sqlite
 
     openhantek6022
@@ -55,6 +45,12 @@ in
     sddm-theme-chili
 
     browserpass
+
+    aspell
+    aspellDicts.de
+    aspellDicts.en
+    aspellDicts.en-computers
+    aspellDicts.en-science
   ];
 
   services.printing = {
@@ -96,8 +92,6 @@ in
     enable = true;
   };
 
-  services.xserver.wacom.enable = true;
-
   programs.wireshark = { enable = true; };
 
   # Set your time zone.
@@ -123,18 +117,34 @@ in
 
   networking.nftables.enable = true;
 
-  services.xserver = {
-    enable = true;
+  services = {
+    xserver = {
+      enable = true;
+      wacom.enable = true;
+    };
 
     displayManager = {
       sddm = {
         enable = true;
-        theme = "chili";
+        wayland.enable = true;
+        # theme = "chili";
       };
       sessionPackages =
         [ config.home-manager.users.audron.wayland.windowManager.hyprland.package ];
     };
+
+    desktopManager.plasma6.enable = true;
   };
+
+  nixpkgs.overlays = [ (final: prev: {
+    colord = prev.colord.overrideAttrs (final: prev: rec {
+      version = "1.4.7";
+      src = pkgs.fetchurl {
+        url = "https://www.freedesktop.org/software/colord/releases/${prev.pname}-${version}.tar.xz";
+        hash = "sha256-3gLZkQY0rhWVR1hc7EFORQ9xHCcjVFO0+bOKnyNhplM=";
+      };
+    });
+  }) ];
 
   services.colord.enable = true;
 

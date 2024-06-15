@@ -21,7 +21,7 @@ in
         example = [{
           input = "a";
           output = "b";
-          connect = {};
+          connect = { };
         }];
       };
 
@@ -49,6 +49,19 @@ in
       { domain = "@rtkit"; item = "memlock"; type = "-"; value = "unlimited"; }
     ];
 
+    systemd.user.services = {
+      scream = {
+        wantedBy = [ "default.target" ];
+        requires = [ "pipewire.service" "pipewire-pulse.socket" ];
+        after = [ "pipewire-pulse.service" ];
+        description = "Start the scream server to receive audio from windows";
+        #preStart = "${pkgs.bash} -c 'sleep 10'";
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.scream}/bin/scream -o pulse -s windows -i enp5s0";
+        };
+      };
+    };
     systemd.services = {
       rtkit-daemon = {
         serviceConfig = {
@@ -84,31 +97,9 @@ in
       wireplumber = {
         enable = true;
       };
-    };
 
-    environment.variables = let
-      makePluginPath = format:
-        (makeSearchPath format [
-          "$HOME/.nix-profile/lib"
-          "/run/current-system/sw/lib"
-          "/etc/profiles/per-user/$USER/lib"
-        ])
-        + ":$HOME/.${format}";
-    in {
-      DSSI_PATH   = makePluginPath "dssi";
-      LADSPA_PATH = makePluginPath "ladspa";
-      LV2_PATH    = makePluginPath "lv2";
-      LXVST_PATH  = makePluginPath "lxvst";
-      VST_PATH    = makePluginPath "vst";
-      VST3_PATH   = makePluginPath "vst3";
-    };
-
-    environment.etc =
-      let
-        json = pkgs.formats.json { };
-      in
-      {
-        "pipewire/pipewire.d/10-settings.conf".source = json.generate "10-settings.conf" {
+      extraConfig = {
+        pipewire = {
           context.properties = {
             link.max-buffers = 64;
             log.level = 2;
@@ -134,7 +125,7 @@ in
           ];
         };
 
-        "pipewire/pipewire-pulse.conf.d/10-settings.conf".source = json.generate "10-settings.conf" {
+        pipewire-pulse = {
           context.modules = [
             {
               name = "libpipewire-module-rtkit";
@@ -164,6 +155,26 @@ in
             resample.quality = 1;
           };
         };
+      };
+    };
+
+    environment.variables =
+      let
+        makePluginPath = format:
+          (makeSearchPath format [
+            "$HOME/.nix-profile/lib"
+            "/run/current-system/sw/lib"
+            "/etc/profiles/per-user/$USER/lib"
+          ])
+          + ":$HOME/.${format}";
+      in
+      {
+        DSSI_PATH = makePluginPath "dssi";
+        LADSPA_PATH = makePluginPath "ladspa";
+        LV2_PATH = makePluginPath "lv2";
+        LXVST_PATH = makePluginPath "lxvst";
+        VST_PATH = makePluginPath "vst";
+        VST3_PATH = makePluginPath "vst3";
       };
   };
 }

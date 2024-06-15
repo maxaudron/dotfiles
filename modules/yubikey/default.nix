@@ -1,7 +1,8 @@
 { config, pkgs, lib, ... }:
 
 let conf = import ../config { inherit lib; };
-in {
+in
+{
   config = lib.mkMerge [
     {
       programs = {
@@ -15,7 +16,7 @@ in {
     (lib.mkIf (conf.os.type == "linux") {
       programs = {
         ssh.startAgent = false;
-        gnupg.agent = { pinentryFlavor = "curses"; enableSSHSupport = true; };
+        gnupg.agent = { enableSSHSupport = true; };
       };
 
       services.pcscd.enable = true;

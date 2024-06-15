@@ -5,12 +5,10 @@ in {
   imports = [
     modules/doom-emacs
     modules/alacritty
-    modules/hyprland
     modules/podman
     modules/shell
     modules/rofi
     modules/tofi
-    modules/waybar
     modules/dev
     modules/git
     modules/gpg
@@ -28,7 +26,14 @@ in {
 
   programs.home-manager.enable = true;
 
+  fonts.fontconfig.enable = false;
+
   home.packages = with pkgs; [
+    alacritty
+    grim
+    slurp
+    mpv
+
     quasselClient
     imv
     rawtherapee
@@ -45,6 +50,10 @@ in {
 
     unstable.scrcpy
     transmission
+
+    catppuccin
+
+    displaycal
   ];
 
   home.stateVersion = "22.05";

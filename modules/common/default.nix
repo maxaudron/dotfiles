@@ -29,7 +29,7 @@ in {
     p7zip
     rclone
 
-    nixfmt
+    nixfmt-rfc-style
 
     pass
     passExtensions.pass-update

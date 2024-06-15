@@ -9,12 +9,7 @@
 
   home.packages = with pkgs; [
     wl-clipboard
-    alacritty
     seatd
-
-    grim
-    slurp
-    mpv
 
     gtk-engine-murrine
     gtk_engines
