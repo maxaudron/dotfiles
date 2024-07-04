@@ -54,6 +54,7 @@ in {
     catppuccin
 
     displaycal
+    chirp
   ];
 
   home.stateVersion = "22.05";

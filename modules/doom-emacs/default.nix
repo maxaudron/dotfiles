@@ -6,7 +6,7 @@ let
   conf = import ../config { inherit lib; };
   emacsPackage =
     if pkgs.stdenv.isLinux then
-      pkgs.emacs29-pgtk
+      pkgs.emacs29
     else
       pkgs.emacs29;
 in
