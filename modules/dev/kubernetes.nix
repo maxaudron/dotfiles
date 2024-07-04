@@ -21,7 +21,15 @@
       kube-review
       argocd
 
+      google-cloud-sdk
+      awscli2
+      aws-adfs
+
       (callPackage ../../pkgs/kubectx {})
     ];
+
+    home.shellAliases = {
+      awslogin = "aws-adfs login --adfs-host=\"sso.mgt.de.clara.net\" --provider-id urn:amazon:webservices --no-session-cache --session-duration 36000 --profile ";
+    };
   };
 }

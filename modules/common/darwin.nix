@@ -7,7 +7,7 @@ in {
     package = pkgs.emacs28NativeComp;
   };
 
-  fonts.fonts = with pkgs; [ ibm-plex nerdfonts ];
+  fonts.packages = with pkgs; [ ibm-plex nerdfonts ];
 
   launchd.user.agents.emacs = {
     serviceConfig.EnvironmentVariables = {

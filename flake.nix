@@ -29,11 +29,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     gtree = {
       url = "gitlab:cocainefarm/gtree";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,7 +48,6 @@
     , secrets
     , darwin
     , home-manager
-    , hyprland
     , fenix
     , emacs
     , gtree
