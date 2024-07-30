@@ -16,7 +16,6 @@
       kubectl-ssh
       kubectl-netshoot
 
-      open-policy-agent
       konstraint
       kube-review
       argocd
