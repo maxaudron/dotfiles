@@ -51,10 +51,7 @@ in {
     unstable.scrcpy
     transmission
 
-    catppuccin
-
-    displaycal
-    chirp
+    unstable.ollama
   ];
 
   home.stateVersion = "22.05";
