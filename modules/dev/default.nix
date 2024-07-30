@@ -49,6 +49,7 @@ in {
       ] ++ (if conf.os.work then [
         bootstrap
         ansible-run
+	ansible
       ] else
         [ ]) ++ (if conf.os.type == "linux" then [
           linuxKernel.packages.linux_zen.perf

@@ -1,9 +1,9 @@
-{ stdenv, lib, makeWrapper, perlPackages, perl, coreutils, git, openssh, ansible, hostname, sysctl }:
+{ stdenv, lib, makeWrapper, perlPackages, perl, python311Packages, coreutils, gnugrep, git, openssh, ansible, hostname, sysctl, which, jmespath }:
 
 with lib;
 
 let
-  runtimeDeps = [ perl coreutils git openssh ansible hostname sysctl ];
+  runtimeDeps = [ perl coreutils gnugrep git openssh ansible hostname sysctl which python311Packages.jmespath ];
   perlDeps = with perlPackages; [ JSON YAML ];
 in stdenv.mkDerivation rec {
   pname = "ansible-run";

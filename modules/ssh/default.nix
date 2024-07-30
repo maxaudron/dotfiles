@@ -21,8 +21,8 @@
         proxyJump = "rancher.cke.validatis.mgt.de.clara.net";
       };
 
-      "10.55.14.* 10.55.13.*" = {
-        proxyJump = "rancher-mgt01.cke.osc.postcon.mgt.de.clara.net";
+      "10.55.15.* 10.55.16.*" = {
+        proxyJump = "rancher.cke.hosenso.mgt.de.clara.net";
       };
 
       "10.55.0.12 10.55.11.*" = {
