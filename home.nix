@@ -50,8 +50,6 @@ in {
 
     unstable.scrcpy
     transmission
-
-    unstable.ollama
   ];
 
   home.stateVersion = "22.05";

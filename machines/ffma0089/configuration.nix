@@ -8,7 +8,7 @@ in {
     name = conf.user.name;
     home = conf.user.home;
     uid = 502;
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
   };
   users.knownUsers = [ conf.user.name ];
 
@@ -17,6 +17,7 @@ in {
   home-manager.users."${conf.user.name}" = import ./home.nix;
 
   programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [ qemu ];
   # List packages installed in system profile. To search by name, run:

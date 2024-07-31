@@ -38,7 +38,7 @@ in
 {
   imports = [ ./powerlevel10k.nix ./functions.nix ];
 
-  home.packages = with pkgs; [ fzf eza tmux tmux-cssh ];
+  home.packages = with pkgs; [ fzf eza tmux tmux-cssh ack ];
 
   home.shellAliases = aliases;
 
@@ -86,5 +86,25 @@ in
     completionInit = lib.readFile ./completion.zsh;
 
     initExtra = lib.readFile ./zshrc;
+  };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+
+      # Hydro
+      set --global hydro_symbol_prompt ❱
+      set --global hydro_color_pwd 'cba6f7'
+      set --global hydro_color_prompt 'cba6f7'
+
+      set --global LS_COLORS '${builtins.readFile ./ls_colors}'
+
+      set --global SSH_AUTH_SOCK {$HOME}/.gnupg/S.gpg-agent.ssh
+    '';
+    plugins = [
+        { name = "hydro"; src = pkgs.unstable.fishPlugins.hydro.src; }
+        { name = "fzf"; src = pkgs.fishPlugins.fzf-fish.src; }
+    ];
   };
 }
