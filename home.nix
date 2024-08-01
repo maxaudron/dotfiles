@@ -50,6 +50,12 @@ in {
 
     unstable.scrcpy
     transmission
+
+    catppuccin
+
+    displaycal
+    chirp
+    audacity
   ];
 
   home.stateVersion = "22.05";
