@@ -101,6 +101,8 @@ in
       set --global LS_COLORS '${builtins.readFile ./ls_colors}'
 
       set --global SSH_AUTH_SOCK {$HOME}/.gnupg/S.gpg-agent.ssh
+
+      set --global --export KUBECONFIG "$HOME/.kube/config:$(find ~/.kube/configs -type f | paste -sd ':' - )"
     '';
     plugins = [
         { name = "hydro"; src = pkgs.unstable.fishPlugins.hydro.src; }
