@@ -81,7 +81,7 @@ in
     password = "audron";
     extraGroups =
       [ "wheel" "input" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" "scanner" "lp" ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
 
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO2eIUtbt7RM75ThjKfUjm24QkzkzCSj7hs+GLaaxMeH"
@@ -91,6 +91,8 @@ in
   programs.zsh = {
     enable = true;
   };
+
+  programs.fish.enable = true;
 
   programs.wireshark = { enable = true; };
 
