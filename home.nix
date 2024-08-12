@@ -4,6 +4,8 @@ let conf = import modules/config { inherit lib; };
 in {
   imports = [
     modules/doom-emacs
+    modules/zed
+
     modules/alacritty
     modules/podman
     modules/shell

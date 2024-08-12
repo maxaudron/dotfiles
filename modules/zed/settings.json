@@ -28,6 +28,9 @@
     "folds": true
   },
 
+  "soft_wrap": "preferred_line_length",
+  "preferred_line_length": 110,
+
   "telemetry": {
     "diagnostics": false,
     "metrics": false
