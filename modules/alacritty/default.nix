@@ -5,10 +5,18 @@
   ...
 }:
 
-{
+let catppuccin = pkgs.fetchFromGitHub {
+        owner = "catppuccin";
+        repo = "alacritty";
+        rev = "343cf8d";
+        hash = "sha256-5MUWHXs8vfl2/u6YXB4krT5aLutVssPBr+DiuOdMAto=";
+    };
+in {
   programs.alacritty = {
     enable = true;
     settings = {
+      import = [ "${catppuccin}/catppuccin-mocha.toml" ];
+
       keyboard.bindings = [
         {
           key = "Return";
@@ -43,36 +51,6 @@
 
       colors = {
         draw_bold_text_with_bright_colors = false;
-
-        # Default colors
-        primary = {
-          background = "0x181818";
-          foreground = "0xc5c8c6";
-        };
-
-        # Normal colors
-        normal = {
-          black = "0x1d1f21";
-          red = "0xcc6666";
-          green = "0xb5bd68";
-          yellow = "0xedbf66";
-          blue = "0x81a2be";
-          magenta = "0xb294bb";
-          cyan = "0x8abeb7";
-          white = "0xc5c8c6";
-        };
-
-        # Bright colors
-        bright = {
-          black = "0x969896";
-          red = "0xcc6666";
-          green = "0xb5bd68";
-          yellow = "0xedbf66";
-          blue = "0x81a2be";
-          magenta = "0xb294bb";
-          cyan = "0x8abeb7";
-          white = "0xffffff";
-        };
       };
     };
   };
