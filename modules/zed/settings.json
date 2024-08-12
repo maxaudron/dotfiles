@@ -1,0 +1,49 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `zed: Open Default Settings` command
+// from the command palette
+{
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "buffer_font_family": "IBM Plex Mono",
+  "buffer_font_size": 16,
+  "buffer_line_height": "standard",
+  "ui_font_family": "IBM Plex Sans",
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Catppuccin Mocha"
+  },
+
+  "use_system_path_prompts": true,
+
+  "gutter": {
+    "line_numbers": false,
+    "code_actions": true,
+    "runnables": true,
+    "folds": true
+  },
+
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+
+  "assistant": {
+    "version": "1",
+    "provider": {
+      "default_model": {
+        "name": "mistral:latest",
+        "max_tokens": 2048,
+        "keep_alive": -1
+      },
+      "name": "ollama",
+      // Recommended setting to allow for model startup
+      "low_speed_timeout_in_seconds": 30
+    }
+  }
+}

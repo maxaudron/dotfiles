@@ -16,7 +16,7 @@ let
     gp = "git push";
 
     # systemctl
-    sys = "systemctl";
+    sys = "sudo systemctl";
     sysu = "systemctl --user";
 
     # misc
@@ -32,6 +32,8 @@ let
       "eza -al --git --group-directories-first --time-style=long-iso -F -I '[!^.]*'";
     lt =
       "eza -al --git --group-directories-first --time-style=long-iso -I .git --tree";
+
+    z = "${pkgs.unstable.zed-editor}/bin/zed";
   };
 
 in
@@ -108,5 +110,19 @@ in
         { name = "hydro"; src = pkgs.unstable.fishPlugins.hydro.src; }
         { name = "fzf"; src = pkgs.fishPlugins.fzf-fish.src; }
     ];
+  };
+
+  xdg = {
+    enable = true;
+    configFile = {
+      "fish/themes" = {
+        source = "${pkgs.fetchFromGitHub {
+            owner = "catppuccin";
+            repo = "fish";
+            rev = "a3b9eb5";
+            hash = "sha256-shQxlyoauXJACoZWtRUbRMxmm10R8vOigXwjxBhG8ng=";
+        }}/themes";
+      };
+    };
   };
 }
