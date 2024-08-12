@@ -9,15 +9,12 @@ in {
     modules/alacritty
     modules/podman
     modules/shell
-    modules/rofi
-    modules/tofi
     modules/dev
     modules/git
     modules/gpg
     modules/ssh
 
     modules/games
-    modules/stream
 
     modules/kicad
     modules/weechat
@@ -48,17 +45,10 @@ in {
     tdesktop
     discord
     teamspeak_client
-    element-desktop
 
     unstable.scrcpy
     transmission
-
-    catppuccin
-
-    displaycal
-    chirp
-    audacity
   ];
 
-  home.stateVersion = "22.05";
+  home.stateVersion = "24.05";
 }
