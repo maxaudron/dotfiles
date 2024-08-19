@@ -17,7 +17,7 @@ in {
     home.packages = with pkgs; [
       rust
 
-      pkgs.unstable.cargo-outdated
+      cargo-outdated
       cargo-expand
       cargo-watch
       cargo-cross
