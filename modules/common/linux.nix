@@ -156,12 +156,8 @@ in
   hardware.opengl = {
     enable = true;
     driSupport = true;
-    extraPackages = with pkgs; [ rocmPackages.clr.icd rocmPackages.clr ];
+    driSupport32Bit = true;
   };
-
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
 
   services.greetd = {
     enable = false;

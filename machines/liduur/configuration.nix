@@ -65,6 +65,24 @@
     extraBackends = [ pkgs.hplipWithPlugin ];
   };
 
+  hardware.opengl = {
+    extraPackages = with pkgs; [ unstable.rocmPackages.clr.icd ];
+  };
+
+  systemd.tmpfiles.rules =
+  let
+    rocmEnv = pkgs.symlinkJoin {
+      name = "rocm-combined";
+      paths = with pkgs.rocmPackages; [
+        rocblas
+        hipblas
+        clr
+      ];
+    };
+  in [
+    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+  ];
+
   services.avahi = {
     enable = true;
     nssmdns4 = true;
