@@ -41,53 +41,35 @@
         "media.name" = "Microphone";
         "filter.graph" = {
           nodes = [
-            # {
-            #   type = "builtin";
-            #   label = "copy";
-            #   name = "copy";
-            # }
-            # {
-            #   type = "builtin";
-            #   label = "copy";
-            #   name = "L";
-            # }
-            # {
-            #   type = "builtin";
-            #   label = "copy";
-            #   name = "R";
-            # }
             {
-              type = "lv2";
-              name = "comp";
-              # plugin =
-              #   "${pkgs.lsp-plugins}/lib/ladspa/lsp-plugins-ladspa.so";
-              # label = "http://lsp-plug.in/plugins/ladspa/compressor_mono";
-              plugin = "http://lsp-plug.in/plugins/lv2/compressor_stereo";
-              control = {
-                "cm" = 2;
-                "al" = 0.024150;
-              };
+                type  = "builtin";
+                name  = "mixer";
+                label = "mixer";
+                control = { "Gain 1" = 0.5; "Gain 2" = 0.5; };
+            }
+            {
+              type = "builtin";
+              label = "copy";
+              name = "aux0";
+            }
+            {
+              type = "builtin";
+              label = "copy";
+              name = "aux1";
             }
           ];
-          # links = [
-            # {
-            #   output = "copy:Out";
-            #   input = "L:In";
-            # }
-            # {
-            #   output = "copy:Out";
-            #   input = "R:In";
-            # }
-            # {
-            #   output = "L:Out";
-            #   input = "comp:in_l";
-            # }
-            # {
-            #   output = "R:Out";
-            #   input = "comp:in_r";
-            # }
-          # ];
-          # outputs = [ "comp:out_l" "comp:out_r" ];
+          inputs  = [ "mixer:In 1" "mixer:In 2" ];
+          links = [
+            {
+              input = "aux0:In";
+              output = "mixer:Out";
+            }
+            {
+              input = "aux1:In";
+              output = "mixer:Out";
+            }
+          ];
+          outputs = [ "aux0:Out" "aux1:Out" ];
         };
         "capture.props" = {
           "node.name" = "effect_input.microphone";
