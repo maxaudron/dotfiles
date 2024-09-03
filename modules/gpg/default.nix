@@ -1,5 +1,7 @@
 { config, lib, builtins, pkgs, ... }:
 
+let conf = import ../config { inherit lib; };
+in
 {
   # home.file.".gnupg/gpg-agent.conf".text = ''
   #   enable-ssh-support
@@ -39,8 +41,7 @@
       # Use AES256, 192, or 128 as cipher
       personal-cipher-preferences = "AES256 AES192 AES";
       # Use SHA512, 384, or 256 as digest
-      personal-digest-preferences = "SHA512 SHA384 SHA256";
-      # Use ZLIB, BZIP2, ZIP, or no compression
+      personal-digest-preferences = "SHA512 SHA384 SHA256"; # Use ZLIB, BZIP2, ZIP, or no compression
       personal-compress-preferences = "ZLIB BZIP2 ZIP Uncompressed";
       # Default preferences for new keys
       default-preference-list =
@@ -81,8 +82,8 @@
     scdaemonSettings = { disable-ccid = true; };
   };
 
-  services.gpg-agent = {
+  services.gpg-agent = lib.mkIf (conf.os.type == "linux") ({
     enable = true;
     enableSshSupport = true;
-  };
+  });
 }
