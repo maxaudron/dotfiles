@@ -17,7 +17,7 @@
       kernelModules = [ ];
     };
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
+    kernelPackages = pkgs.linuxKernel.packages.linux_rt_6_6;
 
     kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
 
@@ -139,7 +139,7 @@
     fsType = "zfs";
     options = [ "zfsutil" ];
   };
-  
+
   fileSystems."/mnt/games" = {
     device = "storage/games";
     fsType = "zfs";

@@ -37,7 +37,6 @@ in {
     imv
     rawtherapee
     blender
-    inkscape
 
     nix-index
 

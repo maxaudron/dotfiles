@@ -46,7 +46,10 @@
   boot.kernel.sysctl = {
     "net.ipv6.conf.enp5s0.autoconf" = "0";
     "net.ipv6.conf.enp5s0.accept_ra" = "0";
+    "vm.swappiness" = 10;
   };
+
+  powerManagement.cpuFreqGovernor = "performance";
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -66,7 +69,7 @@
   };
 
   hardware.opengl = {
-    extraPackages = with pkgs; [ unstable.rocmPackages.clr.icd ];
+    extraPackages = with pkgs; [ rocmPackages.clr.icd ];
   };
 
   systemd.tmpfiles.rules =

@@ -8,6 +8,8 @@ self: super:
   kubectl-ssh = super.callPackage ./kubectl-ssh {};
   kubectl-netshoot = super.callPackage ./kubectl-netshoot {};
 
+  xp-pen = super.qt5.callPackage ./xp-pen {};
+
   libnpupnp = super.callPackage ./libnpupnp {};
 
   obs-midi = super.callPackage ./obs-midi {};
