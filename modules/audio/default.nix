@@ -9,7 +9,6 @@ in
   imports = [
     ./wireplumber
     ./filter-chain
-    ./scream.nix
   ];
 
   options = {
@@ -55,7 +54,7 @@ in
         requires = [ "pipewire.service" "pipewire-pulse.socket" ];
         after = [ "pipewire-pulse.service" ];
         description = "Start the scream server to receive audio from windows";
-        #preStart = "${pkgs.bash} -c 'sleep 10'";
+        preStart = "${pkgs.bash} -c 'sleep 30'";
         serviceConfig = {
           Type = "simple";
           ExecStart = "${pkgs.scream}/bin/scream -o pulse -s windows -i enp5s0";
