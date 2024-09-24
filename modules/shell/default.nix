@@ -33,7 +33,7 @@ let
     lt =
       "eza -al --git --group-directories-first --time-style=long-iso -I .git --tree";
 
-    z = "${pkgs.unstable.zed-editor}/bin/zed";
+    z = "zed";
   };
 
 in
@@ -102,7 +102,8 @@ in
 
       set --global LS_COLORS '${builtins.readFile ./ls_colors}'
 
-      set --global SSH_AUTH_SOCK /run/user/$(id -u)/gnupg/S.gpg-agent.ssh
+      set --global GPG_TTY "$(tty)"
+      set --global SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
 
       set --global --export KUBECONFIG "$HOME/.kube/config:$(find ~/.kube/configs -type f | paste -sd ':' - )"
     '';
