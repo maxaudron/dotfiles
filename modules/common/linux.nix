@@ -124,6 +124,8 @@ in
       LC_PAPER = "en_GB.UTF-8";
       LC_TELEPHONE = "en_GB.UTF-8";
       LC_TIME = "en_GB.UTF-8";
+      LC_CTYPE = "en_GB.UTF-8";
+      LC_ALL = "en_GB.UTF-8";
     };
   };
   console = {
