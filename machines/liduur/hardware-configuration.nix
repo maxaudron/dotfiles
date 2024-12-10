@@ -22,7 +22,7 @@
     kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
 
     # Use the systemd-boot EFI boot loader.
-    supportedFilesystems = [ "zfs" ];
+    supportedFilesystems = [ "zfs" "ntfs" ];
 
     loader = {
       efi = { canTouchEfiVariables = true; };
@@ -142,6 +142,12 @@
 
   fileSystems."/mnt/games" = {
     device = "storage/games";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+  
+  fileSystems."/mnt/media" = {
+    device = "storage/media";
     fsType = "zfs";
     options = [ "zfsutil" ];
   };

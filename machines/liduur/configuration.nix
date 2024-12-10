@@ -12,6 +12,7 @@
     ../../modules/common
     ../../modules/yubikey
     ../../modules/home-manager
+    ../../modules/tgt
   ];
 
   audio.autoConnect = [
@@ -123,7 +124,8 @@
 
     wireguard = {
       enable = true;
-      interfaces.wg0 = {
+      interfaces = {
+        wg0 = {
         privateKeyFile = "/etc/wireguard/privatekey";
         ips = [
           "10.10.0.10/24"
@@ -148,6 +150,21 @@
             # "fd15:3d8c:d429:102::/64"
           ];
         }];
+      };
+        # proton = {
+        #   ips = [ "10.2.0.2/32" ];
+        #   privateKeyFile = "/etc/wireguard/proton.key";
+        #   # interfaceNamespace = "torrent";
+
+        #   peers = [
+        #     { # DE#348
+        #       publicKey = "hOoBBy//7mddXPz1SybzWB3zK95SQCcPyI/DmxfULXk=";
+        #       endpoint = "149.88.102.97:51820";
+        #       allowedIPs = [ "10.2.0.0/16" "95.179.243.82/32" ];
+        #       persistentKeepalive = 25;
+        #     }
+        #   ];
+        # };
       };
     };
   };
@@ -184,6 +201,14 @@
         browseable = "yes";
         "read only" = "no";
         "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
+      media = {
+        path = "/mnt/media";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
         "create mask" = "0644";
         "directory mask" = "0755";
       };
