@@ -44,9 +44,12 @@ in {
     tdesktop
     discord
     teamspeak_client
+    mumble
 
     unstable.scrcpy
     transmission
+    youtube-music
+    solvespace
   ];
 
   home.stateVersion = "24.05";
