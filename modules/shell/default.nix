@@ -33,7 +33,7 @@ let
     lt =
       "eza -al --git --group-directories-first --time-style=long-iso -I .git --tree";
 
-    z = "zed";
+    z = "${pkgs.unstable.zed-editor}/bin/zeditor";
   };
 
 in
