@@ -15,7 +15,7 @@ in {
   programs.alacritty = {
     enable = true;
     settings = {
-      import = [ "${catppuccin}/catppuccin-mocha.toml" ];
+      general.import = [ "${catppuccin}/catppuccin-mocha.toml" ];
 
       keyboard.bindings = [
         {

@@ -3,7 +3,7 @@
 let conf = import modules/config { inherit lib; };
 in {
   imports = [
-    modules/doom-emacs
+    # modules/doom-emacs
     modules/zed
 
     modules/alacritty
@@ -43,13 +43,14 @@ in {
     google-chrome
     tdesktop
     discord
-    teamspeak_client
+    teamspeak3
+    teamspeak5_client
     mumble
 
     unstable.scrcpy
-    transmission
     youtube-music
     solvespace
+    freecad
   ];
 
   home.stateVersion = "24.05";

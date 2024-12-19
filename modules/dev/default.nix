@@ -5,7 +5,7 @@ let
   cfg = config.home.dev;
   conf = import ../config { inherit lib; };
 in {
-  imports = [ ./kubernetes.nix ./terraform.nix ./golang.nix ./3d_printing.nix ];
+  imports = [ ./kubernetes.nix ./terraform.nix ./golang.nix ./3d_printing.nix ./rust.nix ];
 
   options.home.dev = {
     kubernetes = mkOption {

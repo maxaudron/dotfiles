@@ -66,10 +66,10 @@
   environment.systemPackages = [ pkgs.simple-scan ];
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.hplipWithPlugin ];
+    extraBackends = [ ];
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     extraPackages = with pkgs; [ rocmPackages.clr.icd ];
   };
 
@@ -171,23 +171,18 @@
 
   services.samba = {
     enable = true;
-    securityType = "user";
-    extraConfig = ''
-      server string = liduur
-      netbios name = liduur
-      security = user
-      #use sendfile = yes
-      #max protocol = smb2
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.144.0/24 10.1.0.0/24 127.0.0.1 localhost
-      # hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
+    settings = {
+      global = {
+        "server string" = "liduur";
+        "netbios name" = "liduur";
+        "security" = "user";
+        "hosts allow" = "192.168.144.0/24 10.1.0.0/24 127.0.0.1 localhost";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
 
-      client min protocol = SMB2
-      client max protocol = SMB3
-    '';
-    shares = {
+        "client min protocol" = "SMB2";
+        "client max protocol" = "SMB3";
+      };
       home = {
         path = "/home/audron/";
         browseable = "yes";

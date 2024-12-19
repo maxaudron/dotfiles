@@ -91,7 +91,7 @@ in
   services.emacs = {
     enable = pkgs.stdenv.isLinux;
     package = emacsPackage;
-    defaultEditor = true;
+    defaultEditor = false;
   };
 
   home.packages = with pkgs; [

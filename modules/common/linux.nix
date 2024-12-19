@@ -55,7 +55,7 @@ in
 
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplipWithPlugin ];
+    drivers = [ ];
   };
 
   services.flatpak.enable = true;
@@ -164,10 +164,9 @@ in
 
   services.colord.enable = true;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   services.greetd = {
