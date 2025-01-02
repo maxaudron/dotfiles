@@ -13,6 +13,7 @@
     ../../modules/yubikey
     ../../modules/home-manager
     ../../modules/tgt
+    ../../modules/klipper
   ];
 
   audio.autoConnect = [
