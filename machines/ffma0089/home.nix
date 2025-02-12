@@ -22,7 +22,15 @@ in {
 
   programs.gpg.scdaemonSettings = { disable-ccid = true; };
 
-  home.packages = with pkgs; [ pass nix-index wireguard-tools wireguard-go helix unstable.ollama ];
+  home.packages = with pkgs; [ 
+    pass 
+    nix-index 
+    wireguard-tools 
+    wireguard-go 
+    unstable.ollama 
+
+    (azure-cli.override { withImmutableConfig = false; })
+  ];
 
   home = { sessionPath = [ "/opt/podman/bin" ]; };
 
