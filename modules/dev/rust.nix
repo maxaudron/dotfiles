@@ -11,7 +11,7 @@
       cargo-expand
       cargo-watch
       cargo-cross
-      unstable.dioxus-cli
+      #unstable.dioxus-cli
     ];
 
     home.file.".cargo/config.toml".text = ''

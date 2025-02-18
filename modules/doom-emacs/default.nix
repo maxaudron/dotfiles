@@ -112,7 +112,7 @@ in
     # rnix-lsp
     # python39Packages.pylsp-mypy
     nodePackages.typescript-language-server
-    nodePackages.pyright
+    pyright
 
     nodePackages.prettier
     languagetool

@@ -70,12 +70,12 @@ in {
       "home-manager=/etc/nix/channels/home-manager"
     ];
 
+    optimise.automatic = true;
+
     distributedBuilds = true;
     settings = {
       builders = "@/etc/nix/machines";
       trusted-users = [ "@wheel" ];
-
-      auto-optimise-store = true;
 
       substituters = [
         "https://cache.nixos.org/"

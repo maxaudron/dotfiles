@@ -45,6 +45,9 @@ in {
 
         nodejs
 
+        nixd
+	nil
+
         gtree.packages.${system}.default
       ] ++ (if conf.os.work then [
         bootstrap

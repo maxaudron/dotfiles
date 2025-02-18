@@ -27,10 +27,10 @@
     "bindings": {
       // put key-bindings here if you want them to work in normal & visual mode
       "space space": "file_finder::Toggle",
-      "w": "vim::NextSubwordStart",
-      "b": "vim::PreviousSubwordStart",
-      "e": "vim::NextSubwordEnd",
-      "g e": "vim::PreviousSubwordEnd",
+      // "w": "vim::NextSubwordStart",
+      // "b": "vim::PreviousSubwordStart",
+      // "e": "vim::NextSubwordEnd",
+      // "g e": "vim::PreviousSubwordEnd",
       "space t": "terminal_panel::ToggleFocus"
     }
   },
