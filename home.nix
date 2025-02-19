@@ -44,7 +44,6 @@ in {
     tdesktop
     discord
     teamspeak3
-    teamspeak5_client
     mumble
 
     unstable.scrcpy

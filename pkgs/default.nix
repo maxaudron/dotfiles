@@ -9,6 +9,7 @@ self: super:
   kubectl-netshoot = super.callPackage ./kubectl-netshoot {};
 
   xp-pen = super.qt5.callPackage ./xp-pen {};
+  teamspeak3 = super.libsForQt5.callPackage ./teamspeak3 {};
 
   libnpupnp = super.callPackage ./libnpupnp {};
 
