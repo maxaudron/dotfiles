@@ -7,8 +7,7 @@ in
   config = lib.mkIf (!conf.os.work) {
     home.packages = with pkgs;
       [
-        prusa-slicer
-        unstable.super-slicer-beta
+        unstable.prusa-slicer
       ];
   };
 }
