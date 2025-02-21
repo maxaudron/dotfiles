@@ -46,13 +46,34 @@ in {
         nodejs
 
         nixd
-	nil
+       	nil
+
+        fd
+        zstd
+        gnutls
+        binutils
+        imagemagick
+        editorconfig-core-c
+        emacs-all-the-icons-fonts
+        (ripgrep.override { withPCRE2 = true; })
+
+        hunspell
+        hunspellDicts.de_DE
+        hunspellDicts.en_US
+
+        vale
+        # rnix-lsp
+        # python39Packages.pylsp-mypy
+        nodePackages.typescript-language-server
+        pyright
+
+        nodePackages.prettier
 
         gtree.packages.${system}.default
       ] ++ (if conf.os.work then [
         bootstrap
         ansible-run
-	ansible
+       	ansible
       ] else
         [ ]) ++ (if conf.os.type == "linux" then [
           linuxKernel.packages.linux_zen.perf

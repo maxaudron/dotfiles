@@ -6,8 +6,8 @@ let conf = import ../config { inherit lib; };
 in {
   imports = (if conf.os.type == "linux" then
     [ ./linux.nix ]
-  else if conf.os.type == "darwin" then
-    [ ./darwin.nix ]
+  # else if conf.os.type == "darwin" then
+  #   [ ./darwin.nix ]
   else
     [ ]);
 
