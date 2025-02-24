@@ -7,10 +7,11 @@
       cargo
       rust-analyzer
 
-      cargo-outdated
+      unstable.cargo-outdated
       cargo-expand
       cargo-watch
       cargo-cross
+      cargo-tarpaulin
       #unstable.dioxus-cli
     ];
 
