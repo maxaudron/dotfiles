@@ -5,7 +5,7 @@ with lib;
 let conf = import ../../modules/config { inherit lib; };
 in {
   imports = [
-    ../../modules/doom-emacs
+    # ../../modules/doom-emacs
     ../../modules/alacritty
     ../../modules/latex
     ../../modules/shell
@@ -13,6 +13,7 @@ in {
     ../../modules/gpg
     ../../modules/dev
     ../../modules/ssh
+    ../../modules/zed
   ];
 
   home.username = conf.user.name;
@@ -22,12 +23,12 @@ in {
 
   programs.gpg.scdaemonSettings = { disable-ccid = true; };
 
-  home.packages = with pkgs; [ 
-    pass 
-    nix-index 
-    wireguard-tools 
-    wireguard-go 
-    unstable.ollama 
+  home.packages = with pkgs; [
+    pass
+    nix-index
+    wireguard-tools
+    wireguard-go
+    unstable.ollama
 
     (azure-cli.override { withImmutableConfig = false; })
   ];
