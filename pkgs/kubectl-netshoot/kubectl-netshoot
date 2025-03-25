@@ -6,6 +6,7 @@ help() {
     echo "Options:"
     echo "  --help: this help message"
     echo "  -h: use host networking for the pod"
+    echo "  -n: atttach to specific node"
     echo "  -e [POD]: attach to an existing pod using kubectl debug"
 }
 
@@ -20,12 +21,15 @@ do
             EPHEMERAL=1;;
         "-h" )
             HOST_NET=1;;
+        "-n" )
+            NODE=$1
+	    shift;;
         *) continue;;
    esac
 done
 
 netshoot() {
-    kubectl run netshoot --rm -i --tty --image nicolaka/netshoot "$@"
+    kubectl run "netshoot-$RANDOM" --rm -i --tty --image nicolaka/netshoot "$@"
     exit 0
 }
 
@@ -36,10 +40,18 @@ ephemeral() {
     exit 0
 }
 
+if [ -n "$HOST_NET" ]; then
+    HOST_ARG=--overrides='{"spec": {"hostNetwork": true}}'
+fi
+
+if [ -n "$NODE" ]; then
+    NODE_ARG=--overrides="{\"spec\": {\"nodeSelector\": {\"kubernetes.io/hostname\": \"$NODE\"}}}"
+fi
+
+set -x
+
 if [ -n "$EPHEMERAL" ]; then
-    ephemeral "$@"
-elif [ -n "$HOST_NET" ]; then
-    netshoot --overrides='{"spec": {"hostNetwork": true}}' "$@"
+    ephemeral ${HOST_ARG:+"$HOST_ARG"} ${NODE_ARG:+"$NODE_ARG"} "$@"
 else
-    netshoot "$@"
+    netshoot ${HOST_ARG:+"$HOST_ARG"} ${NODE_ARG:+"$NODE_ARG"} "$@"
 fi
