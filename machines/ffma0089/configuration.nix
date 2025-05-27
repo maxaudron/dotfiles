@@ -1,7 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-let conf = import ../../modules/config { inherit lib; };
-in {
+let
+  conf = import ../../modules/config { inherit lib; };
+in
+{
   imports = [ ../../modules/common ];
 
   users.users."${conf.user.name}" = {
@@ -46,7 +53,7 @@ in {
   environment.darwinConfig = "$HOME/.config/nix/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # services.nix-daemon.enable = true;
 
   nix.settings.trusted-users = [ "@staff" ];
 

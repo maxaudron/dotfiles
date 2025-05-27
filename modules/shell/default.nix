@@ -1,4 +1,10 @@
-{ config, pkgs, lib, builtins, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  builtins,
+  ...
+}:
 
 let
   aliases = {
@@ -28,19 +34,26 @@ let
 
     l = "eza -al --git --group-directories-first --time-style=long-iso";
     lg = "eza -al --group-directories-first --git --time-style=long-iso";
-    "l." =
-      "eza -al --git --group-directories-first --time-style=long-iso -F -I '[!^.]*'";
-    lt =
-      "eza -al --git --group-directories-first --time-style=long-iso -I .git --tree";
+    "l." = "eza -al --git --group-directories-first --time-style=long-iso -F -I '[!^.]*'";
+    lt = "eza -al --git --group-directories-first --time-style=long-iso -I .git --tree";
 
     z = "${pkgs.unstable.zed-editor}/bin/zeditor";
   };
 
 in
 {
-  imports = [ ./powerlevel10k.nix ./functions.nix ];
+  imports = [
+    ./powerlevel10k.nix
+    ./functions.nix
+  ];
 
-  home.packages = with pkgs; [ fzf eza tmux tmux-cssh ack ];
+  home.packages = with pkgs; [
+    fzf
+    eza
+    tmux
+    tmux-cssh
+    ack
+  ];
 
   home.shellAliases = aliases;
 
@@ -55,7 +68,7 @@ in
   };
 
   programs.zsh = {
-    enable = true;
+    enable = false;
 
     autosuggestion.enable = true;
     defaultKeymap = "viins";
@@ -87,7 +100,7 @@ in
 
     completionInit = lib.readFile ./completion.zsh;
 
-    initExtra = lib.readFile ./zshrc;
+    initContent = lib.readFile ./zshrc;
   };
 
   programs.fish = {
@@ -108,8 +121,14 @@ in
       set --global --export KUBECONFIG "$HOME/.kube/config:$(find ~/.kube/configs -type f | paste -sd ':' - )"
     '';
     plugins = [
-        { name = "hydro"; src = pkgs.unstable.fishPlugins.hydro.src; }
-        { name = "fzf"; src = pkgs.fishPlugins.fzf-fish.src; }
+      {
+        name = "hydro";
+        src = pkgs.unstable.fishPlugins.hydro.src;
+      }
+      {
+        name = "fzf";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
     ];
   };
 
@@ -117,12 +136,14 @@ in
     enable = true;
     configFile = {
       "fish/themes" = {
-        source = "${pkgs.fetchFromGitHub {
+        source = "${
+          pkgs.fetchFromGitHub {
             owner = "catppuccin";
             repo = "fish";
             rev = "a3b9eb5";
             hash = "sha256-shQxlyoauXJACoZWtRUbRMxmm10R8vOigXwjxBhG8ng=";
-        }}/themes";
+          }
+        }/themes";
       };
     };
   };

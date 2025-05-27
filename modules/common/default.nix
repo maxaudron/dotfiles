@@ -1,15 +1,28 @@
-{ config, pkgs, lib, nixpkgs, nixpkgs-unstable, darwin, home-manager, fenix
-, emacs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  nixpkgs,
+  nixpkgs-unstable,
+  darwin,
+  home-manager,
+  fenix,
+  ...
+}:
 
-let conf = import ../config { inherit lib; };
+let
+  conf = import ../config { inherit lib; };
 
-in {
-  imports = (if conf.os.type == "linux" then
-    [ ./linux.nix ]
-  # else if conf.os.type == "darwin" then
-  #   [ ./darwin.nix ]
-  else
-    [ ]);
+in
+{
+  imports = (
+    if conf.os.type == "linux" then
+      [ ./linux.nix ]
+    # else if conf.os.type == "darwin" then
+    #   [ ./darwin.nix ]
+    else
+      [ ]
+  );
 
   nixpkgs.config.allowUnfree = true;
 
@@ -48,6 +61,8 @@ in {
 
   # Setup caches
   nix = {
+    enable = true;
+
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
@@ -61,7 +76,6 @@ in {
       home-manager.flake = home-manager;
       darwin.flake = darwin;
       fenix.flake = fenix;
-      emacs.flake = emacs;
     };
 
     nixPath = [

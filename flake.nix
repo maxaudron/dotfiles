@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
@@ -10,12 +10,12 @@
     };
 
     darwin = {
-      url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+      url = "github:lnl7/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -24,37 +24,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     gtree = {
       url = "gitlab:cocainefarm/gtree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    doomemacs = {
-      url = "github:doomemacs/doomemacs";
-      flake = false;
-    };
   };
 
   outputs =
-    inputs@{ self
-    , nixpkgs
-    , nixpkgs-unstable
-    , nixpkgs-master
-    , secrets
-    , darwin
-    , home-manager
-    , fenix
-    , emacs
-    , gtree
-    , doomemacs
+    inputs@{
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      nixpkgs-master,
+      secrets,
+      darwin,
+      home-manager,
+      fenix,
+      gtree,
     }:
     let
-      specialArgs = inputs // { inherit inputs; };
+      specialArgs = inputs // {
+        inherit inputs;
+      };
 
       overlay-unstable = final: prev: {
         unstable = import nixpkgs-unstable {
@@ -68,17 +59,25 @@
           config.allowUnfree = true;
         };
       };
-      overlays = { config, pkgs, ... }: {
-        nixpkgs.overlays = [ overlay-unstable overlay-master ];
-      };
+      overlays =
+        { config, pkgs, ... }:
+        {
+          nixpkgs.overlays = [
+            overlay-unstable
+            overlay-master
+          ];
+        };
     in
     {
       nixosConfigurations.liduur =
-        let system = "x86_64-linux";
+        let
+          system = "x86_64-linux";
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = specialArgs // { inherit system; };
+          specialArgs = specialArgs // {
+            inherit system;
+          };
           modules = [
             overlays
             home-manager.nixosModules.home-manager
@@ -86,11 +85,14 @@
           ];
         };
       darwinConfigurations.ffma0089 =
-        let system = "aarch64-darwin";
+        let
+          system = "aarch64-darwin";
         in
         darwin.lib.darwinSystem {
           inherit system;
-          specialArgs = specialArgs // { inherit system; };
+          specialArgs = specialArgs // {
+            inherit system;
+          };
           modules = [
             overlays
             home-manager.darwinModules.home-manager
