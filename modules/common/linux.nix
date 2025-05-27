@@ -1,6 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let grub2-theme = pkgs.callPackage ../../pkgs/grub2-theme { };
+let
+  grub2-theme = pkgs.callPackage ../../pkgs/grub2-theme { };
 in
 {
   imports = [ ./udev.nix ];
@@ -28,8 +34,6 @@ in
     timeout = 1;
   };
 
-  fonts.packages = with pkgs; [ ibm-plex nerdfonts ];
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -45,12 +49,6 @@ in
     sddm-theme-chili
 
     browserpass
-
-    aspell
-    aspellDicts.de
-    aspellDicts.en
-    aspellDicts.en-computers
-    aspellDicts.en-science
   ];
 
   services.printing = {
@@ -79,8 +77,18 @@ in
   users.users.audron = {
     isNormalUser = true;
     password = "audron";
-    extraGroups =
-      [ "wheel" "input" "libvirtd" "audio" "wireshark" "dialout" "video" "adbusers" "scanner" "lp" ];
+    extraGroups = [
+      "wheel"
+      "input"
+      "libvirtd"
+      "audio"
+      "wireshark"
+      "dialout"
+      "video"
+      "adbusers"
+      "scanner"
+      "lp"
+    ];
     shell = pkgs.fish;
 
     openssh.authorizedKeys.keys = [
@@ -94,7 +102,9 @@ in
 
   programs.fish.enable = true;
 
-  programs.wireshark = { enable = true; };
+  programs.wireshark = {
+    enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -113,7 +123,7 @@ in
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_GB.UTF-8";
-    supportedLocales = ["all"];
+    supportedLocales = [ "all" ];
     extraLocaleSettings = {
       LC_ADDRESS = "en_GB.UTF-8";
       LC_IDENTIFICATION = "en_GB.UTF-8";
@@ -146,21 +156,25 @@ in
         enable = true;
         wayland.enable = true;
       };
-      sessionPackages = [];
+      sessionPackages = [ ];
     };
 
     desktopManager.plasma6.enable = true;
   };
 
-  nixpkgs.overlays = [ (final: prev: {
-    colord = prev.colord.overrideAttrs (final: prev: rec {
-      version = "1.4.7";
-      src = pkgs.fetchurl {
-        url = "https://www.freedesktop.org/software/colord/releases/${prev.pname}-${version}.tar.xz";
-        hash = "sha256-3gLZkQY0rhWVR1hc7EFORQ9xHCcjVFO0+bOKnyNhplM=";
-      };
-    });
-  }) ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      colord = prev.colord.overrideAttrs (
+        final: prev: rec {
+          version = "1.4.7";
+          src = pkgs.fetchurl {
+            url = "https://www.freedesktop.org/software/colord/releases/${prev.pname}-${version}.tar.xz";
+            hash = "sha256-3gLZkQY0rhWVR1hc7EFORQ9xHCcjVFO0+bOKnyNhplM=";
+          };
+        }
+      );
+    })
+  ];
 
   services.colord.enable = true;
 

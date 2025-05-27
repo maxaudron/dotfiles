@@ -1,11 +1,25 @@
-{ config, lib, pkgs, gtree, system, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  gtree,
+  system,
+  ...
+}:
 
 with lib;
 let
   cfg = config.home.dev;
   conf = import ../config { inherit lib; };
-in {
-  imports = [ ./kubernetes.nix ./terraform.nix ./golang.nix ./3d_printing.nix ./rust.nix ];
+in
+{
+  imports = [
+    ./kubernetes.nix
+    ./terraform.nix
+    ./golang.nix
+    ./3d_printing.nix
+    ./rust.nix
+  ];
 
   options.home.dev = {
     kubernetes = mkOption {
@@ -34,7 +48,8 @@ in {
   };
 
   config = {
-    home.packages = with pkgs;
+    home.packages =
+      with pkgs;
       [
         gnumake
         file
@@ -46,7 +61,7 @@ in {
         nodejs
 
         nixd
-       	nil
+        nil
 
         fd
         zstd
@@ -70,28 +85,32 @@ in {
         nodePackages.prettier
 
         gtree.packages.${system}.default
-      ] ++ (if conf.os.work then [
-        bootstrap
-        ansible-run
-       	ansible
-      ] else
-        [ ]) ++ (if conf.os.type == "linux" then [
-          linuxKernel.packages.linux_zen.perf
-          blackmagic
-          gcc-arm-embedded
-        ] else
-          [ ]);
+      ]
+      ++ (
+        if conf.os.work then
+          [
+            bootstrap
+            ansible-run
+            ansible
+          ]
+        else
+          [ ]
+      )
+      ++ (
+        if conf.os.type == "linux" then
+          [
+            linuxKernel.packages.linux_zen.perf
+            blackmagic
+            gcc-arm-embedded
+          ]
+        else
+          [ ]
+      );
 
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
     };
 
-    programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-    };
   };
 }

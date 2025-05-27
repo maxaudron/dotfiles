@@ -1,9 +1,17 @@
-{ config, pkgs, lib, builtins, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  builtins,
+  ...
+}:
 
 with lib;
 
-let conf = import ../../modules/config { inherit lib; };
-in {
+let
+  conf = import ../../modules/config { inherit lib; };
+in
+{
   imports = [
     # ../../modules/doom-emacs
     ../../modules/alacritty
@@ -14,6 +22,7 @@ in {
     ../../modules/dev
     ../../modules/ssh
     ../../modules/zed
+    ../../modules/vim
   ];
 
   home.username = conf.user.name;
@@ -21,7 +30,9 @@ in {
 
   programs.home-manager.enable = true;
 
-  programs.gpg.scdaemonSettings = { disable-ccid = true; };
+  programs.gpg.scdaemonSettings = {
+    disable-ccid = true;
+  };
 
   home.packages = with pkgs; [
     pass
@@ -33,7 +44,9 @@ in {
     (azure-cli.override { withImmutableConfig = false; })
   ];
 
-  home = { sessionPath = [ "/opt/podman/bin" ]; };
+  home = {
+    sessionPath = [ "/opt/podman/bin" ];
+  };
 
   programs.browserpass.enable = true;
 

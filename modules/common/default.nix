@@ -42,14 +42,29 @@ in
     p7zip
     rclone
 
+    mtr
+    ipcalc
+
     nixfmt-rfc-style
 
     pass
     passExtensions.pass-update
+
+    aspell
+    aspellDicts.de
+    aspellDicts.en
+    aspellDicts.en-computers
+    aspellDicts.en-science
   ];
 
   # Enable zsh completion for system packages
   environment.pathsToLink = [ "/share/zsh" ];
+
+  fonts.packages = with pkgs; [
+    ibm-plex
+    nerd-fonts.iosevka
+    # spleen
+  ];
 
   nixpkgs.overlays = [ (import ../../pkgs) ];
 
