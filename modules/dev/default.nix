@@ -61,7 +61,8 @@ in
         nodejs
 
         nixd
-        nil
+       	nil
+	clang-tools
 
         fd
         zstd

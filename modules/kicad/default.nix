@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let kicad = pkgs.kicad-small.overrideAttrs (final: prev: {
+let kicad = pkgs.unstable.kicad.overrideAttrs (final: prev: {
       nativeBuildInputs = prev.nativeBuildInputs ++ [
         pkgs.jdk17
       ];
