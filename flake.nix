@@ -1,5 +1,6 @@
 {
   inputs = {
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
@@ -33,6 +34,7 @@
   outputs =
     inputs@{
       self,
+      determinate,
       nixpkgs,
       nixpkgs-unstable,
       nixpkgs-master,
@@ -80,6 +82,7 @@
           };
           modules = [
             overlays
+	    determinate.nixosModules.default
             home-manager.nixosModules.home-manager
             ./machines/liduur/configuration.nix
           ];
