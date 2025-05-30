@@ -50,6 +50,8 @@ in {
     youtube-music
     solvespace
     freecad
+
+    savvycan
   ];
 
   home.stateVersion = "24.05";

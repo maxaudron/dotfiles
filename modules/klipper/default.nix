@@ -13,7 +13,7 @@
   services.klipper = {
     enable = true;
     mutableConfig = true;
-    mutableConfigFolder = "/var/lib/moonraker/config";
+    configDir = "/var/lib/moonraker/config";
     configFile = ./printer.cfg;
     user = "klipper";
     group = "klipper";
