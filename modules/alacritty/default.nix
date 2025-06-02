@@ -30,22 +30,22 @@ in {
       };
 
       font = {
-        size = 13;
+        size = 16;
         normal = {
-          family = "IBM Plex Mono";
+          family = "Spleen";
           style = "Regular";
         };
         bold = {
-          family = "IBM Plex Mono";
+          family = "Spleen";
           style = "Regular";
         };
         italic = {
-          family = "IBM Plex Mono";
-          style = "Italic";
+          family = "Spleen";
+          style = "Regular";
         };
         bold_italic = {
-          family = "IBM Plex Mono";
-          style = "Bold Italic";
+          family = "Spleen";
+          style = "Regular";
         };
       };
 

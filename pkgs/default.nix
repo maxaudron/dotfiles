@@ -17,4 +17,6 @@ self: super:
   diskimage-builder = super.callPackage ./diskimage-builder {};
   kube-review = super.callPackage ./kube-review {};
   sddm-theme-chili = super.callPackage ./sddm-theme-chili {};
+
+  spleen = super.callPackage ./spleen {};
 }

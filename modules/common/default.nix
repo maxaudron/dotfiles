@@ -63,7 +63,7 @@ in
   fonts.packages = with pkgs; [
     ibm-plex
     nerd-fonts.iosevka
-    # spleen
+    spleen
   ];
 
   nixpkgs.overlays = [ (import ../../pkgs) ];

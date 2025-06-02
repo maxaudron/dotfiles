@@ -114,10 +114,26 @@ in
     defaultFonts = {
       serif = [ "IBM Plex Serif" ];
       sansSerif = [ "IBM Plex Sans" ];
-      monospace = [ "IBM Plex Mono" ];
+      monospace = [ "Spleen" ];
 
       emoji = [ "Noto Color Emoji" ];
     };
+
+    allowBitmaps = true;
+
+    localConf = ''
+      <match target="pattern">
+          <test qual="any" name="family">
+            <string>Spleen</string>
+          </test>
+          <edit name="antialias" mode="assign">
+            <bool>false</bool>
+          </edit>
+          <edit name="hintstyle" mode="assign">
+            <const>hintnone</const>
+          </edit>
+      </match>
+    '';
   };
 
   # Select internationalisation properties.

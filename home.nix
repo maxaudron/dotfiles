@@ -5,6 +5,7 @@ in {
   imports = [
     # modules/doom-emacs
     modules/zed
+    modules/vim
 
     modules/alacritty
     modules/podman
