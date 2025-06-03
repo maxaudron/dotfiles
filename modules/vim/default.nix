@@ -37,6 +37,9 @@ in
 
       gitsigns-nvim
       blink-cmp
+
+      render-markdown-nvim
+      pkgs.unstable.vimPlugins.avante-nvim
     ];
 
     extraLuaConfig = ''
