@@ -37,6 +37,7 @@ in
 
       gitsigns-nvim
       blink-cmp
+      blink-cmp-avante
 
       render-markdown-nvim
       pkgs.unstable.vimPlugins.avante-nvim
