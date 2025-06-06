@@ -34,6 +34,7 @@ in
 
       which-key-nvim
       mini-icons
+      nvim-web-devicons
 
       gitsigns-nvim
       blink-cmp
@@ -41,6 +42,13 @@ in
 
       render-markdown-nvim
       pkgs.unstable.vimPlugins.avante-nvim
+
+      trouble-nvim
+      lualine-nvim
+
+      # Languages
+      rustaceanvim
+      neotest
     ];
 
     extraLuaConfig = ''

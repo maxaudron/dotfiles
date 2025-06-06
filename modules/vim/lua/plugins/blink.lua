@@ -28,10 +28,26 @@ return {
       nerd_font_variant = 'mono'
     },
 
-    completion = { documentation = { auto_show = false } },
+    completion = {
+      documentation = {
+        auto_show = false
+      },
+
+      trigger = {
+        show_on_keyword = true,
+        show_on_trigger_character = true,
+      },
+
+      ghost_text = {
+        enabled = true,
+        show_with_menu = true,
+      },
+    },
+
+    signature = { enabled = true },
 
     sources = {
-      default = { 'avante', 'lsp', 'path', 'snippets', 'buffer' },
+      default = { 'lsp', 'avante', 'path', 'snippets', 'buffer' },
       providers = {
         avante = {
           module = 'blink-cmp-avante',

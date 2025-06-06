@@ -7,3 +7,5 @@ for k, v in ipairs(files) do
   vim.lsp.config[name] = require("lsp/" .. name)
   vim.lsp.enable(name)
 end
+
+
