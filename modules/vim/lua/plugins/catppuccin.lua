@@ -10,6 +10,20 @@ return {
     styles = {            -- Handles the styles of general hi groups (see `:h highlight-args`):
       comments = {},      -- Change the style of comments
       conditionals = {},
+    },
+    integrations = {
+      blink_cmp = {
+        style = 'bordered',
+      },
+      gitsigns = true,
+      treesitter_context = true,
+      treesitter = true,
+      snacks = {
+        enabled = true,
+        indent_scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+      },
+      lsp_trouble = true,
+      which_key = true,
     }
   },
   config = function()

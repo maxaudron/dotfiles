@@ -46,9 +46,18 @@ in
       trouble-nvim
       lualine-nvim
 
+      surround-nvim
+      rainbow-delimiters-nvim
+
       # Languages
       rustaceanvim
       neotest
+
+      # treesitter
+      nvim-treesitter-context
+      nvim-treesitter-parsers.rust
+      nvim-treesitter-parsers.luap
+      nvim-treesitter-parsers.nix
     ];
 
     extraLuaConfig = ''
