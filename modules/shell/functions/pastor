@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 pastor () {
-    curl --progress-bar -F "c=@$1" https://c-v.sh/
+  curl --progress-bar -F "c=@$1" "https://c-v.sh/\?token=$(pass show general/c-v.sh | head -n1)"
 }
 
 screenshot () {
-	grim -g "$(slurp)" - | curl -s -F c=@- https://c-v.sh | wl-copy
+	grim -g "$(slurp)" - | pastor - | wl-copy
 }

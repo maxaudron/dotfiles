@@ -53,6 +53,8 @@ in
     tmux
     tmux-cssh
     ack
+
+    wl-clipboard
   ];
 
   home.shellAliases = aliases;
