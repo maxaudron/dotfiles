@@ -51,7 +51,7 @@
     "vm.swappiness" = 10;
   };
 
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
