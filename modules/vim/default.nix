@@ -58,6 +58,10 @@ in
       nvim-treesitter-parsers.rust
       nvim-treesitter-parsers.luap
       nvim-treesitter-parsers.nix
+      nvim-treesitter-parsers.markdown
+      nvim-treesitter-parsers.markdown_inline
+      nvim-treesitter-parsers.latex
+      nvim-treesitter-parsers.html
     ];
 
     extraLuaConfig = ''

@@ -9,13 +9,64 @@ return {
     providers = {
       gemini = {
         endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-        model = "gemini-2.0-flash",
+        api_key_name = { "pass", "show", "work/gemini" },
+        model = "gemini-2.5-flash-preview-05-20",
         timeout = 30000, -- Timeout in milliseconds
         use_ReAct_prompt = true,
-        extra_request_body = {
-          temperature = 0.75,
-          max_tokens = 8192,
-        },
+      },
+      ["gemini/gemini-2.5-pro"] = {
+        __inherited_from = "gemini",
+        model = "gemini-2.5-pro-preview-06-05",
+        display_name = "gemini/gemini-2.5-pro",
+      },
+      ["gemini/gemini-2.0-pro"] = {
+        __inherited_from = "gemini",
+        model = "gemini-2.0-pro",
+        display_name = "gemini/gemini-2.0-pro",
+      },
+      ["gemini/gemini-2.0-flash"] = {
+        __inherited_from = "gemini",
+        model = "gemini-2.0-flash",
+        display_name = "gemini/gemini-2.0-flash",
+      },
+      cohere = {
+        hide_in_model_selector = true,
+      },
+      vertex = {
+        hide_in_model_selector = true,
+      },
+      vertex_claude = {
+        hide_in_model_selector = true,
+      },
+      bedrock = {
+        hide_in_model_selector = true,
+      },
+      copilot = {
+        hide_in_model_selector = true,
+      },
+      aihubmix = {
+        hide_in_model_selector = true,
+      },
+      openai = {
+        hide_in_model_selector = true,
+      },
+      claude = {
+        hide_in_model_selector = true,
+      },
+      ["claude-haiku"] = {
+        hide_in_model_selector = true,
+      },
+      ["aihubmix-claude"] = {
+        hide_in_model_selector = true,
+      },
+      ["bedrock-claude-3.7-sonnet"] = {
+        hide_in_model_selector = true,
+      },
+      ["claude-opus"] = {
+        hide_in_model_selector = true,
+      },
+      ["openai-gpt-4o-mini"] = {
+        hide_in_model_selector = true,
       },
     },
     selector = {
@@ -32,30 +83,23 @@ return {
     "MunifTanjim/nui.nvim",
     --- The below dependencies are optional,
     "echasnovski/mini.icons", -- or echasnovski/mini.icons
-    {
-      -- support for image pasting
-      "HakonHarnes/img-clip.nvim",
-      event = "VeryLazy",
-      opts = {
-        -- recommended settings
-        default = {
-          embed_image_as_base64 = false,
-          prompt_for_file_name = false,
-          drag_and_drop = {
-            insert_mode = true,
-          },
-          -- required for Windows users
-          use_absolute_path = true,
-        },
-      },
-    },
-    {
-      -- Make sure to set this up properly if you have lazy=true
-      'MeanderingProgrammer/render-markdown.nvim',
-      opts = {
-        file_types = { "markdown", "Avante" },
-      },
-      ft = { "markdown", "Avante" },
-    },
+    "MeanderingProgrammer/render-markdown.nvim",
+    -- {
+    --   -- support for image pasting
+    --   "HakonHarnes/img-clip.nvim",
+    --   event = "VeryLazy",
+    --   opts = {
+    --     -- recommended settings
+    --     default = {
+    --       embed_image_as_base64 = false,
+    --       prompt_for_file_name = false,
+    --       drag_and_drop = {
+    --         insert_mode = true,
+    --       },
+    --       -- required for Windows users
+    --       use_absolute_path = true,
+    --     },
+    --   },
+    -- },
   },
 }
