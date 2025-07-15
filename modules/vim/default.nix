@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  gtree,
   system,
   ...
 }:
@@ -17,6 +16,7 @@ in
 
   home.packages = [
     pkgs.lua-language-server
+    pkgs.bash-language-server
   ];
 
   programs.neovim = {
@@ -48,6 +48,8 @@ in
 
       surround-nvim
       rainbow-delimiters-nvim
+      
+      pkgs.nvim-decipher
 
       # Languages
       rustaceanvim
@@ -62,6 +64,7 @@ in
       nvim-treesitter-parsers.markdown_inline
       nvim-treesitter-parsers.latex
       nvim-treesitter-parsers.html
+      nvim-treesitter-parsers.bash
     ];
 
     extraLuaConfig = ''

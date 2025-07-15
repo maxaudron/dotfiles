@@ -19,4 +19,6 @@ self: super:
   sddm-theme-chili = super.callPackage ./sddm-theme-chili {};
 
   spleen = super.callPackage ./spleen {};
+
+  nvim-decipher = super.callPackage ./nvim-decipher {};
 }
