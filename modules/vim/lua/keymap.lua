@@ -94,4 +94,6 @@ vim.keymap.set("n", "g.", "<cmd>lua vim.lsp.buf.code_action()<CR>",
 vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>",
         { desc = "Code Action", noremap = true, silent = true })
 vim.keymap.set("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Format", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Format", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename Symbol", noremap = true, silent = true })
+vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.selection_range()<CR>", { desc = "Select LSP Range", noremap = true, silent = true })

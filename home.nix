@@ -53,6 +53,9 @@ in {
     freecad
 
     savvycan
+
+    hledger
+    hledger-web
   ];
 
   home.stateVersion = "24.05";

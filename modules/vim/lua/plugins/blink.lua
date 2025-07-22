@@ -40,7 +40,7 @@ return {
 
       ghost_text = {
         enabled = false,
-        show_with_menu = true,
+        show_with_menu = false,
       },
     },
 
