@@ -10,6 +10,9 @@ self: super:
 
   xp-pen = super.qt5.callPackage ./xp-pen {};
   teamspeak3 = super.libsForQt5.callPackage ./teamspeak3 {};
+  
+  quasselClient = super.qt6.callPackage ./quassel {};
+  quasselCore = super.qt6.callPackage ./quassel { client = false; enableDaemon = true; };
 
   libnpupnp = super.callPackage ./libnpupnp {};
 

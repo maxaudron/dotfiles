@@ -1,0 +1,354 @@
+this derivation will be built:
+  /nix/store/b0g0skb55zn7jdazgg9dh77li18qjn8v-quassel-kf6-0.14.0.drv
+building '/nix/store/b0g0skb55zn7jdazgg9dh77li18qjn8v-quassel-kf6-0.14.0.drv'...
+Running phase: qtPreHook
+Running phase: unpackPhase
+unpacking source archive /nix/store/jzc9qqbzn6ddsj5wl77fhsm19ihl4mmq-source
+source root is source
+Running phase: patchPhase
+Running phase: updateAutotoolsGnuConfigScriptsPhase
+Running phase: configurePhase
+fixing cmake files...
+cmake flags: -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LOCALEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/locale -DCMAKE_INSTALL_LIBEXECDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/libexec -DCMAKE_INSTALL_LIBDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib -DCMAKE_INSTALL_DOCDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/doc/Quassel -DCMAKE_INSTALL_INFODIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/info -DCMAKE_INSTALL_MANDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/man -DCMAKE_INSTALL_INCLUDEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/include -DCMAKE_INSTALL_SBINDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/sbin -DCMAKE_INSTALL_BINDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/bin -DCMAKE_INSTALL_NAME_DIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib -DCMAKE_POLICY_DEFAULT_CMP0025=NEW -DCMAKE_FIND_FRAMEWORK=LAST -DCMAKE_STRIP=/nix/store/a0d7m3zn9p2dfa1h7ag9h2wzzr2w25sn-gcc-wrapper-14.2.1.20250322/bin/strip -DCMAKE_RANLIB=/nix/store/a0d7m3zn9p2dfa1h7ag9h2wzzr2w25sn-gcc-wrapper-14.2.1.20250322/bin/ranlib -DCMAKE_AR=/nix/store/a0d7m3zn9p2dfa1h7ag9h2wzzr2w25sn-gcc-wrapper-14.2.1.20250322/bin/ar -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0 -DEMBED_DATA=OFF -DUSE_QT5=ON -DCMAKE_INSTALL_DATAROOTDIR=usr/share -DSTATIC=OFF -DWANT_MONO=OFF -DWANT_CORE=OFF -DWITH_LDAP=OFF -DWANT_QTCLIENT=ON -DWITH_KDE=OFF -DKDE_INSTALL_EXECROOTDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0 -DKDE_INSTALL_BINDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/bin -DKDE_INSTALL_SBINDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/sbin -DKDE_INSTALL_LIBDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib -DKDE_INSTALL_LIBEXECDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/libexec -DKDE_INSTALL_CMAKEPACKAGEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib/cmake -DKDE_INSTALL_QTPLUGINDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib/qt-6/plugins -DKDE_INSTALL_PLUGINDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib/qt-6/plugins -DKDE_INSTALL_QMLDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib/qt-6/qml -DKDE_INSTALL_INCLUDEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/include -DKDE_INSTALL_LOCALSTATEDIR=/var -DKDE_INSTALL_SHAREDSTATEDIR=/com -DKDE_INSTALL_DATAROOTDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share -DKDE_INSTALL_DATADIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share -DKDE_INSTALL_DOCBUNDLEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/doc/HTML -DKDE_INSTALL_KCFGDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/config.kcfg -DKDE_INSTALL_KCONFUPDATEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/kconf_update -DKDE_INSTALL_KAPPTEMPLATESDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/kdevappwizard/templates -DKDE_INSTALL_KFILETEMPLATESDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/kdevfiletemplates/templates -DKDE_INSTALL_KXMLGUIDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/kxmlgui5 -DKDE_INSTALL_KNOTIFYRCDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/knotifications6 -DKDE_INSTALL_ICONDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/icons -DKDE_INSTALL_LOCALEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/locale -DKDE_INSTALL_SOUNDDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/sounds -DKDE_INSTALL_TEMPLATEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/templates -DKDE_INSTALL_WALLPAPERDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/wallpapers -DKDE_INSTALL_APPDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/applications -DKDE_INSTALL_DESKTOPDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/desktop-directories -DKDE_INSTALL_MIMEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/mime/packages -DKDE_INSTALL_METAINFODIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/appdata -DKDE_INSTALL_QTQCHDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/doc/qch -DKDE_INSTALL_QCHDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/doc/qch -DKDE_INSTALL_MANDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/man -DKDE_INSTALL_INFODIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/info -DKDE_INSTALL_DBUSDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/dbus-1 -DKDE_INSTALL_DBUSINTERFACEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/dbus-1/interfaces -DKDE_INSTALL_DBUSSERVICEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/dbus-1/services -DKDE_INSTALL_DBUSSYSTEMSERVICEDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/dbus-1/system-services -DKDE_INSTALL_SYSCONFDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/etc -DKDE_INSTALL_CONFDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/etc/xdg -DKDE_INSTALL_AUTOSTARTDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/etc/xdg/autostart -DKDE_INSTALL_LOGGINGCATEGORIESDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/qlogging-categories6 -DKDE_INSTALL_SYSTEMDUNITDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/lib/systemd -DKDE_INSTALL_SYSTEMDUSERUNITDIR=/nix/store/rbk9a286vr7b6inv1v5nnich5i43h5l6-quassel-kf6-0.14.0/share/systemd/user
+-- Building Quassel 0.15-pre
+-- Using CMake 3.31.6
+-- CMake build type: Release
+-- Checking for ccache
+-- Checking for ccache - not found
+-- The CXX compiler identification is GNU 14.2.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /nix/store/a0d7m3zn9p2dfa1h7ag9h2wzzr2w25sn-gcc-wrapper-14.2.1.20250322/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test LINKER_SUPPORTS_RELRO
+-- Performing Test LINKER_SUPPORTS_RELRO - Success
+-- Performing Test LINKER_SUPPORTS_NOW
+-- Performing Test LINKER_SUPPORTS_NOW - Success
+-- Performing Test LINKER_SUPPORTS_AS_NEEDED
+-- Performing Test LINKER_SUPPORTS_AS_NEEDED - Success
+-- Performing Test LINKER_SUPPORTS_ENABLE_NEW_DTAGS
+-- Performing Test LINKER_SUPPORTS_ENABLE_NEW_DTAGS - Success
+-- Performing Test LINKER_SUPPORTS_NO_UNDEFINED
+-- Performing Test LINKER_SUPPORTS_NO_UNDEFINED - Success
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Found OpenGL: /nix/store/7227amwg7k4sbl6mhglq17v5x5ki54ks-libglvnd-1.7.0/lib/libOpenGL.so
+-- Found WrapOpenGL: TRUE
+-- Found WrapVulkanHeaders: /nix/store/zyj3yixsd4vjgbz8nsp5z9yfv6fhnw3d-vulkan-headers-1.4.313.0/include
+-- Found Qt 6.9.1
+-- Performing Test HAVE_SSL
+-- Performing Test HAVE_SSL - Success
+CMake Warning (dev) at CMakeLists.txt:381 (find_package):
+  Policy CMP0167 is not set: The FindBoost module is removed.  Run "cmake
+  --help-policy CMP0167" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found Boost: /nix/store/hp8fsx1sg3dadia1i092188ll9d216sg-boost-1.87.0-dev/lib/cmake/Boost-1.87.0/BoostConfig.cmake (found suitable version "1.87.0", minimum required is "1.74")
+-- Found ZLIB: /nix/store/jl19fdc7gdxqz9a1s368r9d15vpirnqy-zlib-1.3.1/lib/libz.so (found version "1.3.1")
+-- Looking for C++ include syslog.h
+-- Looking for C++ include syslog.h - found
+-- Looking for umask
+-- Looking for umask - found
+-- Installing data files separately
+-- Installing bundled Breeze icon theme
+CMake Warning at po/CMakeLists.txt:74 (message):
+  Qt Linguist Tools not found, you won't have translations!
+
+
+-- The following features have been enabled:
+
+ * WANT_QTCLIENT, Build the client-only binary (requires a core to connect to)
+ * WITH_BUNDLED_ICONS, Install required icons from the Breeze icon theme
+ * ENABLE_SHARED, Build modules as shared libraries
+ * syslog.h, Provide support for logging to the syslog
+
+-- The following OPTIONAL packages have been found:
+
+ * Qt6CorePrivate (required version == 6.9.1)
+ * Qt6Core (required version >= 6.8)
+ * Qt6NetworkPrivate (required version == 6.9.1)
+ * Qt6Network (required version >= 6.8)
+ * OpenGL
+ * Vulkan
+ * WrapVulkanHeaders
+ * Qt6DBusPrivate (required version == 6.9.1)
+ * Qt6GuiPrivate (required version == 6.9.1)
+ * Qt6Gui (required version >= 6.8)
+ * Qt6GuiTools (required version >= 6.9.1)
+ * Qt6WidgetsTools (required version >= 6.9.1)
+ * Qt6WidgetsPrivate (required version == 6.9.1)
+ * Qt6Widgets (required version >= 6.8)
+ * Qt6CoreTools (required version >= 6.9.1)
+ * Qt6DBusTools (required version >= 6.9.1)
+ * Qt6DBus
+
+-- The following RECOMMENDED packages have been found:
+
+ * ECM, extra modules for CMake, maintained by the KDE project, <https://projects.kde.org/projects/kdesupport/extra-cmake-modules>
+   Required to find KDE Frameworks components
+ * Backtrace, a header (and possibly library) for inspecting backtraces
+   Used for generating backtraces in case of a crash
+
+-- The following REQUIRED packages have been found:
+
+ * Qt6 (required version >= 6.8), the Qt libraries, <https://www.qt.io/>
+ * boost_headers (required version == 1.87.0)
+ * Boost (required version >= 1.74), Boost libraries for C++, <https://www.boost.org/>
+ * ZLIB, a popular compression library, <http://www.zlib.net>
+   Used for protocol compression
+
+-- The following features have been disabled:
+
+ * WANT_CORE, Build the core (server) binary
+ * WANT_MONO, Build the monolithic (all-in-one) binary
+ * WITH_KDE, Integrate with the KDE Frameworks runtime environment
+ * WITH_OXYGEN_ICONS, Support the Oxygen icon theme (KDE4)
+ * EMBED_DATA, Embed icons and translations in the binaries instead of installing them
+ * WITH_WEBENGINE, QtWebEngine and QtWebEngineWidgets modules, Support showing previews for URLs in chat
+ * BUILD_TESTING, Build unit tests
+
+-- The following OPTIONAL packages have not been found:
+
+ * Git
+ * PkgConfig
+ * LibsnoreQt5 (required version >= 0.7.0), a cross-platform notification framework, <https://projects.kde.org/projects/playground/libs/snorenotify>
+   Enable support for the snorenotify framework
+
+-- The following RECOMMENDED packages have not been found:
+
+ * Qt6LinguistTools, contains tools for handling translation files
+   Required for having translations
+ * dbusmenu-qt6, a library implementing the DBusMenu specification, <https://launchpad.net/libdbusmenu-qt>
+   Required for having a context menu for the D-Bus-based tray icon
+ * Qt6Multimedia, Multimedia support for Qt, <https://www.qt.io/>
+   Required for audio notifications
+ * Qt6WebEngine, a WebEngine implementation for Qt, <https://www.qt.io/>
+   Needed for displaying previews for URLs in chat
+ * KF6Sonnet, framework for providing spell-checking capabilities, <http://api.kde.org/frameworks-api/frameworks5-apidocs/sonnet/html>
+   Enables spell-checking support in input widgets
+
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY
+-- Performing Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY - Success
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR
+-- Performing Test COMPILER_HAS_DEPRECATED_ATTR - Success
+-- Configuring done (7.7s)
+-- Generating done (0.2s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_C_COMPILER
+    CMAKE_EXPORT_NO_PACKAGE_REGISTRY
+    CMAKE_POLICY_DEFAULT_CMP0025
+    KDE_INSTALL_APPDIR
+    KDE_INSTALL_AUTOSTARTDIR
+    KDE_INSTALL_BINDIR
+    KDE_INSTALL_CMAKEPACKAGEDIR
+    KDE_INSTALL_CONFDIR
+    KDE_INSTALL_DATADIR
+    KDE_INSTALL_DATAROOTDIR
+    KDE_INSTALL_DBUSDIR
+    KDE_INSTALL_DBUSINTERFACEDIR
+    KDE_INSTALL_DBUSSERVICEDIR
+    KDE_INSTALL_DBUSSYSTEMSERVICEDIR
+    KDE_INSTALL_DESKTOPDIR
+    KDE_INSTALL_DOCBUNDLEDIR
+    KDE_INSTALL_EXECROOTDIR
+    KDE_INSTALL_ICONDIR
+    KDE_INSTALL_INCLUDEDIR
+    KDE_INSTALL_INFODIR
+    KDE_INSTALL_KAPPTEMPLATESDIR
+    KDE_INSTALL_KCFGDIR
+    KDE_INSTALL_KCONFUPDATEDIR
+    KDE_INSTALL_KFILETEMPLATESDIR
+    KDE_INSTALL_KNOTIFYRCDIR
+    KDE_INSTALL_KXMLGUIDIR
+    KDE_INSTALL_LIBDIR
+    KDE_INSTALL_LIBEXECDIR
+    KDE_INSTALL_LOCALEDIR
+    KDE_INSTALL_LOCALSTATEDIR
+    KDE_INSTALL_LOGGINGCATEGORIESDIR
+    KDE_INSTALL_MANDIR
+    KDE_INSTALL_METAINFODIR
+    KDE_INSTALL_MIMEDIR
+    KDE_INSTALL_PLUGINDIR
+    KDE_INSTALL_QCHDIR
+    KDE_INSTALL_QMLDIR
+    KDE_INSTALL_QTPLUGINDIR
+    KDE_INSTALL_QTQCHDIR
+    KDE_INSTALL_SBINDIR
+    KDE_INSTALL_SHAREDSTATEDIR
+    KDE_INSTALL_SOUNDDIR
+    KDE_INSTALL_SYSCONFDIR
+    KDE_INSTALL_SYSTEMDUNITDIR
+    KDE_INSTALL_SYSTEMDUSERUNITDIR
+    KDE_INSTALL_TEMPLATEDIR
+    KDE_INSTALL_WALLPAPERDIR
+    STATIC
+    USE_QT5
+
+
+-- Build files have been written to: /build/source/build
+cmake: enabled parallel building
+cmake: enabled parallel installing
+Running phase: buildPhase
+build flags: -j32 SHELL=/nix/store/ih68ar79msmj0496pgld4r3vqfr7bbin-bash-5.2p37/bin/bash
+[  0%] Automatic RCC for hicolor_icons.qrc
+[  0%] Generating pics.qrc
+[  0%] Built target quassel_common_autogen_timestamp_deps
+[  0%] Built target translations
+[  0%] Built target quassel-qrc-pics
+[  1%] Automatic MOC and UIC for target quassel_common
+[  1%] Generating qrc_pics.cpp
+[  2%] Building CXX object icons/CMakeFiles/quassel_resource_hicoloricons.dir/quassel_resource_hicoloricons_autogen/EWIEGA46WW/qrc_hicolor_icons.cpp.o
+Detected locale "C" with character encoding "ANSI_X3.4-1968", which is not UTF-8.
+Qt depends on a UTF-8 locale, and has switched to "C.UTF-8" instead.
+If this causes problems, reconfigure your locale. See the locale(1) manual
+for more information.
+[  3%] Building CXX object pics/CMakeFiles/quassel_resource_pics.dir/qrc_pics.cpp.o
+[  3%] Linking CXX static library ../lib/libquassel-resource-hicoloricons.a
+[  3%] Built target quassel_resource_hicoloricons
+[  3%] Linking CXX static library ../lib/libquassel-resource-pics.a
+[  3%] Built target quassel_resource_pics
+[  3%] Built target quassel_common_autogen
+[  4%] Building CXX object src/common/CMakeFiles/quassel_common.dir/quassel_common_autogen/mocs_compilation.cpp.o
+[  5%] Building CXX object src/common/CMakeFiles/quassel_common.dir/aliasmanager.cpp.o
+[  5%] Building CXX object src/common/CMakeFiles/quassel_common.dir/buffersyncer.cpp.o
+[  5%] Building CXX object src/common/CMakeFiles/quassel_common.dir/authhandler.cpp.o
+[  6%] Building CXX object src/common/CMakeFiles/quassel_common.dir/basichandler.cpp.o
+[  6%] Building CXX object src/common/CMakeFiles/quassel_common.dir/bufferinfo.cpp.o
+[  6%] Building CXX object src/common/CMakeFiles/quassel_common.dir/bufferviewmanager.cpp.o
+[  6%] Building CXX object src/common/CMakeFiles/quassel_common.dir/backlogmanager.cpp.o
+[  6%] Building CXX object src/common/CMakeFiles/quassel_common.dir/coreinfo.cpp.o
+[  6%] Building CXX object src/common/CMakeFiles/quassel_common.dir/dccconfig.cpp.o
+[  7%] Building CXX object src/common/CMakeFiles/quassel_common.dir/event.cpp.o
+[  7%] Building CXX object src/common/CMakeFiles/quassel_common.dir/ctcpevent.cpp.o
+[  8%] Building CXX object src/common/CMakeFiles/quassel_common.dir/compressor.cpp.o
+[  8%] Building CXX object src/common/CMakeFiles/quassel_common.dir/expressionmatch.cpp.o
+[ 10%] Building CXX object src/common/CMakeFiles/quassel_common.dir/eventmanager.cpp.o
+[ 10%] Building CXX object src/common/CMakeFiles/quassel_common.dir/bufferviewconfig.cpp.o
+[ 11%] Building CXX object src/common/CMakeFiles/quassel_common.dir/highlightrulemanager.cpp.o
+[ 11%] Building CXX object src/common/CMakeFiles/quassel_common.dir/identity.cpp.o
+[ 11%] Building CXX object src/common/CMakeFiles/quassel_common.dir/internalpeer.cpp.o
+[ 12%] Building CXX object src/common/CMakeFiles/quassel_common.dir/ignorelistmanager.cpp.o
+[ 14%] Building CXX object src/common/CMakeFiles/quassel_common.dir/ircchannel.cpp.o
+[ 14%] Building CXX object src/common/CMakeFiles/quassel_common.dir/ircdecoder.cpp.o
+[ 14%] Building CXX object src/common/CMakeFiles/quassel_common.dir/ircencoder.cpp.o
+[ 14%] Building CXX object src/common/CMakeFiles/quassel_common.dir/ircevent.cpp.o
+[ 14%] Building CXX object src/common/CMakeFiles/quassel_common.dir/irclisthelper.cpp.o
+[ 15%] Building CXX object src/common/CMakeFiles/quassel_common.dir/irctag.cpp.o
+[ 15%] Building CXX object src/common/CMakeFiles/quassel_common.dir/ircuser.cpp.o
+[ 16%] Building CXX object src/common/CMakeFiles/quassel_common.dir/logger.cpp.o
+[ 16%] Building CXX object src/common/CMakeFiles/quassel_common.dir/networkconfig.cpp.o
+[ 17%] Building CXX object src/common/CMakeFiles/quassel_common.dir/network.cpp.o
+[ 17%] Building CXX object src/common/CMakeFiles/quassel_common.dir/message.cpp.o
+[ 17%] Building CXX object src/common/CMakeFiles/quassel_common.dir/messageevent.cpp.o
+[ 18%] Building CXX object src/common/CMakeFiles/quassel_common.dir/networkevent.cpp.o
+[ 18%] Building CXX object src/common/CMakeFiles/quassel_common.dir/nickhighlightmatcher.cpp.o
+[ 19%] Building CXX object src/common/CMakeFiles/quassel_common.dir/peer.cpp.o
+[ 19%] Building CXX object src/common/CMakeFiles/quassel_common.dir/peerfactory.cpp.o
+[ 19%] Building CXX object src/common/CMakeFiles/quassel_common.dir/presetnetworks.cpp.o
+[ 20%] Building CXX object src/common/CMakeFiles/quassel_common.dir/quassel.cpp.o
+[ 20%] Building CXX object src/common/CMakeFiles/quassel_common.dir/proxyline.cpp.o
+[ 21%] Building CXX object src/common/CMakeFiles/quassel_common.dir/remotepeer.cpp.o
+[ 21%] Building CXX object src/common/CMakeFiles/quassel_common.dir/settings.cpp.o
+[ 22%] Building CXX object src/common/CMakeFiles/quassel_common.dir/signalproxy.cpp.o
+[ 22%] Building CXX object src/common/CMakeFiles/quassel_common.dir/syncableobject.cpp.o
+[ 22%] Building CXX object src/common/CMakeFiles/quassel_common.dir/transfer.cpp.o
+[ 23%] Building CXX object src/common/CMakeFiles/quassel_common.dir/transfermanager.cpp.o
+[ 23%] Building CXX object src/common/CMakeFiles/quassel_common.dir/types.cpp.o
+[ 24%] Building CXX object src/common/CMakeFiles/quassel_common.dir/util.cpp.o
+[ 24%] Building CXX object src/common/CMakeFiles/quassel_common.dir/serializers/serializers.cpp.o
+[ 25%] Building CXX object src/common/CMakeFiles/quassel_common.dir/protocols/datastream/datastreampeer.cpp.o
+[ 25%] Building CXX object src/common/CMakeFiles/quassel_common.dir/protocols/legacy/legacypeer.cpp.o
+[ 25%] Building CXX object src/common/CMakeFiles/quassel_common.dir/logbacktrace_unix.cpp.o
+[ 26%] Building CXX object src/common/CMakeFiles/quassel_common.dir/posixsignalwatcher.cpp.o
+[ 26%] Linking CXX shared library ../../lib/libquassel-common.so
+[ 26%] Built target quassel_common
+[ 26%] Built target quassel_client_autogen_timestamp_deps
+[ 26%] Automatic MOC and UIC for target quassel_client
+[ 26%] Built target quassel_client_autogen
+[ 27%] Building CXX object src/client/CMakeFiles/quassel_client.dir/abstractmessageprocessor.cpp.o
+[ 27%] Building CXX object src/client/CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o
+[ 27%] Building CXX object src/client/CMakeFiles/quassel_client.dir/buffersettings.cpp.o
+[ 27%] Building CXX object src/client/CMakeFiles/quassel_client.dir/backlogrequester.cpp.o
+[ 27%] Building CXX object src/client/CMakeFiles/quassel_client.dir/buffermodel.cpp.o
+[ 28%] Building CXX object src/client/CMakeFiles/quassel_client.dir/bufferviewoverlay.cpp.o
+[ 29%] Building CXX object src/client/CMakeFiles/quassel_client.dir/backlogsettings.cpp.o
+[ 29%] Building CXX object src/client/CMakeFiles/quassel_client.dir/client.cpp.o
+[ 30%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientaliasmanager.cpp.o
+[ 30%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientauthhandler.cpp.o
+[ 31%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientignorelistmanager.cpp.o
+[ 31%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientbacklogmanager.cpp.o
+[ 32%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientidentity.cpp.o
+[ 32%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientbufferviewconfig.cpp.o
+[ 33%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientirclisthelper.cpp.o
+[ 33%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientsettings.cpp.o
+[ 34%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clienttransfer.cpp.o
+[ 34%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientuserinputhandler.cpp.o
+[ 34%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clienttransfermanager.cpp.o
+[ 34%] Building CXX object src/client/CMakeFiles/quassel_client.dir/clientbufferviewmanager.cpp.o
+[ 34%] Building CXX object src/client/CMakeFiles/quassel_client.dir/coreaccountmodel.cpp.o
+[ 35%] Building CXX object src/client/CMakeFiles/quassel_client.dir/coreaccount.cpp.o
+[ 36%] Building CXX object src/client/CMakeFiles/quassel_client.dir/coreconnection.cpp.o
+[ 37%] Building CXX object src/client/CMakeFiles/quassel_client.dir/irclistmodel.cpp.o
+[ 37%] Building CXX object src/client/CMakeFiles/quassel_client.dir/execwrapper.cpp.o
+[ 37%] Building CXX object src/client/CMakeFiles/quassel_client.dir/messagefilter.cpp.o
+[ 37%] Building CXX object src/client/CMakeFiles/quassel_client.dir/messagemodel.cpp.o
+[ 38%] Building CXX object src/client/CMakeFiles/quassel_client.dir/networkmodel.cpp.o
+[ 38%] Building CXX object src/client/CMakeFiles/quassel_client.dir/treemodel.cpp.o
+[ 39%] Building CXX object src/client/CMakeFiles/quassel_client.dir/transfermodel.cpp.o
+[ 39%] Building CXX object src/client/CMakeFiles/quassel_client.dir/selectionmodelsynchronizer.cpp.o
+[ 40%] Linking CXX shared library ../../lib/libquassel-client.so
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Message, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI7MessageLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeI7MessageLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, Message&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Message, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI7MessageLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeI7MessageLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x7): undefined reference to `operator<<(QDataStream&, Message const&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDebugStreamOperatorForType<Message, true>::debugStream(QtPrivate::QMetaTypeInterface const*, QDebug&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate27QDebugStreamOperatorForTypeI7MessageLb1EE11debugStreamEPKNS_18QMetaTypeInterfaceER6QDebugPKv[_ZN9QtPrivate27QDebugStreamOperatorForTypeI7MessageLb1EE11debugStreamEPKNS_18QMetaTypeInterfaceER6QDebugPKv]+0x31): undefined reference to `operator<<(QDebug, Message const&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Peer*, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeIP4PeerLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeIP4PeerLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, Peer*&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Peer*, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeIP4PeerLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeIP4PeerLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x7): undefined reference to `operator<<(QDataStream&, Peer*)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<NetworkInfo, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI11NetworkInfoLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeI11NetworkInfoLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, NetworkInfo&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<NetworkInfo, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI11NetworkInfoLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeI11NetworkInfoLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x7): undefined reference to `operator<<(QDataStream&, NetworkInfo const&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<MsgId, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI5MsgIdLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeI5MsgIdLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, SignedId64&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<MsgId, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI5MsgIdLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeI5MsgIdLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x7): undefined reference to `operator<<(QDataStream&, SignedId64 const&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<CertIdentity, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI12CertIdentityLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeI12CertIdentityLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, Identity&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Transfer::Status, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeIN8Transfer6StatusELb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeIN8Transfer6StatusELb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, Transfer::Status&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Transfer::Status, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeIN8Transfer6StatusELb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeIN8Transfer6StatusELb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x6): undefined reference to `operator<<(QDataStream&, Transfer::Status)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<QList<QUuid>, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI5QListI5QUuidELb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeI5QListI5QUuidELb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, QList<QUuid>&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<QList<QUuid>, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI5QListI5QUuidELb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeI5QListI5QUuidELb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x7): undefined reference to `operator<<(QDataStream&, QList<QUuid> const&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<BufferInfo, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI10BufferInfoLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeI10BufferInfoLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, BufferInfo&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<BufferInfo, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI10BufferInfoLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeI10BufferInfoLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x7): undefined reference to `operator<<(QDataStream&, BufferInfo const&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDebugStreamOperatorForType<BufferInfo, true>::debugStream(QtPrivate::QMetaTypeInterface const*, QDebug&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate27QDebugStreamOperatorForTypeI10BufferInfoLb1EE11debugStreamEPKNS_18QMetaTypeInterfaceER6QDebugPKv[_ZN9QtPrivate27QDebugStreamOperatorForTypeI10BufferInfoLb1EE11debugStreamEPKNS_18QMetaTypeInterfaceER6QDebugPKv]+0x31): undefined reference to `operator<<(QDebug, BufferInfo const&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/quassel_client_autogen/mocs_compilation.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<CertIdentity, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+mocs_compilation.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI12CertIdentityLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeI12CertIdentityLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x36): undefined reference to `operator<<(QDataStream&, Identity)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/client.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Identity, true>::dataStreamIn(QtPrivate::QMetaTypeInterface const*, QDataStream&, void*)':
+client.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI8IdentityLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv[_ZN9QtPrivate26QDataStreamOperatorForTypeI8IdentityLb1EE12dataStreamInEPKNS_18QMetaTypeInterfaceER11QDataStreamPv]+0x7): undefined reference to `operator>>(QDataStream&, Identity&)'
+/nix/store/mkvc0lnnpmi604rqsjdlv1pmhr638nbd-binutils-2.44/bin/ld: CMakeFiles/quassel_client.dir/client.cpp.o: in function `QtPrivate::QDataStreamOperatorForType<Identity, true>::dataStreamOut(QtPrivate::QMetaTypeInterface const*, QDataStream&, void const*)':
+client.cpp:(.text._ZN9QtPrivate26QDataStreamOperatorForTypeI8IdentityLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv[_ZN9QtPrivate26QDataStreamOperatorForTypeI8IdentityLb1EE13dataStreamOutEPKNS_18QMetaTypeInterfaceER11QDataStreamPKv]+0x36): undefined reference to `operator<<(QDataStream&, Identity)'
+collect2: error: ld returned 1 exit status
+make[2]: *** [src/client/CMakeFiles/quassel_client.dir/build.make:596: lib/libquassel-client.so.0.14.50] Error 1
+make[1]: *** [CMakeFiles/Makefile2:580: src/client/CMakeFiles/quassel_client.dir/all] Error 2
+make: *** [Makefile:136: all] Error 2
