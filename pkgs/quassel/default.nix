@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
 
   postFixup =
     lib.optionalString enableDaemon ''
-      wrapProgram "$out/bin/quasselcore" --suffix PATH : "${qtbase.bin}/bin"
+      wrapProgram "$out/bin/quasselcore" --suffix PATH : "${qtbase}/bin"
     ''
     + lib.optionalString buildClient ''
       wrapQtApp "$out/bin/quassel${lib.optionalString client "client"}" \
