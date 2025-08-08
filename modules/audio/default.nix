@@ -9,6 +9,8 @@ in
   imports = [
     ./wireplumber
     ./filter-chain
+
+    ./windows.nix
   ];
 
   options = {
@@ -98,59 +100,63 @@ in
 
       extraConfig = {
         pipewire = {
-          context.properties = {
-            link.max-buffers = 64;
-            log.level = 2;
-            default.clock.rate = 48000;
-            default.clock.quantum = cfg.sampleSize;
-            default.clock.min-quantum = cfg.sampleSize;
-            default.clock.max-quantum = cfg.sampleSize;
-            core.daemon = true;
-            core.name = "pipewire-0";
-          };
+          "10-default" = {
+            "context.properties" = {
+              "link.max-buffers" = 64;
+              "log.level" = 2;
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = cfg.sampleSize;
+              "default.clock.min-quantum" = cfg.sampleSize;
+              "default.clock.max-quantum" = cfg.sampleSize;
+              "core.daemon" = true;
+              "core.name" = "pipewire-0";
+            };
 
-          context.modules = [
-            {
-              name = "libpipewire-module-rtkit";
-              args = {
-                nice.level = -15;
-                rt.prio = 88;
-                rt.time.soft = 200000;
-                rt.time.hard = 200000;
-              };
-              flags = [ "ifexists" "nofail" ];
-            }
-          ];
+            "context.modules" = [
+              {
+                name = "libpipewire-module-rtkit";
+                args = {
+                  "nice.level" = -15;
+                  "rt.prio" = 88;
+                  "rt.time.soft" = 200000;
+                  "rt.time.hard" = 200000;
+                };
+                flags = [ "ifexists" "nofail" ];
+              }
+            ];
+          };
         };
 
         pipewire-pulse = {
-          context.modules = [
-            {
-              name = "libpipewire-module-rtkit";
-              args = {
-                nice.level = -15;
-                rt.prio = 88;
-                rt.time.soft = 200000;
-                rt.time.hard = 200000;
-              };
-              flags = [ "ifexists" "nofail" ];
-            }
-            {
-              name = "libpipewire-module-protocol-pulse";
-              args = {
-                pulse.min.req = "${toString cfg.sampleSize}/48000";
-                pulse.default.req = "${toString cfg.sampleSize}/48000";
-                pulse.max.req = "${toString cfg.sampleSize}/48000";
-                pulse.min.quantum = "${toString cfg.sampleSize}/48000";
-                pulse.max.quantum = "${toString cfg.sampleSize}/48000";
-                server.address = [ "unix:native" ];
-              };
-            }
-          ];
+          "10-default" = {
+            "context.modules" = [
+              {
+                name = "libpipewire-module-rtkit";
+                args = {
+                  "nice.level" = -15;
+                  "rt.prio" = 88;
+                  "rt.time.soft" = 200000;
+                  "rt.time.hard" = 200000;
+                };
+                flags = [ "ifexists" "nofail" ];
+              }
+              {
+                name = "libpipewire-module-protocol-pulse";
+                args = {
+                  "pulse.min.req" = "${toString cfg.sampleSize}/48000";
+                  "pulse.default.req" = "${toString cfg.sampleSize}/48000";
+                  "pulse.max.req" = "${toString cfg.sampleSize}/48000";
+                  "pulse.min.quantum" = "${toString cfg.sampleSize}/48000";
+                  "pulse.max.quantum" = "${toString cfg.sampleSize}/48000";
+                  "server.address" = [ "unix:native" ];
+                };
+              }
+            ];
 
-          stream.properties = {
-            node.latency = "${toString cfg.sampleSize}/48000";
-            resample.quality = 1;
+            "stream.properties" = {
+              "node.latency" = "${toString cfg.sampleSize}/48000";
+              "resample.quality" = 1;
+            };
           };
         };
       };
