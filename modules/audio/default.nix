@@ -129,6 +129,14 @@ in
 
         pipewire-pulse = {
           "10-default" = {
+            "pulse.properties" = {
+              "pulse.min.req" = "${toString cfg.sampleSize}/48000";
+              "pulse.default.req" = "${toString cfg.sampleSize}/48000";
+              "pulse.max.req" = "${toString cfg.sampleSize}/48000";
+              "pulse.min.quantum" = "${toString cfg.sampleSize}/48000";
+              "pulse.max.quantum" = "${toString cfg.sampleSize}/48000";
+              "server.address" = [ "unix:native" ];
+            };
             "context.modules" = [
               {
                 name = "libpipewire-module-rtkit";
@@ -139,17 +147,6 @@ in
                   "rt.time.hard" = 200000;
                 };
                 flags = [ "ifexists" "nofail" ];
-              }
-              {
-                name = "libpipewire-module-protocol-pulse";
-                args = {
-                  "pulse.min.req" = "${toString cfg.sampleSize}/48000";
-                  "pulse.default.req" = "${toString cfg.sampleSize}/48000";
-                  "pulse.max.req" = "${toString cfg.sampleSize}/48000";
-                  "pulse.min.quantum" = "${toString cfg.sampleSize}/48000";
-                  "pulse.max.quantum" = "${toString cfg.sampleSize}/48000";
-                  "server.address" = [ "unix:native" ];
-                };
               }
             ];
 

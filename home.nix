@@ -45,7 +45,6 @@ in {
     tdesktop
     discord
     teamspeak3
-    mumble
 
     unstable.scrcpy
     youtube-music
