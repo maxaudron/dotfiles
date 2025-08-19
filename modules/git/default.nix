@@ -36,8 +36,8 @@ in
       };
 
       merge = {
-        tool = "ediff";
-        confictStyle = "diff3";
+        tool = "vimdiff";
+        # confictStyle = "diff3";
         ff = "only";
       };
 
