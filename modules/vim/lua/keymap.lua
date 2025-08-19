@@ -20,27 +20,27 @@ vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<leader>bl", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set("n", "<leader>bd", function()
-        Snacks.bufdelete()
+  Snacks.bufdelete()
 end, { desc = "Delete Buffer" })
 vim.keymap.set("n", "<leader>bo", function()
-        Snacks.bufdelete.other()
+  Snacks.bufdelete.other()
 end, { desc = "Delete Other Buffers" })
 vim.keymap.set("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
 
 -- Clear search and stop snippet on escape
 vim.keymap.set({ "i", "n", "s" }, "<esc>", function()
-        vim.cmd("noh")
-        return "<esc>"
+  vim.cmd("noh")
+  return "<esc>"
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 vim.keymap.set(
-        "n",
-        "<leader>ur",
-        "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-        { desc = "Redraw / Clear hlsearch / Diff Update" }
+  "n",
+  "<leader>ur",
+  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
 -- better indenting
@@ -65,8 +65,8 @@ vim.keymap.set("v", ">", ">gv")
 -- highlights under cursor
 vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 vim.keymap.set("n", "<leader>uI", function()
-        vim.treesitter.inspect_tree()
-        vim.api.nvim_input("I")
+  vim.treesitter.inspect_tree()
+  vim.api.nvim_input("I")
 end, { desc = "Inspect Tree" })
 
 -- floating terminal
@@ -90,10 +90,11 @@ vim.keymap.set("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous
 
 -- lsp / code
 vim.keymap.set("n", "g.", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-        { desc = "Code Action", noremap = true, silent = true })
+  { desc = "Code Action", noremap = true, silent = true })
 vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-        { desc = "Code Action", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>cf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Format", noremap = true, silent = true })
+  { desc = "Code Action", noremap = true, silent = true })
 vim.keymap.set("n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename Symbol", noremap = true, silent = true })
-vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.selection_range()<CR>", { desc = "Select LSP Range", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>",
+  { desc = "Rename Symbol", noremap = true, silent = true })
+vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.selection_range()<CR>",
+  { desc = "Select LSP Range", noremap = true, silent = true })

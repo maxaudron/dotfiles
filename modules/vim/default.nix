@@ -14,9 +14,12 @@ in
     v = "nvim";
   };
 
-  home.packages = [
-    pkgs.lua-language-server
-    pkgs.bash-language-server
+  home.packages = with pkgs; [
+    lua-language-server
+    bash-language-server
+    terraform-ls
+    tflint
+    gopls
   ];
 
   programs.neovim = {
@@ -25,12 +28,11 @@ in
     vimAlias = true;
     vimdiffAlias = true;
 
-    # extraLuaConfig = lib.fileContents ./init.lua;
-
     plugins = with pkgs.vimPlugins; [
       lazy-nvim
       catppuccin-nvim
       snacks-nvim
+      conform-nvim
 
       which-key-nvim
       mini-icons
@@ -48,7 +50,7 @@ in
 
       surround-nvim
       rainbow-delimiters-nvim
-      
+
       pkgs.nvim-decipher
 
       # Languages
@@ -96,9 +98,9 @@ in
 
       require("init")
     '';
-    };
+  };
 
-    xdg.configFile."nvim/lua" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${conf.user.home}/.dotfiles/modules/vim/lua";
-    };
+  xdg.configFile."nvim/lua" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${conf.user.home}/.dotfiles/modules/vim/lua";
+  };
 }
