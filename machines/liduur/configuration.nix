@@ -199,6 +199,7 @@
         "guest ok" = "no";
         "create mask" = "0644";
         "directory mask" = "0755";
+        "vfs objects" = "streams_xattr";
       };
       media = {
         path = "/mnt/media";
