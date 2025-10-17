@@ -1,0 +1,356 @@
+From eadb491f3eb7eba49c5ff4056e3cfb756b50d481 Mon Sep 17 00:00:00 2001
+From: amatulic <anachronist@gmail.com>
+Date: Wed, 15 Feb 2023 14:33:02 -0800
+Subject: [PATCH 1/7] Fixed issue #1207 - MMU - Change Temperature/Material
+ Purge Order Issue
+
+---
+ src/libslic3r/GCode/WipeTower.cpp | 34 ++++++++++++++++++++++---------
+ src/libslic3r/GCode/WipeTower.hpp |  3 ++-
+ 2 files changed, 26 insertions(+), 11 deletions(-)
+
+diff --git a/src/libslic3r/GCode/WipeTower.cpp b/src/libslic3r/GCode/WipeTower.cpp
+index 237ec3604dd..b7bb34c9827 100644
+--- a/src/libslic3r/GCode/WipeTower.cpp
++++ b/src/libslic3r/GCode/WipeTower.cpp
+@@ -750,8 +750,10 @@ WipeTower::ToolChangeResult WipeTower::tool_change(size_t tool)
+ 		.comment_with_value(" toolchange #", m_num_tool_changes + 1); // the number is zero-based
+ 
+     if (tool != (unsigned)(-1))
+-        writer.append(std::string("; material : " + (m_current_tool < m_filpar.size() ? m_filpar[m_current_tool].material : "(NONE)") + " -> " + m_filpar[tool].material + "\n").c_str())
+-              .append(";--------------------\n");
++        writer.append(std::string("; material : " + (m_current_tool < m_filpar.size() ?
++            m_filpar[m_current_tool].material + " " + std::to_string(m_filpar[m_current_tool].temperature) : "(NONE)") +
++            " -> " + m_filpar[tool].material + " " + std::to_string(m_filpar[tool].temperature) + "\n").c_str())
++            .append(";--------------------\n");
+ 
+     writer.speed_override_backup();
+ 	writer.speed_override(100);
+@@ -765,12 +767,12 @@ WipeTower::ToolChangeResult WipeTower::tool_change(size_t tool)
+ 
+     // Ram the hot material out of the melt zone, retract the filament into the cooling tubes and let it cool.
+     if (tool != (unsigned int)-1){ 			// This is not the last change.
+-        toolchange_Unload(writer, cleaning_box, m_filpar[m_current_tool].material,
+-                          is_first_layer() ? m_filpar[tool].first_layer_temperature : m_filpar[tool].temperature);
++        int matl_temp = is_first_layer() ? m_filpar[tool].first_layer_temperature : m_filpar[tool].temperature;
++        toolchange_Unload(writer, cleaning_box, m_filpar[m_current_tool].material, matl_temp);
+         toolchange_Change(writer, tool, m_filpar[tool].material); // Change the tool, set a speed override for soluble and flex materials.
+         toolchange_Load(writer, cleaning_box);
+         writer.travel(writer.x(), writer.y()-m_perimeter_width); // cooling and loading were done a bit down the road
+-        toolchange_Wipe(writer, cleaning_box, wipe_volume);     // Wipe the newly loaded filament until the end of the assigned wipe area.
++        toolchange_Wipe(writer, cleaning_box, wipe_volume, matl_temp); // Wipe the newly loaded filament until the end of the assigned wipe area.
+         ++ m_num_tool_changes;
+     } else
+         toolchange_Unload(writer, cleaning_box, m_filpar[m_current_tool].material, m_filpar[m_current_tool].temperature);
+@@ -894,11 +896,11 @@ void WipeTower::toolchange_Unload(
+     // be already set and there is no need to change anything. Also, the temperature could be changed
+     // for wrong extruder.
+     if (m_semm) {
+-        if (new_temperature != 0 && (new_temperature != m_old_temperature || is_first_layer()) ) { 	// Set the extruder temperature, but don't wait.
++        m_old_temperature = m_filpar[m_current_tool].temperature;
++        if (new_temperature != 0 && (new_temperature > m_old_temperature || is_first_layer()) ) { // Set the higher extruder temperature, but don't wait.
+             // If the required temperature is the same as last time, don't emit the M104 again (if user adjusted the value, it would be reset)
+             // However, always change temperatures on the first layer (this is to avoid issues with priming lines turned off).
+             writer.set_extruder_temp(new_temperature, false);
+-            m_old_temperature = new_temperature;
+         }
+     }
+ 
+@@ -923,7 +925,7 @@ void WipeTower::toolchange_Unload(
+     }
+ 
+     if (m_semm) {
+-        // let's wait is necessary:
++        // let's wait if necessary:
+         writer.wait(m_filpar[m_current_tool].delay);
+         // we should be at the beginning of the cooling tube again - let's move to parking position:
+         writer.retract(-m_cooling_tube_length/2.f+m_parking_pos_retraction-m_cooling_tube_retraction, 2000);
+@@ -1007,11 +1009,12 @@ void WipeTower::toolchange_Load(
+ void WipeTower::toolchange_Wipe(
+ 	WipeTowerWriter &writer,
+ 	const box_coordinates  &cleaning_box,
+-	float wipe_volume)
++	float wipe_volume,
++    int new_temperature)
+ {
+ 	// Increase flow on first layer, slow down print.
+     writer.set_extrusion_flow(m_extrusion_flow * (is_first_layer() ? 1.18f : 1.f))
+-		  .append("; CP TOOLCHANGE WIPE\n");
++        .append(std::string("; CP TOOLCHANGE WIPE - temperature " + std::to_string(m_old_temperature) + " -> " + std::to_string(new_temperature) + "\n").c_str());
+ 	const float& xl = cleaning_box.ld.x();
+ 	const float& xr = cleaning_box.rd.x();
+ 
+@@ -1031,6 +1034,11 @@ void WipeTower::toolchange_Wipe(
+         m_left_to_right = !m_left_to_right;
+     }
+     
++    // Before starting wipe with a single-extruder MMU, wait for destination temperature if warming up.
++    // If destination temp is cooler, set it without waiting; we can purge while it cools.
++    if (m_semm && new_temperature != 0)
++        writer.set_extruder_temp(new_temperature, (new_temperature > m_old_temperature));
++
+     // now the wiping itself:
+ 	for (int i = 0; true; ++i)	{
+ 		if (i!=0) {
+@@ -1070,6 +1078,12 @@ void WipeTower::toolchange_Wipe(
+         m_left_to_right = !m_left_to_right;
+ 
+     writer.set_extrusion_flow(m_extrusion_flow); // Reset the extrusion flow.
++
++    // Before starting to print with a single-extruder MMU, AND if cooling down,
++    // wait for destination temperature to settle because temperature may bounce while cooling.
++    // If new temperature is higher, then it's already correct from before starting the wipe.
++    if (m_semm && new_temperature != 0 && new_temperature < m_old_temperature)
++        writer.set_extruder_temp(new_temperature, true);
+ }
+ 
+ 
+diff --git a/src/libslic3r/GCode/WipeTower.hpp b/src/libslic3r/GCode/WipeTower.hpp
+index 7f4a6bf9aa4..db0a13fd0ae 100644
+--- a/src/libslic3r/GCode/WipeTower.hpp
++++ b/src/libslic3r/GCode/WipeTower.hpp
+@@ -385,7 +385,8 @@ class WipeTower
+ 	void toolchange_Wipe(
+ 		WipeTowerWriter &writer,
+ 		const box_coordinates  &cleaning_box,
+-		float wipe_volume);
++		float wipe_volume,
++		const int new_temperature = 0);
+ };
+ 
+ 
+
+From d56f804e52dbd8eeceb0785c74177a7cf660389a Mon Sep 17 00:00:00 2001
+From: amatulic <anachronist@gmail.com>
+Date: Sat, 16 Sep 2023 07:15:23 -0700
+Subject: [PATCH 2/7] minor correction for fast-cooling extruders
+
+---
+ src/libslic3r/GCode/WipeTower.cpp | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/src/libslic3r/GCode/WipeTower.cpp b/src/libslic3r/GCode/WipeTower.cpp
+index 8be4d514393..536b05fb2a1 100644
+--- a/src/libslic3r/GCode/WipeTower.cpp
++++ b/src/libslic3r/GCode/WipeTower.cpp
+@@ -1090,9 +1090,9 @@ void WipeTower::toolchange_Wipe(
+     }
+     
+     // Before starting wipe with a single-extruder MMU, wait for destination temperature if warming up.
+-    // If destination temp is cooler, set it without waiting; we can purge while it cools.
+-    if (m_semm && new_temperature != 0)
+-        writer.set_extruder_temp(new_temperature, (new_temperature > m_old_temperature));
++    // If destination temp is cooler, wait until after wipe to set it (for compatibility with fast-cooling extruders).
++    if (m_semm && new_temperature > m_old_temperature)
++        writer.set_extruder_temp(new_temperature, true);
+ 
+     // now the wiping itself:
+ 	for (int i = 0; true; ++i)	{
+@@ -1122,6 +1122,10 @@ void WipeTower::toolchange_Wipe(
+         writer.extrude(writer.x() + (i % 4 == 0 ? -1.f : (i % 4 == 1 ? 1.f : 0.f)) * 1.5f*m_perimeter_width, writer.y() + dy);
+ 		m_left_to_right = !m_left_to_right;
+ 	}
++    // For single-extruder MMU, we wait until here to set cooler temperature (if applicable)
++    // so that a fast-cooling extruder can completely purge the higher temperature material
++    if (m_semm && new_temperature != 0 && new_temperature < m_old_temperature)
++        writer.set_extruder_temp(new_temperature, false);
+ 
+     // We may be going back to the model - wipe the nozzle. If this is followed
+     // by finish_layer, this wipe path will be overwritten.
+@@ -1135,7 +1139,7 @@ void WipeTower::toolchange_Wipe(
+     writer.set_extrusion_flow(m_extrusion_flow); // Reset the extrusion flow.
+ 
+     // Before starting to print with a single-extruder MMU, AND if cooling down,
+-    // wait for destination temperature to settle because temperature may bounce while cooling.
++    // wait for destination temperature to settle before resuming print.
+     // If new temperature is higher, then it's already correct from before starting the wipe.
+     if (m_semm && new_temperature != 0 && new_temperature < m_old_temperature)
+         writer.set_extruder_temp(new_temperature, true);
+
+From b168b5f9ff7e93bf0dea3ddfad5134710f1e595c Mon Sep 17 00:00:00 2001
+From: amatulic <anachronist@gmail.com>
+Date: Thu, 23 Nov 2023 14:13:06 -0800
+Subject: [PATCH 3/7] Resolve merge conflict
+
+---
+ src/libslic3r/GCode/WipeTower.cpp | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/libslic3r/GCode/WipeTower.cpp b/src/libslic3r/GCode/WipeTower.cpp
+index 536b05fb2a1..d135d322eb4 100644
+--- a/src/libslic3r/GCode/WipeTower.cpp
++++ b/src/libslic3r/GCode/WipeTower.cpp
+@@ -796,11 +796,11 @@ WipeTower::ToolChangeResult WipeTower::tool_change(size_t tool)
+ 				"; CP TOOLCHANGE START\n")
+ 		.comment_with_value(" toolchange #", m_num_tool_changes + 1); // the number is zero-based
+ 
+-    if (tool != (unsigned)(-1))
+-        writer.append(std::string("; material : " + (m_current_tool < m_filpar.size() ?
+-            m_filpar[m_current_tool].material + " " + std::to_string(m_filpar[m_current_tool].temperature) : "(NONE)") +
+-            " -> " + m_filpar[tool].material + " " + std::to_string(m_filpar[tool].temperature) + "\n").c_str())
+-            .append(";--------------------\n");
++    if (tool != (unsigned)(-1)) {
++        writer.comment_with_value(" toolchange #", m_num_tool_changes + 1); // the number is zero-based
++        writer.append(std::string("; material : " + (m_current_tool < m_filpar.size() ? m_filpar[m_current_tool].material : "(NONE)") + " -> " + m_filpar[tool].material + "\n").c_str())
++              .append(";--------------------\n");
++    }
+ 
+     writer.speed_override_backup();
+ 	writer.speed_override(100);
+
+From 2432eb1214161f2f55eaec47277647ce7fea5ffd Mon Sep 17 00:00:00 2001
+From: amatulic <anachronist@gmail.com>
+Date: Thu, 23 Nov 2023 14:42:02 -0800
+Subject: [PATCH 4/7] Restore change after merge conflict
+
+---
+ src/libslic3r/GCode/WipeTower.cpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/libslic3r/GCode/WipeTower.cpp b/src/libslic3r/GCode/WipeTower.cpp
+index d135d322eb4..555e796f667 100644
+--- a/src/libslic3r/GCode/WipeTower.cpp
++++ b/src/libslic3r/GCode/WipeTower.cpp
+@@ -798,7 +798,9 @@ WipeTower::ToolChangeResult WipeTower::tool_change(size_t tool)
+ 
+     if (tool != (unsigned)(-1)) {
+         writer.comment_with_value(" toolchange #", m_num_tool_changes + 1); // the number is zero-based
+-        writer.append(std::string("; material : " + (m_current_tool < m_filpar.size() ? m_filpar[m_current_tool].material : "(NONE)") + " -> " + m_filpar[tool].material + "\n").c_str())
++        writer.append(std::string("; material : " + (m_current_tool < m_filpar.size() ?
++            m_filpar[m_current_tool].material + " " + std::to_string(m_filpar[m_current_tool].temperature) : "(NONE)") +
++            " -> " + m_filpar[tool].material + " " + std::to_string(m_filpar[tool].temperature) +"\n").c_str())
+               .append(";--------------------\n");
+     }
+ 
+
+From 4332cc028a17a7b48fa0297b527e4cbcead7f7da Mon Sep 17 00:00:00 2001
+From: Alex Matulich <anachronist@gmail.com>
+Date: Thu, 9 May 2024 13:14:15 -0700
+Subject: [PATCH 5/7] re-added line that got lost while resolving merge
+ conflict
+
+---
+ src/libslic3r/GCode/WipeTower.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/libslic3r/GCode/WipeTower.cpp b/src/libslic3r/GCode/WipeTower.cpp
+index 87bfbb4bba3..7eb12cca8fa 100644
+--- a/src/libslic3r/GCode/WipeTower.cpp
++++ b/src/libslic3r/GCode/WipeTower.cpp
+@@ -861,9 +861,10 @@ WipeTower::ToolChangeResult WipeTower::tool_change(size_t tool)
+ 
+     // Ram the hot material out of the melt zone, retract the filament into the cooling tubes and let it cool.
+     if (tool != (unsigned int)-1){ 			// This is not the last change.
++        int matl_temp = is_first_layer() ? m_filpar[tool].first_layer_temperature : m_filpar[tool].temperature;
+         toolchange_Unload(writer, cleaning_box, m_filpar[m_current_tool].material,
+                           (is_first_layer() ? m_filpar[m_current_tool].first_layer_temperature : m_filpar[m_current_tool].temperature),
+-                          (is_first_layer() ? m_filpar[tool].first_layer_temperature : m_filpar[tool].temperature));
++                          matl_temp);
+         toolchange_Change(writer, tool, m_filpar[tool].material); // Change the tool, set a speed override for soluble and flex materials.
+         toolchange_Load(writer, cleaning_box);
+         writer.travel(writer.x(), writer.y()-m_perimeter_width); // cooling and loading were done a bit down the road
+
+From ad5179fe4c82983f9afc8cc7b50c060225cc74c6 Mon Sep 17 00:00:00 2001
+From: Alex Matulich <anachronist@gmail.com>
+Date: Wed, 15 May 2024 10:05:19 -0700
+Subject: [PATCH 6/7] Change temperature in middle of wipe
+
+---
+ src/libslic3r/GCode/WipeTower.cpp | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/src/libslic3r/GCode/WipeTower.cpp b/src/libslic3r/GCode/WipeTower.cpp
+index 7eb12cca8fa..f1887fd3531 100644
+--- a/src/libslic3r/GCode/WipeTower.cpp
++++ b/src/libslic3r/GCode/WipeTower.cpp
+@@ -1195,10 +1195,15 @@ void WipeTower::toolchange_Wipe(
+         m_left_to_right = !m_left_to_right;
+     }
+     
++    // set values for temperature change mid-wipe if cooling down
++    bool new_temp_set = false;
++    float y_temp_change = 0.5 * (writer.y() + cleaning_box.lu.y()); // factor 0.5 = switch to new temperature after 50% of wipe complete
+     // Before starting wipe with a single-extruder MMU, wait for destination temperature if warming up.
+     // If destination temp is cooler, wait until after wipe to set it (for compatibility with fast-cooling extruders).
+-    if (m_semm && new_temperature > m_old_temperature)
++    if (m_semm && new_temperature > m_old_temperature) {
+         writer.set_extruder_temp(new_temperature, true);
++        new_temp_set = true;
++    }
+ 
+     // now the wiping itself:
+ 	for (int i = 0; true; ++i)	{
+@@ -1215,6 +1220,12 @@ void WipeTower::toolchange_Wipe(
+ 		else
+             writer.extrude(xl + (i % 4 == 1 ? 0 : 1.5f*line_width), writer.y(), wipe_speed);
+ 
++        // For single-extruder MMU, if new temperature is lower, set it if nozzle has passed the y value threshold for temperature change
++        if (m_semm && new_temperature != 0 && new_temperature < m_old_temperature && !new_temp_set && writer.y() > y_temp_change) {
++            writer.set_extruder_temp(new_temperature, false); // don't wait for new temperature, keep going
++            new_temp_set = true;
++        }
++
+         if (writer.y()+float(EPSILON) > cleaning_box.lu.y()-0.5f*line_width)
+             break;		// in case next line would not fit
+ 
+@@ -1228,10 +1239,6 @@ void WipeTower::toolchange_Wipe(
+         writer.extrude(writer.x() + (i % 4 == 0 ? -1.f : (i % 4 == 1 ? 1.f : 0.f)) * 1.5f*line_width, writer.y() + dy);
+ 		m_left_to_right = !m_left_to_right;
+ 	}
+-    // For single-extruder MMU, we wait until here to set cooler temperature (if applicable)
+-    // so that a fast-cooling extruder can completely purge the higher temperature material
+-    if (m_semm && new_temperature != 0 && new_temperature < m_old_temperature)
+-        writer.set_extruder_temp(new_temperature, false);
+ 
+     // We may be going back to the model - wipe the nozzle. If this is followed
+     // by finish_layer, this wipe path will be overwritten.
+@@ -1245,7 +1252,7 @@ void WipeTower::toolchange_Wipe(
+     writer.set_extrusion_flow(m_extrusion_flow); // Reset the extrusion flow.
+     writer.change_analyzer_line_width(m_perimeter_width);
+     // Before starting to print with a single-extruder MMU, AND if cooling down,
+-    // wait for destination temperature to settle before resuming print.
++    // wait for destination temperature to settle (if needed) before resuming print.
+     // If new temperature is higher, then it's already correct from before starting the wipe.
+     if (m_semm && new_temperature != 0 && new_temperature < m_old_temperature)
+         writer.set_extruder_temp(new_temperature, true);
+
+From 266b48df8831487431258243c30591b9d1751f35 Mon Sep 17 00:00:00 2001
+From: Alex Matulich <anachronist@gmail.com>
+Date: Mon, 3 Jun 2024 23:35:56 -0700
+Subject: [PATCH 7/7] Removed final wait for temperature, reduced temperature
+ transitionpoint to about 40% of wipe tower surface
+
+---
+ src/libslic3r/GCode/WipeTower.cpp | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/src/libslic3r/GCode/WipeTower.cpp b/src/libslic3r/GCode/WipeTower.cpp
+index f1887fd3531..e6263be5f1c 100644
+--- a/src/libslic3r/GCode/WipeTower.cpp
++++ b/src/libslic3r/GCode/WipeTower.cpp
+@@ -1197,9 +1197,11 @@ void WipeTower::toolchange_Wipe(
+     
+     // set values for temperature change mid-wipe if cooling down
+     bool new_temp_set = false;
+-    float y_temp_change = 0.5 * (writer.y() + cleaning_box.lu.y()); // factor 0.5 = switch to new temperature after 50% of wipe complete
++    // set y value to switch to lower temperature; ~20% of surface is already taken by cooling move, switch after another 30%
++    // because for standard purge volumes, a color change is mostly complete after about 40% of the surface is covered
++    float y_temp_change = 0.30f * (cleaning_box.lu.y() - writer.y()) + writer.y();
+     // Before starting wipe with a single-extruder MMU, wait for destination temperature if warming up.
+-    // If destination temp is cooler, wait until after wipe to set it (for compatibility with fast-cooling extruders).
++    // If destination temp is cooler, wait until mid-wipe to set it (for compatibility with fast-cooling extruders).
+     if (m_semm && new_temperature > m_old_temperature) {
+         writer.set_extruder_temp(new_temperature, true);
+         new_temp_set = true;
+@@ -1251,11 +1253,6 @@ void WipeTower::toolchange_Wipe(
+ 
+     writer.set_extrusion_flow(m_extrusion_flow); // Reset the extrusion flow.
+     writer.change_analyzer_line_width(m_perimeter_width);
+-    // Before starting to print with a single-extruder MMU, AND if cooling down,
+-    // wait for destination temperature to settle (if needed) before resuming print.
+-    // If new temperature is higher, then it's already correct from before starting the wipe.
+-    if (m_semm && new_temperature != 0 && new_temperature < m_old_temperature)
+-        writer.set_extruder_temp(new_temperature, true);
+ }
+ 
+ 
