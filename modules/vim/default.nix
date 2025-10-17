@@ -20,6 +20,8 @@ in
     terraform-ls
     tflint
     gopls
+
+    himalaya
   ];
 
   programs.neovim = {
@@ -52,6 +54,8 @@ in
       rainbow-delimiters-nvim
 
       pkgs.nvim-decipher
+
+      himalaya-vim
 
       # Languages
       rustaceanvim

@@ -11,3 +11,4 @@ vim.opt.pumblend = 10        -- Popup blend
 vim.opt.pumheight = 10       -- Maximum number of entries in a popup
 vim.opt.shiftround = true    -- Round indent
 vim.opt.shiftwidth = 2       -- Size of an indent
+vim.opt.exrc = true          -- allow loading directory vimrc files

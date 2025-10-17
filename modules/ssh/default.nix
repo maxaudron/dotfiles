@@ -9,9 +9,9 @@
     '';
 
     matchBlocks = {
-      "10.49.212.* 10.49.213.* 10.49.214.*" = {
-        proxyJump = "rancher.cke.de.clara.net";
-      };
+      # "10.49.212.* 10.49.213.* 10.49.214.*" = {
+      #   proxyJump = "rancher.cke.de.clara.net";
+      # };
 
       "10.53.10.* 10.53.11.* 10.53.0.* 10.51.0.* 10.52.0.*" = {
         proxyJump = "mgt01.rancher.shared-k8s.de.clara.net";

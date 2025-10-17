@@ -82,7 +82,7 @@
           };
           modules = [
             overlays
-	    determinate.nixosModules.default
+            determinate.nixosModules.default
             home-manager.nixosModules.home-manager
             ./machines/liduur/configuration.nix
           ];
