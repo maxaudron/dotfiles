@@ -14,6 +14,7 @@
     ../../modules/home-manager
     ../../modules/tgt
     ../../modules/klipper
+    ../../modules/cosmic
   ];
 
   audio.autoConnect = [

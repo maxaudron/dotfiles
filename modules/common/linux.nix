@@ -168,10 +168,10 @@ in
     };
 
     displayManager = {
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
+      # sddm = {
+      #   enable = true;
+      #   wayland.enable = true;
+      # };
       sessionPackages = [ ];
     };
 
@@ -199,13 +199,13 @@ in
     enable32Bit = true;
   };
 
-  services.greetd = {
-    enable = false;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
-    };
-  };
+  # services.greetd = {
+  #   enable = false;
+  #   settings = {
+  #     default_session = {
+  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+  #       user = "greeter";
+  #     };
+  #   };
+  # };
 }
