@@ -1,13 +1,16 @@
-{ config, pkgs, lib, builtins, ... }:
+{ config, pkgs, lib, builtins, catppuccin, ... }:
 
 let conf = import modules/config { inherit lib; };
 in {
   imports = [
+    catppuccin.homeModules.catppuccin
+
     # modules/doom-emacs
-    modules/zed
+    # modules/zed
     modules/vim
 
     modules/alacritty
+    modules/firefox
     modules/podman
     modules/shell
     modules/dev
@@ -19,6 +22,9 @@ in {
 
     modules/kicad
     modules/weechat
+
+    modules/hyprland
+    modules/tofi
   ];
 
   home.username = conf.user.name;
@@ -28,14 +34,25 @@ in {
 
   fonts.fontconfig.enable = false;
 
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+
+    cache.enable = true;
+
+    firefox.force = true;
+    cursors = {
+      enable = true;
+      accent = "dark";
+    };
+  };
+
   home.packages = with pkgs; [
     alacritty
     grim
     slurp
-    mpv
 
     quasselClient
-    imv
     rawtherapee
     blender
 
@@ -56,6 +73,9 @@ in {
     hledger
     hledger-web
   ];
+
+  programs.imv.enable = true;
+  programs.mpv.enable = true;
 
   home.stateVersion = "24.05";
 }

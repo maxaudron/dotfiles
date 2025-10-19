@@ -6,7 +6,7 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     secrets = {
-      url = "git+ssh://git@gitlab.com/audron/secrets.git";
+      url = "git+ssh://gitea@git.vapor.systems/audron/secrets.git";
       flake = false;
     };
 
@@ -29,6 +29,14 @@
       url = "gitlab:cocainefarm/gtree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    catppuccin.url = "github:catppuccin/nix/release-25.05";
+    textfox.url = "github:adriankarlen/textfox";
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -43,6 +51,9 @@
       home-manager,
       fenix,
       gtree,
+      catppuccin,
+      textfox,
+      noctalia
     }:
     let
       specialArgs = inputs // {
@@ -84,6 +95,7 @@
             overlays
             determinate.nixosModules.default
             home-manager.nixosModules.home-manager
+            catppuccin.nixosModules.catppuccin
             ./machines/liduur/configuration.nix
           ];
         };

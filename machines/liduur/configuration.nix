@@ -14,7 +14,6 @@
     ../../modules/home-manager
     ../../modules/tgt
     ../../modules/klipper
-    ../../modules/cosmic
   ];
 
   audio.autoConnect = [
@@ -221,6 +220,25 @@
         "map acl inherit" = "yes";
       };
     };
+  };
+
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    package = pkgs.unstable.hyprland;
+    portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
+  };
+
+  programs.uwsm = {
+    enable = true;
+
+    # waylandCompositors = {
+    #   hyprland = {
+    #     prettyName = "Hyprland";
+    #     comment = "Hyprland compositor managed by UWSM";
+    #     binPath = "${config.programs.hyprland.package}/bin/Hyprland";
+    #   };
+    # };
   };
 
   # This value determines the NixOS release from which the default

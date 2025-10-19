@@ -5,18 +5,10 @@
   ...
 }:
 
-let catppuccin = pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "alacritty";
-        rev = "343cf8d";
-        hash = "sha256-5MUWHXs8vfl2/u6YXB4krT5aLutVssPBr+DiuOdMAto=";
-    };
-in {
+{
   programs.alacritty = {
     enable = true;
     settings = {
-      general.import = [ "${catppuccin}/catppuccin-mocha.toml" ];
-
       keyboard.bindings = [
         {
           key = "Return";

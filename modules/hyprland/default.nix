@@ -1,10 +1,17 @@
-{ config, lib, pkgs, hyprland, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
-    hyprland.homeManagerModules.default
     ./hyprpaper
-    ./mako
+    ./quickshell
+    # ./mako
+
+    ./settings.nix
   ];
 
   home.packages = with pkgs; [
@@ -18,13 +25,23 @@
 
     qt6.qtwayland
     libsForQt5.qt5.qtwayland
-    xdg-desktop-portal-hyprland
+
+    pkgs.unstable.quickshell
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
-    extraConfig = lib.readFile ./hyprland.conf;
+
+    # package = pkgs.unstable.hyprland;
+    # portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
+    package = null;
+    portalPackage = null;
+
+    plugins = with pkgs.unstable.hyprlandPlugins; [
+      hy3
+      hyprsplit
+    ];
+
     systemd.enable = true;
     xwayland = {
       enable = true;
@@ -38,4 +55,15 @@
       name = "Arc-Dark";
     };
   };
+
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    GDK_BACKEND = "wayland,x11";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    SDL_VIDEODRIVER = "wayland";
+    CLUTTER_BACKEND = "wayland";
+  };
+
+  xdg.configFile."uwsm/env".source =
+    "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
 }

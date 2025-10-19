@@ -111,7 +111,7 @@ in
       set fish_greeting # Disable greeting
 
       # Hydro
-      set --global hydro_symbol_prompt ❱
+      set --global hydro_symbol_prompt '>'
       set --global hydro_color_pwd 'cba6f7'
       set --global hydro_color_prompt 'cba6f7'
 

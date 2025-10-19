@@ -3,14 +3,6 @@
 let conf = import ../config { inherit lib; };
 in
 {
-  # home.file.".gnupg/gpg-agent.conf".text = ''
-  #   enable-ssh-support
-  #   max-cache-ttl 60480000
-  #   default-cache-ttl 60480000
-  #   allow-emacs-pinentry
-  # '';
-  #
-
   programs.gpg = {
     enable = true;
 

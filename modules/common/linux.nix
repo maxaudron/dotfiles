@@ -2,14 +2,15 @@
   config,
   lib,
   pkgs,
+  nixpkgs-unstable,
   ...
 }:
 
-let
-  grub2-theme = pkgs.callPackage ../../pkgs/grub2-theme { };
-in
 {
-  imports = [ ./udev.nix ];
+  imports = [ 
+    ./udev.nix
+    "${nixpkgs-unstable}/nixos/modules/services/display-managers/lemurs.nix"
+  ];
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -17,18 +18,10 @@ in
     grub = {
       configurationLimit = 3;
 
-      theme = "${grub2-theme}/grub/themes/vimix";
-      splashImage = "${grub2-theme}/grub/themes/vimix/background.jpg";
-      gfxmodeEfi = "3440x1440x32,auto";
-      gfxmodeBios = "3440x1440x32,auto";
+      gfxmodeEfi = "3840x2160x32,auto";
+      gfxmodeBios = "3840x2160x32,auto";
       gfxpayloadEfi = "keep";
       gfxpayloadBios = "keep";
-      font = "${pkgs.ibm-plex}/share/fonts/opentype/IBMPlexMono-Regular.otf";
-      extraConfig = ''
-        insmod gfxterm
-        insmod png
-        set icondir=($root)/theme/icons
-      '';
     };
 
     timeout = 1;
@@ -37,18 +30,8 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    firefox-wayland
-
     dfu-util
     usbutils
-
-    sqlite
-
-    openhantek6022
-
-    sddm-theme-chili
-
-    browserpass
   ];
 
   services.printing = {
@@ -68,11 +51,6 @@ in
   programs.dconf.enable = true;
   programs.adb.enable = true;
 
-  programs.firefox = {
-    enable = true;
-    nativeMessagingHosts.packages = [ pkgs.browserpass ];
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.audron = {
     isNormalUser = true;
@@ -87,6 +65,7 @@ in
       "video"
       "adbusers"
       "scanner"
+      "seat"
       "lp"
     ];
     shell = pkgs.fish;
@@ -155,7 +134,8 @@ in
     };
   };
   console = {
-    font = "Lat2-Terminus16";
+    font = "${pkgs.spleen}/share/consolefonts/spleen-16x32.psfu";
+    packages = [ pkgs.spleen ];
     keyMap = "us";
   };
 
@@ -165,47 +145,22 @@ in
     xserver = {
       enable = true;
       wacom.enable = true;
+      displayManager.lightdm.enable = false;
     };
 
     displayManager = {
-      # sddm = {
-      #   enable = true;
-      #   wayland.enable = true;
-      # };
+      lemurs = {
+        enable = true;
+        settings = {};
+      };
       sessionPackages = [ ];
     };
-
-    desktopManager.plasma6.enable = true;
   };
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      colord = prev.colord.overrideAttrs (
-        final: prev: rec {
-          version = "1.4.7";
-          src = pkgs.fetchurl {
-            url = "https://www.freedesktop.org/software/colord/releases/${prev.pname}-${version}.tar.xz";
-            hash = "sha256-3gLZkQY0rhWVR1hc7EFORQ9xHCcjVFO0+bOKnyNhplM=";
-          };
-        }
-      );
-    })
-  ];
-
-  services.colord.enable = true;
+  systemd.services.display-manager.enable = true;
 
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
   };
-
-  # services.greetd = {
-  #   enable = false;
-  #   settings = {
-  #     default_session = {
-  #       command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-  #       user = "greeter";
-  #     };
-  #   };
-  # };
 }

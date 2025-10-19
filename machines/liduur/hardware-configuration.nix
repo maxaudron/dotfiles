@@ -14,7 +14,7 @@
     initrd = {
       availableKernelModules =
         [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-      kernelModules = [ ];
+      kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
     };
 
     kernelPackages = pkgs.linuxKernel.packages.linux_rt_6_6;

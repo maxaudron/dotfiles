@@ -20,6 +20,7 @@ in
     terraform-ls
     tflint
     gopls
+    kdePackages.qtdeclarative
 
     himalaya
   ];
@@ -71,6 +72,7 @@ in
       nvim-treesitter-parsers.latex
       nvim-treesitter-parsers.html
       nvim-treesitter-parsers.bash
+      nvim-treesitter-parsers.qmljs
     ];
 
     extraLuaConfig = ''
