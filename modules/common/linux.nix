@@ -39,7 +39,6 @@
     drivers = [ ];
   };
 
-  services.flatpak.enable = true;
   services.nfs.server.enable = true;
 
   xdg.portal = {
