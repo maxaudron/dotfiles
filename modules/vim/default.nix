@@ -51,8 +51,11 @@ in
       trouble-nvim
       lualine-nvim
 
-      surround-nvim
+      nvim-highlight-colors
       rainbow-delimiters-nvim
+      mini-surround
+      mini-pairs
+
 
       pkgs.nvim-decipher
 
@@ -71,6 +74,7 @@ in
       nvim-treesitter-parsers.markdown_inline
       nvim-treesitter-parsers.latex
       nvim-treesitter-parsers.html
+      nvim-treesitter-parsers.css
       nvim-treesitter-parsers.bash
       nvim-treesitter-parsers.qmljs
     ];
