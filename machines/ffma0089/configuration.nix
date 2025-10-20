@@ -9,7 +9,10 @@ let
   conf = import ../../modules/config { inherit lib; };
 in
 {
-  imports = [ ../../modules/common ];
+  imports = [ 
+    ../../modules/common 
+    ../../modules/home-manager
+  ];
 
   users.users."${conf.user.name}" = {
     name = conf.user.name;
@@ -19,34 +22,10 @@ in
   };
   users.knownUsers = [ conf.user.name ];
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = false;
-  home-manager.users."${conf.user.name}" = import ./home.nix;
-
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [ qemu ];
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  # environment.systemPackages =
-  #   [ pkgs.go
-  #     pkgs.go-md2man
-  #     pkgs.vim
-  #     pkgs.exa
-  #     pkgs.mpv
-  #     pkgs.fzf
-  #     pkgs.qemu
-  #     pkgs.htop
-  #     pkgs.inxi
-  #     pkgs.stow
-  #     pkgs.pass
-  #     pkgs.gnupg
-  #     pkgs.yabai
-  #     pkgs.gvproxy
-  #     pkgs.emacsUnstable
-  #     # pkgs.pulseaudio
-  #   ];
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix

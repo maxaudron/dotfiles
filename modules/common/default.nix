@@ -60,11 +60,6 @@ in
   # Enable zsh completion for system packages
   environment.pathsToLink = [ "/share/zsh" ];
 
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-  };
-
   fonts.packages = with pkgs; [
     ibm-plex
     nerd-fonts.iosevka

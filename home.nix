@@ -1,38 +1,32 @@
 { config, pkgs, lib, builtins, catppuccin, ... }:
 
 let conf = import modules/config { inherit lib; };
+    linux = (conf.os.type == "linux");
 in {
   imports = [
     catppuccin.homeModules.catppuccin
 
-    # modules/doom-emacs
-    # modules/zed
     modules/vim
-
     modules/alacritty
     modules/firefox
-    modules/podman
     modules/shell
     modules/dev
     modules/git
     modules/gpg
     modules/ssh
-
+  ] ++ (if linux then [
+    modules/podman
     modules/games
-
     modules/kicad
     modules/weechat
-
     modules/hyprland
     modules/tofi
-  ];
+  ] else []);
 
   home.username = conf.user.name;
   home.homeDirectory = conf.user.home;
 
   programs.home-manager.enable = true;
-
-  fonts.fontconfig.enable = false;
 
   catppuccin = {
     enable = true;
@@ -42,39 +36,27 @@ in {
 
     firefox.force = true;
     cursors = {
-      enable = true;
+      enable = linux;
       accent = "dark";
     };
   };
 
   home.packages = with pkgs; [
-    alacritty
-    grim
-    slurp
-
-    quasselClient
-    rawtherapee
-    blender
-
     nix-index
 
     google-chrome
-    tdesktop
+    youtube-music
+  ] ++ (if linux then [
+    quasselClient
+
     discord
     teamspeak3
 
-    unstable.scrcpy
-    youtube-music
-    solvespace
-    freecad
-
-    savvycan
-
     hledger
     hledger-web
-  ];
+  ] else []);
 
-  programs.imv.enable = true;
+  programs.imv.enable = linux;
   programs.mpv.enable = true;
 
   home.stateVersion = "24.05";

@@ -16,6 +16,8 @@
 
   home.packages = with pkgs; [
     wl-clipboard
+    grim
+    slurp
     seatd
 
     gtk-engine-murrine
@@ -92,5 +94,4 @@
       };
     };
   };
-
 }

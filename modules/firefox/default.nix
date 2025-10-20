@@ -14,9 +14,9 @@
     nativeMessagingHosts = [ pkgs.browserpass ];
 
     profiles = {
-      "3xmsqkrh.default" = {
-        name = "default";
-        path = "3xmsqkrh.default";
+      "audron" = {
+        name = "audron";
+        path = "audron";
         extensions = {
           force = true;
           settings."FirefoxColor@mozilla.com" = {
@@ -45,7 +45,7 @@
 
   textfox = {
     enable = true;
-    profile = "3xmsqkrh.default";
+    profile = "audron";
     config = {
       displayWindowControls = false;
       displayNavButtons = false;
