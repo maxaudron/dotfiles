@@ -54,6 +54,8 @@ in {
 
     hledger
     hledger-web
+
+    soulseekqt
   ] else []);
 
   programs.imv.enable = linux;
