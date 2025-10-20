@@ -36,21 +36,17 @@ let
     lg = "eza -al --group-directories-first --git --time-style=long-iso";
     "l." = "eza -al --git --group-directories-first --time-style=long-iso -F -I '[!^.]*'";
     lt = "eza -al --git --group-directories-first --time-style=long-iso -I .git --tree";
-
-    z = "${pkgs.unstable.zed-editor}/bin/zeditor";
   };
 
 in
 {
   imports = [
-    ./powerlevel10k.nix
     ./functions.nix
   ];
 
   home.packages = with pkgs; [
     fzf
     eza
-    tmux
     tmux-cssh
     ack
 
@@ -69,42 +65,6 @@ in
     '';
   };
 
-  programs.zsh = {
-    enable = false;
-
-    autosuggestion.enable = true;
-    defaultKeymap = "viins";
-
-    plugins = [
-      {
-        name = "fzf";
-        file = "share/fzf/key-bindings.zsh";
-        src = pkgs.fzf;
-      }
-      {
-        name = "fast-syntax-highlighting";
-        file = "fast-syntax-highlighting.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "zdharma-continuum";
-          repo = "fast-syntax-highlighting";
-          rev = "ef8ba84c3a76c768f49a0bdd2a620b2f53c2478a";
-          hash = "sha256:058s55r8gq1giwnb2si8k38nvd0qy8jlhd9zhvsxyl0mvi7wk9ar";
-        };
-      }
-    ];
-
-    dotDir = ".config/zsh";
-    history = {
-      size = 5000;
-      save = 10000;
-      path = "${config.home.homeDirectory}/.config/.zsh/.zsh_history";
-    };
-
-    completionInit = lib.readFile ./completion.zsh;
-
-    initContent = lib.readFile ./zshrc;
-  };
-
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -114,8 +74,6 @@ in
       set --global hydro_symbol_prompt '>'
       set --global hydro_color_pwd 'cba6f7'
       set --global hydro_color_prompt 'cba6f7'
-
-      set --global LS_COLORS '${builtins.readFile ./ls_colors}'
 
       set --global GPG_TTY "$(tty)"
       set --global SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
