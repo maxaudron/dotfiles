@@ -1,11 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ ncmpcpp ];
-
   services.mpd = {
     enable = true;
     dbFile = null;
+    musicDirectory = "/share/music/";
 
     extraConfig = ''
       input {
@@ -22,5 +21,13 @@
         name "MPD"
       }
     '';
+  };
+
+  services.mpdris2 = {
+    enable = true;
+  };
+
+  programs.ncmpcpp = {
+    enable = true;
   };
 }

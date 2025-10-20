@@ -20,7 +20,7 @@ in {
     modules/kicad
     modules/weechat
     modules/hyprland
-    modules/tofi
+    modules/mpd
   ] else []);
 
   home.username = conf.user.name;
