@@ -56,7 +56,6 @@ in
       mini-surround
       mini-pairs
 
-
       pkgs.nvim-decipher
 
       himalaya-vim
@@ -66,6 +65,7 @@ in
       neotest
 
       # treesitter
+      nvim-treesitter
       nvim-treesitter-context
       nvim-treesitter-parsers.rust
       nvim-treesitter-parsers.luap
@@ -77,6 +77,8 @@ in
       nvim-treesitter-parsers.css
       nvim-treesitter-parsers.bash
       nvim-treesitter-parsers.qmljs
+      nvim-treesitter-parsers.tera
+      nvim-treesitter-parsers.styled
     ];
 
     extraLuaConfig = ''
@@ -110,7 +112,12 @@ in
     '';
   };
 
-  xdg.configFile."nvim/lua" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${conf.user.home}/.dotfiles/modules/vim/lua";
+  xdg.configFile = {
+    "nvim/lua" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${conf.user.home}/.dotfiles/modules/vim/lua";
+    };
+    "nvim/queries" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${conf.user.home}/.dotfiles/modules/vim/queries";
+    };
   };
 }
