@@ -5,20 +5,11 @@
 
   services.mpd = {
     enable = true;
-    package = pkgs.mpd.overrideAttrs (prev: {
-      buildInputs = prev.buildInputs ++ [ pkgs.libnpupnp ];
-      mesonFlags = prev.mesonFlags ++ [ "-Dupnp=npupnp" ];
-    });
-
     dbFile = null;
 
     extraConfig = ''
       input {
         plugin "curl"
-      }
-
-      database {
-        plugin "upnp"
       }
 
       # resampler {
