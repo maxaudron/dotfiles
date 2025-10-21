@@ -6,7 +6,7 @@ in
 {
   home-manager = {
     useGlobalPkgs = true;
-    useUserPackages = true;
+    useUserPackages = false;
     users."${conf.user.name}" = import ../../home.nix;
 
     extraSpecialArgs = inputs // {

@@ -26,13 +26,9 @@ in {
   home.username = conf.user.name;
   home.homeDirectory = conf.user.home;
 
-  programs.home-manager.enable = true;
-
   catppuccin = {
     enable = true;
     flavor = "mocha";
-
-    cache.enable = true;
 
     firefox.force = true;
     cursors = {
@@ -59,5 +55,5 @@ in {
   programs.imv.enable = linux;
   programs.mpv.enable = true;
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 }

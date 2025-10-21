@@ -67,4 +67,15 @@
       };
     };
   };
+
+  programs.thunderbird = {
+    enable = true;
+    package = pkgs.thunderbird-bin;
+
+    profiles = {
+      "audron" = {
+        isDefault = true;
+      };
+    };
+  };
 }
