@@ -68,6 +68,8 @@
     };
   };
 
+  catppuccin.thunderbird.profile = "audron";
+
   programs.thunderbird = {
     enable = true;
     package = pkgs.thunderbird-bin;
@@ -75,6 +77,9 @@
     profiles = {
       "audron" = {
         isDefault = true;
+        settings = {
+          "extensions.autoDisableScopes" = 0;
+        };
       };
     };
   };
