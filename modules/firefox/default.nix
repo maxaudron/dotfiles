@@ -72,7 +72,7 @@
 
   programs.thunderbird = {
     enable = true;
-    package = pkgs.thunderbird-bin;
+    package = pkgs.thunderbird;
 
     profiles = {
       "audron" = {

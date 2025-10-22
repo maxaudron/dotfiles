@@ -18,9 +18,12 @@ in
     lua-language-server
     bash-language-server
     terraform-ls
-    tflint
     gopls
     kdePackages.qtdeclarative
+
+    # lint
+    tflint
+    yamllint
 
     himalaya
   ];
@@ -44,6 +47,7 @@ in
       gitsigns-nvim
       blink-cmp
       blink-cmp-avante
+      nvim-lint
 
       render-markdown-nvim
       pkgs.unstable.vimPlugins.avante-nvim
