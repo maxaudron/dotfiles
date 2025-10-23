@@ -55,7 +55,7 @@ rec {
         default = "$albumartist/$album%aunique{}/$track $title";
         singleton = "$artist/Singles/$title";
         comp = "Compilations/$album%aunique{}/$track $title";
-        "albumtype:soundtrack" = "Soundtracks/$album/$track $title";
+        "albumtypes:soundtrack" = "Soundtracks/$album/$track $title";
       };
 
       import = {
