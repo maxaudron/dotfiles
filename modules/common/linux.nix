@@ -7,7 +7,7 @@
 }:
 
 {
-  imports = [ 
+  imports = [
     ./udev.nix
     "${nixpkgs-unstable}/nixos/modules/services/display-managers/lemurs.nix"
   ];
@@ -51,27 +51,35 @@
   programs.adb.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.audron = {
-    isNormalUser = true;
-    password = "audron";
-    extraGroups = [
-      "wheel"
-      "input"
-      "libvirtd"
-      "audio"
-      "wireshark"
-      "dialout"
-      "video"
-      "adbusers"
-      "scanner"
-      "seat"
-      "lp"
-    ];
-    shell = pkgs.fish;
+  users = {
+    groups = {
+      media = {
+        gid = 989;
+      };
+    };
+    users.audron = {
+      isNormalUser = true;
+      password = "audron";
+      extraGroups = [
+        "wheel"
+        "input"
+        "libvirtd"
+        "audio"
+        "media"
+        "wireshark"
+        "dialout"
+        "video"
+        "adbusers"
+        "scanner"
+        "seat"
+        "lp"
+      ];
+      shell = pkgs.fish;
 
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO2eIUtbt7RM75ThjKfUjm24QkzkzCSj7hs+GLaaxMeH"
-    ];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO2eIUtbt7RM75ThjKfUjm24QkzkzCSj7hs+GLaaxMeH"
+      ];
+    };
   };
 
   catppuccin = {
@@ -81,7 +89,7 @@
 
     cache.enable = true;
   };
-  
+
   programs.zsh = {
     enable = true;
   };
@@ -158,7 +166,7 @@
     displayManager = {
       lemurs = {
         enable = true;
-        settings = {};
+        settings = { };
       };
       sessionPackages = [ ];
     };

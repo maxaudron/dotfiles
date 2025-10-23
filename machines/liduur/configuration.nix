@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -43,7 +48,10 @@
     }
   ];
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+  ];
 
   boot.kernel.sysctl = {
     "net.ipv6.conf.enp5s0.autoconf" = "0";
@@ -55,7 +63,9 @@
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  services.openssh = { enable = true; };
+  services.openssh = {
+    enable = true;
+  };
 
   virtualisation.podman = {
     enable = true;
@@ -75,18 +85,19 @@
   };
 
   systemd.tmpfiles.rules =
-  let
-    rocmEnv = pkgs.symlinkJoin {
-      name = "rocm-combined";
-      paths = with pkgs.rocmPackages; [
-        rocblas
-        hipblas
-        clr
-      ];
-    };
-  in [
-    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-  ];
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in
+    [
+      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+    ];
 
   services.avahi = {
     enable = true;
@@ -108,13 +119,18 @@
 
     # 10G Interface
     interfaces.enp5s0.tempAddress = "disabled";
-    interfaces.enp5s0.ipv4.addresses = [{
-      address = "192.168.144.10";
-      prefixLength = 24;
-    }];
+    interfaces.enp5s0.ipv4.addresses = [
+      {
+        address = "192.168.144.10";
+        prefixLength = 24;
+      }
+    ];
 
     defaultGateway = "192.168.144.1";
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
 
     hosts = {
       "192.168.144.5" = [ "home.fritz.box" ];
@@ -127,45 +143,35 @@
       enable = true;
       interfaces = {
         wg0 = {
-        privateKeyFile = "/etc/wireguard/privatekey";
-        ips = [
-          "10.10.0.10/24"
-          "2a0f:9400:8020:beef::10/128"
-          "fd15:3d8c:d429:beef::10/128"
-        ];
-        peers = [{
-          endpoint = "ettves.vapor.systems:51820";
-          publicKey = "5OTaf4MnSzTcCR10CGSrLFngGa3gdzajbqUKkRF+WlY=";
-          allowedIPs = [
-            # Wireguard peers
-            "10.10.0.0/24"
-            "2a0f:9400:8020:beef::/64"
-            "fd15:3d8c:d429:beef::/64"
-
-            # "0.0.0.0/1"
-
-            # Kubernetes cluster internal networks
-            "10.102.0.0/16"
-            "10.101.0.0/16"
-            # "fd15:3d8c:d429:101::/64"
-            # "fd15:3d8c:d429:102::/64"
+          privateKeyFile = "/etc/wireguard/privatekey";
+          ips = [
+            "10.10.0.10/24"
+            "2a0f:9400:8020:beef::10/128"
+            "fd15:3d8c:d429:beef::10/128"
           ];
-        }];
-      };
-        # proton = {
-        #   ips = [ "10.2.0.2/32" ];
-        #   privateKeyFile = "/etc/wireguard/proton.key";
-        #   # interfaceNamespace = "torrent";
-
-        #   peers = [
-        #     { # DE#348
-        #       publicKey = "hOoBBy//7mddXPz1SybzWB3zK95SQCcPyI/DmxfULXk=";
-        #       endpoint = "149.88.102.97:51820";
-        #       allowedIPs = [ "10.2.0.0/16" "95.179.243.82/32" ];
-        #       persistentKeepalive = 25;
-        #     }
-        #   ];
-        # };
+          peers = [
+            {
+              endpoint = "ettves.vapor.systems:51820";
+              publicKey = "5OTaf4MnSzTcCR10CGSrLFngGa3gdzajbqUKkRF+WlY=";
+              allowedIPs = [
+                # Wireguard peers
+                "10.10.0.0/24"
+                "2a0f:9400:8020:beef::/64"
+                "fd15:3d8c:d429:beef::/64"
+              ];
+            }
+            {
+              endpoint = "phaenn.vapor.systems:51820";
+              publicKey = "GmUvA3L8M2+N59my6MeoGwDD8puLOO5/Rbe29WtduBI=";
+              allowedIPs = [
+                # Wireguard peers
+                "10.10.0.2/32"
+                "2a0f:9400:8020:beef::2/128"
+                "fd15:3d8c:d429:beef::2/128"
+              ];
+            }
+          ];
+        };
       };
     };
   };

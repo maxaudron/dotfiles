@@ -42,6 +42,7 @@ rec {
       pkgs.unstable.beets.override {
         pluginOverrides = {
           musicbrainz.enable = true;
+          convert.enable = true;
         };
       }
     );
@@ -61,15 +62,34 @@ rec {
         move = true;
       };
 
+      convert = {
+        embed = true;
+        quite = true;
+        auto_keep = true;
+        dest = "/mnt/media/Music.opus";
+        never_convert_lossy_files = true;
+
+        format = "opus";
+        formats = {
+          opus = {
+            command = ''
+              ${pkgs.opusTools}/bin/opusenc --music --bitrate 128 --comp 10 $source $dest
+            '';
+            extension = "opus";
+          };
+        };
+      };
+
       plugins = [
         "musicbrainz"
+        "convert"
         "fish"
       ];
 
       musicbrainz = {
-        host = "localhost:5000";
-        ratelimit = 100;
-        https = false;
+        host = "musicbrainz.vapor.systems";
+        ratelimit = 150;
+        https = true;
         genres = true;
       };
     };
