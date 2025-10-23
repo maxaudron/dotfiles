@@ -58,7 +58,7 @@ rec {
       };
 
       import = {
-        copy = true;
+        move = true;
       };
 
       plugins = [
