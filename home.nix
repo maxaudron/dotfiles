@@ -54,6 +54,7 @@ in {
 
   programs.imv.enable = linux;
   programs.mpv.enable = true;
+  programs.tmux.enable = true;
 
   home.stateVersion = "25.05";
 }

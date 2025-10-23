@@ -126,6 +126,11 @@
       sensitivity = 0.5;
     };
 
+    windowrule = [
+      "float, class:imv"
+      "float, class:mpv"
+    ];
+
     "$mod" = "SUPER";
 
     bindm = [
@@ -136,10 +141,10 @@
     bind = [
       "$mod, return, exec, alacritty"
       "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
-      "$mod, S, exec, noctalia-shell ipc call controlCenter toggle"
+      "$mod, I, exec, noctalia-shell ipc call controlCenter toggle"
       "$mod, comma, exec, noctalia-shell ipc call settings toggle"
       "$mod, V, exec, qs -c noctalia-shell ipc call launcher clipboard"
-      "$mod, C, exec, qs -c noctalia-shell ipc call launcher calculator"
+      "$mod, U, exec, qs -c noctalia-shell ipc call launcher calculator"
       "$mod, L, exec, qs -c noctalia-shell ipc call lockScreen toggle"
 
       "$mod, C, hy3:killactive, "

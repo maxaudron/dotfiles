@@ -1,27 +1,24 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  systemd.user.services = {
-    hyprpaper = {
-      Unit = {
-        After = [ "graphical-session-pre.target" ];
-        PartOf = [ "graphical-session.target" ];
-        Description = "Hyprland Wallpaper Manager";
+  services.hyprpaper = {
+    enable = true;
+    package = pkgs.unstable.hyprpaper;
+    settings =
+      let
+        wallpaper = "~/.dotfiles/wallpaper/evening-sky.png";
+      in
+      {
+        preload = wallpaper;
+        wallpaper = [
+          "DP-1,${wallpaper}"
+          "DP-2,${wallpaper}"
+        ];
       };
-      Service = {
-        Type = "simple";
-        ExecStart = "${pkgs.hyprpaper}/bin/hyprpaper";
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-    };
-  };
-
-  xdg.configFile."hypr/hyprpaper.conf" = {
-    source = ./hyprpaper.conf;
-    onChange = ''
-      ${pkgs.systemd}/bin/systemctl --user restart hyprpaper || true
-    '';
   };
 }
