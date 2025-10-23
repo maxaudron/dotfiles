@@ -5,7 +5,7 @@
   ...
 }:
 
-{
+rec {
   services.mpd = {
     enable = true;
     dbFile = null;
@@ -50,8 +50,15 @@
       directory = "/mnt/media/Music";
       library = "/mnt/media/music.db";
 
+      paths = {
+        default = "$albumartist/$album%aunique{}/$track $title";
+        singleton = "$artist/Singles/$title";
+        comp = "Compilations/$album%aunique{}/$track $title";
+        "albumtype:soundtrack" = "Soundtracks/$album/$track $title";
+      };
+
       import = {
-        copy = "yes";
+        copy = true;
       };
 
       plugins = [
@@ -67,4 +74,22 @@
       };
     };
   };
+
+  xdg.configFile."beets/config.yaml".source = lib.mkForce (
+    pkgs.writeText "beets-config" (
+      builtins.readFile ((pkgs.formats.yaml { }).generate "beets-config" programs.beets.settings)
+      + ''
+        replace:
+            '[\\/]': _
+            '^\.': _
+            '[\x00-\x1f]': _
+            '[<>"\?\*\|]': _
+            ':': ""
+            '\.$': _
+            '\s+$': ""
+            '^\s+': ""
+            '^-': _
+      ''
+    )
+  );
 }
