@@ -64,7 +64,7 @@ rec {
 
       convert = {
         embed = true;
-        quite = true;
+        quiet = true;
         auto_keep = true;
         dest = "/mnt/media/Music.opus";
         never_convert_lossy_files = true;
