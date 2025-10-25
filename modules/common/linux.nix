@@ -7,9 +7,19 @@
 }:
 
 {
+  disabledModules = [ 
+    "services/display-managers/default.nix"
+    "services/x11/display-managers/gdm.nix"
+    "services/display-managers/autologin.nix"
+  ];
+
   imports = [
     ./udev.nix
+    ../autologin
+
+    "${nixpkgs-unstable}/nixos/modules/services/display-managers/default.nix"
     "${nixpkgs-unstable}/nixos/modules/services/display-managers/lemurs.nix"
+    "${nixpkgs-unstable}/nixos/modules/services/display-managers/gdm.nix"
   ];
 
   security.sudo.wheelNeedsPassword = false;
@@ -40,6 +50,10 @@
   };
 
   services.nfs.server.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.autologin.enableGnomeKeyring = true;
+  services.seatd.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -164,15 +178,13 @@
     };
 
     displayManager = {
-      lemurs = {
+      autologin = {
         enable = true;
-        settings = { };
+        user = config.users.users.audron.name;
       };
       sessionPackages = [ ];
     };
   };
-
-  systemd.services.display-manager.enable = true;
 
   hardware.graphics = {
     enable = true;
