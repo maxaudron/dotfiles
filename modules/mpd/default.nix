@@ -38,14 +38,18 @@ rec {
 
   programs.beets = {
     enable = true;
-    package = (
-      pkgs.unstable.beets.override {
+    package =
+      pkgs.beets.override {
         pluginOverrides = {
+          alternatives = {
+            enable = true;
+            propagatedBuildInputs = [ pkgs.beetsPackages.alternatives ];
+          };
           musicbrainz.enable = true;
+          mpdupdate.enable = true;
           convert.enable = true;
         };
-      }
-    );
+      };
 
     settings = {
       directory = "/mnt/media/Music";
@@ -62,10 +66,16 @@ rec {
         move = true;
       };
 
+      alternatives = {
+        opus = {
+          directory = "/mnt/media/Music.opus";
+          formats = "opus mp3";
+        };
+      };
+
       convert = {
         embed = true;
         quiet = true;
-        auto_keep = true;
         dest = "/mnt/media/Music.opus";
         never_convert_lossy_files = true;
 
@@ -81,12 +91,15 @@ rec {
       };
 
       plugins = [
-        "musicbrainz"
+        "alternatives"
+        # "musicbrainz"
+        "mpdupdate"
         "convert"
         "fish"
       ];
 
       musicbrainz = {
+        enabled = true;
         host = "musicbrainz.vapor.systems";
         ratelimit = 150;
         https = true;
