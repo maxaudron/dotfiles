@@ -14,6 +14,7 @@ in {
     modules/git
     modules/gpg
     modules/ssh
+    modules/mc
   ] ++ (if linux then [
     modules/podman
     modules/games
