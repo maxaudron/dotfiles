@@ -79,8 +79,6 @@ in
       pavucontrol
       pulseaudio
       scream
-
-      lsp-plugins
     ];
 
     services.pulseaudio.enable = false;
