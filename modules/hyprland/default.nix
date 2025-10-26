@@ -44,10 +44,16 @@
       hyprsplit
     ];
 
-    systemd.enable = true;
+    systemd.enable = false;
     xwayland = {
       enable = true;
     };
+  };
+
+  services.gnome-keyring.enable = true;
+  services.hyprpolkitagent = {
+    enable = true;
+    package = pkgs.unstable.hyprpolkitagent;
   };
 
   qt.platformTheme = "gnome";
