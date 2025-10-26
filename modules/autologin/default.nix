@@ -36,7 +36,7 @@ in
       description = ''
         command passed to autologin to start the session
       '';
-      default = "${pkgs.uwsm}/bin/uwsm start -S -F /run/current-system/sw/bin/Hyprland";
+      default = "${pkgs.uwsm}/bin/uwsm start default";
     };
   };
 
