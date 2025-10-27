@@ -1,5 +1,5 @@
 diff --git i/beetsplug/alternatives.py w/beetsplug/alternatives.py
-index 8358428..57a9fc6 100644
+index 00d2a27..f442456 100644
 --- i/beetsplug/alternatives.py
 +++ w/beetsplug/alternatives.py
 @@ -249,12 +249,16 @@ class Action(Enum):
@@ -30,7 +30,7 @@ index 8358428..57a9fc6 100644
 +            return (album, [])
 +
 +        if (
-+            self.copy_album_art
++            self._copy_album_art
 +            and album.artpath
 +            and Path(str(album.artpath, "utf8")).is_file()
 +        ):
@@ -46,7 +46,7 @@ index 8358428..57a9fc6 100644
 +
 +    def albums_actions(self):
 +        for album in self.lib.albums():
-+            if self.query.match(album):
++            if self._config.query.match(album):
 +                yield self.matched_album_action(album)
 +
      def ask_create(self, create: bool | None = None) -> bool:
