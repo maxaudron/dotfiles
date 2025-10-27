@@ -15,6 +15,7 @@ in
   };
 
   home.packages = with pkgs; [
+    ruff
     lua-language-server
     bash-language-server
     terraform-ls
@@ -63,6 +64,8 @@ in
       pkgs.nvim-decipher
 
       himalaya-vim
+
+      nvim-lspconfig
 
       # Languages
       rustaceanvim

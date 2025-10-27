@@ -1,0 +1,15 @@
+diff --git i/beetsplug/musicbrainz.py w/beetsplug/musicbrainz.py
+index 8e259e94b..a55015b2d 100644
+--- i/beetsplug/musicbrainz.py
++++ w/beetsplug/musicbrainz.py
+@@ -215,8 +215,8 @@ def _flatten_artist_credit(credit: list[JSONDict]) -> tuple[str, str, str]:
+         credit, include_join_phrase=True
+     )
+     return (
+-        "".join(artist_parts),
+-        "".join(artist_sort_parts),
++        artist_parts[0],
++        artist_sort_parts[0],
+         "".join(artist_credit_parts),
+     )
+ 

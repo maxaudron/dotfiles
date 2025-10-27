@@ -1,0 +1,40 @@
+From 1b4ff25fbbba605c129b4c5c5c1998d9d502f406 Mon Sep 17 00:00:00 2001
+From: Thomas Scholtes <geigerzaehler@axiom.fm>
+Date: Sun, 14 Sep 2025 12:13:10 +0200
+Subject: [PATCH] Fix tests for beets 2.3.1
+
+---
+ test/helper.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/test/helper.py b/test/helper.py
+index e6c3af2..526cf20 100644
+--- a/test/helper.py
++++ b/test/helper.py
+@@ -146,7 +146,7 @@ def _setup(self, tmp_path: Path):
+         self.IMAGE_FIXTURE1 = self.fixture_dir / "image.png"
+         self.IMAGE_FIXTURE2 = self.fixture_dir / "image_black.png"
+ 
+-        if _beets_version >= (2, 3, 1):
++        if _beets_version > (2, 3, 1):
+             beets.plugins._instances = [
+                 beetsplug.alternatives.AlternativesPlugin(),
+                 beetsplug.convert.ConvertPlugin(),
+@@ -162,7 +162,7 @@ def _setup(self, tmp_path: Path):
+ 
+         yield
+ 
+-        if _beets_version >= (2, 3, 1):
++        if _beets_version > (2, 3, 1):
+             beets.plugins.BeetsPlugin.listeners = defaultdict(list)
+         else:
+             for plugin in beets.plugins._classes:  # type: ignore (compatibility with beets<2.4)
+@@ -193,7 +193,7 @@ def event_log(self, tmp_path: Path, _setup: None) -> Path:
+             },
+         ]
+ 
+-        if _beets_version >= (2, 3, 1):
++        if _beets_version > (2, 3, 1):
+             beets.plugins._instances.append(  # type: ignore
+                 beetsplug.hook.HookPlugin(),
+             )

@@ -8,4 +8,6 @@ for k, v in ipairs(files) do
   vim.lsp.enable(name)
 end
 
+vim.lsp.enable('ruff')
+
 
