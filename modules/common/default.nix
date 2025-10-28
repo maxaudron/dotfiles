@@ -57,11 +57,6 @@ in
     aspellDicts.en-science
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
   # Enable zsh completion for system packages
   environment.pathsToLink = [ "/share/zsh" ];
 
