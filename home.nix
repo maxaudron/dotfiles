@@ -8,6 +8,7 @@ in {
 
     modules/vim
     modules/alacritty
+    modules/rio
     modules/firefox
     modules/shell
     modules/dev
