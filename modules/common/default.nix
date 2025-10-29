@@ -7,6 +7,7 @@
   darwin,
   home-manager,
   fenix,
+  secrets,
   ...
 }:
 
@@ -61,9 +62,9 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
 
   fonts.packages = with pkgs; [
-    ibm-plex
     nerd-fonts.iosevka
     spleen
+    (callPackage "${secrets}/fonts/default.nix" {})
   ];
 
   nixpkgs.overlays = [ (import ../../pkgs) ];

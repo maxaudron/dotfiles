@@ -24,20 +24,20 @@
       font = {
         size = 16;
         normal = {
-          family = "Spleen";
+          family = "TX-02";
           style = "Regular";
         };
         bold = {
-          family = "Spleen";
-          style = "Regular";
+          family = "TX-02";
+          style = "Bold";
         };
         italic = {
-          family = "Spleen";
-          style = "Regular";
+          family = "TX-02";
+          style = "Oblique";
         };
         bold_italic = {
-          family = "Spleen";
-          style = "Regular";
+          family = "TX-02";
+          style = "Bold Oblique";
         };
       };
 
