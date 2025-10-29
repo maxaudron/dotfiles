@@ -125,28 +125,25 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [ "IBM Plex Serif" ];
-      sansSerif = [ "IBM Plex Sans" ];
-      monospace = [ "Spleen" ];
+      serif = [ "IBM Plex Serif" "Symbols Nerd Font" ];
+      sansSerif = [ "IBM Plex Sans" "Symbols Nerd Font" ];
+      monospace = [ "TX-02" "Symbols Nerd Font Mono" ];
 
-      emoji = [ "Noto Color Emoji" ];
+      emoji = [ "Twitter Color Emoji" ];
     };
 
-    allowBitmaps = true;
+    antialias = true;
 
-    localConf = ''
-      <match target="pattern">
-          <test qual="any" name="family">
-            <string>Spleen</string>
-          </test>
-          <edit name="antialias" mode="assign">
-            <bool>false</bool>
-          </edit>
-          <edit name="hintstyle" mode="assign">
-            <const>hintnone</const>
-          </edit>
-      </match>
-    '';
+    subpixel = {
+      rgba = "rgb";
+      lcdfilter = "light";
+    };
+
+    hinting = {
+      enable = true;
+      style = "slight";
+      autohint = false;
+    };
   };
 
   # Select internationalisation properties.

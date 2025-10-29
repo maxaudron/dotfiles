@@ -139,7 +139,7 @@
     ];
 
     bind = [
-      "$mod, return, exec, alacritty"
+      "$mod, return, exec, rio"
       "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
       "$mod, I, exec, noctalia-shell ipc call controlCenter toggle"
       "$mod, comma, exec, noctalia-shell ipc call settings toggle"

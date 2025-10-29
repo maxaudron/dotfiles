@@ -12,36 +12,34 @@
     settings = {
       fonts =
         let
-          font = "Monaspace Neon";
+          font = "TX-02";
         in
         {
-          size = 16;
+          size = 19;
 
           regular = {
             family = font;
             style = "Normal";
-            width = "Normal";
-            weight = 400;
+            width = "Condensed";
+            weight = 375;
           };
           bold = {
             family = font;
             style = "Normal";
             width = "Normal";
-            weight = 800;
+            weight = 600;
           };
           italic = {
-
             family = font;
             style = "Italic";
             width = "Normal";
-            weight = 400;
+            weight = 375;
           };
           bold-italic = {
-
             family = font;
             style = "Italic";
             width = "Normal";
-            weight = 800;
+            weight = 600;
           };
         };
     };

@@ -22,14 +22,14 @@
       };
 
       font = {
-        size = 16;
+        size = 14;
         normal = {
           family = "TX-02";
           style = "Regular";
         };
         bold = {
           family = "TX-02";
-          style = "Bold";
+          style = "SemiBold";
         };
         italic = {
           family = "TX-02";
@@ -37,7 +37,7 @@
         };
         bold_italic = {
           family = "TX-02";
-          style = "Bold Oblique";
+          style = "SemiBold Oblique";
         };
       };
 

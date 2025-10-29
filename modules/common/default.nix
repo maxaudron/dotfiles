@@ -62,9 +62,10 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
 
   fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
+    twitter-color-emoji
+    nerd-fonts.symbols-only
     spleen
-    (callPackage "${secrets}/fonts/default.nix" {})
+    (callPackage "${secrets}/fonts/TX-02/default.nix" {})
   ];
 
   nixpkgs.overlays = [ (import ../../pkgs) ];
