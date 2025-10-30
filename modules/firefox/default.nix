@@ -56,6 +56,8 @@
       border = {
         width = "2px";
         radius = "10px";
+
+        color = "#313244";
       };
 
       tabs = {
