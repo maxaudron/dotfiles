@@ -114,21 +114,7 @@
     tabs: [
         (
             name: "Queue",
-            pane: Split(
-                direction: Vertical,
-                panes: [
-                  (size: "25%", borders: "TOP | BOTTOM", pane: Split(
-                    direction: Horizontal,
-                    panes: [
-                      ( size: "35%",
-                        pane: Pane(AlbumArt)),
-                      ( size: "65%",
-                        pane: Component("info")),
-                    ]
-                  )),
-                  (size: "75%", pane: Pane(Queue)), 
-                ],
-            ),
+            pane: Component("queue"),
         ),
         (
             name: "Directories",

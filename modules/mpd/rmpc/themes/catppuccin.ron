@@ -47,11 +47,29 @@
           (size: "1", pane: Component("genre")),
         ],
       ),
+      "queue": Split(
+        direction: Vertical,
+        panes: [
+          (size: "25%", borders: "TOP", pane: Split(
+            direction: Horizontal,
+            panes: [
+              ( size: "35%",
+                pane: Pane(AlbumArt)),
+              ( size: "65%",
+                pane: Component("info")),
+            ]
+          )),
+          ( pane: Pane(ProgressBar),
+            size: "1",
+          ),
+          (size: "75%", pane: Pane(Queue)), 
+        ],
+      ),
     },
     symbols: (
-      song: "", 
+      song: "󰎋", 
       song_style: (fg: "#cdd6f4", modifiers: "Bold"),
-      dir: "", 
+      dir: "", 
       dir_style: (fg: "#89b4fa", modifiers: "Bold"),
       marker: "»"
     ),
@@ -65,10 +83,6 @@
             (
                 pane: Pane(TabContent),
                 size: "100%",
-            ),
-            (
-                pane: Pane(ProgressBar),
-                size: "1",
             ),
         ],
     ),
