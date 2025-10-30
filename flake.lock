@@ -492,11 +492,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1761749674,
-        "narHash": "sha256-e0ME8zePJO9pc5tb+Uhw/dLC4E5TGvlkp4vnCcBrh2I=",
+        "lastModified": 1761785564,
+        "narHash": "sha256-4P8krRPLkJt2O13PQbGdpj3oucuwTFaAqlfqKMHCcW8=",
         "ref": "refs/heads/master",
-        "rev": "74d6b3abd852781b751a70374430062fe573b39c",
-        "revCount": 33,
+        "rev": "735c9c73dfac8020fddb9432a41397971875eda9",
+        "revCount": 38,
         "type": "git",
         "url": "ssh://gitea@git.vapor.systems/audron/secrets.git"
       },

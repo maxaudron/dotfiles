@@ -136,7 +136,7 @@
 
     subpixel = {
       rgba = "rgb";
-      lcdfilter = "light";
+      lcdfilter = "default";
     };
 
     hinting = {

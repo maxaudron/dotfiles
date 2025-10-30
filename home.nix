@@ -7,8 +7,7 @@ in {
     catppuccin.homeModules.catppuccin
 
     modules/vim
-    modules/alacritty
-    modules/rio
+    modules/terminal
     modules/firefox
     modules/shell
     modules/dev
