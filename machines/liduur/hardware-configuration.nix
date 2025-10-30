@@ -152,6 +152,12 @@
     options = [ "zfsutil" ];
   };
 
+  fileSystems."/mnt/ipod" = {
+    device = "/dev/disk/by-id/usb-Apple_iPod_Classic_3B3685654-0:0-part1";
+    fsType = "vfat";
+    options = [ "noauto" "user" "X-mount.mkdir" ];
+  };
+
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = false;
 }

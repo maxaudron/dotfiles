@@ -32,9 +32,12 @@ rec {
     enable = true;
   };
 
-  programs.ncmpcpp = {
+  programs.rmpc = {
     enable = true;
+    config = ./rmpc/config.ron;
   };
+
+  xdg.configFile."rmpc/theme.ron".source = ./rmpc/theme.ron;
 
   programs.beets = {
     enable = true;
