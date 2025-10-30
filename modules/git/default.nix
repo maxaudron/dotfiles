@@ -4,11 +4,12 @@ let conf = import ../config { inherit lib; };
 
 in
 {
-  home.packages = with pkgs; [ delta bfg-repo-cleaner ];
+  home.packages = with pkgs; [ bfg-repo-cleaner ];
 
   programs.git = {
     enable = true;
     lfs.enable = true;
+    delta.enable = true;
 
     userName = conf.user.fullname;
     userEmail = conf.user.email;
@@ -83,7 +84,6 @@ in
 
       core = {
         whitespace = "-trailing-space";
-        pager = "delta";
       };
 
       versionsort = {

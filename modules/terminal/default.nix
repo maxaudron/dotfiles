@@ -5,6 +5,10 @@
   ...
 }:
 
+let
+  conf = import ../config { inherit lib; };
+  linux = conf.os.type == "linux";
+in
 {
   programs.alacritty = {
     enable = true;
@@ -54,6 +58,7 @@
 
   programs.ghostty = {
     enable = true;
+    package = if linux then pkgs.ghostty else null;
     enableFishIntegration = true;
 
     settings = let 
