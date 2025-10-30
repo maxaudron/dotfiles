@@ -13,7 +13,7 @@
     wrap_navigation: false,
     enable_mouse: true,
     status_update_interval_ms: 1000,
-    select_current_song_on_change: false,
+    select_current_song_on_change: true,
     album_art: (
         method: Auto,
         max_size_px: (width: 1200, height: 1200),
@@ -115,8 +115,19 @@
         (
             name: "Queue",
             pane: Split(
-                direction: Horizontal,
-                panes: [(size: "60%", pane: Pane(Queue)), (size: "40%", pane: Pane(AlbumArt))],
+                direction: Vertical,
+                panes: [
+                  (size: "25%", borders: "TOP | BOTTOM", pane: Split(
+                    direction: Horizontal,
+                    panes: [
+                      ( size: "35%",
+                        pane: Pane(AlbumArt)),
+                      ( size: "65%",
+                        pane: Component("info")),
+                    ]
+                  )),
+                  (size: "75%", pane: Pane(Queue)), 
+                ],
             ),
         ),
         (

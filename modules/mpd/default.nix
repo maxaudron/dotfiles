@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  conf = import ../config { inherit lib; };
+in
 rec {
   services.mpd = {
     enable = true;
@@ -34,10 +37,15 @@ rec {
 
   programs.rmpc = {
     enable = true;
-    config = ./rmpc/config.ron;
+    package = pkgs.unstable.rmpc;
   };
 
-  xdg.configFile."rmpc/theme.ron".source = ./rmpc/theme.ron;
+  xdg.configFile = {
+    "rmpc/config.ron".source =
+      config.lib.file.mkOutOfStoreSymlink "${conf.user.home}/.dotfiles/modules/mpd/rmpc/config.ron";
+    "rmpc/themes".source =
+      config.lib.file.mkOutOfStoreSymlink "${conf.user.home}/.dotfiles/modules/mpd/rmpc/themes";
+  };
 
   programs.beets = {
     enable = true;

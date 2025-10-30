@@ -86,6 +86,7 @@ in
       nvim-treesitter-parsers.qmljs
       nvim-treesitter-parsers.tera
       nvim-treesitter-parsers.styled
+      pkgs.unstable.vimPlugins.nvim-treesitter-parsers.ron
     ];
 
     extraLuaConfig = ''
