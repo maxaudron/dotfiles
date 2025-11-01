@@ -47,9 +47,6 @@ vim.keymap.set(
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
--- git
-vim.keymap.set("n", "<leader>gc", vim.show_pos, { desc = "Inspect Pos" })
-
 -- highlights under cursor
 vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 vim.keymap.set("n", "<leader>uI", function()
