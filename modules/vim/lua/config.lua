@@ -15,4 +15,8 @@ vim.opt.tabstop = 2          -- Size of a tab
 vim.opt.softtabstop = 2      -- Size of a tab
 vim.opt.exrc = true          -- allow loading directory vimrc files
 
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.breakindent = true
+
 vim.filetype.add { extension = { qss = 'css' } }

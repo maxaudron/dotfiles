@@ -45,6 +45,7 @@ in
       mini-icons
       nvim-web-devicons
 
+      vim-fugitive
       gitsigns-nvim
       blink-cmp
       blink-cmp-avante
