@@ -157,6 +157,12 @@
     fsType = "vfat";
     options = [ "noauto" "user" "X-mount.mkdir" ];
   };
+  
+  fileSystems."/mnt/phaenn" = {
+    device = "10.10.0.2:/";
+    fsType = "nfs4";
+    options = [ "noauto" "X-mount.mkdir" ];
+  };
 
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = false;
