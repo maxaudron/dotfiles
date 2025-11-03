@@ -50,19 +50,6 @@ in
       { domain = "@rtkit"; item = "memlock"; type = "-"; value = "unlimited"; }
     ];
 
-    systemd.user.services = {
-      scream = {
-        wantedBy = [ "default.target" ];
-        requires = [ "pipewire.service" "pipewire-pulse.socket" ];
-        after = [ "pipewire-pulse.service" ];
-        description = "Start the scream server to receive audio from windows";
-        preStart = "${pkgs.bash}/bin/bash -c 'sleep 30'";
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.scream}/bin/scream -o pulse -s windows -i enp5s0";
-        };
-      };
-    };
     systemd.services = {
       rtkit-daemon = {
         serviceConfig = {

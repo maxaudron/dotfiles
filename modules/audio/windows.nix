@@ -12,10 +12,6 @@
             "sess.latency.msec" = 30;
             #"node.always-process" = false;
             #"audio.position" = [ FL FR ];
-            "stream.props" = {
-              media.class = "Audio/Source";
-              node.name = "Tiamur";
-            };
             stream.rules = [
               { matches = [
                   { "sess.name" = "~.*";
