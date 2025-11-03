@@ -1,8 +1,19 @@
-diff --git i/beetsplug/alternatives.py w/beetsplug/alternatives.py
-index 00d2a27..f442456 100644
---- i/beetsplug/alternatives.py
-+++ w/beetsplug/alternatives.py
-@@ -249,12 +249,16 @@ class Action(Enum):
+From 857f4d68d48b8efb55834880bae1293aabbc2cd9 Mon Sep 17 00:00:00 2001
+From: Max Audron <audron@cocaine.farm>
+Date: Fri, 31 Oct 2025 19:06:21 +0100
+Subject: [PATCH 1/3] add support for copying album art
+
+---
+ beetsplug/alternatives.py | 71 +++++++++++++++++++++++++++++++++++++++
+ test/cli_test.py          | 55 +++++++++++++++++++++++++++++-
+ test/helper.py            | 20 ++++++++++-
+ 3 files changed, 144 insertions(+), 2 deletions(-)
+
+diff --git a/beetsplug/alternatives.py b/beetsplug/alternatives.py
+index 00d2a27..93ef21d 100644
+--- a/beetsplug/alternatives.py
++++ b/beetsplug/alternatives.py
+@@ -249,12 +249,18 @@ class Action(Enum):
      #: Write album art to the track’s metadata
      SYNC_ART = "SYNC_ART"
  
@@ -12,14 +23,16 @@ index 00d2a27..f442456 100644
  
  class External:
      def __init__(self, log: logging.Logger, lib: Library, config: Config):
++        convert_plugin = convert.ConvertPlugin()
          self._log = log
          self._config = config
          self._embed = False
-+        self._copy_album_art = False
++        self._copy_album_art_fn = convert_plugin.copy_album_art
++        self._copy_album_art = convert_plugin.config["copy_album_art"].get(bool)
          self.lib = lib
          self.path_key = f"alt.{config.collection_id}"
          self.max_workers = int(str(beets.config["convert"]["threads"]))
-@@ -310,6 +314,32 @@ class External:
+@@ -310,6 +316,36 @@ def _items_actions(self) -> Iterator[tuple[Item, Sequence[Action]]]:
              elif self._get_stored_path(item):
                  yield (item, [Action.REMOVE])
  
@@ -34,36 +47,46 @@ index 00d2a27..f442456 100644
 +            and album.artpath
 +            and Path(str(album.artpath, "utf8")).is_file()
 +        ):
-+            dest = album.art_destination(album.artpath, dest_dir)
++            dest = album.art_destination(
++                album.artpath, bytes(dest_dir, encoding="utf8")
++            )
 +
 +            if (not Path(str(dest, "utf8")).is_file()) or (
 +                Path(str(album.artpath, "utf8")).stat().st_mtime
 +                > Path(str(dest, "utf8")).stat().st_mtime
 +            ):
-+                return (album, [self.COPY_ART])
++                return (album, [Action.COPY_ART])
 +
 +        return (album, [])
 +
 +    def albums_actions(self):
 +        for album in self.lib.albums():
-+            if self._config.query.match(album):
++            if self._config.query.match(album) or any(
++                self._config.query.match(item) for item in album.items()
++            ):
 +                yield self.matched_album_action(album)
 +
      def ask_create(self, create: bool | None = None) -> bool:
          if not self._config.removable:
              return True
-@@ -410,6 +440,26 @@ class External:
+@@ -410,6 +446,31 @@ def finalize_converted_item(item: Item, dest: Path):
                  for item, dest in _get_queue_available(converting_done):
                      finalize_converted_item(item, dest)
  
++            dest_dir = bytes(str(self._config.directory), encoding="utf8")
 +            for album, actions in self.albums_actions():
 +                for action in actions:
-+                    dest_dir = self.album_destination(album)
-+                    if action == self.COPY_ART:
-+                        path = album.artpath
-+                        dest = album.art_destination(path, dest_dir)
++                    if action == Action.COPY_ART:
++                        self._log.debug(f"Copying art from {path} into {dest}")
++                        dest = album.art_destination(
++                            album.artpath,
++                            bytes(self.album_destination(album), encoding="utf8"),
++                        )
 +
-+                        # util.copy(path, dest, replace=True)
++                        dest_path = Path(str(dest, "utf8"))
++                        if dest_path.exists():
++                            dest_path.unlink()
++
 +                        self._copy_album_art_fn(
 +                            album,
 +                            dest_dir,
@@ -74,12 +97,11 @@ index 00d2a27..f442456 100644
 +                        )
 +
 +                        print_(f"~{dest}")
-+                        print_(f"!{path}")
 +
      def destination(self, item: Item) -> Path:
          """Returns the path for `item` in the external collection."""
          path = _item_destination_relative_compat(
-@@ -418,6 +468,14 @@ class External:
+@@ -418,6 +479,14 @@ def destination(self, item: Item) -> Path:
          assert isinstance(path, str)
          return self._config.directory / path
  
@@ -94,7 +116,7 @@ index 00d2a27..f442456 100644
      def _set_stored_path(self, item: Item, path: Path):
          item[self.path_key] = str(path)
  
-@@ -479,7 +537,9 @@ class ExternalConvert(External):
+@@ -479,7 +548,9 @@ def __init__(
          super().__init__(log, lib, config)
          convert_plugin = convert.ConvertPlugin()
          self._encode = convert_plugin.encode
@@ -104,3 +126,884 @@ index 00d2a27..f442456 100644
          self._formats = [convert.ALIASES.get(f, f) for f in config.formats]
          self.convert_cmd, self.ext = convert.get_format(self._formats[0])
  
+diff --git a/test/cli_test.py b/test/cli_test.py
+index 3ce58bf..83b7c50 100644
+--- a/test/cli_test.py
++++ b/test/cli_test.py
+@@ -7,7 +7,7 @@
+ from time import sleep
+ 
+ import pytest
+-from beets.library import Item
++from beets.library import Album, Item
+ from beets.ui import UserError
+ from confuse import ConfigValueError
+ from mediafile import MediaFile
+@@ -18,6 +18,7 @@
+     assert_file_tag,
+     assert_has_embedded_artwork,
+     assert_has_not_embedded_artwork,
++    assert_has_artwork,
+     assert_is_not_file,
+     assert_media_file_fields,
+     assert_not_file_tag,
+@@ -423,6 +424,58 @@ def touch_art(item: Item, image_path: Path):
+         assert width == 1
+         assert height < 3
+ 
++    def test_copy_art(self, tmp_path: Path):
++        def touch_art(artpath: bytes, image_path: Path):
++            """`touch` the image file, but don't set mtime to the current
++            time since the tests run rather fast and item and art mtimes might
++            end up identical if the filesystem has low mtime granularity or
++            mtimes are cashed as laid out in
++                https://stackoverflow.com/a/14393315/3451198
++            Considering the interpreter startup time when running `beet alt
++            update <name>` in a real use-case, this should not obscure any
++            bugs.
++            """
++            # TODO set better mtime src
++            item_mtime_alt = Path(str(artpath, "utf8")).stat().st_mtime
++            os.utime(image_path, (item_mtime_alt + 2, item_mtime_alt + 2))
++
++        # Initially add album without artwork. Do not do resizing
++        self.config["convert"]["embed"] = False
++        self.config["convert"]["copy_album_art"] = True
++        self.config["alternatives"]["myexternal"]["album_art_maxwidth"] = None
++
++        album = self.add_album(myexternal="true")
++        album.store()
++        self.runcli("alt", "update", "myexternal")
++
++        # Make a copy of the artwork, so that changing mtime/content won't
++        # affect the repository.
++        image_path = tmp_path / "FIXTURE.png"
++        artpath = bytes(image_path)
++        shutil.copy(self.IMAGE_FIXTURE1, image_path)
++        touch_art(artpath, image_path)
++
++        dest_dir = self.get_album_path(album)
++        dest = album.art_destination(artpath, bytes(dest_dir, encoding="utf8"))
++
++        # Test that no artwork is placed
++        self.runcli("alt", "update", "myexternal")
++        assert not Path(str(dest, "utf8")).is_file()
++
++        # Test that artwork is added
++        album.artpath = artpath
++        album.store()
++        self.runcli("alt", "update", "myexternal")
++
++        assert Path(str(dest, "utf8")).is_file()
++        assert_has_artwork(Path(str(dest, "utf8")), self.IMAGE_FIXTURE1)
++
++        # Update art file
++        shutil.copy(self.IMAGE_FIXTURE2, image_path)
++        touch_art(artpath, image_path)
++        self.runcli("alt", "update", "myexternal")
++        assert_has_artwork(Path(str(dest, "utf8")), self.IMAGE_FIXTURE2)
++
+     def test_update_all(self, tmp_path: Path):
+         dir_a = tmp_path / "a"
+         dir_a.mkdir()
+diff --git a/test/helper.py b/test/helper.py
+index e6c3af2..00de418 100644
+--- a/test/helper.py
++++ b/test/helper.py
+@@ -16,7 +16,7 @@
+ import beetsplug.hook
+ import pytest
+ from beets import logging, ui
+-from beets.library import Item
++from beets.library import Album, Item
+ from beets.util import MoveOperation
+ from mediafile import MediaFile
+ 
+@@ -107,6 +107,17 @@ def assert_has_embedded_artwork(path: Path, compare_file: Path | None = None):
+                 f"expectations (CRC32: {crc_expected})."
+             )
+ 
++def assert_has_artwork(path: Path, compare_file: Path | None = None):
++    assert path.is_file()
++    if compare_file:
++        with compare_file.open("rb") as compare_fh, path.open("rb") as path_fh:
++            crc_is = crc32(path_fh.read())
++            crc_expected = crc32(compare_fh.read())
++            assert crc_is == crc_expected, (
++                "MediaFile has embedded artwork, but "
++                f"content (CRC32: {crc_is}) doesn't match "
++                f"expectations (CRC32: {crc_expected})."
++            )
+ 
+ def assert_has_not_embedded_artwork(path: Path):
+     mediafile = MediaFile(path)
+@@ -267,6 +278,13 @@ def add_external_album(self, ext_name: str, **kwargs: str):
+     def get_path(self, item: Item, path_key: str = "alt.myexternal") -> Path:
+         return Path(item[path_key])
+ 
++    def get_album_path(self, album: Album) -> Path:
++        item = album.items().get()
++        if item:
++            head, _ = os.path.split(self.get_path(item))
++            return head
++        else:
++            return None
+ 
+ def convert_command(tag: str) -> str:
+     """Return a convert shell command that copies the file and adds a tag to the files end."""
+
+From 3b0552c5a908137d20d192ec98a0c847989a2546 Mon Sep 17 00:00:00 2001
+From: Max Audron <audron@cocaine.farm>
+Date: Sun, 2 Nov 2025 00:57:36 +0100
+Subject: [PATCH 2/3] rewrite album art embedding and copying
+
+This pulls all settings related to the album art into the alternatives
+config, allowing to set up different things per external collection.
+
+Also generally unifies the handling between linking / copy / converting and
+embedding art.
+---
+ beetsplug/alternatives.py | 157 +++++++++++++++-----
+ test/cli_test.py          | 292 +++++++++++++++++++++++++-------------
+ test/helper.py            |   7 +-
+ 3 files changed, 315 insertions(+), 141 deletions(-)
+
+diff --git a/beetsplug/alternatives.py b/beetsplug/alternatives.py
+index 93ef21d..5ec82eb 100644
+--- a/beetsplug/alternatives.py
++++ b/beetsplug/alternatives.py
+@@ -29,6 +29,7 @@
+ from beets.library import Item, Library, parse_query_string
+ from beets.plugins import BeetsPlugin
+ from beets.ui import Subcommand, UserError, get_path_formats, input_yn, print_
++from beets.util.artresizer import ArtResizer
+ from typing_extensions import Never, override
+ 
+ 
+@@ -172,9 +173,25 @@ class Config:
+     removable: bool
+     """If true, the user is asked to confirm root directory creation."""
+ 
++    album_art_embed: bool
++    """Embed album art in converted items. Default: yes."""
++
++    album_art_copy: bool
++    """Copy or symlink album art to collection"""
++
+     album_art_maxwidth: int | None
+     """Maximum width of embedded album art. Larger art is resized."""
+ 
++    album_art_format: str | None
++    """If enabled forced album art to be converted to specified format for the collection. Most often, this will be either JPEG or PNG."""
++
++    album_art_deinterlace: bool
++    """If enabled, Pillow or ImageMagick backends are instructed to store cover art as non-progressive JPEG. 
++    You might need this if you use DAPs that don’t support progressive images. Default: no."""
++
++    album_art_quality: int
++    """JPEG Quality for album art if it is resized. Default: 0"""
++
+     def __init__(self, collection_id: str, config: confuse.ConfigView, lib: Library):
+         self.collection_id = collection_id
+ 
+@@ -203,12 +220,42 @@ def __init__(self, collection_id: str, config: confuse.ConfigView, lib: Library)
+         assert isinstance(removable, bool)
+         self.removable = removable
+ 
++        album_art_embed = config["album_art_embed"].get(
++            confuse.TypeTemplate(bool, default=True)
++        )
++        assert isinstance(album_art_embed, bool)
++        self.album_art_embed = album_art_embed
++
++        album_art_copy = config["album_art_copy"].get(
++            confuse.TypeTemplate(bool, default=False)
++        )
++        assert isinstance(album_art_copy, bool)
++        self.album_art_copy = album_art_copy
++
+         album_art_maxwidth = config["album_art_maxwidth"].get(
+             confuse.Optional(confuse.Integer())
+         )
+         assert album_art_maxwidth is None or isinstance(album_art_maxwidth, int)
+         self.album_art_maxwidth = album_art_maxwidth
+ 
++        album_art_format = config["album_art_format"].get(
++            confuse.Optional(confuse.String())
++        )
++        assert album_art_format is None or isinstance(album_art_format, str)
++        self.album_art_format = album_art_format
++
++        album_art_deinterlace = config["album_art_deinterlace"].get(
++            confuse.TypeTemplate(bool, default=False)
++        )
++        assert isinstance(album_art_deinterlace, bool)
++        self.album_art_deinterlace = album_art_deinterlace
++
++        album_art_quality = config["album_art_quality"].get(
++            confuse.TypeTemplate(int, default=0)
++        )
++        assert isinstance(album_art_quality, int)
++        self.album_art_quality = album_art_quality
++
+         if "directory" in config:
+             dir = config["directory"].as_path()
+             assert isinstance(dir, Path)
+@@ -255,12 +302,8 @@ class Action(Enum):
+ 
+ class External:
+     def __init__(self, log: logging.Logger, lib: Library, config: Config):
+-        convert_plugin = convert.ConvertPlugin()
+         self._log = log
+         self._config = config
+-        self._embed = False
+-        self._copy_album_art_fn = convert_plugin.copy_album_art
+-        self._copy_album_art = convert_plugin.config["copy_album_art"].get(bool)
+         self.lib = lib
+         self.path_key = f"alt.{config.collection_id}"
+         self.max_workers = int(str(beets.config["convert"]["threads"]))
+@@ -282,7 +325,8 @@ def item_change_actions(
+         album = item.get_album()
+ 
+         if (
+-            album
++            self._config.album_art_embed
++            and album
+             and album.artpath
+             and Path(str(album.artpath, "utf8")).is_file()
+             and (item_mtime_alt < Path(str(album.artpath, "utf8")).stat().st_mtime)
+@@ -322,18 +366,26 @@ def matched_album_action(self, album):
+         if not dest_dir:
+             return (album, [])
+ 
+-        if (
+-            self._copy_album_art
+-            and album.artpath
+-            and Path(str(album.artpath, "utf8")).is_file()
+-        ):
++        if album.artpath and Path(str(album.artpath, "utf8")).is_file():
+             dest = album.art_destination(
+                 album.artpath, bytes(dest_dir, encoding="utf8")
+             )
+ 
+-            if (not Path(str(dest, "utf8")).is_file()) or (
+-                Path(str(album.artpath, "utf8")).stat().st_mtime
+-                > Path(str(dest, "utf8")).stat().st_mtime
++            if self._config.album_art_format:
++                new_format = self._config.album_art_format.lower()
++                # A nonexhaustive map of image "types" to extensions overrides
++                new_format = {
++                    "jpeg": "jpg",
++                }.get(new_format, new_format)
++
++                dest = Path(str(dest, "utf8"))
++                fname = dest.parent / dest.stem
++                dest = fname.with_suffix("." + new_format)
++            else:
++                dest = Path(str(dest, "utf8"))
++
++            if (not dest.is_file()) or (
++                Path(str(album.artpath, "utf8")).stat().st_mtime > dest.stat().st_mtime
+             ):
+                 return (album, [Action.COPY_ART])
+ 
+@@ -367,7 +419,7 @@ def update(self, create: bool | None = None):  # noqa: C901
+         def finalize_converted_item(item: Item, dest: Path):
+             # Don't rely on the converter to write correct/complete tags.
+             item.write(path=bytes(dest))
+-            if self._embed:
++            if self._config.album_art_embed:
+                 self._sync_art(item, dest)
+             self._set_stored_path(item, dest)
+             item.store()
+@@ -418,7 +470,7 @@ def finalize_converted_item(item: Item, dest: Path):
+                         else:
+                             self._log.debug(f"copying {dest}")
+                             shutil.copyfile(item.path, dest)
+-                            if self._embed:
++                            if self._config.album_art_embed:
+                                 self._sync_art(item, dest)
+                             self._set_stored_path(item, dest)
+                             item.store()
+@@ -446,30 +498,61 @@ def finalize_converted_item(item: Item, dest: Path):
+                 for item, dest in _get_queue_available(converting_done):
+                     finalize_converted_item(item, dest)
+ 
+-            dest_dir = bytes(str(self._config.directory), encoding="utf8")
+-            for album, actions in self.albums_actions():
+-                for action in actions:
+-                    if action == Action.COPY_ART:
+-                        self._log.debug(f"Copying art from {path} into {dest}")
++            if self._config.album_art_copy:
++                self.update_art()
++
++    def update_art(self, link=False):
++        for album, actions in self.albums_actions():
++            for action in actions:
++                if action == Action.COPY_ART:
++                    if link:
+                         dest = album.art_destination(
+                             album.artpath,
+                             bytes(self.album_destination(album), encoding="utf8"),
+                         )
+ 
+-                        dest_path = Path(str(dest, "utf8"))
+-                        if dest_path.exists():
+-                            dest_path.unlink()
+-
+-                        self._copy_album_art_fn(
+-                            album,
+-                            dest_dir,
+-                            path_formats=None,
+-                            pretend=False,
+-                            link=False,
+-                            hardlink=False,
++                        self._log.debug(f"Linking art from {album.artpath} into {dest}")
++                        util.link(album.artpath, dest, replace=True)
++                    else:
++                        path = self.resize_art(album.artpath)
++                        dest = album.art_destination(
++                            path,
++                            bytes(self.album_destination(album), encoding="utf8"),
+                         )
+ 
+-                        print_(f"~{dest}")
++                        self._log.debug(f"Copying art from {path} into {dest}")
++                        util.copy(path, dest, replace=True)
++
++                    print_(f"~{dest}")
++
++    def resize_art(self, path: bytes) -> bytes:
++        """Resize the candidate artwork according to the plugin's
++        configuration and the specified check.
++        """
++        if self._config.album_art_maxwidth:
++            self._log.debug(f"Resizing {path} to {self._config.album_art_maxwidth}")
++            path = ArtResizer.shared.resize(
++                self._config.album_art_maxwidth,
++                path,
++                quality=self._config.album_art_quality,
++            )
++
++        format = ArtResizer.shared.get_format(path)
++        if self._config.album_art_format and self._config.album_art_format != format:
++            self._log.debug(f"Reformatting {path} to {self._config.album_art_format}")
++            tmp_path = util.get_temp_filename(__name__, "reformat", path)
++            util.copy(path, tmp_path, replace=True)
++            path = ArtResizer.shared.reformat(
++                tmp_path,
++                self._config.album_art_format,
++                deinterlaced=self._config.album_art_deinterlace,
++            )
++
++        elif self._config.album_art_deinterlace:
++            self._log.debug(f"Deinterlacing {path}")
++            path = ArtResizer.shared.deinterlace(path)
++
++        return path
+ 
+     def destination(self, item: Item) -> Path:
+         """Returns the path for `item` in the external collection."""
+@@ -526,10 +609,12 @@ def _sync_art(self, item: Item, path: Path):
+         if album and album.artpath and Path(str(album.artpath, "utf8")).is_file():
+             self._log.debug(f"Embedding art from {album.artpath} into {path}")
+ 
++            artpath = self.resize_art(album.artpath)
++
+             art.embed_item(
+                 self._log,
+                 item,
+-                album.artpath,
++                artpath,
+                 maxwidth=self._config.album_art_maxwidth,
+                 itempath=bytes(path),
+             )
+@@ -548,9 +633,6 @@ def __init__(
+         super().__init__(log, lib, config)
+         convert_plugin = convert.ConvertPlugin()
+         self._encode = convert_plugin.encode
+-        self._copy_album_art_fn = convert_plugin.copy_album_art
+-        self._embed = convert_plugin.config["embed"].get(bool)
+-        self._copy_album_art = convert_plugin.config["copy_album_art"].get(bool)
+         self._formats = [convert.ALIASES.get(f, f) for f in config.formats]
+         self.convert_cmd, self.ext = convert.get_format(self._formats[0])
+ 
+@@ -632,6 +714,9 @@ def update(self, create: bool | None = None):
+                     action=action,
+                 )
+ 
++        if self._config.album_art_copy:
++            self.update_art(link=True)
++
+     def _create_symlink(self, item: Item):
+         dest = self.destination(item)
+         dest.parent.mkdir(exist_ok=True, parents=True)
+diff --git a/test/cli_test.py b/test/cli_test.py
+index 83b7c50..98e133e 100644
+--- a/test/cli_test.py
++++ b/test/cli_test.py
+@@ -7,8 +7,10 @@
+ from time import sleep
+ 
+ import pytest
++from beets import util
+ from beets.library import Album, Item
+ from beets.ui import UserError
++from beets.util.artresizer import ArtResizer
+ from confuse import ConfigValueError
+ from mediafile import MediaFile
+ from PIL import Image
+@@ -16,9 +18,9 @@
+ from .helper import (
+     TestHelper,
+     assert_file_tag,
++    assert_has_artwork,
+     assert_has_embedded_artwork,
+     assert_has_not_embedded_artwork,
+-    assert_has_artwork,
+     assert_is_not_file,
+     assert_media_file_fields,
+     assert_not_file_tag,
+@@ -202,6 +204,24 @@ def test_invalid_link_type(self):
+         with pytest.raises(ConfigValueError):
+             self.runcli("alt", "update", "by-year")
+ 
++    def test_album_art_linked(self):
++        self.alt_config["album_art_copy"] = True
++        album = self.add_album(
++            artist="Michael Jackson",
++            album="Thriller",
++            year="1990",
++            original_year="1982",
++        )
++        album.artpath = bytes(str(self.IMAGE_FIXTURE1), encoding="utf8")
++        album.store()
++        self.runcli("alt", "update", "by-year")
++
++        dest_dir = self.get_album_path(album, path_key="alt.by-year")
++        dest = album.art_destination(album.artpath, bytes(dest_dir, encoding="utf8"))
++
++        # Symlink is created
++        assert Path(str(dest, "utf8")).is_symlink()
++
+ 
+ class TestExternalCopy(TestHelper):
+     """Test alternatives with empty ``format `` option, i.e. only copying
+@@ -352,97 +372,135 @@ def test_unkown_collection(self):
+             self.runcli("alt", "update", "unkown")
+         assert str(e.value) == "Alternative collection 'unkown' not found."
+ 
+-    def test_embed_art(self, tmp_path: Path):
+-        """Test that artwork is embedded and updated to match the source file.
++    def test_update_all(self, tmp_path: Path):
++        dir_a = tmp_path / "a"
++        dir_a.mkdir()
++        dir_b = tmp_path / "b"
++        dir_b.mkdir()
++        self.config["alternatives"].get().clear()  # type: ignore
++        self.config["alternatives"] = {
++            "a": {
++                "directory": str(dir_a),
++                "query": "myexternal:true",
++            },
++            "b": {
++                "directory": str(dir_b),
++                "query": "myexternal:true",
++            },
++        }
+ 
+-        There used to be a bug that meant that albumart was only embedded
+-        once on initial addition to the alternative collection, but not if
+-        the artwork was added or changed later.
++        with pytest.raises(UserError) as e:
++            self.runcli("alt", "update")
++        assert str(e.value) == "Please specify a collection name or the --all flag"
+ 
+-        This test comprehensively checks that embedded artwork is up-to-date
+-        with the artwork file, even if no changes to the database happen.
++        item = self.add_track(title="a", myexternal="true")
++        self.runcli("alt", "update", "--all")
++        item.load()
++        path_a = self.get_path(item, path_key="alt.a")
++        assert path_a
++        assert dir_a in path_a.parents
++        assert path_a.is_file()
+ 
+-        It also tests if the album_art_maxwidth is applied
+-        """
++        path_b = self.get_path(item, path_key="alt.b")
++        assert path_b
++        assert dir_b in path_b.parents
++        assert path_b.is_file()
+ 
+-        def touch_art(item: Item, image_path: Path):
+-            """`touch` the image file, but don't set mtime to the current
+-            time since the tests run rather fast and item and art mtimes might
+-            end up identical if the filesystem has low mtime granularity or
+-            mtimes are cashed as laid out in
+-                https://stackoverflow.com/a/14393315/3451198
+-            Considering the interpreter startup time when running `beet alt
+-            update <name>` in a real use-case, this should not obscure any
+-            bugs.
+-            """
+-            item_mtime_alt = Path(str(item.path, "utf8")).stat().st_mtime
+-            os.utime(image_path, (item_mtime_alt + 2, item_mtime_alt + 2))
++        # Don’t update files on second run
++        assert self.runcli("alt", "update", "--all") == ""
+ 
+-        # Initially add album without artwork. Do not do resizing
+-        self.config["alternatives"]["myexternal"]["album_art_maxwidth"] = None
++
++class TestExternalArt(TestHelper):
++    @pytest.fixture(autouse=True)
++    def _external_art(self, tmp_path: Path, _setup: None):
++        external_dir = str(tmp_path)
++        self.config["convert"]["embed"] = False
++        self.config["alternatives"] = {
++            "myexternal": {
++                "directory": external_dir,
++                "query": "myexternal:true",
++                "formats": "mp3",
++                "album_art_copy": False,
++                "album_art_maxwidth": None,
++                "album_art_format": None,
++                "album_art_deinterlace": False,
++                "album_art_quality": 0,
++            }
++        }
++        self.external_config = self.config["alternatives"]["myexternal"]
++
++    def touch_art(self, artpath: bytes, image_path: Path):
++        """`touch` the image file, but don't set mtime to the current
++        time since the tests run rather fast and item and art mtimes might
++        end up identical if the filesystem has low mtime granularity or
++        mtimes are cashed as laid out in
++            https://stackoverflow.com/a/14393315/3451198
++        Considering the interpreter startup time when running `beet alt
++        update <name>` in a real use-case, this should not obscure any
++        bugs.
++        """
++        item_mtime_alt = Path(str(artpath, "utf8")).stat().st_mtime
++        os.utime(image_path, (item_mtime_alt + 2, item_mtime_alt + 2))
++
++    def test_resize_art(self, tmp_path: Path):
+         album = self.add_album(myexternal="true")
+         album.store()
+         self.runcli("alt", "update", "myexternal")
+ 
+-        item = album.items().get()
+-        assert item
+-        assert_has_not_embedded_artwork(self.get_path(item))
+-
+         # Make a copy of the artwork, so that changing mtime/content won't
+         # affect the repository.
+-        image_path = tmp_path / "image.png"
++        image_path = tmp_path / "FIXTURE.png"
++        artpath = bytes(image_path)
+         shutil.copy(self.IMAGE_FIXTURE1, image_path)
+-        touch_art(item, image_path)
++        self.touch_art(artpath, image_path)
+ 
+-        # Add a cover image, assert that it is being embedded.
+-        album.artpath = bytes(image_path)
++        dest_dir = self.get_album_path(album)
++        dest = album.art_destination(artpath, bytes(dest_dir, encoding="utf8"))
++
++        self.external_config["album_art_copy"] = True
++        self.external_config["album_art_maxwidth"] = 1
++        album.artpath = artpath
+         album.store()
+         self.runcli("alt", "update", "myexternal")
++        (width, height) = ArtResizer.shared.get_size(path_in=dest)
++        assert width == 1
++        assert height < 3
++        assert ArtResizer.shared.get_format(path_in=dest) == "PNG"
+ 
+-        item = album.items().get()
+-        assert item
+-        assert_has_embedded_artwork(self.get_path(item), self.IMAGE_FIXTURE1)
+-
+-        # Change content and update mtime, but do not change the item/album in
+-        # database.
+-        # Assert that artwork is re-embedded.
+-        shutil.copy(self.IMAGE_FIXTURE2, image_path)
+-        touch_art(item, image_path)
++        self.external_config["album_art_format"] = "JPEG"
+         self.runcli("alt", "update", "myexternal")
+ 
+-        item = album.items().get()
+-        assert item
+-        assert_has_embedded_artwork(self.get_path(item), self.IMAGE_FIXTURE2)
++        dest = album.art_destination(
++            tmp_path / "FIXTURE.jpg", bytes(dest_dir, encoding="utf8")
++        )
+ 
+-        # now set a maxwidth and verify the final image has the right
+-        # dimensions
+-        touch_art(item, image_path)
+-        self.config["alternatives"]["myexternal"]["album_art_maxwidth"] = 1
+-        self.runcli("alt", "update", "myexternal")
+-        mediafile = MediaFile(self.get_path(item))
+-        width, height = Image.open(io.BytesIO(mediafile.art)).size  # pyright: ignore
++        (width, height) = ArtResizer.shared.get_size(path_in=dest)
+         assert width == 1
+         assert height < 3
++        assert ArtResizer.shared.get_format(path_in=dest) == "JPEG"
++        assert Path(str(dest, "utf8")).name == "cover.jpg"
++        # Check that FIXTURE.png is still around to verify that
++        # the reformat was not done in-place
++        assert image_path.is_file()
++
++        # Test that reformat is idempotent
++        image_path = tmp_path / "FIXTURE.jpg"
++        util.copy(dest, image_path)
++        album.artpath = bytes(image_path)
++        album.store()
++        self.runcli("alt", "update", "myexternal")
+ 
+-    def test_copy_art(self, tmp_path: Path):
+-        def touch_art(artpath: bytes, image_path: Path):
+-            """`touch` the image file, but don't set mtime to the current
+-            time since the tests run rather fast and item and art mtimes might
+-            end up identical if the filesystem has low mtime granularity or
+-            mtimes are cashed as laid out in
+-                https://stackoverflow.com/a/14393315/3451198
+-            Considering the interpreter startup time when running `beet alt
+-            update <name>` in a real use-case, this should not obscure any
+-            bugs.
+-            """
+-            # TODO set better mtime src
+-            item_mtime_alt = Path(str(artpath, "utf8")).stat().st_mtime
+-            os.utime(image_path, (item_mtime_alt + 2, item_mtime_alt + 2))
++        dest_path = Path(str(dest, "utf8"))
++        mtime_1 = dest_path.stat().st_mtime
++        self.runcli("alt", "update", "myexternal")
++        mtime_2 = dest_path.stat().st_mtime
+ 
++        assert mtime_1 == mtime_2
++
++    def test_copy_art(self, tmp_path: Path):
+         # Initially add album without artwork. Do not do resizing
+-        self.config["convert"]["embed"] = False
+-        self.config["convert"]["copy_album_art"] = True
+-        self.config["alternatives"]["myexternal"]["album_art_maxwidth"] = None
++        self.external_config["album_art_embed"] = False
++        self.external_config["album_art_copy"] = True
+ 
+         album = self.add_album(myexternal="true")
+         album.store()
+@@ -453,7 +511,7 @@ def touch_art(artpath: bytes, image_path: Path):
+         image_path = tmp_path / "FIXTURE.png"
+         artpath = bytes(image_path)
+         shutil.copy(self.IMAGE_FIXTURE1, image_path)
+-        touch_art(artpath, image_path)
++        self.touch_art(artpath, image_path)
+ 
+         dest_dir = self.get_album_path(album)
+         dest = album.art_destination(artpath, bytes(dest_dir, encoding="utf8"))
+@@ -472,46 +530,76 @@ def touch_art(artpath: bytes, image_path: Path):
+ 
+         # Update art file
+         shutil.copy(self.IMAGE_FIXTURE2, image_path)
+-        touch_art(artpath, image_path)
++        self.touch_art(artpath, image_path)
+         self.runcli("alt", "update", "myexternal")
+         assert_has_artwork(Path(str(dest, "utf8")), self.IMAGE_FIXTURE2)
+ 
+-    def test_update_all(self, tmp_path: Path):
+-        dir_a = tmp_path / "a"
+-        dir_a.mkdir()
+-        dir_b = tmp_path / "b"
+-        dir_b.mkdir()
+-        self.config["alternatives"].get().clear()  # type: ignore
+-        self.config["alternatives"] = {
+-            "a": {
+-                "directory": str(dir_a),
+-                "query": "myexternal:true",
+-            },
+-            "b": {
+-                "directory": str(dir_b),
+-                "query": "myexternal:true",
+-            },
+-        }
++        # Test that art is updated after extension was updated
++        self.touch_art(bytes(image_path), Path(str(dest, "utf8")))
++        self.external_config["album_art_format"] = "JPEG"
++        self.runcli("alt", "update", "myexternal")
++        dest = album.art_destination("FIXTURE.jpg", bytes(dest_dir, encoding="utf8"))
++        assert Path(str(dest, "utf8")).is_file()
+ 
+-        with pytest.raises(UserError) as e:
+-            self.runcli("alt", "update")
+-        assert str(e.value) == "Please specify a collection name or the --all flag"
++    def test_embed_art(self, tmp_path: Path):
++        """Test that artwork is embedded and updated to match the source file.
+ 
+-        item = self.add_track(title="a", myexternal="true")
+-        self.runcli("alt", "update", "--all")
+-        item.load()
+-        path_a = self.get_path(item, path_key="alt.a")
+-        assert path_a
+-        assert dir_a in path_a.parents
+-        assert path_a.is_file()
++        There used to be a bug that meant that albumart was only embedded
++        once on initial addition to the alternative collection, but not if
++        the artwork was added or changed later.
+ 
+-        path_b = self.get_path(item, path_key="alt.b")
+-        assert path_b
+-        assert dir_b in path_b.parents
+-        assert path_b.is_file()
++        This test comprehensively checks that embedded artwork is up-to-date
++        with the artwork file, even if no changes to the database happen.
+ 
+-        # Don’t update files on second run
+-        assert self.runcli("alt", "update", "--all") == ""
++        It also tests if the album_art_maxwidth is applied
++        """
++
++        # Initially add album without artwork. Do not do resizing
++        self.external_config["embed"] = True
++        self.external_config["album_art_maxwidth"] = None
++        album = self.add_album(myexternal="true")
++        album.store()
++        self.runcli("alt", "update", "myexternal")
++
++        item = album.items().get()
++        assert item
++        assert_has_not_embedded_artwork(self.get_path(item))
++
++        # Make a copy of the artwork, so that changing mtime/content won't
++        # affect the repository.
++        image_path = tmp_path / "image.png"
++        shutil.copy(self.IMAGE_FIXTURE1, image_path)
++        self.touch_art(item.path, image_path)
++
++        # Add a cover image, assert that it is being embedded.
++        album.artpath = bytes(image_path)
++        album.store()
++        self.runcli("alt", "update", "myexternal")
++
++        item = album.items().get()
++        assert item
++        assert_has_embedded_artwork(self.get_path(item), self.IMAGE_FIXTURE1)
++
++        # Change content and update mtime, but do not change the item/album in
++        # database.
++        # Assert that artwork is re-embedded.
++        shutil.copy(self.IMAGE_FIXTURE2, image_path)
++        self.touch_art(item.path, image_path)
++        self.runcli("alt", "update", "myexternal")
++
++        item = album.items().get()
++        assert item
++        assert_has_embedded_artwork(self.get_path(item), self.IMAGE_FIXTURE2)
++
++        # now set a maxwidth and verify the final image has the right
++        # dimensions
++        self.touch_art(item.path, image_path)
++        self.external_config["album_art_maxwidth"] = 1
++        self.runcli("alt", "update", "myexternal")
++        mediafile = MediaFile(self.get_path(item))
++        width, height = Image.open(io.BytesIO(mediafile.art)).size  # pyright: ignore
++        assert width == 1
++        assert height < 3
+ 
+ 
+ class TestExternalConvert(TestHelper):
+diff --git a/test/helper.py b/test/helper.py
+index 00de418..9e61446 100644
+--- a/test/helper.py
++++ b/test/helper.py
+@@ -114,7 +114,7 @@ def assert_has_artwork(path: Path, compare_file: Path | None = None):
+             crc_is = crc32(path_fh.read())
+             crc_expected = crc32(compare_fh.read())
+             assert crc_is == crc_expected, (
+-                "MediaFile has embedded artwork, but "
++                "artwork file exists, but "
+                 f"content (CRC32: {crc_is}) doesn't match "
+                 f"expectations (CRC32: {crc_expected})."
+             )
+@@ -278,14 +278,15 @@ def add_external_album(self, ext_name: str, **kwargs: str):
+     def get_path(self, item: Item, path_key: str = "alt.myexternal") -> Path:
+         return Path(item[path_key])
+ 
+-    def get_album_path(self, album: Album) -> Path:
++    def get_album_path(self, album: Album, path_key: str = "alt.myexternal") -> Path:
+         item = album.items().get()
+         if item:
+-            head, _ = os.path.split(self.get_path(item))
++            head, _ = os.path.split(self.get_path(item, path_key=path_key))
+             return head
+         else:
+             return None
+ 
++
+ def convert_command(tag: str) -> str:
+     """Return a convert shell command that copies the file and adds a tag to the files end."""
+ 
+
+From c34fc91ce5eedb166cd825fd4fb76462ca666d0d Mon Sep 17 00:00:00 2001
+From: Max Audron <audron@cocaine.farm>
+Date: Sun, 2 Nov 2025 01:40:38 +0100
+Subject: [PATCH 3/3] add album_art_* options to readme
+
+---
+ README.md | 33 ++++++++++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 5 deletions(-)
+
+diff --git a/README.md b/README.md
+index 6c1621a..d502821 100644
+--- a/README.md
++++ b/README.md
+@@ -258,11 +258,6 @@ following settings.
+ 
+   By default no transcoding is done.
+ 
+-* **`albumart_maxwidth`** Downscale the embedded album art to a width
+-  of maximum `albumart_maxwidth` pixels. The aspect ratio of the image
+-  will be preserved. This is comparable to the setting with the same
+-  name of the [convert plugin][convert plugin].
+-
+ * **`removable`** If this is `true` (the default) and `directory` does
+   not exist, the `update` command will ask you to confirm the creation
+   of the external collection. (optional)
+@@ -271,6 +266,33 @@ following settings.
+   **`formats`** is `link`, it sets the type of links to create. For
+   differences between link types and examples see [Symlink Views](#symlink-views).
+ 
++* **`album_art_embed`** Embed album art into the media file. Default `yes`
++
++* **`album_art_copy`** Copy album art files into the collection. 
++  If `formats: link` is used then album art is linked instead.
++
++* **`album_art_maxwidth`** Downscale the embedded album art to a width
++  of maximum `album_art_maxwidth` pixels. The aspect ratio of the image
++  will be preserved. This is comparable to the setting with the same
++  name of the [convert plugin][convert plugin].
++
++* **`album_art_format`** If set forces album art to be converted to the
++  specified format. Most often, this will be either JPEG or PNG.
++  Support the same options as [`fetchart.cover_formats`][cover formats]
++
++* **`album_art_deinterlace`** If enabled, Pillow or ImageMagick backends
++  are instructed to store cover art as non-progressive JPEG. You might
++  need this if you use DAPs that don’t support progressive images.
++  Default: no.
++
++* **`album_art_quality`** The JPEG quality level to use when compressing
++  images (when maxwidth is set). This should be either a number
++  from 1 to 100 or 0 to use the default quality. 65–75 is usually a
++  good starting point. The default behavior depends on the imaging
++  tool used for scaling: ImageMagick tries to estimate the input image
++  quality and uses 92 if it cannot be determined, and PIL defaults 
++  to 75. Default: 0 (disabled)
++
+ Events
+ ------
+ 
+@@ -345,3 +367,4 @@ SOFTWARE.
+ [convert plugin]: http://beets.readthedocs.org/en/latest/plugins/convert.html
+ [query string]: http://beets.readthedocs.org/en/latest/reference/query.html
+ [using plugins]: http://beets.readthedocs.org/en/latest/plugins/index.html#using-plugins
++[cover formats]: https://beets.readthedocs.io/en/stable/plugins/fetchart.html#image-formats

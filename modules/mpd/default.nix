@@ -27,7 +27,11 @@ rec {
       audio_output {
         type "pipewire"
         name "MPD"
+
+        replay_gain_handler "mixer"
       }
+
+      replaygain "album"
     '';
   };
 
@@ -83,6 +87,9 @@ rec {
                     disabledTestPaths = [
                       "dev/get_release_notes.py"
                     ];
+                    disabledTests = [
+                      "test_resize_art"
+                    ];
                   }
                 ))
               ];
@@ -95,6 +102,8 @@ rec {
             musicbrainz.enable = true;
             mpdupdate.enable = true;
             convert.enable = true;
+            replaygain.enable = true;
+            permissions.enable = true;
           };
         };
 
@@ -110,6 +119,8 @@ rec {
         "mpdupdate"
         "convert"
         "fish"
+        "replaygain"
+        "permissions"
       ];
 
       directory = "/mnt/media/Music";
@@ -131,6 +142,12 @@ rec {
         opus = {
           directory = "/mnt/media/Music.opus";
           formats = "opus mp3";
+
+          album_art_embed = false;
+          album_art_copy = true;
+          album_art_format = "JPEG";
+          album_art_maxwidth = 1200;
+          album_art_deinterlace = true;
         };
       };
 
@@ -138,6 +155,7 @@ rec {
         quiet = true;
         dest = "/mnt/media/Music.opus";
         never_convert_lossy_files = true;
+        threads = 8;
 
         embed = false;
         copy_album_art = true;
@@ -182,6 +200,10 @@ rec {
 
       fetchart = {
         auto = true;
+
+        sources = [ "filesystem" "itunes" "coverart: releasegroup" ];
+        store_source = true;
+        high_resolution = true;
       };
 
       lyrics = {
@@ -197,6 +219,16 @@ rec {
         ratelimit = 150;
         https = true;
         genres = true;
+      };
+
+      replaygain = {
+        auto = true;
+        backend = "ffmpeg";
+      };
+
+      permissions = {
+        file = "644";
+        dir = "755";
       };
     };
   };
