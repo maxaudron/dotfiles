@@ -85,8 +85,9 @@ in
       nvim-treesitter-parsers.css
       nvim-treesitter-parsers.bash
       nvim-treesitter-parsers.qmljs
-      nvim-treesitter-parsers.tera
       nvim-treesitter-parsers.styled
+      nvim-treesitter-parsers.tera
+      nvim-treesitter-parsers.terraform
       pkgs.unstable.vimPlugins.nvim-treesitter-parsers.ron
     ];
 

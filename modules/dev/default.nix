@@ -93,6 +93,8 @@ in
             bootstrap
             ansible-run
             ansible
+
+            (azure-cli.override { withImmutableConfig = false; })
           ]
         else
           [ ]
