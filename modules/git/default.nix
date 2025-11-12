@@ -1,21 +1,35 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let conf = import ../config { inherit lib; };
+let
+  conf = import ../config { inherit lib; };
 
 in
 {
   home.packages = with pkgs; [ bfg-repo-cleaner ];
 
+  programs.delta ={
+    enable = true;
+    enableGitIntegration = true;
+  };
+
   programs.git = {
     enable = true;
     lfs.enable = true;
-    delta.enable = true;
 
-    userName = conf.user.fullname;
-    userEmail = conf.user.email;
+    settings = {
+      user = {
+        name = conf.user.fullname;
+        email = conf.user.email;
+      };
 
-    extraConfig = {
-      init = { defaultBranch = "master"; };
+      init = {
+        defaultBranch = "master";
+      };
 
       push = {
         followTags = true;
@@ -72,14 +86,15 @@ in
         };
       };
 
-      color = { ui = "auto"; };
+      color = {
+        ui = "auto";
+      };
 
       alias = {
         st = "status";
         ci = "commit";
         oops = "commit --amend --no-edit";
-        glog =
-          "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+        glog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
       };
 
       core = {
@@ -87,10 +102,19 @@ in
       };
 
       versionsort = {
-        prereleaseSuffix = [ "-pre" ".pre" "-beta" ".beta" "-rc" ".rc" ];
+        prereleaseSuffix = [
+          "-pre"
+          ".pre"
+          "-beta"
+          ".beta"
+          "-rc"
+          ".rc"
+        ];
       };
 
-      grep = { extendedRegexp = true; };
+      grep = {
+        extendedRegexp = true;
+      };
 
       log = {
         abbrevCommit = true;

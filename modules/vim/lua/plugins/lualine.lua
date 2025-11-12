@@ -146,7 +146,9 @@ return {
       lualine_y = { lsp },
       lualine_z = {
         {
-          'o:encoding',       -- option component same as &encoding in viml
+          function()
+            return require("wrapping").get_current_mode()
+          end,
           fmt = string.upper, -- I'm not sure why it's upper case either ;)
           cond = conditions.hide_in_width,
           color = { fg = palette.green, gui = 'bold' },

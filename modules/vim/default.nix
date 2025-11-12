@@ -8,6 +8,15 @@
 
 let
   conf = import ../config { inherit lib; };
+
+  vimPlugins = {
+    nvim-decipher = pkgs.callPackage ./plugins/decipher.nix { };
+    asciidoctor = pkgs.callPackage ./plugins/asciidoctor.nix { };
+    treesitter-asciidoc = pkgs.callPackage ./plugins/treesitter-asciidoc.nix {
+      buildGrammar = pkgs.tree-sitter.buildGrammar;
+    };
+    nvim-treesitter-asciidoc = { };
+  };
 in
 {
   home.shellAliases = {
@@ -25,8 +34,12 @@ in
     # lint
     tflint
     yamllint
+    isort
+    black
 
     himalaya
+
+    asciidoctor-with-extensions
   ];
 
   programs.neovim = {
@@ -35,61 +48,74 @@ in
     vimAlias = true;
     vimdiffAlias = true;
 
-    plugins = with pkgs.vimPlugins; [
-      lazy-nvim
-      catppuccin-nvim
-      snacks-nvim
-      conform-nvim
+    plugins =
+      with pkgs.vimPlugins;
+      with vimPlugins;
+      [
+        lazy-nvim
+        catppuccin-nvim
+        snacks-nvim
+        conform-nvim
 
-      which-key-nvim
-      mini-icons
-      nvim-web-devicons
+        which-key-nvim
+        mini-icons
+        nvim-web-devicons
 
-      vim-fugitive
-      gitsigns-nvim
-      blink-cmp
-      blink-cmp-avante
-      nvim-lint
+        vim-fugitive
+        gitsigns-nvim
+        blink-cmp
+        blink-cmp-avante
+        nvim-lint
 
-      render-markdown-nvim
-      pkgs.unstable.vimPlugins.avante-nvim
+        asciidoctor
+        render-markdown-nvim
+        wrapping-nvim
 
-      trouble-nvim
-      lualine-nvim
+        avante-nvim
 
-      nvim-highlight-colors
-      rainbow-delimiters-nvim
-      mini-surround
-      mini-pairs
+        trouble-nvim
+        lualine-nvim
 
-      pkgs.nvim-decipher
+        nvim-highlight-colors
+        rainbow-delimiters-nvim
+        mini-surround
+        mini-pairs
 
-      himalaya-vim
+        nvim-decipher
 
-      nvim-lspconfig
+        himalaya-vim
 
-      # Languages
-      rustaceanvim
-      neotest
+        nvim-lspconfig
 
-      # treesitter
-      nvim-treesitter
-      nvim-treesitter-context
-      nvim-treesitter-parsers.rust
-      nvim-treesitter-parsers.luap
-      nvim-treesitter-parsers.nix
-      nvim-treesitter-parsers.markdown
-      nvim-treesitter-parsers.markdown_inline
-      nvim-treesitter-parsers.latex
-      nvim-treesitter-parsers.html
-      nvim-treesitter-parsers.css
-      nvim-treesitter-parsers.bash
-      nvim-treesitter-parsers.qmljs
-      nvim-treesitter-parsers.styled
-      nvim-treesitter-parsers.tera
-      nvim-treesitter-parsers.terraform
-      pkgs.unstable.vimPlugins.nvim-treesitter-parsers.ron
-    ];
+        hex-nvim
+
+        # Languages
+        rustaceanvim
+        neotest
+
+        # treesitter
+        (nvim-treesitter.withPlugins (
+          p: with p; [
+            python
+            rust
+            luap
+            nix
+            markdown
+            markdown_inline
+            latex
+            html
+            css
+            bash
+            qmljs
+            tera
+            terraform
+            styled
+            ron
+            treesitter-asciidoc
+          ]
+        ))
+        nvim-treesitter-context
+      ];
 
     extraLuaConfig = ''
       vim.g.mapleader = " "

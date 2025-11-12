@@ -2,6 +2,8 @@
   config,
   lib,
   pkgs,
+  system,
+  beets-rockbox,
   ...
 }:
 
@@ -15,14 +17,10 @@ rec {
     musicDirectory = "/mnt/media/Music/";
 
     extraConfig = ''
-      input {
-        plugin "curl"
+      resampler {
+        plugin "soxr"
+        quality "very high"
       }
-
-      # resampler {
-      #   plugin "soxr"
-      #   quality "very high"
-      # }
 
       audio_output {
         type "pipewire"
@@ -54,7 +52,7 @@ rec {
   programs.beets = {
     enable = true;
     package =
-      (pkgs.beets.overrideAttrs (
+      (pkgs.python313Packages.beets.overrideAttrs (
         final: prev: {
           patches = [ ./single-artist.patch ];
           disabledTests = prev.disabledTests ++ [
@@ -69,21 +67,24 @@ rec {
             alternatives = {
               enable = true;
               propagatedBuildInputs = [
-                (pkgs.beetsPackages.alternatives.overrideAttrs (
+                (pkgs.python313Packages.beets-alternatives.overrideAttrs (
                   final: prev: rec {
-                    version = "0.13.4";
-
+                    pyproject = true;
+                    version = "0.13.4-6fd4dff";
                     src = pkgs.fetchFromGitHub {
                       repo = "beets-alternatives";
                       owner = "geigerzaehler";
-                      tag = "v${version}";
-                      hash = "sha256-jGHRoBBXqJq0r/Gbp7gkuaEFPVMGE6cqQRi84AHTXxQ=";
+                      rev = "6fd4dffdd8216fb45dea015209787dc8df3440f6";
+                      hash = "sha256-flJbcQ1z54ADU0QIPral9waKshtbIF44vpBDgnxcMUw=";
                     };
 
                     patches = [
                       ./alternatives_copy_art.patch
-                      ./alternatives_fix_tests.patch
                     ];
+
+                    buildInputs = [ pkgs.python313Packages.hatchling ];
+                    build-system = [ pkgs.python313Packages.hatchling ];
+
                     disabledTestPaths = [
                       "dev/get_release_notes.py"
                     ];
@@ -94,10 +95,17 @@ rec {
                 ))
               ];
             };
+            rockbox = {
+              enable = true;
+              propagatedBuildInputs = [
+                (beets-rockbox.packages."${system}".default)
+              ];
+            };
             edit.enable = true;
             embedart.enable = true;
             fetchart.enable = true;
             info.enable = true;
+            lastgenre.enable = true;
             lyrics.enable = true;
             musicbrainz.enable = true;
             mpdupdate.enable = true;
@@ -110,17 +118,20 @@ rec {
     settings = {
       plugins = [
         "alternatives"
+        "convert"
         "edit"
         "embedart"
         "fetchart"
-        "info"
-        "lyrics"
-        # "musicbrainz"
-        "mpdupdate"
-        "convert"
         "fish"
-        "replaygain"
+        "info"
+        "lastgenre"
+        "lyrics"
+        "musicbrainz"
+        "mpdupdate"
         "permissions"
+        "replaygain"
+        "rockbox"
+        "zero"
       ];
 
       directory = "/mnt/media/Music";
@@ -147,6 +158,17 @@ rec {
           album_art_copy = true;
           album_art_format = "JPEG";
           album_art_maxwidth = 1200;
+          album_art_deinterlace = true;
+        };
+
+        ipod = {
+          directory = "/mnt/ipod/Music";
+          formats = "opus mp3";
+
+          album_art_embed = false;
+          album_art_copy = true;
+          album_art_format = "JPEG";
+          album_art_maxwidth = 400;
           album_art_deinterlace = true;
         };
       };
@@ -184,7 +206,7 @@ rec {
                 );
               in
               ''
-                ${opusTools}/bin/opusenc --music --bitrate 128 --comp 10 $source $dest
+                ${opusTools}/bin/opusenc --music --bitrate 160 --vbr --comp 10 $source $dest
               '';
             extension = "opus";
           };
@@ -201,9 +223,26 @@ rec {
       fetchart = {
         auto = true;
 
-        sources = [ "filesystem" "itunes" "coverart: releasegroup" ];
+        sources = [
+          "filesystem"
+          "itunes"
+          "coverart: releasegroup"
+        ];
         store_source = true;
         high_resolution = true;
+      };
+
+      lastgenre = {
+        auto = true;
+        force = true;
+        keep_existing = false;
+
+        source = "track";
+        canonical = true;
+        prefer_specific = true;
+        count = 1;
+        whitelist = true;
+        title_case = false;
       };
 
       lyrics = {
@@ -224,11 +263,40 @@ rec {
       replaygain = {
         auto = true;
         backend = "ffmpeg";
+
+        targetlevel = 84;
+        r128_targetlevel = 84;
+        r128 = "Opus FLAC";
+        peak = "true";
+      };
+
+      rockbox = {
+        db = "/mnt/ipod/.rockbox";
+        rockbox = "/mnt/ipod/.rockbox";
+        music = "/<HDD0>/Music";
+
+        formats = [
+          "opus"
+          "mp3"
+        ];
       };
 
       permissions = {
         file = "644";
         dir = "755";
+      };
+
+      zero = {
+        auto = true;
+        update_database = true;
+        omit_single_disc = true;
+        fields = lib.strings.concatStringsSep " " [
+          "rg_album_gain"
+          "rg_album_peak"
+          "rg_track_gain"
+          "rg_track_peak"
+          "images"
+        ];
       };
     };
   };

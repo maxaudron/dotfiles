@@ -14,6 +14,4 @@ self: super:
   # quasselCore = super.qt6.callPackage ./quassel { client = false; enableDaemon = true; };
 
   spleen = super.callPackage ./spleen {};
-
-  nvim-decipher = super.callPackage ./nvim-decipher {};
 }

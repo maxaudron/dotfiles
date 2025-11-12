@@ -65,8 +65,8 @@ in
     twitter-color-emoji
     nerd-fonts.symbols-only
     spleen
-    (callPackage "${secrets}/fonts/TX-02/default.nix" {})
-    (callPackage "${secrets}/fonts/TX-02-Variable/default.nix" {})
+    (callPackage "${secrets}/fonts/TX-02/default.nix" { })
+    (callPackage "${secrets}/fonts/TX-02-Variable/default.nix" { })
   ];
 
   nixpkgs.overlays = [ (import ../../pkgs) ];
@@ -120,4 +120,8 @@ in
       ];
     };
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "qtwebengine-5.15.19"
+  ];
 }

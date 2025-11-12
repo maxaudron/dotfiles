@@ -16,7 +16,12 @@ vim.opt.softtabstop = 2      -- Size of a tab
 vim.opt.exrc = true          -- allow loading directory vimrc files
 
 vim.opt.wrap = true
+vim.opt.textwidth = 0
 vim.opt.linebreak = true
 vim.opt.breakindent = true
+vim.opt.showbreak = "↳"
 
 vim.filetype.add { extension = { qss = 'css' } }
+
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

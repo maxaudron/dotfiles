@@ -7,19 +7,9 @@
 }:
 
 {
-  disabledModules = [ 
-    "services/display-managers/default.nix"
-    "services/x11/display-managers/gdm.nix"
-    "services/display-managers/autologin.nix"
-  ];
-
   imports = [
     ./udev.nix
     ../autologin
-
-    "${nixpkgs-unstable}/nixos/modules/services/display-managers/default.nix"
-    "${nixpkgs-unstable}/nixos/modules/services/display-managers/lemurs.nix"
-    "${nixpkgs-unstable}/nixos/modules/services/display-managers/gdm.nix"
   ];
 
   security.sudo.wheelNeedsPassword = false;
@@ -125,9 +115,18 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [ "IBM Plex Serif" "Symbols Nerd Font" ];
-      sansSerif = [ "IBM Plex Sans" "Symbols Nerd Font" ];
-      monospace = [ "TX-02" "Symbols Nerd Font Mono" ];
+      serif = [
+        "IBM Plex Serif"
+        "Symbols Nerd Font"
+      ];
+      sansSerif = [
+        "IBM Plex Sans"
+        "Symbols Nerd Font"
+      ];
+      monospace = [
+        "TX-02"
+        "Symbols Nerd Font Mono"
+      ];
 
       emoji = [ "Twitter Color Emoji" ];
     };

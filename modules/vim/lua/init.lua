@@ -9,5 +9,7 @@ for k, v in ipairs(files) do
 end
 
 vim.lsp.enable('ruff')
+vim.lsp.enable('pyright')
+vim.lsp.enable('clangd')
 
 

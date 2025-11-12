@@ -102,7 +102,7 @@ in
       ++ (
         if conf.os.type == "linux" then
           [
-            linuxKernel.packages.linux_zen.perf
+            perf
             blackmagic
             gcc-arm-embedded
           ]
