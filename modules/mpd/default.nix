@@ -16,6 +16,8 @@ rec {
     dbFile = null;
     musicDirectory = "/mnt/media/Music/";
 
+    network.listenAddress = "0.0.0.0";
+
     extraConfig = ''
       resampler {
         plugin "soxr"
@@ -31,6 +33,16 @@ rec {
 
       replaygain "album"
     '';
+  };
+
+  services.mpdscribble = {
+    enable = true;
+    endpoints = {
+      "last.fm" = {
+        username = "maxaudron";
+        passwordFile = "/etc/mpd/lastfm.key";
+      };
+    };
   };
 
   services.mpdris2 = {
