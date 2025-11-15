@@ -28,7 +28,7 @@ in
       };
 
       init = {
-        defaultBranch = "master";
+        defaultBranch = "main";
       };
 
       push = {
