@@ -100,9 +100,6 @@ rec {
                     disabledTestPaths = [
                       "dev/get_release_notes.py"
                     ];
-                    disabledTests = [
-                      "test_resize_art"
-                    ];
                   }
                 ))
               ];
