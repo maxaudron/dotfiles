@@ -26,6 +26,7 @@ in
   home.packages = with pkgs; [
     ruff
     lua-language-server
+    stylua
     bash-language-server
     terraform-ls
     gopls
