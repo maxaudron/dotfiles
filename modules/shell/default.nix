@@ -49,8 +49,6 @@ in
     eza
     tmux-cssh
     ack
-
-    wl-clipboard
   ];
 
   home.shellAliases = aliases;

@@ -10,55 +10,9 @@ let
   linux = conf.os.type == "linux";
 in
 {
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      keyboard.bindings = [
-        {
-          key = "Return";
-          mods = "Control|Shift";
-          action = "SpawnNewInstance";
-        }
-      ];
-
-      env = {
-        TERM = "xterm-256color";
-      };
-
-      font =
-        let
-          font = "TX-02-Variable";
-        in
-        {
-          size = 14;
-          builtin_box_drawing = false;
-          normal = {
-            family = font;
-            style = "Retina";
-          };
-          bold = {
-            family = font;
-            style = "SemiBold";
-          };
-          italic = {
-            family = font;
-            style = "Oblique";
-          };
-          bold_italic = {
-            family = font;
-            style = "SemiBold Oblique";
-          };
-        };
-
-      colors = {
-        draw_bold_text_with_bright_colors = false;
-      };
-    };
-  };
-
   programs.ghostty = {
     enable = true;
-    package = if linux then pkgs.ghostty else null;
+    package = if linux then pkgs.ghostty else pkgs.ghostty-bin;
     enableFishIntegration = true;
 
     settings = let 
@@ -84,53 +38,6 @@ in
       # ss06: Broken Bar
       font-feature = [ "+liga" "+calt" "+ss03" "+ss06" ];
       freetype-load-flags = [ "no-hinting" ];
-    };
-  };
-
-  programs.rio = {
-    enable = true;
-    package = pkgs.unstable.rio;
-    settings = {
-      fonts =
-        let
-          font = "TX-02-Variable";
-        in
-        {
-          size = 19;
-          extras = [
-            { family = "Symbols Nerd Font Mono"; }
-            { family = "Twitter Color Emoji"; }
-          ];
-
-          features = [ "liga" "calt" "ss03" "ss06" ];
-          hinting = false;
-          use-drawable-chars = false;
-
-          regular = {
-            family = font;
-            style = "Normal";
-            width = "Normal";
-            weight = 400;
-          };
-          bold = {
-            family = font;
-            style = "Normal";
-            width = "Normal";
-            weight = 600;
-          };
-          italic = {
-            family = font;
-            style = "Italic";
-            width = "Normal";
-            weight = 400;
-          };
-          bold-italic = {
-            family = font;
-            style = "Italic";
-            width = "Normal";
-            weight = 600;
-          };
-        };
     };
   };
 }
