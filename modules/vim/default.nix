@@ -57,6 +57,7 @@ in
         catppuccin-nvim
         snacks-nvim
         conform-nvim
+        plenary-nvim
 
         which-key-nvim
         mini-icons
@@ -73,6 +74,9 @@ in
         wrapping-nvim
 
         avante-nvim
+        codecompanion-nvim
+        codecompanion-spinner-nvim
+        codecompanion-history-nvim
 
         trouble-nvim
         lualine-nvim

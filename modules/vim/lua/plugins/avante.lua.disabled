@@ -7,6 +7,13 @@ return {
     -- for example
     provider = "gemini",
     providers = {
+      vertex = {
+        endpoint = "https://aiplatform.googleapis.com/v1/publishers/google/models",
+        api_key_name = { "pass", "show", "work/vertex-ai" },
+        model = "gemini-2.5-pro",
+        location = "europe-west1",
+      },
+
       gemini = {
         endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
         api_key_name = { "pass", "show", "work/gemini" },
@@ -32,9 +39,6 @@ return {
       cohere = {
         hide_in_model_selector = true,
       },
-      vertex = {
-        hide_in_model_selector = true,
-      },
       vertex_claude = {
         hide_in_model_selector = true,
       },
@@ -53,21 +57,18 @@ return {
       claude = {
         hide_in_model_selector = true,
       },
-      ["claude-haiku"] = {
-        hide_in_model_selector = true,
-      },
-      ["aihubmix-claude"] = {
-        hide_in_model_selector = true,
-      },
-      ["bedrock-claude-3.7-sonnet"] = {
-        hide_in_model_selector = true,
-      },
-      ["claude-opus"] = {
-        hide_in_model_selector = true,
-      },
-      ["openai-gpt-4o-mini"] = {
-        hide_in_model_selector = true,
-      },
+      -- ["claude-haiku"] = {
+      --   hide_in_model_selector = true,
+      -- },
+      -- ["aihubmix-claude"] = {
+      --   hide_in_model_selector = true,
+      -- },
+      -- ["claude-opus"] = {
+      --   hide_in_model_selector = true,
+      -- },
+      -- ["openai-gpt-4o-mini"] = {
+      --   hide_in_model_selector = true,
+      -- },
     },
     selector = {
       provider = "snacks",
