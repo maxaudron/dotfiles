@@ -8,7 +8,7 @@ self: super:
   kubectl-ssh = super.callPackage ./kubectl-ssh {};
   kubectl-netshoot = super.callPackage ./kubectl-netshoot {};
 
-  # teamspeak3 = super.libsForQt5.callPackage ./teamspeak3 {};
+  teamspeak3 = super.libsForQt5.callPackage ./teamspeak3 {};
   
   # quasselClient = super.qt6.callPackage ./quassel {};
   # quasselCore = super.qt6.callPackage ./quassel { client = false; enableDaemon = true; };

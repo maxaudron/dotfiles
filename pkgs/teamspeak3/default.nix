@@ -13,7 +13,8 @@
   xorg,
   fontconfig,
   qtbase,
-  qtwebengine,
+  qtdeclarative,
+  # qtwebengine,
   qtwebchannel,
   qtsvg,
   qtwebsockets,
@@ -25,6 +26,18 @@
   which,
   perl,
   llvmPackages,
+
+  libGL,
+  nss,
+  nspr,
+  libevent,
+  expat,
+  libxkbcommon,
+  dbus,
+  pciutils,
+  libxml2_13,
+  libxslt,
+  lcms,
 }:
 
 let
@@ -46,19 +59,35 @@ let
     xorg.libXfixes
     xorg.libXcursor
     xorg.libXinerama
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.libXtst
     xorg.libxcb
     fontconfig
     xorg.libXext
     xorg.libX11
     alsa-lib
     qtbase
-    qtwebengine
+    qtdeclarative
+    # qtwebengine
     qtwebchannel
     qtsvg
     qtwebsockets
     libpulseaudio
     quazip
     llvmPackages.libcxx
+
+    libGL
+    nss
+    nspr
+    libevent
+    expat
+    libxkbcommon
+    dbus
+    pciutils
+    libxml2_13
+    libxslt
+    lcms
   ];
 
   desktopItem = makeDesktopItem {
@@ -103,13 +132,30 @@ stdenv.mkDerivation rec {
     cd TeamSpeak*
   '';
 
-  buildPhase = ''
+  buildPhase = let rpath = "${lib.makeLibraryPath deps}:$(cat $NIX_CC/nix-support/orig-cc)/${libDir}:$ORIGIN"; in ''
     mv ts3client_linux_${arch} ts3client
     echo "patching ts3client..."
+
+    patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath '${rpath}' \
+      --force-rpath \
+      QtWebEngineProcess
+    
+    patchelf \
+      --set-rpath '${rpath}' \
+      --force-rpath \
+      libQt5WebEngineCore.so.5
+    
+    patchelf \
+      --set-rpath '${rpath}' \
+      --force-rpath \
+      libQt5WebEngineWidgets.so.5
+
     patchelf --replace-needed libquazip.so ${quazip}/lib/libquazip1-qt5.so ts3client
     patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath ${lib.makeLibraryPath deps}:$(cat $NIX_CC/nix-support/orig-cc)/${libDir} \
+      --set-rpath '${rpath}' \
       --force-rpath \
       ts3client
   '';
@@ -117,10 +163,35 @@ stdenv.mkDerivation rec {
   installPhase =
     ''
       # Delete unecessary libraries - these are provided by nixos.
-      rm *.so.* *.so
-      rm QtWebEngineProcess
+      # rm *.so.* *.so
+      # rm QtWebEngineProcess
       rm qt.conf
       rm -r platforms # contains libqxcb.so
+
+      rm libc++.so.1
+      rm libc++abi.so.1
+      rm libcrypto.so.1.1
+      rm libGL.so
+      rm libQt5Core.so.5
+      rm libQt5DBus.so.5
+      rm libQt5Gui.so.5
+      rm libQt5Network.so.5
+      rm libQt5PrintSupport.so.5
+      rm libQt5Qml.so.5
+      rm libQt5QmlModels.so.5
+      rm libQt5Quick.so.5
+      rm libQt5QuickWidgets.so.5
+      rm libQt5Sql.so.5
+      rm libQt5Svg.so.5
+      rm libQt5WebChannel.so.5
+      # rm libQt5WebEngineCore.so.5
+      # rm libQt5WebEngineWidgets.so.5
+      rm libQt5WebSockets.so.5
+      rm libQt5Widgets.so.5
+      rm libQt5XcbQpa.so.5
+      rm libquazip.so
+      rm libssl.so.1.1
+      rm libunwind.so.1
 
       # Install files.
       mkdir -p $out/lib/teamspeak
