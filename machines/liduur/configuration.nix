@@ -24,10 +24,10 @@
   audio.autoConnect = [
     {
       input = "System Output:*";
-      output = "FiiO USB DAC-E10:*";
+      output = "FiiO K11 R2R Pro:*";
       connect = {
-        "AUX2" = "FL";
-        "AUX3" = "FR";
+        "AUX2" = "AUX0";
+        "AUX3" = "AUX1";
       };
     }
     {
