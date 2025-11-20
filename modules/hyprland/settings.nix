@@ -7,6 +7,11 @@
 
 {
   wayland.windowManager.hyprland.settings = {
+    debug = {
+      disable_logs = false;
+      enable_stdout_logs = true;
+    };
+
     monitor = [
       "DP-1,3840x2160@240,0x0,1"
       "DP-2,2560x1080@60,3840x0,1,transform,3"
