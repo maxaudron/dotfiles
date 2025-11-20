@@ -23,6 +23,19 @@ in
     v = "nvim";
   };
 
+  home.sessionVariables =
+    let
+      project = "claranet-playground";
+      region = "europe-west1";
+    in
+    {
+      GOOGLE_CLOUD_PROJECT = project;
+      GOOGLE_CLOUD_LOCATION = region;
+      CLAUDE_CODE_USE_VERTEX = 1;
+      CLOUD_ML_REGION = region;
+      ANTHROPIC_VERTEX_PROJECT_ID = region;
+    };
+
   home.packages = with pkgs; [
     ruff
     lua-language-server
@@ -41,6 +54,10 @@ in
     himalaya
 
     asciidoctor-with-extensions
+
+    gemini-cli
+    claude-code
+    claude-code-acp
   ];
 
   programs.neovim = {

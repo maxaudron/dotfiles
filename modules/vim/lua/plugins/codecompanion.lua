@@ -4,65 +4,93 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"franco-ruggeri/codecompanion-spinner.nvim",
-    "ravitemer/codecompanion-history.nvim",
+		"ravitemer/codecompanion-history.nvim",
 	},
 	opts = {
 		extensions = {
 			spinner = {},
-      history = {
-        enabled = true,
-        opts = {
-          auto_save = true,
-          expiration_days = 30,
-          picker = "snacks",
-          delete_on_clearing_chat = true,
+			history = {
+				enabled = true,
+				opts = {
+					auto_save = true,
+					expiration_days = 30,
+					picker = "snacks",
+					delete_on_clearing_chat = true,
 
-          auto_generate_title = true,
-          title_generation_opts = {
-            adapter = "gemini",
-            model = "gemini-2.5-flash",
-          },
-        },
-      },
+					auto_generate_title = true,
+					title_generation_opts = {
+						adapter = "gemini",
+						model = "google/gemini-2.5-flash-lite",
+					},
+				},
+			},
 		},
 
 		strategies = {
 			chat = {
-				adapter = "gemini",
-				model = "gemini-2.5-flash",
+				adapter = "claude_code",
 			},
 			inline = {
-				adapter = "gemini",
-				model = "gemini-2.5-flash",
+				adapter = "claude_code",
 			},
 			cmd = {
-				adapter = "gemini",
-				model = "gemini-2.5-flash",
+				adapter = "claude_code",
 			},
 		},
 
 		adapters = {
 			acp = {
 				opts = { show_defaults = false },
+				gemini_cli = function()
+					return require("codecompanion.adapters").extend("gemini_cli", {
+						defaults = {
+							auth_method = "vertex-ai",
+						},
+            env = {
+              GOOGLE_CLOUD_PROJECT = "claranet-playground";
+              GOOGLE_CLOUD_LOCATION = "europe-west1";
+              GEMINI_API_KEY = "cmd:gcloud auth print-access-token";
+            }
+					})
+				end,
+				claude_code = function() return require("codecompanion.adapters").extend("claude_code", {
+          env = {
+            ANTHROPIC_VERTEX_PROJECT_ID = "claranet-playground",
+            ANTHROPIC_MODEL = "claude-sonnet-4-5@20250929",
+            ANTHROPIC_SMALL_FAST_MODEL = "claude-haiku-4-5@20251001",
+            CLOUD_ML_REGION = "europe-west1",
+            CLAUDE_CODE_USE_VERTEX = "1",
+          }
+        }) end,
 			},
 			http = {
 				opts = {
-          show_defaults = false,
-          show_model_choices = true,
-        },
-        gemini = "gemini",
-				vertex = function()
+					show_defaults = false,
+					show_model_choices = true,
+				},
+				-- ["anthropic/claude-sonnet-4-5"] = {
+				-- 	nice_name = "Claude Sonnet 4.5",
+				-- 	opts = { can_reason = true, has_vision = true },
+				-- },
+				-- vertex_anthropic = function()
+				-- 	return require("codecompanion.adapters").extend("gemini", {
+				-- 		name = "vertex_gemini",
+				-- 		url = "https://${region}-aiplatform.googleapis.com/v1/projects/${project_id}/locations/${region}/publishers/anthropic/models",
+				-- 		env = {
+				-- 			region = "europe-west1",
+				-- 			project_id = "claranet-playground",
+				-- 			api_key = "cmd:gcloud auth print-access-token",
+				-- 		},
+				--       })
+				--     end,
+				gemini = function()
 					return require("codecompanion.adapters").extend("gemini", {
-						name = "vertex",
+						name = "vertex_gemini",
 						url = "https://${region}-aiplatform.googleapis.com/v1/projects/${project_id}/locations/${region}/endpoints/openapi/chat/completions",
 						env = {
-							region = "GCLOUD_REGION",
-							project_id = "GCLOUD_PROJECT_ID",
-							api_key = "VERTEX_API_KEY",
-						},
-						headers = {
-							Authorization = "Bearer ${api_key}",
-							["Content-Type"] = "application/json",
+							region = "europe-west1",
+							project_id = "claranet-playground",
+							api_key = "cmd:gcloud auth print-access-token",
 						},
 						schema = {
 							---@type CodeCompanion.Schema
@@ -73,6 +101,10 @@ return {
 								desc = "The model that will complete your prompt. See https://ai.google.dev/gemini-api/docs/models/gemini#model-variations for additional details and options.",
 								default = "google/gemini-2.5-flash",
 								choices = {
+									["google/gemini-3-pro-preview"] = {
+										nice_name = "Gemini 3 Pro Preview",
+										opts = { can_reason = true, has_vision = true },
+									},
 									["google/gemini-2.5-pro"] = {
 										nice_name = "Gemini 2.5 Pro",
 										opts = { can_reason = true, has_vision = true },
@@ -81,8 +113,8 @@ return {
 										nice_name = "Gemini 2.5 Flash",
 										opts = { can_reason = true, has_vision = true },
 									},
-									["google/gemini-2.5-flash-preview-05-20"] = {
-										nice_name = "Gemini 2.5 Flash Preview",
+									["google/gemini-2.5-flash-lite"] = {
+										nice_name = "Gemini 2.5 Flash Lite",
 										opts = { can_reason = true, has_vision = true },
 									},
 									["google/gemini-2.0-flash"] = {
@@ -101,10 +133,6 @@ return {
 										nice_name = "Gemini 1.5 Flash",
 										opts = { has_vision = true },
 									},
-									["anthropic/claude-sonnet-4-5"] = {
-										nice_name = "Claude Sonnet 4.5",
-										opts = { can_reason = true, has_vision = true },
-									},
 								},
 							},
 						},
@@ -115,7 +143,8 @@ return {
 	},
 	keys = {
 		{ "<leader>aa", "<cmd>CodeCompanionChat toggle<cr>", desc = "Toggle AI Chat" },
-		{ "<leader>ae", "<cmd>CodeCompanion<cr>", mode={"n", "v"}, desc = "Inline Assistant" },
-		{ "<leader>ap", "<cmd>CodeCompanionActions<cr>", mode={"n", "v"}, desc = "Action Palette" },
+		{ "<leader>ae", "<cmd>CodeCompanion<cr>", mode = { "n", "v" }, desc = "Inline Assistant" },
+		{ "<leader>ap", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, desc = "Action Palette" },
+		{ "<leader>ac", "<cmd>CodeCompanionChat Add<cr>", mode = { "n", "v" }, desc = "Add selected code to chat" },
 	},
 }
