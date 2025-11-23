@@ -24,7 +24,7 @@
   audio.autoConnect = [
     {
       input = "System Output:*";
-      output = "FiiO K11 R2R Pro:*";
+      output = "FiiO K11 R2R:*";
       connect = {
         "AUX2" = "AUX0";
         "AUX3" = "AUX1";
