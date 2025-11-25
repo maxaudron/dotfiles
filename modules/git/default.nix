@@ -78,8 +78,8 @@ in
         oops = "commit --amend --no-edit";
         glog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
 
-        pushall = "!git remote | grep -E 'origin|upstream' | xargs -L1 -P 0 git push --all --follow-tags";
-        fetchall = "!git remote | grep -E 'origin|upstream' | xargs -L1 -P 0 git fetch";
+        pushall = "!git remote | grep -E 'origin|upstream|github|gitlab' | xargs -L1 -P 0 git push --all --follow-tags";
+        fetchall = "!git remote | grep -E 'origin|upstream|github|gitlab' | xargs -L1 -P 0 git fetch";
       };
 
       core = {
