@@ -43,7 +43,7 @@ in
       submodule.recurse = true;
 
       diff = {
-        tool = "ediff";
+        tool = "vimdiff";
         mnemonicPrefix = true;
         renames = true;
         wordRegex = ".";
@@ -66,24 +66,6 @@ in
         keepTemporaries = false;
         writeToTemp = true;
         prompt = false;
-
-        ediff = {
-          cmd = ''
-            emacs --eval \"\
-            (progn\
-              (defun ediff-write-merge-buffer ()\
-                (let ((file ediff-merge-store-file))\
-                  (set-buffer ediff-buffer-C)\
-                  (write-region (point-min) (point-max) file)\
-                  (message \\\"Merge buffer saved in: %s\\\" file)\
-                  (set-buffer-modified-p nil)\
-                  (sit-for 1)))\
-              (setq ediff-quit-hook 'kill-emacs\
-                    ediff-quit-merge-hook 'ediff-write-merge-buffer)\
-              (ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\"\
-                    \\\"$BASE\\\" nil \\\"$MERGED\\\"))\"
-          '';
-        };
       };
 
       color = {
@@ -95,6 +77,9 @@ in
         ci = "commit";
         oops = "commit --amend --no-edit";
         glog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+
+        pushall = "!git remote | grep -E 'origin|upstream' | xargs -L1 -P 0 git push --all --follow-tags";
+        fetchall = "!git remote | grep -E 'origin|upstream' | xargs -L1 -P 0 git fetch";
       };
 
       core = {
