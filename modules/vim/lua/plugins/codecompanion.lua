@@ -28,7 +28,17 @@ return {
 
 		strategies = {
 			chat = {
-				adapter = "claude_code",
+				adapter = "gemini",
+        model = "google/gemini-2.5-pro",
+				tools = {
+					["mcp"] = {
+						callback = require("mcphub.extensions.codecompanion"),
+						description = "Call tools and resources from the MCP Servers",
+						opts = {
+							user_approval = true,
+						},
+					},
+				},
 			},
 			inline = {
 				adapter = "claude_code",
@@ -46,22 +56,24 @@ return {
 						defaults = {
 							auth_method = "vertex-ai",
 						},
-            env = {
-              GOOGLE_CLOUD_PROJECT = "claranet-playground";
-              GOOGLE_CLOUD_LOCATION = "europe-west1";
-              GEMINI_API_KEY = "cmd:gcloud auth print-access-token";
-            }
+						env = {
+							GOOGLE_CLOUD_PROJECT = "claranet-playground",
+							GOOGLE_CLOUD_LOCATION = "europe-west1",
+							GEMINI_API_KEY = "cmd:gcloud auth print-access-token",
+						},
 					})
 				end,
-				claude_code = function() return require("codecompanion.adapters").extend("claude_code", {
-          env = {
-            ANTHROPIC_VERTEX_PROJECT_ID = "claranet-playground",
-            ANTHROPIC_MODEL = "claude-sonnet-4-5@20250929",
-            ANTHROPIC_SMALL_FAST_MODEL = "claude-haiku-4-5@20251001",
-            CLOUD_ML_REGION = "europe-west1",
-            CLAUDE_CODE_USE_VERTEX = "1",
-          }
-        }) end,
+				claude_code = function()
+					return require("codecompanion.adapters").extend("claude_code", {
+						env = {
+							ANTHROPIC_VERTEX_PROJECT_ID = "claranet-playground",
+							ANTHROPIC_MODEL = "claude-sonnet-4-5@20250929",
+							ANTHROPIC_SMALL_FAST_MODEL = "claude-haiku-4-5@20251001",
+							CLOUD_ML_REGION = "europe-west1",
+							CLAUDE_CODE_USE_VERTEX = "1",
+						},
+					})
+				end,
 			},
 			http = {
 				opts = {

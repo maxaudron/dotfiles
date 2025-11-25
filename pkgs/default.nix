@@ -14,4 +14,9 @@ self: super:
   # quasselCore = super.qt6.callPackage ./quassel { client = false; enableDaemon = true; };
 
   spleen = super.callPackage ./spleen {};
+
+  serena = super.python3Packages.callPackage ./serena {};
+
+  mcp-hub = super.callPackage ./mcp-hub {};
 }
+

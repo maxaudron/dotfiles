@@ -16,9 +16,12 @@ let
       buildGrammar = pkgs.tree-sitter.buildGrammar;
     };
     nvim-treesitter-asciidoc = { };
+    mcphub-nvim = pkgs.callPackage ./plugins/mcphub.nix { };
   };
 in
 {
+  imports = [ ./serena.nix ];
+
   home.shellAliases = {
     v = "nvim";
   };
@@ -58,6 +61,8 @@ in
     gemini-cli
     claude-code
     claude-code-acp
+    serena
+    mcp-hub
   ];
 
   programs.neovim = {
@@ -94,6 +99,7 @@ in
         codecompanion-nvim
         codecompanion-spinner-nvim
         codecompanion-history-nvim
+        mcphub-nvim
 
         trouble-nvim
         lualine-nvim
@@ -179,3 +185,5 @@ in
     };
   };
 }
+
+

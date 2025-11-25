@@ -4,6 +4,8 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     secrets = {
       url = "git+ssh://gitea@git.vapor.systems/audron/secrets.git";
       flake = false;
@@ -45,85 +47,108 @@
 
   outputs =
     inputs@{
-      self,
+      flake-parts,
       nixpkgs,
       nixpkgs-unstable,
       nixpkgs-master,
-      secrets,
       darwin,
       home-manager,
-      fenix,
-      gtree,
       catppuccin,
-      textfox,
-      noctalia,
-      beets-rockbox
+      ...
     }:
-    let
-      specialArgs = inputs // {
-        inherit inputs;
-      };
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
 
-      overlay-unstable = final: prev: {
-        unstable = import nixpkgs-unstable {
-          system = prev.system;
-          config.allowUnfree = true;
-        };
-      };
-      overlay-master = final: prev: {
-        master = import nixpkgs-master {
-          system = prev.system;
-          config.allowUnfree = true;
-        };
-      };
-      overlays =
-        { config, pkgs, ... }:
-        {
-          nixpkgs.overlays = [
-            overlay-unstable
-            overlay-master
-          ];
-        };
-    in
-    {
-      nixosConfigurations.liduur =
+      flake =
         let
-          system = "x86_64-linux";
-        in
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = specialArgs // {
-            inherit system;
+          specialArgs = inputs // {
+            inherit inputs;
           };
-          modules = [
-            overlays
-            home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
-            ./machines/liduur/configuration.nix
-          ];
-        };
-      darwinConfigurations.ffma0089 =
-        let
-          system = "aarch64-darwin";
-        in
-        darwin.lib.darwinSystem {
-          inherit system;
-          specialArgs = specialArgs // {
-            inherit system;
+
+          overlay-unstable = final: prev: {
+            unstable = import nixpkgs-unstable {
+              system = prev.system;
+              config.allowUnfree = true;
+            };
           };
-          modules = [
-            overlays
-            home-manager.darwinModules.home-manager
+          overlay-master = final: prev: {
+            master = import nixpkgs-master {
+              system = prev.system;
+              config.allowUnfree = true;
+            };
+          };
+          overlays =
+            { config, pkgs, ... }:
             {
-              home-manager = {
-                extraSpecialArgs = specialArgs // {
-                  inherit builtins;
-                  inherit system;
-                };
+              nixpkgs.overlays = [
+                overlay-unstable
+                overlay-master
+              ];
+            };
+        in
+        {
+          nixosConfigurations.liduur =
+            let
+              system = "x86_64-linux";
+            in
+            nixpkgs.lib.nixosSystem {
+              inherit system;
+              specialArgs = specialArgs // {
+                inherit system;
               };
-            }
-            ./machines/ffma0089/configuration.nix
-          ];
+              modules = [
+                overlays
+                home-manager.nixosModules.home-manager
+                catppuccin.nixosModules.catppuccin
+                ./machines/liduur/configuration.nix
+              ];
+            };
+          darwinConfigurations.ffma0089 =
+            let
+              system = "aarch64-darwin";
+            in
+            darwin.lib.darwinSystem {
+              inherit system;
+              specialArgs = specialArgs // {
+                inherit system;
+              };
+              modules = [
+                overlays
+                home-manager.darwinModules.home-manager
+                {
+                  home-manager = {
+                    extraSpecialArgs = specialArgs // {
+                      inherit builtins;
+                      inherit system;
+                    };
+                  };
+                }
+                ./machines/ffma0089/configuration.nix
+              ];
+            };
+        };
+
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          _module.args.pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ (import ./pkgs) ];
+            config.allowUnfree = true;
+          };
+
+          packages = (import ./pkgs pkgs pkgs);
         };
     };
 }
+
