@@ -28,8 +28,7 @@ return {
 
 		strategies = {
 			chat = {
-				adapter = "gemini",
-        model = "google/gemini-2.5-pro",
+				adapter = "claude_code",
 				tools = {
 					["mcp"] = {
 						callback = require("mcphub.extensions.codecompanion"),
@@ -38,10 +37,18 @@ return {
 							user_approval = true,
 						},
 					},
+          ["cmd_runner"] = {
+            callback = "strategies.chat.tools.catalog.cmd_runner",
+            description = "Run shell commands initiated by the LLM",
+            opts = {
+              requires_approval = true,
+            },
+          },
 				},
 			},
 			inline = {
-				adapter = "claude_code",
+				adapter = "gemini",
+        model = "google/gemini-2.5-pro",
 			},
 			cmd = {
 				adapter = "claude_code",

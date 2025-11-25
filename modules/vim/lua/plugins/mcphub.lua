@@ -6,4 +6,8 @@ return {
 	config = function()
 		require("mcphub").setup()
 	end,
+
+	keys = {
+		{ "<leader>am", "<cmd>MCPHub<cr>", desc = "Show MCPHub" },
+	},
 }
