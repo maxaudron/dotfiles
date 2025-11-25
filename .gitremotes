@@ -1,9 +1,9 @@
 [remote "origin"]
-        url = audron@audron.dev:dotfiles.git
-        fetch = +refs/heads/*:refs/remotes/origin/*
+  url = audron@audron.dev:dotfiles.git
+  fetch = +refs/heads/*:refs/remotes/origin/*
 [remote "github"]
-        url = git@github.com:maxaudron/dotfiles.git
-        fetch = +refs/heads/*:refs/remotes/origin/*
+  url = git@github.com:maxaudron/dotfiles.git
+  fetch = +refs/heads/*:refs/remotes/origin/*
 [remote "gitlab"]
-        url = git@gitlab.com:audron/dotfiles.git
-        fetch = +refs/heads/*:refs/remotes/origin/*
+  url = git@gitlab.com:audron/dotfiles.git
+  fetch = +refs/heads/*:refs/remotes/origin/*
