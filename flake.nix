@@ -1,13 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11-small";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     secrets = {
-      url = "git+ssh://gitea@git.vapor.systems/audron/secrets.git";
+      url = "git+ssh://audron@audron.dev:/home/audron/secrets.git";
       flake = false;
     };
 
