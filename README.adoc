@@ -1,0 +1,104 @@
+== audron's dotfiles
+:toc:
+:toc-placement!:
+
+NixOS and Home Manager configuration using flakes.
+
+toc::[]
+
+=== Structure
+
+[source]
+----
+.
+├── flake.nix          # Main flake configuration
+├── home.nix           # Home Manager entry point
+├── config.toml        # User variables configuration file
+├── machines/          # Machine-specific configurations
+├── modules/           # Nix Modules
+├── pkgs/              # Custom package definitions
+├── secrets/           # Secret submodule
+├── templates/         # Nix flake templates
+└── wallpaper/         # Wallpaper assets
+----
+
+=== Initial Setup
+
+[source,bash]
+----
+# Apply configuration (NixOS)
+sudo nixos-rebuild switch --flake ~/.dotfiles
+
+# Apply configuration (macOS with nix-darwin)
+sudo darwin-rebuild switch --flake ~/.dotfiles
+----
+
+=== Module Categories
+
+==== Desktop Environments
+* link:modules/hyprland[Hyprland] - Hyprland compositor
+* [OLD] link:modules/cosmic[COSMIC] - COSMIC desktop environment
+* [OLD] link:modules/sway[Sway] - Sway window manager
+* [OLD] link:modules/waybar[Waybar] - Status bar
+
+==== Development
+* link:modules/latex[LaTeX] - Document preparation
+* link:modules/dev[Development Tools] - Programming tools and environments
+* [OLD] link:modules/doom-emacs[Doom Emacs] - Emacs distribution
+* link:modules/vim[Neovim] - Vim configuration
+* link:modules/zed[Zed] - Zed editor
+* link:modules/git[Git] - Version control configuration
+
+==== Shell & Terminal
+* link:modules/shell[Shell] - Shell configuration
+* link:modules/terminal[Terminal] - Terminal emulator setup
+* [OLD] link:modules/rofi[Rofi] - Application launcher
+* [OLD] link:modules/tofi[Tofi] - Launcher alternative
+
+==== Multimedia
+* link:modules/audio[Audio] - Audio system configuration
+* link:modules/mpd[MPD] - Music Player Daemon
+* link:modules/firefox[Firefox] - Web browser
+
+==== System & Security
+* link:modules/ssh[SSH] - SSH configuration
+* link:modules/gpg[GPG] - GPG/PGP setup
+* link:modules/yubikey[Yubikey] - Hardware key configuration
+
+==== MISC
+* link:modules/games[Games] - Gaming configuration
+* [OLD] link:modules/weechat[WeeChat] - IRC client
+
+== Flake Inputs
+
+* *nixpkgs* - Main package repository (unstable)
+* *home-manager* - Manage user environment
+* *darwin* - macOS support
+* *catppuccin* - Catppuccin theme
+* *fenix* - Rust toolchain
+* *secrets* - Private secrets repository
+
+== Usage
+
+=== Updating Dependencies
+
+[source,bash]
+----
+# Update all inputs
+nix flake update
+
+# Update specific input
+nix flake update nixpkgs
+----
+
+=== Building Configurations
+
+[source,bash]
+----
+# Build without switching
+nixos-rebuild build --flake .#<hostname>
+
+# Build and switch
+nixos-rebuild switch --flake .#<hostname>
+
+----
