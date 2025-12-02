@@ -10,9 +10,12 @@ let
 
 in
 {
-  home.packages = with pkgs; [ bfg-repo-cleaner ];
+  home.packages = with pkgs; [
+    bfg-repo-cleaner
+    git-filter-repo
+  ];
 
-  programs.delta ={
+  programs.delta = {
     enable = true;
     enableGitIntegration = true;
   };
