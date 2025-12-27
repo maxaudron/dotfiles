@@ -40,18 +40,7 @@
     portalPackage = null;
 
     plugins = with pkgs.hyprlandPlugins; [
-      (hy3.overrideAttrs (
-        final: prev: rec {
-          version = "0.51.0-72913cb";
-
-          src = pkgs.fetchFromGitHub {
-            owner = "outfoxxed";
-            repo = "hy3";
-            rev = "8057eacd2e1be92949aa514048111f8dc17d9864";
-            hash = "sha256-TheRuGljJ2mJ40RSQYz4vbt+x3xnQi0SfrO/9VrF+PY=";
-          };
-        }
-      ))
+      hy3
       hyprsplit
     ];
 
@@ -64,7 +53,7 @@
   services.gnome-keyring.enable = true;
   services.hyprpolkitagent = {
     enable = true;
-    package = pkgs.unstable.hyprpolkitagent;
+    package = pkgs.hyprpolkitagent;
   };
 
   qt.platformTheme = "gnome";

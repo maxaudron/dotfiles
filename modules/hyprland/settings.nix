@@ -13,7 +13,7 @@
     };
 
     monitor = [
-      "DP-1,3840x2160@240,0x0,1"
+      "DP-1,3840x2160@240,0x0,1,bitdepth,10,cm,dp3,vrr,1"
       "DP-2,2560x1080@60,3840x0,1,transform,3"
     ];
 
@@ -56,8 +56,7 @@
     };
 
     experimental = {
-      # Once on NixOS 25.11
-      # xx_color_management_v4 = true;
+      xx_color_management_v4 = true;
     };
 
     plugins = {

@@ -47,6 +47,7 @@ in {
     quasselClient
 
     discord
+    unstable.teamspeak6-client
     teamspeak3
 
     hledger

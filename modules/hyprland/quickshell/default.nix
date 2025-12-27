@@ -7,9 +7,7 @@
 }:
 
 let
-  package = noctalia.packages."${system}".default.override {
-    quickshell = pkgs.unstable.quickshell;
-  };
+  package = noctalia.packages."${system}".default;
   target = "graphical-session.target";
 in
 {
