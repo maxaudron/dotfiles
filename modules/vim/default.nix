@@ -48,6 +48,7 @@ in
     terraform-ls
     gopls
     kdePackages.qtdeclarative
+    vscode-langservers-extracted
 
     # lint
     tflint
@@ -107,6 +108,7 @@ in
         rainbow-delimiters-nvim
         mini-surround
         mini-pairs
+        mini-snippets
 
         nvim-decipher
 

@@ -631,15 +631,15 @@
       "locked": {
         "lastModified": 1761785564,
         "narHash": "sha256-4P8krRPLkJt2O13PQbGdpj3oucuwTFaAqlfqKMHCcW8=",
-        "ref": "refs/heads/master",
+        "ref": "refs/heads/main",
         "rev": "735c9c73dfac8020fddb9432a41397971875eda9",
         "revCount": 38,
         "type": "git",
-        "url": "ssh://gitea@git.vapor.systems/audron/secrets.git"
+        "url": "ssh://audron@audron.dev/home/audron/secrets.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://gitea@git.vapor.systems/audron/secrets.git"
+        "url": "ssh://audron@audron.dev/home/audron/secrets.git"
       }
     },
     "slimlock": {

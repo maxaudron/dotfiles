@@ -1,3 +1,9 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+vim.lsp.config('html', { capabilities = capabilities })
+vim.lsp.config('css', { capabilities = capabilities })
+
 local files = vim.api.nvim_get_runtime_file("lua/lsp/*.lua", true)
 for k, v in ipairs(files) do
 	local name = vim.fs.basename(v):sub(1, -5)
@@ -23,6 +29,10 @@ local lsp = {
   , "qmlls"
   -- terraform
   , "terraformls"
+
+  -- web
+  , "html"
+  , "cssls"
 }
 
 for _, s in ipairs(lsp) do
