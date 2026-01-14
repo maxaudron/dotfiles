@@ -23,12 +23,15 @@
     {
       name = "libpipewire-module-rtkit";
       args = {
-        #nice.level   = -11
-        #rt.prio      = 88
-        #rt.time.soft = 200000
-        #rt.time.hard = 200000
+        "nice.level" = -15;
+        "rt.prio" = 88;
+        "rt.time.soft" = 200000;
+        "rt.time.hard" = 200000;
       };
-      flags = [ "ifexists" "nofail" ];
+      flags = [
+        "ifexists"
+        "nofail"
+      ];
     }
     { name = "libpipewire-module-protocol-native"; }
     { name = "libpipewire-module-client-node"; }
@@ -51,6 +54,72 @@
               label = "copy";
               name = "copyFR";
             }
+          ];
+
+          inputs = [
+            "copyFL:In"
+            "copyFR:In"
+          ];
+          outputs = [
+            "copyFL:Out"
+            "copyFR:Out"
+          ];
+        };
+        "capture.props" = {
+          "node.name" = "System Output";
+          "media.role" = "Processing";
+          "media.class" = "Audio/Sink";
+          "audio.channels" = 2;
+          "audio.position" = [
+            "FL"
+            "FR"
+          ];
+        };
+        "playback.props" = {
+          "node.name" = "System Output";
+          "node.autoconnect" = false;
+          "audio.channels" = 2;
+          "audio.position" = [
+            "FL"
+            "FR"
+          ];
+        };
+      };
+    }
+
+    {
+      name = "libpipewire-module-parametric-equalizer";
+      args = {
+        "equalizer.filepath" = ./ir_responses/ie600_oratory.txt;
+        "equalizer.description" = "EQ IE600 Oratory";
+        "audio.channels" = 2;
+        "audio.position" = [
+          "FL"
+          "FR"
+        ];
+        "capture.props" = {
+          "node.name" = "EQ IE600 Oratory";
+          "node.autoconnect" = false;
+        };
+        "playback.props" = {
+          "node.name" = "EQ IE600 Oratory";
+          "node.autoconnect" = false;
+          "audio.channels" = 2;
+          "audio.position" = [
+            "FL"
+            "FR"
+          ];
+        };
+      };
+    }
+
+    {
+      name = "libpipewire-module-filter-chain";
+      args = {
+        "node.description" = "EQ Speaker";
+        "media.name" = "EQ Speaker";
+        "filter.graph" = {
+          nodes = [
             {
               type = "builtin";
               label = "convolver";
@@ -69,55 +138,37 @@
                 channel = 1;
               };
             }
-
-            {
-              type = "builtin";
-              label = "copy";
-              name = "outFL";
-            }
-            {
-              type = "builtin";
-              label = "copy";
-              name = "outFR";
-            }
           ];
 
-          links = [
-            {
-              output = "copyFL:Out";
-              input = "convFL:In";
-            }
-            {
-              output = "copyFR:Out";
-              input = "convFR:In";
-            }
-
-            {
-              output = "copyFL:Out";
-              input = "outFL:In";
-            }
-            {
-              output = "copyFR:Out";
-              input = "outFR:In";
-            }
+          inputs = [
+            "convFL:In"
+            "convFR:In"
           ];
-          inputs = [ "copyFL:In" "copyFR:In" ];
-          outputs = [ "convFL:Out" "convFR:Out" "outFL:Out" "outFR:Out" ];
+          outputs = [
+            "convFL:Out"
+            "convFR:Out"
+          ];
         };
         "capture.props" = {
-          "node.name" = "effect_input.system-output";
+          "node.name" = "EQ Speaker";
+          "node.autoconnect" = false;
           "media.role" = "Processing";
           "media.class" = "Audio/Sink";
           "audio.channels" = 2;
-          "audio.position" = [ "FL" "FR" ];
+          "audio.position" = [
+            "FL"
+            "FR"
+          ];
         };
         "playback.props" = {
-          "node.name" = "effect_output.system-output";
+          "node.name" = "EQ Speaker";
+          "node.autoconnect" = false;
           "node.passive" = true;
-          "node.target" =
-            "alsa_output.usb-BEHRINGER_UMC1820_BAB9273B-00.pro-output-0";
-          "audio.channels" = 4;
-          "audio.position" = [ "AUX0" "AUX1" "AUX2" "AUX3" ];
+          "audio.channels" = 2;
+          "audio.position" = [
+            "FL"
+            "FR"
+          ];
         };
       };
     }

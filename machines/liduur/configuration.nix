@@ -11,41 +11,15 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
+    ./wireplumber.nix
     ./hardware-configuration.nix
+
     ../../modules/audio
     ../../modules/common
     ../../modules/yubikey
     ../../modules/home-manager
     ../../modules/tgt
     ../../modules/klipper
-  ];
-
-  audio.autoConnect = [
-    {
-      input = "System Output:*";
-      output = "FiiO K11 R2R:*";
-      connect = {
-        "AUX2" = "AUX0";
-        "AUX3" = "AUX1";
-      };
-    }
-    {
-      input = "UMC1820:capture_*";
-      output = "System Output:*";
-      connect = {
-        "AUX8" = "FL";
-        "AUX9" = "FR";
-      };
-    }
-    {
-      input = "UMC1820:capture_*";
-      output = "Microphone:*";
-      connect = {
-        "AUX0" = "AUX0";
-        "AUX1" = "AUX1";
-      };
-    }
   ];
 
   boot.binfmt.emulatedSystems = [
