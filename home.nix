@@ -41,7 +41,6 @@ in {
   home.packages = with pkgs; [
     nix-index
 
-    google-chrome
     youtube-music
   ] ++ (if linux then [
     quasselClient
