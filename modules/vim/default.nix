@@ -35,7 +35,7 @@ in
     {
       GOOGLE_CLOUD_PROJECT = project;
       GOOGLE_CLOUD_LOCATION = region;
-      CLAUDE_CODE_USE_VERTEX = 1;
+      CLAUDE_CODE_USE_VERTEX = 0;
       CLOUD_ML_REGION = region;
       ANTHROPIC_VERTEX_PROJECT_ID = region;
     };
@@ -61,8 +61,8 @@ in
     asciidoctor-with-extensions
 
     gemini-cli
-    claude-code
-    claude-code-acp
+    unstable.claude-code
+    unstable.claude-code-acp
   ];
 
   programs.neovim = {
