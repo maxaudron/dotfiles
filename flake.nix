@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    catppuccin.url = "github:catppuccin/nix/main";
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
     textfox.url = "github:adriankarlen/textfox";
 
     noctalia = {
