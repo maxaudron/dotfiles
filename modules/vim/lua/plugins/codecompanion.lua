@@ -79,6 +79,7 @@ return {
 							ANTHROPIC_DEFAULT_SONNET_MODEL = "claude-sonnet-4.5",
 							ANTHROPIC_DEFAULT_OPUS_MODEL = "claude-opus-4.5",
 							ANTHROPIC_DEFAULT_HAIKU_MODEL = "claude-haiku-4.5",
+							CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS = "1",
 						},
 					})
 				end,
@@ -90,13 +91,13 @@ return {
 				},
 				anthropic = function()
 					return require("codecompanion.adapters").extend("anthropic", {
-            url = "https://llm.de.clara.net/v1/messages",
+						url = "https://llm.de.clara.net/v1/messages",
 						env = {
 							api_key = "cmd:pass show work/litellm_claude",
 						},
-            headers = {
-              ["anthropic-beta"] = "",
-            },
+						headers = {
+							["anthropic-beta"] = "",
+						},
 						schema = {
 							---@type CodeCompanion.Schema
 							model = {
