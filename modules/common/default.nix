@@ -35,6 +35,7 @@ in
     dig
     vim
     zip
+    curl
     unzip
     wget
     htop

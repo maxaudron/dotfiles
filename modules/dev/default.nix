@@ -56,6 +56,7 @@ in
 
         morph
 
+        curl
         openssl
 
         nodejs
