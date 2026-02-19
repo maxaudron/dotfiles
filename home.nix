@@ -27,6 +27,10 @@ in {
   home.username = conf.user.name;
   home.homeDirectory = conf.user.home;
 
+  home.sessionVariables = {
+    LEDGER_FILE = "${conf.user.home}/Documents/hledger.journal";
+  };
+
   catppuccin = {
     enable = true;
     flavor = "mocha";
@@ -51,6 +55,8 @@ in {
 
     hledger
     hledger-web
+
+    chirp
   ] else []);
 
   programs.imv.enable = linux;

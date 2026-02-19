@@ -108,6 +108,7 @@ in
         # Languages
         rustaceanvim
         neotest
+        vim-ledger
 
         # treesitter
         (nvim-treesitter.withPlugins (
@@ -128,6 +129,7 @@ in
             styled
             ron
             treesitter-asciidoc
+            ledger
           ]
         ))
         nvim-treesitter-context
