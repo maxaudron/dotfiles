@@ -87,6 +87,12 @@ in
 
       core = {
         whitespace = "-trailing-space";
+        excludesFile = "${pkgs.writeText ".gitignore" ''
+          .serena/
+          result/
+          .DS_Store
+          .claude
+        ''}";
       };
 
       versionsort = {
