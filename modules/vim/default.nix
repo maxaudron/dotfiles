@@ -82,11 +82,10 @@ in
         render-markdown-nvim
         wrapping-nvim
 
-        avante-nvim
-        codecompanion-nvim
-        codecompanion-spinner-nvim
-        codecompanion-history-nvim
-        mcphub
+        pkgs.unstable.vimPlugins.codecompanion-nvim
+        pkgs.unstable.vimPlugins.codecompanion-spinner-nvim
+        pkgs.unstable.vimPlugins.codecompanion-history-nvim
+        pkgs.unstable.vimPlugins.mcphub-nvim
 
         trouble-nvim
         lualine-nvim
