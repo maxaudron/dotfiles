@@ -45,7 +45,7 @@
 
   textfox = {
     enable = true;
-    profile = "audron";
+    profiles = ["audron"];
     config = {
       displayWindowControls = false;
       displayNavButtons = false;
@@ -64,7 +64,7 @@
         horizontal.enable = false;
         vertical = {
           enable = true;
-          margin = "0.2rem";
+          sidebery.margin = "0.2rem";
         };
       };
     };
