@@ -103,6 +103,7 @@ in
         nvim-lspconfig
 
         hex-nvim
+        orgmode
 
         # Languages
         rustaceanvim
