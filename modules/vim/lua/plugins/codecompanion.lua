@@ -74,7 +74,7 @@ return {
 				claude_code = function()
 					return require("codecompanion.adapters").extend("claude_code", {
 						env = {
-							ANTHROPIC_BASE_URL = "https://llm.de.clara.net/",
+							ANTHROPIC_BASE_URL = "https://public.llm.de.clara.net/",
 							ANTHROPIC_AUTH_TOKEN = "cmd:pass show work/litellm_claude",
 							ANTHROPIC_DEFAULT_SONNET_MODEL = "claude-sonnet-4.5",
 							ANTHROPIC_DEFAULT_OPUS_MODEL = "claude-opus-4.5",

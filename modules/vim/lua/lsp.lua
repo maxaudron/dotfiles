@@ -29,6 +29,8 @@ local lsp = {
   , "qmlls"
   -- terraform
   , "terraformls"
+  -- rust
+  , "rust_analyzer"
 
   -- web
   , "html"
