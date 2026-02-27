@@ -202,6 +202,34 @@
     };
   };
 
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+
+    user = "audron";
+    group = "users";
+
+    settings = {
+      devices = {
+        "ettves" = {
+          id = "F7QPQBF-65ZOQCZ-3RWJE55-7H6TZOH-W6EEWGW-STJH5EZ-5QG5YGR-P6FHWQC";
+        };
+        "ffm0089" = {
+          id = "D5LYWQQ-GRV6QOK-RXYD32P-YNNFU3C-C7XOEY2-EWHCWSQ-3XC4CHG-EWMOMQZ";
+        };
+      };
+      folder = {
+        ".org" = {
+          path = "/home/audron/.org";
+          devices = [
+            "ffm0089"
+            "ettves"
+          ];
+        };
+      };
+    };
+  };
+
   programs.hyprland = {
     enable = true;
     withUWSM = true;
