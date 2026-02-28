@@ -218,7 +218,7 @@
           id = "D5LYWQQ-GRV6QOK-RXYD32P-YNNFU3C-C7XOEY2-EWHCWSQ-3XC4CHG-EWMOMQZ";
         };
       };
-      folder = {
+      folders = {
         ".org" = {
           path = "/home/audron/.org";
           devices = [
