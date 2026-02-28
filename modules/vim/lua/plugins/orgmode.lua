@@ -8,6 +8,9 @@ return {
 
 			org_agenda_files = "~/.org/**/*",
 			org_default_notes_file = "~/.org/refile.org",
+      org_startup_indented = true,
+      org_hide_emphasis_markers = true,
+      org_hide_leading_stars = true,
 
 			org_todo_keywords = { "TODO", "WAITING", "NEXT", "|", "DONE", "DELEGATED", "CANCLED" },
 			org_capture_templates = {
@@ -22,9 +25,6 @@ return {
 		vim.lsp.enable("org")
 	end,
 	keys = {
-		-- { "<leader>gg", "<cmd>Git<cr>", desc = "Git Status" },
-		-- { "<leader>gc", "<cmd>Git commit<cr>", desc = "Git Commit" },
-		-- { "<leader>gp", "<cmd>Git push<cr>", desc = "Git Push" },
-		-- { "<leader>gP", "<cmd>Git pull<cr>", desc = "Git Pull" },
+		{ "<leader>ot", "<cmd>edit ~/.org/todo.org<cr>", desc = "Open Todo" },
 	},
 }
