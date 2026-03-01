@@ -38,8 +38,12 @@ stdenv.mkDerivation rec {
   '';
 
   buildPhase = ''
+    # Left
     qmk -v compile -kb redox/rev1/pm2040 -km audron
     cp redox_rev1_pm2040_audron.uf2 redox_rev1_pm2040_audron_left.uf2
+    
+    # Right
+    sed -i -e "0,/RX/s/GP3/GP2/" -e "0,/TX/s/GP2/GP3/" keyboards/redox/rev1/pm2040/config.h
     qmk -v compile -kb redox/rev1/pm2040 -km audron
     cp redox_rev1_pm2040_audron.uf2 redox_rev1_pm2040_audron_right.uf2
   '';

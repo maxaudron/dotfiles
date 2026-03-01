@@ -12,5 +12,5 @@
 /* serial.c configuration for split keyboard */
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
 #undef SOFT_SERIAL_PIN             // Remove define from keyboard.json
-#define SERIAL_USART_TX_PIN GP3    // USART TX pin
-#define SERIAL_USART_RX_PIN GP2    // USART RX pin
+#define SERIAL_USART_TX_PIN GP2    // USART TX pin
+#define SERIAL_USART_RX_PIN GP3    // USART RX pin
