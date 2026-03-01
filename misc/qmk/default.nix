@@ -22,16 +22,20 @@ stdenv.mkDerivation rec {
 
   # Additional source from local directory
   localSrc = ./.;
-  
+
   postUnpack = ''
     cp -r $localSrc/* $sourceRoot/
   '';
 
-  nativeBuildInputs = [ python3 qmk git elf2uf2-rs ];
+  nativeBuildInputs = [ qmk ];
 
   doCheck = false;
 
-  SKIP_GIT= "yes";
+  SKIP_GIT = "yes";
+
+  postPatch = ''
+    sed -i -e "s|#!/usr/bin/env python3|#!${python3}/bin/python3|" util/uf2conv.py
+  '';
 
   buildPhase = ''
     qmk -v compile -kb redox/rev1/pm2040 -km audron
