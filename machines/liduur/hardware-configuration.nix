@@ -157,6 +157,12 @@
     fsType = "vfat";
     options = [ "noauto" "user" "utf8" "iocharset=utf8" "X-mount.mkdir" ];
   };
+
+  fileSystems."/mnt/rp2040" = {
+    device = "/dev/disk/by-label/RPI-RP2";
+    fsType = "vfat";
+    options = [ "noauto" "user" "utf8" "iocharset=utf8" "X-mount.mkdir" "uid=1000" "gid=100" ];
+  };
   
   fileSystems."/mnt/phaenn" = {
     device = "10.10.0.2:/";
