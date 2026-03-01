@@ -1,0 +1,39 @@
+{
+    "usb": {
+        "device_version": "1.0.1"
+    },
+    "features":{
+        "bootmagic": true,
+        "command": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": false,
+        "backlight": false,
+        "tri_layer": true
+    },
+    "split": {
+        "handedness": {
+            "pin": "GP0"
+        },
+        "serial": {
+            "driver": "vendor"
+        },
+        "bootmagic": {
+            "matrix": [0, 0]
+        },
+        "usb_detect": {
+            "enabled": true
+        }
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
+    "matrix_pins": {
+        "cols": ["GP28", "GP27", "GP26", "GP22", "GP20", "GP23", "GP21"],
+        "rows": ["GP4", "GP6", "GP7", "GP8", "GP9"]
+    },
+    "diode_direction": "COL2ROW",
+    "development_board": "promicro_rp2040"
+}

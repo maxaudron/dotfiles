@@ -18,5 +18,7 @@ self: super:
   serena = super.python3Packages.callPackage ./serena {};
 
   mcp-hub = super.callPackage ./mcp-hub {};
+
+  qmk_redox = super.callPackage ../misc/qmk {};
 }
 
