@@ -158,7 +158,15 @@
           };
 
           packages = (import ./pkgs pkgs pkgs);
+
+          apps =
+            let
+              qmk_redox = pkgs.callPackage ./misc/qmk;
+            in
+            {
+              flash_redox_left = (import ./misc/qmk/flash.nix { inherit pkgs; firmware = qmk_redox { left = true; }; });
+              flash_redox_right = (import ./misc/qmk/flash.nix { inherit pkgs; firmware = qmk_redox { left = false; }; });
+            };
         };
     };
 }
-
