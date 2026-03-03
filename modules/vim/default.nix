@@ -130,6 +130,7 @@ in
             ron
             treesitter-asciidoc
             ledger
+            tree-sitter-org-nvim
           ]
         ))
         nvim-treesitter-context
