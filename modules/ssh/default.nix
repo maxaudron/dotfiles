@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.ssh = {
@@ -21,6 +26,10 @@
         controlMaster = "no";
         controlPath = "~/.ssh/master-%r@%n:%p";
         controlPersist = "no";
+
+        setEnv = {
+          TERM = "xterm-256color";
+        };
       };
 
       "10.53.10.* 10.53.11.* 10.53.0.* 10.51.0.* 10.52.0.*" = {
