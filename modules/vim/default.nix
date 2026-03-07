@@ -108,6 +108,7 @@ in
         # Languages
         rustaceanvim
         neotest
+        nvim-nio
         vim-ledger
 
         # treesitter

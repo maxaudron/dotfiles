@@ -12,7 +12,7 @@ return {
       org_hide_emphasis_markers = true,
       org_hide_leading_stars = true,
 
-			org_todo_keywords = { "TODO", "WAITING", "NEXT", "|", "DONE", "DELEGATED", "CANCLED" },
+			org_todo_keywords = { "TODO(t)", "NEXT(n)", "DOING(w)", "|", "DONE(d)", "DELEGATED(o)", "CANCLED(x)" },
 			org_capture_templates = {
 				t = {
 					description = "Todo",
