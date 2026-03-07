@@ -263,9 +263,9 @@ rec {
 
       musicbrainz = {
         enabled = true;
-        host = "musicbrainz.vapor.systems";
-        ratelimit = 150;
-        https = true;
+        # host = "musicbrainz.vapor.systems";
+        # ratelimit = 150;
+        # https = true;
         genres = true;
       };
 
