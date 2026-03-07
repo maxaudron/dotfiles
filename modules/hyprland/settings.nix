@@ -130,6 +130,12 @@
       sensitivity = 0.5;
     };
 
+    device = {
+      name = "kensington-expert-wireless-tb-mouse";
+      accel_profile = "adaptive";
+      sensitivity = 0.2;
+    };
+
     windowrule = [
       "float, class:imv"
       "float, class:mpv"
