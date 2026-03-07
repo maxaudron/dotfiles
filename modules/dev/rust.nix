@@ -1,4 +1,11 @@
-{ config, lib, pkgs, system, fenix, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  fenix,
+  ...
+}:
 
 {
   config = lib.mkIf config.home.dev.rust {
@@ -12,19 +19,42 @@
       cargo-watch
       cargo-cross
       cargo-tarpaulin
+      cargo-nextest
       #unstable.dioxus-cli
     ];
+
+    xdg.configFile."rust-analyzer/rust-analyzer.toml".source =
+      (pkgs.formats.toml { }).generate "rust-analyzer.toml"
+        {
+          diagnostics = {
+            disabled = [
+              "inactive-code"
+            ];
+          };
+          cargo = {
+            buildScripts = {
+              enable = true;
+            };
+          };
+          procMacro = {
+            enable = true;
+          };
+        };
 
     home.file.".cargo/config.toml".text = ''
       [registries.crates-io]
       protocol = "sparse"
-    '' +
-    (if pkgs.stdenv.isLinux then ''
+    ''
+    + (
+      if pkgs.stdenv.isLinux then
+        ''
 
-      [target.x86_64-unknown-linux-gnu]
-      linker = "${pkgs.clang}/bin/clang"
-      rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
-    '' else
-      "");
+          [target.x86_64-unknown-linux-gnu]
+          linker = "${pkgs.clang}/bin/clang"
+          rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]
+        ''
+      else
+        ""
+    );
   };
 }
