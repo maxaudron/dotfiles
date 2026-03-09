@@ -12,6 +12,7 @@ in
   imports = [ 
     ../../modules/common 
     ../../modules/home-manager
+    ../../modules/aerospace
   ];
 
   users.users."${conf.user.name}" = {
@@ -35,6 +36,8 @@ in
   # services.nix-daemon.enable = true;
 
   nix.settings.trusted-users = [ "@staff" ];
+ 
+  system.primaryUser = conf.user.name;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
