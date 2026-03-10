@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -38,6 +37,10 @@ in
       # ss06: Broken Bar
       font-feature = [ "+liga" "+calt" "+ss03" "+ss06" ];
       freetype-load-flags = [ "no-hinting" ];
+
+      keybind = "global:cmd+delete=toggle_quick_terminal";
+      quick-terminal-position = "top";
+      quick-terminal-size = "45%,40%";
     };
   };
 }
