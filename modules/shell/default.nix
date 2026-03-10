@@ -83,7 +83,11 @@ in
       end
       
       function screenshot
-	grim -g "$(slurp)" - | pastor - | wl-copy
+        grim -g "$(slurp)" - | pastor - | wl-copy
+      end
+
+      function nix-prefetch-sri
+        nix-prefetch-url "$1" | xargs nix hash to-sri --type sha256
       end
     '';
     plugins = [
