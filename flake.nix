@@ -157,16 +157,32 @@
             config.allowUnfree = true;
           };
 
-          packages = (import ./pkgs pkgs pkgs);
+          packages =
+            (import ./pkgs pkgs pkgs)
+            // (
+              let
+                qmk_redox = pkgs.callPackage ./misc/qmk;
+              in
+              {
+                redox_left = qmk_redox { left = true; };
+                redox_right = qmk_redox { left = false; };
+              }
+            );
 
-          apps =
-            let
-              qmk_redox = pkgs.callPackage ./misc/qmk;
-            in
-            {
-              flash_redox_left = (import ./misc/qmk/flash.nix { inherit pkgs; firmware = qmk_redox { left = true; }; });
-              flash_redox_right = (import ./misc/qmk/flash.nix { inherit pkgs; firmware = qmk_redox { left = false; }; });
-            };
+          apps = {
+            flash_redox_left = (
+              import ./misc/qmk/flash.nix {
+                inherit pkgs;
+                firmware = self'.packages.redox_left;
+              }
+            );
+            flash_redox_right = (
+              import ./misc/qmk/flash.nix {
+                inherit pkgs;
+                firmware = self'.packages.redox_right;
+              }
+            );
+          };
         };
     };
 }
