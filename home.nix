@@ -57,6 +57,8 @@ in {
     hledger-web
 
     chirp
+
+    displaycal
   ] else []);
 
   programs.imv.enable = linux;
