@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 
 let
   c1 = "#fd472f";
@@ -11,16 +11,17 @@ let
   dark = "#181818";
   dim = "#242424";
 
-in {
+in
+{
   wayland.windowManager.sway.config = {
     output = {
       "*" = {
-        bg = "${../../wallpaper/blade_runner/mpv-shot0003.jpg} fill";
+        bg = "${../../misc/wallpaper/evening-sky.png} fill";
       };
     };
 
     gaps = {
-      inner = 10;
+      inner = 20;
       outer = 0;
       smartGaps = false;
       smartBorders = "off";
@@ -66,6 +67,6 @@ in {
       };
     };
 
-    bars = lib.mkForce [];
+    bars = lib.mkForce [ ];
   };
 }

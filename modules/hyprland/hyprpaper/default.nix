@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   services.hyprpaper = {
@@ -11,13 +6,19 @@
     package = pkgs.unstable.hyprpaper;
     settings =
       let
-        wallpaper = "~/.dotfiles/wallpaper/evening-sky.png";
+        wallpaper = "~/.dotfiles/misc/wallpaper/evening-sky.png";
       in
       {
         preload = wallpaper;
         wallpaper = [
-          "DP-1,${wallpaper}"
-          "DP-2,${wallpaper}"
+          {
+            monitor = "DP-1";
+            path = wallpaper;
+          }
+          {
+            monitor = "DP-2";
+            path = wallpaper;
+          }
         ];
       };
   };

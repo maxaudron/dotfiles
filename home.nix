@@ -21,6 +21,7 @@ in {
     modules/kicad
     modules/weechat
     modules/hyprland
+    # modules/sway
     modules/mpd
   ] else []);
 

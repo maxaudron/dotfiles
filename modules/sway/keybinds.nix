@@ -1,69 +1,84 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
-let mod = "Mod4";
-in {
+let
+  mod = "Mod4";
+in
+{
   wayland.windowManager.sway.config = {
-    keybindings = lib.mkMerge ([{
-      # Essentials
-      "${mod}+Return" = "exec alacritty";
-      "${mod}+r" = "exec rofi -show drun";
-      "${mod}+c" = "kill";
+    keybindings = lib.mkMerge (
+      [
+        {
+          # Essentials
+          "${mod}+Return" = "exec ghostty";
+          "${mod}+SPACE" = "exec rofi -show drun";
+          "${mod}+c" = "kill";
 
-      "XF86AudioLowerVolume" = "exec xdotool keydown XF86AudioLowerVolume";
-      "--release --locked XF86AudioLowerVolume" = "exec xdotool keyup XF86AudioLowerVolume";
+          "XF86AudioLowerVolume" = "exec xdotool keydown XF86AudioLowerVolume";
+          "--release --locked XF86AudioLowerVolume" = "exec xdotool keyup XF86AudioLowerVolume";
 
-      # "XF86AudioRaiseVolume" = "exec xdotool keydown XF86AudioRaiseVolume";
-      # "--release --locked XF86AudioRaiseVolume" = "exec xdotool keyup XF86AudioRaiseVolume";
-      "XF86AudioRaiseVolume" = "exec xdotool keydown F12";
-      "--release --locked XF86AudioRaiseVolume" = "exec xdotool keyup F12";
+          # "XF86AudioRaiseVolume" = "exec xdotool keydown XF86AudioRaiseVolume";
+          # "--release --locked XF86AudioRaiseVolume" = "exec xdotool keyup XF86AudioRaiseVolume";
+          "XF86AudioRaiseVolume" = "exec xdotool keydown F12";
+          "--release --locked XF86AudioRaiseVolume" = "exec xdotool keyup F12";
 
-      "XF86AudioMute" = "exec xdotool keydown XF86AudioMute";
-      "--release --locked XF86AudioMute" = "exec xdotool keyup XF86AudioMute";
+          "XF86AudioMute" = "exec xdotool keydown XF86AudioMute";
+          "--release --locked XF86AudioMute" = "exec xdotool keyup XF86AudioMute";
 
-      # c floating_modifier "${mod}" normal
+          # c floating_modifier "${mod}" normal
 
-      # Exit and reload
-      "${mod}+Shift+r" = "reload";
+          # Exit and reload
+          "${mod}+Shift+r" = "reload";
 
-      # Movement
-      "${mod}+h" = "focus left";
-      "${mod}+j" = "focus down";
-      "${mod}+k" = "focus up";
-      "${mod}+l" = "focus right";
+          # Movement
+          "${mod}+h" = "focus left";
+          "${mod}+j" = "focus down";
+          "${mod}+k" = "focus up";
+          "${mod}+l" = "focus right";
 
-      "${mod}+Shift+h" = "move left";
-      "${mod}+Shift+j" = "move down";
-      "${mod}+Shift+k" = "move up";
-      "${mod}+Shift+l" = "move right";
+          "${mod}+Shift+h" = "move left";
+          "${mod}+Shift+j" = "move down";
+          "${mod}+Shift+k" = "move up";
+          "${mod}+Shift+l" = "move right";
 
-      # Layout stuff
-      "${mod}+m" = "splith";
-      "${mod}+n" = "splitv";
+          # Layout stuff
+          "${mod}+m" = "splith";
+          "${mod}+n" = "splitv";
 
-      # Switch the current container between different layout styles
-      # bindsym ${mod}+s layout stacking
-      # c bindsym "${mod}+w" layout tabbed
-      "${mod}+t" = "layout toggle tabbed split";
-      "${mod}+f" = "fullscreen";
-      "${mod}+s" = "floating toggle";
-      "${mod}+space" = "focus mode_toggle";
-      "${mod}+a" = "focus parent";
+          # Switch the current container between different layout styles
+          # bindsym ${mod}+s layout stacking
+          # c bindsym "${mod}+w" layout tabbed
+          "${mod}+t" = "layout toggle tabbed split";
+          "${mod}+f" = "fullscreen";
+          "${mod}+s" = "floating toggle";
+          # "${mod}+space" = "focus mode_toggle";
+          "${mod}+a" = "focus parent";
 
-      # Sway has a "scratchpad", which is a bag of holding for windows.
-      # You can send windows there and get them back later.
+          # Sway has a "scratchpad", which is a bag of holding for windows.
+          # You can send windows there and get them back later.
 
-      # Move the currently focused window to the scratchpad
-      "${mod}+Shift+minus" = "move scratchpad";
+          # Move the currently focused window to the scratchpad
+          "${mod}+Shift+minus" = "move scratchpad";
 
-      # Show the next scratchpad window or hide the focused scratchpad window.
-      # If there are multiple scratchpad windows, this command cycles through them.
-      "${mod}+minus" = "scratchpad show";
+          # Show the next scratchpad window or hide the focused scratchpad window.
+          # If there are multiple scratchpad windows, this command cycles through them.
+          "${mod}+minus" = "scratchpad show";
 
-    }] ++ (lib.forEach (lib.range 0 9) (i:
-      let s = toString i;
-      in {
-        "${mod}+${s}" = "workspace number ${s}";
-        "${mod}+Shift+${s}" = "move container to workspace number ${s}";
-      })));
+        }
+      ]
+      ++ (lib.forEach (lib.range 0 9) (
+        i:
+        let
+          s = toString i;
+        in
+        {
+          "${mod}+${s}" = "workspace number ${s}";
+          "${mod}+Shift+${s}" = "move container to workspace number ${s}";
+        }
+      ))
+    );
   };
 }

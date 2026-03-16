@@ -1,50 +1,10 @@
-{ config, lib, pkgs, nixpkgs, system, ... }:
+{ pkgs, ... }:
 
-let
-  unstable = import nixpkgs {
-    inherit system;
-    overlays = [
-      (import "${
-          builtins.fetchGit {
-            url = "https://github.com/nix-community/nixpkgs-wayland";
-            ref = "master";
-            rev = "da508b9e9a6febffc337daaff980e0201dddb12a";
-          }
-        }/overlay.nix")
-
-      (final: prev: {
-        sway-unwrapped = prev.sway-unwrapped.overrideAttrs (old: rec {
-          # version = "1.7";
-          src = builtins.fetchGit {
-            url = "https://github.com/fluix-dev/sway-borders";
-            ref = "master";
-            rev = "8fba9c0476ac2d1a8a2c640db3234a4c1967ca24";
-          };
-        });
-      })
-    ];
-  };
-
-  swayPackage = pkgs.sway.override {
-    withBaseWrapper = true;
-    withGtkWrapper = true;
-
-    extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
-      # needs qt5.qtwayland in systemPackages
-      export QT_QPA_PLATFORM="wayland;xcb"
-      # export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-      # Fix for some Java AWT applications (e.g. Android Studio),
-      # use this if they aren't displayed properly:
-      export _JAVA_AWT_WM_NONREPARENTING=1
-    '';
-  };
-
-  sysconfig = (import <nixpkgs/nixos> { }).config;
-in {
+{
   imports = [
-    # ./rofi
-    ./waybar
+    ../../modules/common/userland.nix
+    ../rofi
+    # ./waybar
 
     ./keybinds.nix
     ./input.nix
@@ -54,40 +14,15 @@ in {
     (./specifics/liduur.nix)
   ];
 
-  # programs.qt5ct.enable = true;
-
-  home.packages = with pkgs; [
-    wl-clipboard
-    alacritty
-    waybar
-    seatd
-
-    gtk-engine-murrine
-    gtk_engines
-    gsettings-desktop-schemas
-    lxappearance
-
-    xdotool
-  ];
-
-  services.gammastep = {
-    enable = true;
-    provider = "manual";
-    latitude = 50.0;
-    longitude = 8.6;
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Arc-Dark";
-      package = pkgs.arc-theme;
-    };
-  };
+  # services.gammastep = {
+  #   enable = true;
+  #   provider = "manual";
+  #   latitude = 50.0;
+  #   longitude = 8.6;
+  # };
 
   wayland.windowManager.sway = {
     enable = true;
-    package = swayPackage;
     wrapperFeatures = {
       gtk = true;
       base = true;
@@ -104,13 +39,5 @@ in {
     };
 
     xwayland = true;
-
-    # border_images.focused "${./shadows.png}"
-    # border_images.focused_inactive "${./shadows.png}"
-    # border_images.unfocused "${./shadows.png}"
-    # border_images.urgent "${./shadows.png}"
-    extraConfig = ''
-      xwayland enable
-    '';
   };
 }
