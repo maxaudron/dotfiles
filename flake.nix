@@ -57,6 +57,7 @@
 
   outputs =
     inputs@{
+      self,
       flake-parts,
       nixpkgs,
       nixpkgs-unstable,
@@ -98,47 +99,41 @@
                 overlay-master
               ];
             };
-        in
-        {
-          nixosConfigurations.liduur =
-            let
-              system = "x86_64-linux";
-            in
+
+          mkSystem =
+            name: system: modules:
             nixpkgs.lib.nixosSystem {
               inherit system;
               specialArgs = specialArgs // {
                 inherit system;
+                machineName = name;
               };
               modules = [
                 overlays
-                home-manager.nixosModules.home-manager
-                catppuccin.nixosModules.catppuccin
-                ./machines/liduur/configuration.nix
-              ];
+                ./machines/${name}/configuration.nix
+              ]
+              ++ modules;
             };
-          darwinConfigurations.ffma0089 =
-            let
-              system = "aarch64-darwin";
-            in
-            darwin.lib.darwinSystem {
-              inherit system;
-              specialArgs = specialArgs // {
-                inherit system;
-              };
-              modules = [
-                overlays
-                home-manager.darwinModules.home-manager
-                {
-                  home-manager = {
-                    extraSpecialArgs = specialArgs // {
-                      inherit builtins;
-                      inherit system;
-                    };
-                  };
-                }
-                ./machines/ffma0089/configuration.nix
-              ];
-            };
+
+          linuxModules = [
+            home-manager.nixosModules.home-manager
+            catppuccin.nixosModules.catppuccin
+            self.nixosModules.default
+          ];
+
+          darwinModules = [
+            home-manager.darwinModules.home-manager
+            catppuccin.darwinModules.catppuccin
+            self.darwinModules.default
+          ];
+        in
+        {
+          nixosModules = import ./modules/nixos { inherit (nixpkgs) lib; };
+          darwinModules = import ./modules/darwin { inherit (nixpkgs) lib; };
+          homeManagerModules.default = import ./modules/home;
+
+          nixosConfigurations.liduur = mkSystem "liduur" "x86_64-linux" linuxModules;
+          darwinConfigurations.ffma0089 = mkSystem "ffma0089" "aarch64-darwin" darwinModules;
         };
 
       perSystem =
@@ -156,6 +151,8 @@
             overlays = [ (import ./pkgs) ];
             config.allowUnfree = true;
           };
+
+          formatter = pkgs.nixfmt-tree;
 
           packages =
             (import ./pkgs pkgs pkgs)

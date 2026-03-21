@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   services.udev.extraRules = ''
@@ -12,20 +17,40 @@
     };
 
     initrd = {
-      availableKernelModules =
-        [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-      kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
+      kernelModules = [
+        "kvm-amd"
+        "amdgpu"
+        "zfs"
+      ];
     };
 
     kernelPackages = pkgs.linuxKernel.packages.linux_rt_6_6;
 
-    kernelModules = [ "kvm-amd" "amdgpu" "zfs" ];
+    kernelModules = [
+      "kvm-amd"
+      "amdgpu"
+      "zfs"
+    ];
 
     # Use the systemd-boot EFI boot loader.
-    supportedFilesystems = [ "zfs" "ntfs" ];
+    supportedFilesystems = [
+      "zfs"
+      "ntfs"
+    ];
 
     loader = {
-      efi = { canTouchEfiVariables = true; };
+      efi = {
+        canTouchEfiVariables = true;
+      };
+      timeout = 1;
 
       # Use the GRUB 2 boot loader.
       grub = {
@@ -33,6 +58,13 @@
         zfsSupport = true;
         efiSupport = true;
         device = "nodev";
+
+        configurationLimit = 3;
+
+        gfxmodeEfi = "3840x2160x32,auto";
+        gfxmodeBios = "3840x2160x32,auto";
+        gfxpayloadEfi = "keep";
+        gfxpayloadBios = "keep";
 
         # Force this list to only contain these entries
         # by default /boot is in here too, breaking my setup
@@ -56,7 +88,10 @@
     trim.enable = true;
     autoScrub = {
       enable = true;
-      pools = [ "rpool" "storage" ];
+      pools = [
+        "rpool"
+        "storage"
+      ];
     };
   };
 
@@ -145,7 +180,7 @@
     fsType = "zfs";
     options = [ "zfsutil" ];
   };
-  
+
   fileSystems."/mnt/media" = {
     device = "storage/media";
     fsType = "zfs";
@@ -155,19 +190,36 @@
   fileSystems."/mnt/ipod" = {
     device = "/dev/disk/by-id/usb-Apple_iPod_Classic_3B3685654-0:0-part1";
     fsType = "vfat";
-    options = [ "noauto" "user" "utf8" "iocharset=utf8" "X-mount.mkdir" ];
+    options = [
+      "noauto"
+      "user"
+      "utf8"
+      "iocharset=utf8"
+      "X-mount.mkdir"
+    ];
   };
 
   fileSystems."/mnt/rp2040" = {
     device = "/dev/disk/by-label/RPI-RP2";
     fsType = "vfat";
-    options = [ "noauto" "user" "utf8" "iocharset=utf8" "X-mount.mkdir" "uid=1000" "gid=100" ];
+    options = [
+      "noauto"
+      "user"
+      "utf8"
+      "iocharset=utf8"
+      "X-mount.mkdir"
+      "uid=1000"
+      "gid=100"
+    ];
   };
-  
+
   fileSystems."/mnt/phaenn" = {
     device = "10.10.0.2:/";
     fsType = "nfs4";
-    options = [ "noauto" "X-mount.mkdir" ];
+    options = [
+      "noauto"
+      "X-mount.mkdir"
+    ];
   };
 
   hardware.enableRedistributableFirmware = true;

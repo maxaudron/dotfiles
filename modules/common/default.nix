@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  lib,
   nixpkgs,
   nixpkgs-unstable,
   darwin,
@@ -11,19 +9,8 @@
   ...
 }:
 
-let
-  conf = import ../config { inherit lib; };
-
-in
 {
-  imports = (
-    if conf.os.type == "linux" then
-      [ ./linux.nix ]
-    # else if conf.os.type == "darwin" then
-    #   [ ./darwin.nix ]
-    else
-      [ ]
-  );
+  imports = [ ./config.nix ./home-manager.nix ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -43,6 +30,7 @@ in
     rename
     p7zip
     rclone
+    usbutils
 
     mtr
     ipcalc
@@ -122,6 +110,7 @@ in
     };
   };
 
+  # FIXME
   nixpkgs.config.permittedInsecurePackages = [
     "qtwebengine-5.15.19"
   ];

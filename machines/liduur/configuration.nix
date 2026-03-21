@@ -1,25 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, ... }:
 
 {
   imports = [
-    ./wireplumber.nix
+    ./audio.nix
     ./hardware-configuration.nix
-
-    ../../modules/audio
-    ../../modules/common
-    ../../modules/yubikey
-    ../../modules/home-manager
-    ../../modules/tgt
-    ../../modules/klipper
   ];
 
   boot.binfmt.emulatedSystems = [
@@ -81,6 +65,11 @@
       addresses = true;
       userServices = true;
     };
+  };
+
+  services.displayManager.autologin = {
+    enable = true;
+    user = config.users.users.audron.name;
   };
 
   systemd.network = {
@@ -150,6 +139,16 @@
             }
           ];
         };
+      };
+    };
+  };
+
+  services.tgt = {
+    enable = true;
+    settings.target = {
+      "iqn.2020-08.liduur:games" = {
+        backing-store = "/dev/zvol/storage/games_ntfs";
+        initiator-address = "192.168.144.11";
       };
     };
   };

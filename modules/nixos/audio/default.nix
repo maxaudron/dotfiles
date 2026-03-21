@@ -1,0 +1,185 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+
+with lib;
+
+let
+  cfg = config.my.audio;
+in
+{
+  imports = [
+    ./wireplumber
+    ./filter-chain
+
+    ./windows.nix
+  ];
+
+  options.my.audio = {
+    enable = mkEnableOption "audio";
+
+    autoConnect = mkOption {
+      type = types.listOf types.attrs;
+      default = [ ];
+      description = "Set up pipewire links on startup.";
+      example = [
+        {
+          input = "a";
+          output = "b";
+          connect = { };
+        }
+      ];
+    };
+
+    package = mkOption {
+      type = types.package;
+      default = pkgs.pipewire;
+    };
+
+    sampleSize = mkOption {
+      type = types.int;
+      default = 128;
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    security.pam.loginLimits = [
+      { domain = "*"; item = "rtprio"; type = "hard"; value = "0"; }
+      { domain = "*"; item = "rtprio"; type = "soft"; value = "0"; }
+      { domain = "@audio"; item = "rtprio"; type = "hard"; value = "99"; }
+      { domain = "@audio"; item = "rtprio"; type = "soft"; value = "20"; }
+      { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
+      { domain = "@rtkit"; item = "rtprio"; type = "hard"; value = "99"; }
+      { domain = "@rtkit"; item = "rtprio"; type = "soft"; value = "20"; }
+      { domain = "@rtkit"; item = "memlock"; type = "-"; value = "unlimited"; }
+    ];
+
+    systemd.services = {
+      rtkit-daemon = {
+        serviceConfig = {
+          ExecStart = [
+            ""
+            "-${pkgs.rtkit}/libexec/rtkit-daemon --our-realtime-priority=99 --max-realtime-priority=95"
+          ];
+        };
+      };
+    };
+
+    environment.systemPackages = with pkgs; [
+      helvum
+      pavucontrol
+      pulseaudio
+    ];
+
+    services.pulseaudio.enable = false;
+
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      package = cfg.package;
+
+      jack = {
+        enable = true;
+      };
+      pulse = {
+        enable = true;
+      };
+      alsa = {
+        enable = true;
+      };
+
+      wireplumber = {
+        enable = true;
+      };
+
+      extraConfig = {
+        pipewire = {
+          "10-default" = {
+            "context.properties" = {
+              "link.max-buffers" = 64;
+              "log.level" = 2;
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = cfg.sampleSize;
+              "default.clock.min-quantum" = cfg.sampleSize;
+              "default.clock.max-quantum" = cfg.sampleSize;
+              "core.daemon" = true;
+              "core.name" = "pipewire-0";
+            };
+
+            "context.modules" = [
+              {
+                name = "libpipewire-module-rtkit";
+                args = {
+                  "nice.level" = -15;
+                  "rt.prio" = 88;
+                  "rt.time.soft" = 200000;
+                  "rt.time.hard" = 200000;
+                };
+                flags = [
+                  "ifexists"
+                  "nofail"
+                ];
+              }
+            ];
+          };
+        };
+
+        pipewire-pulse = {
+          "10-default" = {
+            "pulse.properties" = {
+              "pulse.min.req" = "${toString cfg.sampleSize}/48000";
+              "pulse.default.req" = "${toString cfg.sampleSize}/48000";
+              "pulse.max.req" = "${toString cfg.sampleSize}/48000";
+              "pulse.min.quantum" = "${toString cfg.sampleSize}/48000";
+              "pulse.max.quantum" = "${toString cfg.sampleSize}/48000";
+              "server.address" = [ "unix:native" ];
+            };
+            "context.modules" = [
+              {
+                name = "libpipewire-module-rtkit";
+                args = {
+                  "nice.level" = -15;
+                  "rt.prio" = 88;
+                  "rt.time.soft" = 200000;
+                  "rt.time.hard" = 200000;
+                };
+                flags = [
+                  "ifexists"
+                  "nofail"
+                ];
+              }
+            ];
+
+            "stream.properties" = {
+              "node.latency" = "${toString cfg.sampleSize}/48000";
+              "resample.quality" = 1;
+            };
+          };
+        };
+      };
+    };
+
+    environment.variables =
+      let
+        makePluginPath =
+          format:
+          (makeSearchPath format [
+            "$HOME/.nix-profile/lib"
+            "/run/current-system/sw/lib"
+            "/etc/profiles/per-user/$USER/lib"
+          ])
+          + ":$HOME/.${format}";
+      in
+      {
+        DSSI_PATH = makePluginPath "dssi";
+        LADSPA_PATH = makePluginPath "ladspa";
+        LV2_PATH = makePluginPath "lv2";
+        LXVST_PATH = makePluginPath "lxvst";
+        VST_PATH = makePluginPath "vst";
+        VST3_PATH = makePluginPath "vst3";
+      };
+  };
+}
