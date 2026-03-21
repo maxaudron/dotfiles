@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  cfg = config.home-manager.users."${config.my.user.name}".config;
+  cfg = config.home-manager.users."${config.my.user.name}";
 in
 {
   programs.uwsm = {
