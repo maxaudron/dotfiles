@@ -21,10 +21,8 @@
     wayland.windowManager.hyprland = {
       enable = true;
 
-      # package = pkgs.unstable.hyprland;
-      # portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
-      package = null;
-      portalPackage = null;
+      package = pkgs.hyprland;
+      portalPackage = pkgs.xdg-desktop-portal-hyprland;
 
       plugins = with pkgs.hyprlandPlugins; [
         hy3

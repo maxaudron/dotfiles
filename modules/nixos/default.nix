@@ -9,6 +9,7 @@ rec {
   klipper = import ./klipper;
   tgt = import ./tgt;
   yubikey = import ./yubikey;
+  uwsm = import ./uwsm.nix;
 
   # vfio = import ./vfio;
 
@@ -22,6 +23,7 @@ rec {
         autologin
         yubikey
         audio
+        uwsm
         tgt
       ];
 
