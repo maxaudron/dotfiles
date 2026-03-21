@@ -133,6 +133,7 @@
           homeManagerModules.default = import ./modules/home;
 
           nixosConfigurations.liduur = mkSystem "liduur" "x86_64-linux" linuxModules;
+          nixosConfigurations.velcitna = mkSystem "velcitna" "x86_64-linux" linuxModules;
           darwinConfigurations.ffma0089 = mkSystem "ffma0089" "aarch64-darwin" darwinModules;
         };
 

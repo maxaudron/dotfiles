@@ -16,7 +16,7 @@
       {
         source = builtins.fetchurl {
           url = "https://keys.openpgp.org/vks/v1/by-fingerprint/81040D00839B1C5903D07D067828577F894C55C0";
-          sha256 = "0jya2ak2vgqvz8zpafmjvx714s01pxwgn18q7bkvg7bvc9vj4hnm";
+          sha256 = "097fl4kqlqn8129k6zwb7p4ciaixki9w48b109pj1v9gi3744laf";
         };
         trust = 5;
       }
