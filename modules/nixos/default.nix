@@ -10,6 +10,7 @@ rec {
   tgt = import ./tgt;
   yubikey = import ./yubikey;
   uwsm = import ./uwsm.nix;
+  kmscon = import ./kmscon.nix;
 
   # vfio = import ./vfio;
 
@@ -22,6 +23,7 @@ rec {
 
         autologin
         yubikey
+        kmscon
         audio
         uwsm
         tgt

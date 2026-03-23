@@ -19,12 +19,9 @@
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
-  services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
+  services.displayManager.autologin = {
+    enable = true;
+    user = config.users.users.audron.name;
   };
 
   services.xserver.videoDrivers = [ "amdgpu" ];

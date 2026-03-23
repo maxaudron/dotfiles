@@ -150,6 +150,11 @@
     keyMap = "us";
   };
 
+  services.xserver.xkb = {
+    layout = "us";
+    options = "compose:rctrl,ctrl:swapcaps";
+  };
+
   networking.nftables.enable = true;
 
   services = {

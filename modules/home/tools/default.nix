@@ -40,6 +40,10 @@ with lib;
       hunspellDicts.de_DE
       hunspellDicts.en_US
 
+      htop
+      btop
+      iotop
+
       # gtree.packages.${system}.default
     ];
 
