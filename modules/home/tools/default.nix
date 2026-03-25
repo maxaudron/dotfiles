@@ -42,7 +42,6 @@ with lib;
 
       htop
       btop
-      iotop
 
       # gtree.packages.${system}.default
     ];

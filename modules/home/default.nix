@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   user,
   catppuccin,
@@ -13,10 +14,11 @@ in
   imports = [
     catppuccin.homeModules.catppuccin
 
-    ./core
     ./desktop
-    ./editor
     ./games
+
+    ./core
+    ./editor
     ./music
     ./progs
     ./tools

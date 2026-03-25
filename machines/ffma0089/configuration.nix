@@ -1,27 +1,20 @@
 {
   config,
   pkgs,
-  lib,
+  secrets,
   ...
 }:
 
-let
-  conf = import ../../modules/config { inherit lib; };
-in
 {
-  imports = [ 
-    ../../modules/common 
-    ../../modules/home-manager
-    ../../modules/aerospace
-  ];
+  imports = [ "${secrets}/work.nix" ];
 
-  users.users."${conf.user.name}" = {
-    name = conf.user.name;
-    home = conf.user.home;
+  users.users."${config.my.user.name}" = {
+    name = config.my.user.name;
+    home = "/Users/${config.my.user.name}";
     uid = 502;
     shell = pkgs.fish;
   };
-  users.knownUsers = [ conf.user.name ];
+  users.knownUsers = [ config.my.user.name ];
 
   programs.zsh.enable = true;
   programs.fish.enable = true;
@@ -37,7 +30,7 @@ in
 
   nix.settings.trusted-users = [ "@staff" ];
  
-  system.primaryUser = conf.user.name;
+  system.primaryUser = config.my.user.name;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

@@ -1,9 +1,0 @@
-[user]
-name = "audron"
-home = "/home/audron"
-email = "me@audron.dev"
-fullname = "Max Audron"
-
-[os]
-type = "linux"
-work = false

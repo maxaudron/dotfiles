@@ -33,7 +33,7 @@
       awscli2
       aws-adfs
 
-      (callPackage ../../pkgs/kubectx { })
+      (callPackage ../../../pkgs/kubectx { })
     ];
 
     home.shellAliases = {

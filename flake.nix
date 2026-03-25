@@ -100,9 +100,11 @@
               ];
             };
 
+	  mkSystemCmd = system: if nixpkgs.lib.strings.hasSuffix "-linux" system then nixpkgs.lib.nixosSystem else darwin.lib.darwinSystem;
+
           mkSystem =
             name: system: modules:
-            nixpkgs.lib.nixosSystem {
+            mkSystemCmd system {
               inherit system;
               specialArgs = specialArgs // {
                 inherit system;
@@ -123,7 +125,6 @@
 
           darwinModules = [
             home-manager.darwinModules.home-manager
-            catppuccin.darwinModules.catppuccin
             self.darwinModules.default
           ];
         in
