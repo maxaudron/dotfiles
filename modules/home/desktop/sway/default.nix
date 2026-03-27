@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  machineName,
   ...
 }:
 
@@ -11,7 +12,7 @@
     ./theme.nix
 
     # (./specifics + "/${sysconfig.networking.hostName}.nix")
-    (./specifics/liduur.nix)
+    (./specifics/${machineName}.nix)
   ];
 
   options.my.desktop.sway = {
@@ -28,7 +29,7 @@
         base = true;
       };
 
-      systemdIntegration = true;
+      systemd.enable = true;
 
       config = {
         modifier = "Mod4";

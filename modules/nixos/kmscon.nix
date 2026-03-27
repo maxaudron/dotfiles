@@ -3,11 +3,15 @@
 {
   services.kmscon = {
     enable = true;
+    package = pkgs.unstable.kmscon;
+
     hwRender = true;
     useXkbConfig = true;
     extraConfig = ''
-      font-dpi=160
-      font-size=6
+      mouse
+      sb-size=10000
+
+      font-size=14
 
       palette=custom
       palette-foreground=186, 194, 222

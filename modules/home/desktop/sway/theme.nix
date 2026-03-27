@@ -16,7 +16,7 @@ in
   wayland.windowManager.sway.config = {
     output = {
       "*" = {
-        bg = "${../../misc/wallpaper/evening-sky.png} fill";
+        bg = "${../../../../misc/wallpaper/evening-sky.png} fill";
       };
     };
 

@@ -1,10 +1,11 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = [ pkgs.displaycal ];
   my = {
     desktop = {
       enable = true;
-      hyprland.enable = true;
+      sway.enable = true;
     };
 
     music = {
