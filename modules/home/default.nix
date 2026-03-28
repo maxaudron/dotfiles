@@ -3,7 +3,7 @@
   lib,
   pkgs,
   user,
-  catppuccin,
+  stylix,
   machineName,
   ...
 }:
@@ -12,8 +12,6 @@ let
 in
 {
   imports = [
-    catppuccin.homeModules.catppuccin
-
     ./desktop
     ./games
 
@@ -31,17 +29,6 @@ in
 
   home.sessionVariables = {
     LEDGER_FILE = "${config.home.homeDirectory}/Documents/hledger.journal";
-  };
-
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-
-    firefox.force = true;
-    cursors = {
-      enable = linux;
-      accent = "dark";
-    };
   };
 
   home.packages =

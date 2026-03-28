@@ -26,8 +26,6 @@
 
     services.gnome-keyring.enable = true;
 
-    qt.platformTheme = "gnome";
-
     home.sessionVariables = {
       WLR_RENDERER = "vulkan";
       NIXOS_OZONE_WL = "1";

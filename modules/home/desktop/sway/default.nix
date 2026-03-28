@@ -21,6 +21,7 @@
 
   config = lib.mkIf config.my.desktop.sway.enable {
     my.desktop.rofi.enable = true;
+    my.desktop.noctalia.enable = true;
 
     wayland.windowManager.sway = {
       enable = true;

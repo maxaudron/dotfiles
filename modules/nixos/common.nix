@@ -72,14 +72,6 @@
     };
   };
 
-  catppuccin = {
-    enable = true;
-    accent = "mauve";
-    flavor = "mocha";
-
-    cache.enable = true;
-  };
-
   programs.zsh = {
     enable = true;
   };

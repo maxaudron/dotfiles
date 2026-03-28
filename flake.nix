@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    catppuccin.url = "github:catppuccin/nix/release-25.11";
+    stylix.url = "github:nix-community/stylix/release-25.11";
     textfox.url = "github:adriankarlen/textfox";
 
     noctalia = {
@@ -64,7 +64,7 @@
       nixpkgs-master,
       darwin,
       home-manager,
-      catppuccin,
+      stylix,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -100,7 +100,12 @@
               ];
             };
 
-	  mkSystemCmd = system: if nixpkgs.lib.strings.hasSuffix "-linux" system then nixpkgs.lib.nixosSystem else darwin.lib.darwinSystem;
+          mkSystemCmd =
+            system:
+            if nixpkgs.lib.strings.hasSuffix "-linux" system then
+              nixpkgs.lib.nixosSystem
+            else
+              darwin.lib.darwinSystem;
 
           mkSystem =
             name: system: modules:
@@ -119,12 +124,13 @@
 
           linuxModules = [
             home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
+            stylix.nixosModules.stylix
             self.nixosModules.default
           ];
 
           darwinModules = [
             home-manager.darwinModules.home-manager
+            stylix.darwinModules.stylix
             self.darwinModules.default
           ];
         in

@@ -75,7 +75,7 @@
       };
     };
 
-    catppuccin.thunderbird.profile = "audron";
+    stylix.targets.firefox.profileNames = ["audron"];
 
     programs.thunderbird = {
       enable = true;

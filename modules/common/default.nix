@@ -10,7 +10,10 @@
 }:
 
 {
-  imports = [ ./config.nix ./home-manager.nix ];
+  imports = [
+    ./config.nix
+    ./home-manager.nix
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -57,6 +60,14 @@
     (callPackage "${secrets}/fonts/TX-02/default.nix" { })
     (callPackage "${secrets}/fonts/TX-02-Variable/default.nix" { })
   ];
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    override = {
+      base00 = "#1b1b24";
+    };
+  };
 
   nixpkgs.overlays = [ (import ../../pkgs) ];
 
