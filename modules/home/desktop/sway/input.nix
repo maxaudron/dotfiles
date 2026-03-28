@@ -5,7 +5,7 @@
     input = {
       "type:keyboard" = {
         xkb_layout = "us";
-        xkb_options = "compose:rctrl,ctrl:swapcaps";
+        xkb_options = "compose:rctrl,ctrl:nocaps";
         xkb_numlock = "enabled";
       };
       "1149:32792:Kensington_Expert_Wireless_TB_Mouse" = {

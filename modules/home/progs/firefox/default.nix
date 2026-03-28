@@ -75,8 +75,6 @@
       };
     };
 
-    catppuccin.thunderbird.profile = "audron";
-
     programs.thunderbird = {
       enable = true;
       package = pkgs.thunderbird;

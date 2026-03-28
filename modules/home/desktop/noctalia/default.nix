@@ -14,10 +14,9 @@ in
 {
   imports = [ noctalia.homeModules.default ];
 
-    options.my.desktop.noctalia = {
-      enable = lib.mkEnableOption "noctalia";
-    };
-      
+  options.my.desktop.noctalia = {
+    enable = lib.mkEnableOption "noctalia";
+  };
 
   config = lib.mkIf config.my.desktop.noctalia.enable {
     programs.noctalia-shell = {
@@ -60,7 +59,6 @@ in
             ];
           };
         };
-        colorSchemes.predefinedScheme = "Catppuccin";
         general = {
           # avatarImage = "/home/drfoobar/.face";
           showScreenCorners = true;

@@ -12,8 +12,7 @@ let
 in
 {
   imports = [
-    catppuccin.homeModules.catppuccin
-
+    ./theme
     ./desktop
     ./games
 
@@ -26,22 +25,12 @@ in
     ../../machines/${machineName}/home.nix
   ];
 
+
   home.username = user.name;
   home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user.name}" else "/home/${user.name}";
 
   home.sessionVariables = {
     LEDGER_FILE = "${config.home.homeDirectory}/Documents/hledger.journal";
-  };
-
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-
-    firefox.force = true;
-    cursors = {
-      enable = linux;
-      accent = "dark";
-    };
   };
 
   home.packages =

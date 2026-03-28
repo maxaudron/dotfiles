@@ -14,8 +14,14 @@ in
         {
           # Essentials
           "${mod}+Return" = "exec ghostty";
-          "${mod}+SPACE" = "exec rofi -show drun";
+          "${mod}+SPACE" = "exec noctalia-shell ipc call launcher toggle";
           "${mod}+c" = "kill";
+
+          "${mod}+I" = "exec noctalia-shell ipc call controlCenter toggle";
+          "${mod}+comma" = "exec noctalia-shell ipc call settings toggle";
+          "${mod}+V" = "exec noctalia-shell ipc call launcher clipboard";
+          "${mod}+U" = "exec noctalia-shell ipc call launcher calculator";
+          "${mod}+Escape" = "exec noctalia-shell ipc call lockScreen toggle";
 
           "XF86AudioLowerVolume" = "exec xdotool keydown XF86AudioLowerVolume";
           "--release --locked XF86AudioLowerVolume" = "exec xdotool keyup XF86AudioLowerVolume";

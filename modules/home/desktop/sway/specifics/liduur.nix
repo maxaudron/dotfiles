@@ -11,12 +11,13 @@ in {
         mode = "3840x2160@240.000Hz";
         adaptive_sync = "on";
         render_bit_depth = "10";
-        color_profile = "icc ${../../../misc/icc/liduur_dp1.icc}";
+        color_profile = "icc ${../../../../../misc/icc/liduur_dp1.icc}";
       };
       "${displayRight}" = {
         pos = "3840 -400";
         mode = "2560x1080@60.000Hz";
         transform = "90";
+        color_profile = "icc ${../../../../../misc/icc/liduur_dp2.icc}";
       };
     };
 
