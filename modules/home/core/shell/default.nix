@@ -56,11 +56,6 @@ in
   programs.bash = {
     enable = true;
     shellAliases = aliases;
-
-    initExtra = ''
-      export GPG_TTY="$(tty)"
-      export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-    '';
   };
 
   programs.fish = {
@@ -70,13 +65,6 @@ in
 
       # Hydro
       set --global hydro_symbol_prompt '>'
-      set --global hydro_color_pwd 'cba6f7'
-      set --global hydro_color_prompt 'cba6f7'
-
-      set --global GPG_TTY "$(tty)"
-      set --global SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
-
-      set --global --export KUBECONFIG "$HOME/.kube/config:$(find ~/.kube/configs -type f | paste -sd ':' - )"
 
       function pastor -a file
         curl --progress-bar -F "c=@$file" "https://c-v.sh/?token=$(pass show general/c-v.sh | head -n1)"

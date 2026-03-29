@@ -36,6 +36,10 @@
       (callPackage ../../../pkgs/kubectx { })
     ];
 
+    programs.fish.interactiveShellInit = ''
+      set --global --export KUBECONFIG "$HOME/.kube/config:$(find ~/.kube/configs -type f | paste -sd ':' - )"
+    '';
+
     home.shellAliases = {
       awslogin = "aws-adfs login --adfs-host=\"sso.mgt.de.clara.net\" --provider-id urn:amazon:webservices --no-session-cache --session-duration 36000 --profile ";
     };

@@ -13,6 +13,11 @@
         programs.noctalia-shell.settings.coloSchemes.predefinedScheme = "Ayu";
         programs.btop.settings.color_theme = "ayu";
 
+        programs.fish.interactiveShellInit = ''
+          set --global hydro_color_pwd 'E6B450'
+          set --global hydro_color_prompt 'E6B450'
+        '';
+
         textfox.config.border.color = "#313244";
         programs.firefox = {
           profiles = {

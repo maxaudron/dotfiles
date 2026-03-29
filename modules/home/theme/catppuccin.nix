@@ -23,6 +23,11 @@
           };
         };
 
+        programs.fish.interactiveShellInit = ''
+          set --global hydro_color_pwd 'cba6f7'
+          set --global hydro_color_prompt 'cba6f7'
+        '';
+
         textfox.config.border.color = "#313244";
         programs.firefox = {
           profiles = {

@@ -80,4 +80,14 @@
     enable = true;
     enableSshSupport = true;
   };
+
+  programs.bash.initExtra = ''
+    export GPG_TTY="$(tty)"
+    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+  '';
+
+  programs.fish.interactiveShellInit = ''
+    set --global GPG_TTY "$(tty)"
+    set --global SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
+  '';
 }
