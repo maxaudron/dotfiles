@@ -18,9 +18,9 @@
 
     xdg.configFile = {
       "rmpc/config.ron".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/mpd/rmpc/config.ron";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/music/rmpc/config.ron";
       "rmpc/themes".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/mpd/rmpc/themes";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/music/rmpc/themes";
     };
   };
 }
