@@ -1,0 +1,57 @@
+{
+  "manifest_version": 2,
+  "version": "1.0",
+  "name": "ayu",
+  "theme": {
+    "images": {
+      "additional_backgrounds": [
+        "images/bg-000-5672c42860d5b06e1058dc477397f3ef.svg"
+      ]
+    },
+    "properties": {
+      "additional_backgrounds_alignment": [
+        "top"
+      ],
+      "additional_backgrounds_tiling": [
+        "repeat"
+      ]
+    },
+    "colors": {
+      "toolbar": "rgb(13, 16, 23)",
+      "toolbar_text": "rgb(191, 189, 182)",
+      "frame": "rgb(13, 16, 23)",
+      "tab_background_text": "rgb(191, 189, 182)",
+      "toolbar_field": "rgb(16, 20, 28)",
+      "toolbar_field_text": "rgb(191, 189, 182)",
+      "tab_line": "rgb(230, 180, 80)",
+      "popup": "rgb(191, 189, 182)",
+      "popup_text": "rgb(191, 189, 182)",
+      "button_background_active": "rgb(16, 20, 28)",
+      "frame_inactive": "rgb(30, 30, 46)",
+      "icons_attention": "rgb(230, 180, 80)",
+      "icons": "rgb(230, 180, 80)",
+      "ntp_background": "rgb(13, 16, 23)",
+      "ntp_text": "rgb(191, 189, 182)",
+      "popup_border": "rgb(230, 180, 80)",
+      "popup_highlight_text": "rgb(191, 189, 182)",
+      "popup_highlight": "rgb(16, 20, 28)",
+      "sidebar_border": "rgb(230, 180, 80)",
+      "sidebar_highlight_text": "rgb(16, 20, 28)",
+      "sidebar_highlight": "rgb(230, 180, 80)",
+      "sidebar_text": "rgb(191, 189, 182)",
+      "sidebar": "rgb(30, 30, 46)",
+      "tab_background_separator": "rgb(203, 166, 247)",
+      "tab_loading": "rgb(203, 166, 247)",
+      "tab_selected": "rgb(30, 30, 46)",
+      "tab_text": "rgb(205, 214, 244)",
+      "toolbar_bottom_separator": "rgb(30, 30, 46)",
+      "toolbar_field_border_focus": "rgb(203, 166, 247)",
+      "toolbar_field_border": "rgb(30, 30, 46)",
+      "toolbar_field_focus": "rgb(30, 30, 46)",
+      "toolbar_field_highlight_text": "rgb(30, 30, 46)",
+      "toolbar_field_highlight": "rgb(203, 166, 247)",
+      "toolbar_field_separator": "rgb(203, 166, 247)",
+      "toolbar_vertical_separator": "rgb(203, 166, 247)"
+    }
+  }
+}

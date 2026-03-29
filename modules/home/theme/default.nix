@@ -7,7 +7,7 @@ let
 in
 {
   imports = [
-    ./ayu.nix
+    ./ayu
     ./catppuccin.nix
   ];
 
@@ -24,7 +24,7 @@ in
   config = {
     my.theme = {
       enable = lib.mkDefault true;
-      style = lib.mkDefault "catppuccin";
+      style = lib.mkDefault "ayu";
     };
   };
 }

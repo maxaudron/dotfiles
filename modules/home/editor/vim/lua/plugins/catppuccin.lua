@@ -28,6 +28,6 @@ return {
   },
   config = function()
     -- load the colorscheme here
-    vim.cmd.colorscheme "catppuccin"
+    -- vim.cmd.colorscheme "catppuccin"
   end,
 }

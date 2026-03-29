@@ -22,28 +22,6 @@
         "audron" = {
           name = "audron";
           path = "audron";
-          extensions = {
-            force = true;
-            settings."FirefoxColor@mozilla.com" = {
-              settings = {
-                firstRunDone = true;
-                theme = {
-                  colors = {
-                    frame = lib.mkForce {
-                      "b" = 46;
-                      "g" = 30;
-                      "r" = 30;
-                    };
-                    frame_inactive = lib.mkForce {
-                      "b" = 46;
-                      "g" = 30;
-                      "r" = 30;
-                    };
-                  };
-                };
-              };
-            };
-          };
         };
       };
     };
@@ -61,8 +39,6 @@
         border = {
           width = "2px";
           radius = "10px";
-
-          color = "#313244";
         };
 
         tabs = {
