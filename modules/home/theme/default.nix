@@ -24,7 +24,7 @@ in
   config = {
     my.theme = {
       enable = lib.mkDefault true;
-      style = lib.mkDefault "ayu";
+      style = lib.mkDefault "catppuccin";
     };
   };
 }

@@ -4,7 +4,7 @@
   my = {
     desktop = {
       enable = true;
-      sway.enable = true;
+      hyprland.enable = true;
     };
 
     music = {
