@@ -53,6 +53,11 @@
       url = "github:ravitemer/mcphub.nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    kintree = {
+      url = "github:maxaudron/nixos-kintree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

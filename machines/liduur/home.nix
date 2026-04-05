@@ -1,4 +1,4 @@
-{ ... }:
+{ kintree, system, ... }:
 
 {
   my = {
@@ -21,4 +21,6 @@
       kicad.enable = true;
     };
   };
+
+  home.packages = [ kintree.packages.${system}.default ];
 }
