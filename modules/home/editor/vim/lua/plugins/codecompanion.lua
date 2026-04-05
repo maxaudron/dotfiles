@@ -73,6 +73,15 @@ return {
 				-- end,
 				claude_code = function()
 					return require("codecompanion.adapters").extend("claude_code", {
+						commands = {
+							default = {
+								"claude-code-acp",
+							},
+							yolo = {
+								"claude-code-acp",
+								"--yolo",
+							},
+						},
 						env = {
 							ANTHROPIC_BASE_URL = "https://public.llm.de.clara.net/",
 							ANTHROPIC_AUTH_TOKEN = "cmd:pass show work/litellm_claude",
