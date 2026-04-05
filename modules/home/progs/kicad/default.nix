@@ -6,12 +6,8 @@
 }:
 
 let
-  kicad = pkgs.unstable.kicad-small.overrideAttrs (
+  kicad = pkgs.master.kicad.overrideAttrs (
     final: prev: {
-      nativeBuildInputs = prev.nativeBuildInputs ++ [
-        pkgs.jdk17
-      ];
-
       pythonPath = prev.pythonPath ++ [
         pkgs.python3.pkgs.requests
       ];

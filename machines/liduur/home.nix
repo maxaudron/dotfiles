@@ -16,5 +16,9 @@
       printing.enable = true;
       rust.enable = true;
     };
+
+    progs = {
+      kicad.enable = true;
+    };
   };
 }
