@@ -44,6 +44,8 @@ with lib;
       btop
 
       # gtree.packages.${system}.default
+
+      llm-usage
     ];
 
     programs.direnv = {

@@ -1,0 +1,193 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -z "${LITELLM_VIRTUAL_KEY:-}" || -z "${LITELLM_URL:-}" ]]; then
+  pass_entry=$(pass show work/litellm_claude)
+  : "${LITELLM_VIRTUAL_KEY:=$(echo "$pass_entry" | head -n1)}"
+  : "${LITELLM_URL:=$(echo "$pass_entry" | grep '^url:' | cut -d' ' -f2-)}"
+fi
+
+auth_header="Authorization: Bearer ${LITELLM_VIRTUAL_KEY}"
+
+key_response=$(curl -sS -f "${LITELLM_URL}/key/info" -H "$auth_header")
+user_response=$(curl -sS -f "${LITELLM_URL}/user/info" -H "$auth_header")
+
+# Key info
+key_spend=$(echo "$key_response" | jq -r '.info.spend // 0')
+key_max_budget=$(echo "$key_response" | jq -r '.info.max_budget // null')
+key_reset_at=$(echo "$key_response" | jq -r '.info.budget_reset_at // null')
+key_duration=$(echo "$key_response" | jq -r '.info.budget_duration // null')
+key_name=$(echo "$key_response" | jq -r '.info.key_name // .info.key_alias // "unknown"')
+
+# User info
+user_spend=$(echo "$user_response" | jq -r '.user_info.spend // 0')
+user_max_budget=$(echo "$user_response" | jq -r '.user_info.max_budget // null')
+user_reset_at=$(echo "$user_response" | jq -r '.user_info.budget_reset_at // null')
+user_duration=$(echo "$user_response" | jq -r '.user_info.budget_duration // null')
+user_id=$(echo "$user_response" | jq -r '.user_info.user_id // "unknown"')
+
+calc_pct() {
+  local spend=$1 max=$2
+  if [[ "$max" != "null" && "$max" != "0" ]]; then
+    awk "BEGIN {printf \"%.1f\", ($spend / $max) * 100}"
+  else
+    echo "N/A"
+  fi
+}
+
+format_reset() {
+  local reset_at=$1
+  if [[ "$reset_at" != "null" ]]; then
+    reset_ts=$(date -d "$reset_at" +%s 2>/dev/null || echo "")
+    if [[ -n "$reset_ts" ]]; then
+      now_ts=$(date +%s)
+      diff=$((reset_ts - now_ts))
+      if [[ $diff -gt 0 ]]; then
+        days=$((diff / 86400))
+        hours=$(( (diff % 86400) / 3600 ))
+        mins=$(( (diff % 3600) / 60 ))
+        if [[ $days -gt 0 ]]; then
+          echo "${days}d ${hours}h"
+        elif [[ $hours -gt 0 ]]; then
+          echo "${hours}h ${mins}m"
+        else
+          echo "${mins}m"
+        fi
+      else
+        echo "now"
+      fi
+    else
+      echo "$reset_at"
+    fi
+  else
+    echo "never"
+  fi
+}
+
+make_bar() {
+  local pct=$1
+  local width=25
+  if [[ "$pct" == "N/A" ]]; then
+    echo ""
+    return
+  fi
+  local pct_int=${pct%.*}
+  local filled=$((pct_int * width / 100))
+  [[ $filled -gt $width ]] && filled=$width
+  local empty=$((width - filled))
+  local bar=$(printf '%*s' "$filled" '' | tr ' ' '#')
+  bar+=$(printf '%*s' "$empty" '' | tr ' ' '-')
+  
+  local color
+  if [[ $pct_int -ge 90 ]]; then
+    color="\033[31m"
+  elif [[ $pct_int -ge 70 ]]; then
+    color="\033[33m"
+  else
+    color="\033[32m"
+  fi
+  printf "${color}[${bar}]\033[0m"
+}
+
+key_pct=$(calc_pct "$key_spend" "$key_max_budget")
+user_pct=$(calc_pct "$user_spend" "$user_max_budget")
+
+# Calculate previous period spend using /user/daily/activity
+duration_to_seconds() {
+  local dur=$1
+  local num=${dur%[a-z]*}
+  local unit=${dur##*[0-9]}
+  case "$unit" in
+    s) echo "$num" ;;
+    m) echo $((num * 60)) ;;
+    h) echo $((num * 3600)) ;;
+    d) echo $((num * 86400)) ;;
+    mo) echo $((num * 2592000)) ;;
+    *) echo 0 ;;
+  esac
+}
+
+get_prev_period_spend() {
+  local reset_at=$1 duration=$2
+  [[ "$reset_at" == "null" || "$duration" == "null" ]] && return
+  
+  local dur_secs=$(duration_to_seconds "$duration")
+  [[ $dur_secs -eq 0 ]] && return
+  
+  local reset_ts=$(date -d "$reset_at" +%s 2>/dev/null || echo "")
+  [[ -z "$reset_ts" ]] && return
+  
+  # Previous period: (reset_at - 2*duration) to (reset_at - duration)
+  local prev_end=$((reset_ts - dur_secs))
+  local prev_start=$((prev_end - dur_secs))
+  
+  local start_date=$(date -d "@$prev_start" '+%Y-%m-%d')
+  local end_date=$(date -d "@$prev_end" '+%Y-%m-%d')
+  
+  local activity=$(curl -sS -f "${LITELLM_URL}/user/daily/activity?start_date=${start_date}&end_date=${end_date}" \
+    -H "$auth_header" 2>/dev/null || echo "")
+  
+  if [[ -n "$activity" ]]; then
+    # Sum up spend from all daily entries
+    echo "$activity" | jq -r '[.results[].metrics.spend // 0] | add // 0' 2>/dev/null || echo ""
+  fi
+}
+
+key_prev_spend=$(get_prev_period_spend "$key_reset_at" "$key_duration")
+user_prev_spend=$(get_prev_period_spend "$user_reset_at" "$user_duration")
+
+# Machine-readable output
+if [[ "${1:-}" == "pct" ]]; then
+  echo "$key_pct"
+  exit 0
+elif [[ "${1:-}" == "spend" ]]; then
+  printf "%.2f\n" "$key_spend"
+  exit 0
+elif [[ "${1:-}" == "user-pct" ]]; then
+  echo "$user_pct"
+  exit 0
+elif [[ "${1:-}" == "user-spend" ]]; then
+  printf "%.2f\n" "$user_spend"
+  exit 0
+fi
+
+# Human-readable output
+cat << 'EOF'
+
+           __..--''``---....___   _..._    __
+ /// //_.-'    .-/";  `        ``<._  ``.''_ `. / // /
+///_.-' _..--.'_    \                    `( ) ) // //
+/ (_..-' // (< _     ;_..__               ; `' / ///
+ / // // //  `-._,_)' // / ``--...____..-' /// / //
+
+
+EOF
+echo "Key: $key_name"
+printf "  Spent:  \$%.2f" "$key_spend"
+if [[ "$key_max_budget" != "null" ]]; then
+  printf " / \$%.2f (%s%%)\n" "$key_max_budget" "$key_pct"
+  printf "          $(make_bar "$key_pct")\n"
+else
+  echo " (no limit)"
+fi
+if [[ -n "$key_prev_spend" ]]; then
+  printf "  Last:   \$%.2f\n" "$key_prev_spend"
+fi
+if [[ "$key_duration" != "null" ]]; then
+  echo "  Resets: $(format_reset "$key_reset_at") ($key_duration)"
+fi
+echo ""
+echo "User: $user_id"
+printf "  Spent:  \$%.2f" "$user_spend"
+if [[ "$user_max_budget" != "null" ]]; then
+  printf " / \$%.2f (%s%%)\n" "$user_max_budget" "$user_pct"
+  printf "          $(make_bar "$user_pct")\n"
+else
+  echo " (no limit)"
+fi
+if [[ -n "$user_prev_spend" ]]; then
+  printf "  Last:   \$%.2f\n" "$user_prev_spend"
+fi
+if [[ "$user_duration" != "null" ]]; then
+  echo "  Resets: $(format_reset "$user_reset_at") ($user_duration)"
+fi
