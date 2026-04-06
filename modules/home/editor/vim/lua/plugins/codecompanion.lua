@@ -84,7 +84,7 @@ return {
 						},
 						env = {
 							ANTHROPIC_BASE_URL = "https://public.llm.de.clara.net/",
-							ANTHROPIC_AUTH_TOKEN = "cmd:pass show work/litellm_claude",
+							ANTHROPIC_AUTH_TOKEN = "cmd:pass show work/litellm_claude | head -n1",
 							ANTHROPIC_DEFAULT_SONNET_MODEL = "claude-sonnet-4.5",
 							ANTHROPIC_DEFAULT_OPUS_MODEL = "claude-opus-4.5",
 							ANTHROPIC_DEFAULT_HAIKU_MODEL = "claude-haiku-4.5",
