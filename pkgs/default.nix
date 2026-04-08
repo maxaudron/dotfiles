@@ -22,5 +22,7 @@ self: super:
   llm-usage = super.callPackage ./llm-usage {};
 
   qmk_redox = super.callPackage ../misc/qmk {};
+
+  firefox-webserial = super.callPackage ./firefox-webserial {};
 }
 
