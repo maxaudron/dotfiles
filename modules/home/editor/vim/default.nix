@@ -44,6 +44,7 @@ in
       # lint
       tflint
       yamllint
+      prettier
       isort
       black
 

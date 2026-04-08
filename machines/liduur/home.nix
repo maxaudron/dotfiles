@@ -22,7 +22,5 @@
     };
   };
 
-  home.packages = [ (kintree.packages.${system}.default.overrideAttrs (prev: {
-    patches = [ ./barcodes.patch ];
-  })) ];
+  home.packages = [ kintree.packages.${system}.default ];
 }

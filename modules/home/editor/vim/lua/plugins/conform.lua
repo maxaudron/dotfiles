@@ -12,6 +12,7 @@ return {
       nix = { "nixfmt" },
       tf = { "terraform_fmt" },
       hcl = { "packer_fmt" },
+      yaml = { "prettier" },
       python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
       rust = { "rustfmt", lsp_format = "fallback" },
       javascript = { "prettierd", "prettier", stop_after_first = true },
