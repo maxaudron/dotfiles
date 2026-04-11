@@ -14,6 +14,7 @@
         catppuccin = {
           enable = true;
           flavor = "mocha";
+          accent = "peach";
 
           firefox.force = true;
           thunderbird.profile = "audron";

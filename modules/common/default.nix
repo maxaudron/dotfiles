@@ -37,8 +37,7 @@
 
     nixfmt-rfc-style
 
-    pass
-    passExtensions.pass-update
+    (pass.withExtensions (exts: with exts; [ pass-update pass-otp ]))
 
     aspell
     aspellDicts.de

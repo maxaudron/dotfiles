@@ -11,6 +11,7 @@ rec {
   yubikey = import ./yubikey;
   uwsm = import ./uwsm.nix;
   kmscon = import ./kmscon.nix;
+  kanidm = import ./kanidm.nix;
 
   # vfio = import ./vfio;
 
@@ -23,6 +24,7 @@ rec {
 
         autologin
         yubikey
+        kanidm
         kmscon
         audio
         uwsm

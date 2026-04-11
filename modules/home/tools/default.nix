@@ -43,6 +43,8 @@ with lib;
       htop
       btop
 
+      yubioath-flutter
+
       # gtree.packages.${system}.default
 
       llm-usage
