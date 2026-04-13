@@ -1,57 +1,63 @@
 {
-  nixConfig = {
-    substituters = [
-      "https://cache.nixos.org/"
-      "https://nix-community.cachix.org"
-      "https://nix.cache.vapor.systems"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nix.cache.vapor.systems-1:OjV+eZuOK+im1n8tuwHdT+9hkQVoJORdX96FvWcMABk="
-    ];
-  };
-
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    crane = {
-      url = "github:ipetkov/crane";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nci.url = "github:yusdacra/nix-cargo-integration";
+    nci.inputs.nixpkgs.follows = "nixpkgs";
+    parts.url = "github:hercules-ci/flake-parts";
+    parts.inputs.nixpkgs-lib.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, utils, fenix, crane }:
-    with nixpkgs.lib;
-    utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
+  outputs =
+    inputs@{ parts, nci, ... }:
+    parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+      imports = [ nci.flakeModule ];
+      perSystem =
+        {
+          self',
+          pkgs,
+          config,
+          lib,
+          ...
+        }:
+        let
+          # shorthand for accessing this crate's outputs
+          # you can access crate outputs under `config.nci.outputs.<crate name>` (see documentation)
+          crateOutputs = config.nci.outputs."PROJECT";
+        in
+        {
+          nci = {
+            projects."PROJECT".path = ./.;
+            crates.PROJECT =
+              let
+                mkDerivation = {
+                  # inputs and most other stuff will automatically merge
+                  nativeBuildInputs = with pkgs; [ ];
+                };
+              in
+              {
+                drvConfig = { inherit mkDerivation; };
+                depsDrvConfig = { inherit mkDerivation; };
+              };
 
-        rustToolchain = fenix.packages.${system}.stable.toolchain;
+            toolchainConfig = {
+              channel = "stable";
+              components = [
+                "rustfmt"
+                "rust-src"
+                "rust-analyzer"
+              ];
+            };
+          };
 
-        # crane setup
-        craneLib = crane.lib.${system}.overrideToolchain rustToolchain;
-        src = craneLib.cleanCargoSource ./.;
-
-        cargoArtifacts = craneLib.buildDepsOnly {
-          inherit src;
-
-          nativeBuildInputs = with pkgs; [ rustToolchain pkg-config ];
+          devShells.default = crateOutputs.devShell;
+          packages = {
+            default = crateOutputs.packages.release;
+          };
         };
-      in {
-        packages.default =
-          craneLib.buildPackage { inherit cargoArtifacts src; };
-
-        devShells.default = pkgs.mkShell {
-          # Extra inputs can be added here
-          nativeBuildInputs = with pkgs; [ rustToolchain pkg-config ];
-        };
-      });
+    };
 }
