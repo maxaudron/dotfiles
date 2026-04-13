@@ -38,6 +38,8 @@ in
       bash-language-server
       terraform-ls
       gopls
+      nil
+
       kdePackages.qtdeclarative
       vscode-langservers-extracted
 

@@ -12,29 +12,29 @@ for k, v in ipairs(files) do
 end
 
 local lsp = {
-	"bashls"	-- C
-
-	, "clangd"	-- go
-
-	, "gopls"	-- lua
-
-	, "lua_ls"
-	, "stylua"	-- nix
-
-	, "nil_ls"	-- python
-
-	, "ruff"
-	, "pyright"	-- QT
-
-	, "qmlls"	-- terraform
-
-	, "terraformls"	-- rust
-
+	"bashls"
+  -- C
+,	"clangd"
+  -- go
+,	"gopls"
+  -- lua
+,	"lua_ls"
+,	"stylua"
+  -- nix
+,	"nil_ls"
+  -- python
+,	"ruff"
+,	"pyright"
+  -- QT
+,	"qmlls"
+  -- terraform
+,	"terraformls"
 	-- "rust_analyzer"
 	-- web
 
-	, "html"
-	, "cssls"
+  -- rust
+,	"html"
+,	"cssls"
 }
 
 for _, s in ipairs(lsp) do
