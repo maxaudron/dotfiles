@@ -16,7 +16,7 @@
       cargo
       rust-analyzer
 
-      unstable.cargo-outdated
+      cargo-outdated
       cargo-expand
       cargo-watch
       cargo-cross

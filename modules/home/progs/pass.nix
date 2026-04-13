@@ -26,6 +26,7 @@
         ]
       );
       settings = {
+        PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
         # PASSAGE_DIR = "$XDG_DATA_HOME/.password-store";
         # PASSAGE_AGE = "rage";
       };
