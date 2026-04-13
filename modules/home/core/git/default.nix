@@ -23,17 +23,17 @@
       user = {
         name = user.fullname;
         email = user.email;
-        signingkey = "${pkgs.writeText "id_pub" user.pubkey}";
+        # signingkey = "${pkgs.writeText "id_pub" user.pubkey}";
       };
 
-      signing = {
-        signByDefault = true;
-        format = "ssh";
-      };
-
-      commit.gpgSign = true;
-      tag.gpgSign = true;
-      gpg.format = "ssh";
+      # signing = {
+      #   signByDefault = true;
+      #   format = "ssh";
+      # };
+      #
+      # commit.gpgSign = true;
+      # tag.gpgSign = true;
+      # gpg.format = "ssh";
 
       init = {
         defaultBranch = "main";

@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   imports = [
     ./git
@@ -8,4 +8,6 @@
     ./shell
     ./terminal
   ];
+
+  my.core.gpg.enable = lib.mkDefault true;
 }
