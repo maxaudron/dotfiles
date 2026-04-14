@@ -3,7 +3,6 @@
   lib,
   pkgs,
   system,
-  user,
   mcphub-nvim,
   ...
 }:

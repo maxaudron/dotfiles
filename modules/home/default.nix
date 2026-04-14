@@ -1,9 +1,6 @@
 {
   config,
-  lib,
   pkgs,
-  user,
-  catppuccin,
   machineName,
   ...
 }:
@@ -23,11 +20,12 @@ in
     ./tools
 
     ../../machines/${machineName}/home.nix
+    ../common/config.nix
   ];
 
-
-  home.username = user.name;
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${user.name}" else "/home/${user.name}";
+  home.username = config.my.user.name;
+  home.homeDirectory =
+    if pkgs.stdenv.isDarwin then "/Users/${config.my.user.name}" else "/home/${config.my.user.name}";
 
   home.sessionVariables = {
     LEDGER_FILE = "${config.home.homeDirectory}/Documents/hledger.journal";

@@ -1,6 +1,6 @@
 {
+  config,
   pkgs,
-  user,
   ...
 }:
 
@@ -21,8 +21,8 @@
 
     settings = {
       user = {
-        name = user.fullname;
-        email = user.email;
+        name = config.my.user.fullname;
+        email = config.my.user.email;
         # signingkey = "${pkgs.writeText "id_pub" user.pubkey}";
       };
 

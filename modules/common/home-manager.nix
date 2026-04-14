@@ -11,11 +11,12 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users."${config.my.user.name}" = self.homeManagerModules.default;
+    users."${config.my.user.name}" = self.homeManagerModules.default // {
+      my.user = config.my.user;
+    };
 
     extraSpecialArgs = inputs // {
       inherit builtins system machineName;
-      user = config.my.user;
     };
   };
 }
