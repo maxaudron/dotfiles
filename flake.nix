@@ -105,7 +105,7 @@
               ];
             };
 
-	  mkSystemCmd = system: if nixpkgs.lib.strings.hasSuffix "-linux" system then nixpkgs.lib.nixosSystem else darwin.lib.darwinSystem;
+          mkSystemCmd = system: if nixpkgs.lib.strings.hasSuffix "-linux" system then nixpkgs.lib.nixosSystem else darwin.lib.darwinSystem;
 
           mkSystem =
             name: system: modules:
@@ -136,7 +136,9 @@
         {
           nixosModules = import ./modules/nixos { inherit (nixpkgs) lib; };
           darwinModules = import ./modules/darwin { inherit (nixpkgs) lib; };
-          homeManagerModules.default = import ./modules/home;
+
+          homeModules.default = import ./modules/home;
+          homeConfigurations.default = import ./machines/generic/home.nix;
 
           nixosConfigurations.liduur = mkSystem "liduur" "x86_64-linux" linuxModules;
           nixosConfigurations.velcitna = mkSystem "velcitna" "x86_64-linux" linuxModules;

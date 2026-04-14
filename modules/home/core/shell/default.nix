@@ -81,7 +81,7 @@ in
     plugins = [
       {
         name = "hydro";
-        src = pkgs.unstable.fishPlugins.hydro.src;
+        src = pkgs.fishPlugins.hydro.src;
       }
       {
         name = "fzf";
