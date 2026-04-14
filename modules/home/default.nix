@@ -54,7 +54,7 @@ in
     );
 
   programs.imv.enable = linux;
-  programs.mpv.enable = true;
+  programs.mpv.enable = linux;
   programs.tmux.enable = true;
   programs.btop.enable = true;
 

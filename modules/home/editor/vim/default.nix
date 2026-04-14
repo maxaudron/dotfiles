@@ -55,7 +55,7 @@ in
       asciidoctor-with-extensions
 
       unstable.claude-code
-      unstable.claude-code-acp
+      unstable.claude-agent-acp
     ];
 
     programs.neovim = {

@@ -45,7 +45,6 @@
           horizontal.enable = false;
           vertical = {
             enable = true;
-            sidebery.margin = "0.2rem";
           };
         };
       };
