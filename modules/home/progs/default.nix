@@ -13,7 +13,7 @@ with lib;
   ];
 
   config.my.progs = {
-    firefox.enable = mkDefault true;
+    firefox.enable = mkDefault false;
     weechat.enable = mkDefault false;
     mc.enable = mkDefault true;
     pass.enable = mkDefault true;

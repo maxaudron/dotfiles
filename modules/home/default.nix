@@ -27,29 +27,9 @@ in
   home.homeDirectory =
     if pkgs.stdenv.isDarwin then "/Users/${config.my.user.name}" else "/home/${config.my.user.name}";
 
-  home.sessionVariables = {
-    LEDGER_FILE = "${config.home.homeDirectory}/Documents/hledger.journal";
-  };
-
-  home.packages =
-    with pkgs;
-    [
-      nix-index
-    ]
-    ++ (
-      if linux then
-        [
-          quasselClient
-
-          discord
-          unstable.teamspeak6-client
-
-          hledger
-          hledger-web
-        ]
-      else
-        [ ]
-    );
+  home.packages = with pkgs; [
+    nix-index
+  ];
 
   programs.imv.enable = linux;
   programs.mpv.enable = linux;

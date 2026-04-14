@@ -99,9 +99,11 @@
           overlays =
             { config, pkgs, ... }:
             {
+              nixpkgs.config.allowUnfree = true;
               nixpkgs.overlays = [
                 overlay-unstable
                 overlay-master
+                (import ./pkgs)
               ];
             };
 
@@ -146,14 +148,17 @@
           homeConfigurations.default =
             let
               system = "x86_64-linux";
-              machineName = "generic";
+              machineName = "headless";
             in
             home-manager.lib.homeManagerConfiguration {
               pkgs = nixpkgs.legacyPackages.${system};
               extraSpecialArgs = inputs // {
                 inherit builtins system machineName;
               };
-              modules = [ overlays self.homeModules.default ];
+              modules = [
+                overlays
+                self.homeModules.default
+              ];
             };
 
           nixosConfigurations.liduur = mkSystem "liduur" "x86_64-linux" linuxModules;

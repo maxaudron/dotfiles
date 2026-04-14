@@ -14,7 +14,5 @@
     tools = {
       rust.enable = true;
     };
-
-    progs = { };
   };
 }
