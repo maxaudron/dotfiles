@@ -153,7 +153,7 @@
               extraSpecialArgs = inputs // {
                 inherit builtins system machineName;
               };
-              modules = [ self.homeModules.default ];
+              modules = [ overlays self.homeModules.default ];
             };
 
           nixosConfigurations.liduur = mkSystem "liduur" "x86_64-linux" linuxModules;
