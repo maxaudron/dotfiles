@@ -1,5 +1,6 @@
 {
   self,
+  lib,
   config,
   inputs,
   system,
@@ -11,8 +12,9 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users."${config.my.user.name}" = self.homeManagerModules.default // {
-      my.user = config.my.user;
+    users."${config.my.user.name}" = {
+      imports = [ self.homeModules.default ];
+      my.user = lib.mkForce config.my.user;
     };
 
     extraSpecialArgs = inputs // {

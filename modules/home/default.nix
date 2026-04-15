@@ -29,6 +29,7 @@ in
 
   home.packages = with pkgs; [
     nix-index
+    nix-diff
   ];
 
   programs.imv.enable = linux;

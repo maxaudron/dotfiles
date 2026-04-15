@@ -59,12 +59,14 @@ in
 
     programs.neovim = {
       enable = true;
+      package = pkgs.unstable.neovim-unwrapped;
+
       defaultEditor = true;
       vimAlias = true;
       vimdiffAlias = true;
 
       plugins =
-        with pkgs.vimPlugins;
+        with pkgs.unstable.vimPlugins;
         with vimPlugins;
         [
           lazy-nvim

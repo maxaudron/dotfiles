@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.ghostty = {
@@ -33,6 +33,9 @@
       keybind = "global:cmd+delete=toggle_quick_terminal";
       quick-terminal-position = "top";
       quick-terminal-size = "45%,40%";
+
+      command = "direct:${config.programs.fish.package}/bin/fish";
+      shell-integration = "fish";
     };
   };
 }
