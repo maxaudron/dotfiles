@@ -12,12 +12,9 @@
     name = config.my.user.name;
     home = "/Users/${config.my.user.name}";
     uid = 502;
-    shell = pkgs.fish;
+    # shell = pkgs.fish;
   };
   users.knownUsers = [ config.my.user.name ];
-
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
 
   environment.systemPackages = with pkgs; [ qemu ];
 
