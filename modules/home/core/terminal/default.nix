@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./tmux.nix ./zellij.nix ];
+
   programs.ghostty = {
     enable = true;
     package = if pkgs.stdenv.isLinux then pkgs.ghostty else pkgs.ghostty-bin;
@@ -36,6 +38,8 @@
 
       command = "direct:${config.programs.fish.package}/bin/fish";
       shell-integration = "fish";
+
+      macos-option-as-alt = "left";
     };
   };
 }
