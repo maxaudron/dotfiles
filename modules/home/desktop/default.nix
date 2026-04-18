@@ -29,7 +29,7 @@
     ];
 
     my.progs = {
-      firefox.enable = lib.mkDefault true;
+      firefox.enable = true;
     };
   };
 }
