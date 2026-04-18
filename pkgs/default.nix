@@ -10,8 +10,8 @@ self: super:
 
   teamspeak3 = super.libsForQt5.callPackage ./teamspeak3 {};
   
-  # quasselClient = super.qt6.callPackage ./quassel {};
-  # quasselCore = super.qt6.callPackage ./quassel { client = false; enableDaemon = true; };
+  quasselClient = super.qt6.callPackage ./quassel { client = true; withKDE = false; };
+  quasselCore = super.qt6.callPackage ./quassel { client = false; enableDaemon = true; };
 
   spleen = super.callPackage ./spleen {};
 

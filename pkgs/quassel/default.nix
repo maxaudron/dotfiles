@@ -12,9 +12,9 @@
   makeWrapper,
   wrapQtAppsHook,
   dconf,
-  qtbase,
   boost,
   zlib,
+  git,
   # qtscript,
   # phonon,
   libdbusmenu,
@@ -22,16 +22,8 @@
   openldap,
 
   withKDE ? false, # enable KDE integration
-  extra-cmake-modules,
 
   kdePackages,
-  # kconfigwidgets,
-  # kcoreaddons,
-  # knotifications,
-  # knotifyconfig,
-  # ktextwidgets,
-  # kwidgetsaddons,
-  # kxmlgui,
 }:
 
 let
@@ -47,14 +39,14 @@ let
   edf = flag: feature: [ ("-D" + feature + (if flag then "=ON" else "=OFF")) ];
 
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "quassel${tag}";
-  version = "0.14.0-20250727";
+  version = "0.14.0-20260418";
   src = fetchFromGitHub {
-    owner = "FuzzyGophers";
+    owner = "johu";
     repo = "quassel";
-    rev = "28bc5e37a6e7e1a071f22476d7fdf7f9273c6f87";
-    hash = "sha256-Cjnwmxzj9HHDlL9/jNNM+1NZkAln2qRe2BTia3ssZHM=";
+    rev = "502dad3a00f106997f1b786284d514f8ef89df0a";
+    hash = "sha256-nrJizgxnfiFRp1ViBJ8G2uGy4BTb3VqBJLawGTCqRLc=";
     fetchSubmodules = true;
   };
 
@@ -68,9 +60,10 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [
-      qtbase
+      kdePackages.qtbase
       boost
       zlib
+      git
     ]
     ++ lib.optionals buildCore [
       # qtscript
@@ -80,6 +73,10 @@ stdenv.mkDerivation rec {
     ++ lib.optionals buildClient [
       libdbusmenu
       kdePackages.phonon
+      kdePackages.qt5compat
+      kdePackages.sonnet
+      kdePackages.mlt
+      kdePackages.breeze-icons
     ]
     ++ lib.optionals (buildClient && withKDE) [
       kdePackages.extra-cmake-modules
@@ -111,7 +108,7 @@ stdenv.mkDerivation rec {
 
   postFixup =
     lib.optionalString enableDaemon ''
-      wrapProgram "$out/bin/quasselcore" --suffix PATH : "${qtbase}/bin"
+      wrapProgram "$out/bin/quasselcore" --suffix PATH : "${kdePackages.qtbase}/bin"
     ''
     + lib.optionalString buildClient ''
       wrapQtApp "$out/bin/quassel${lib.optionalString client "client"}" \
@@ -137,6 +134,6 @@ stdenv.mkDerivation rec {
         "quasselclient"
       else
         "quasselcore";
-    inherit (qtbase.meta) platforms;
+    inherit (kdePackages.qtbase.meta) platforms;
   };
 }
