@@ -93,9 +93,9 @@ stdenv.mkDerivation {
   cmakeFlags =
     [
       "-DEMBED_DATA=OFF"
-      "-DUSE_QT5=ON"
-      "-DCMAKE_INSTALL_DATAROOTDIR=usr/share"
+      "-DCMAKE_INSTALL_DATAROOTDIR=share"
       "-DENABLE_SHARED=OFF"
+      "-DCMAKE_BUILD_TYPE=Release"
     ]
     ++ edf static "STATIC"
     ++ edf monolithic "WANT_MONO"
