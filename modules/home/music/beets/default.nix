@@ -34,17 +34,15 @@
                   (pkgs.python313Packages.beets-alternatives.overrideAttrs (
                     final: prev: {
                       pyproject = true;
-                      version = "0.13.4-6fd4dff";
+                      version = "0.14.1";
                       src = pkgs.fetchFromGitHub {
                         repo = "beets-alternatives";
                         owner = "geigerzaehler";
-                        rev = "6fd4dffdd8216fb45dea015209787dc8df3440f6";
-                        hash = "sha256-flJbcQ1z54ADU0QIPral9waKshtbIF44vpBDgnxcMUw=";
+                        rev = "v0.14.1";
+                        hash = "sha256-C4EVJwzLhwQJz/iUKrIKUjhYHIpPrETqyQi0DByZM3Y=";
                       };
 
-                      patches = [
-                        ./alternatives_copy_art.patch
-                      ];
+                      patches = [];
 
                       buildInputs = [ pkgs.python313Packages.hatchling ];
                       build-system = [ pkgs.python313Packages.hatchling ];

@@ -32,8 +32,6 @@
       ];
     };
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_rt_6_6;
-
     kernelModules = [
       "kvm-amd"
       "amdgpu"
