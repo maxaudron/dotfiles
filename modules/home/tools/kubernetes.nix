@@ -18,6 +18,7 @@
       kubectl
       helmfile
       kubernetes-helm
+      kubernetes-helmPlugins.helm-diff
       kube-capacity
       jsonnet-bundler
       jsonnet
