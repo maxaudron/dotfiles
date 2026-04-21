@@ -10,7 +10,7 @@ in {
         scale = "1.25";
         adaptive_sync = "on";
         render_bit_depth = "10";
-        color_profile = "icc ${../../../../../misc/icc/velcitna.icc}";
+        color_profile = "icc ${../../../../../misc/icc/velcitna2.icc}";
       };
     };
 
