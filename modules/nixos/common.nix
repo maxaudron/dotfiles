@@ -26,6 +26,8 @@
   security.pam.services.autologin.enableGnomeKeyring = true;
   services.seatd.enable = true;
 
+  services.flatpak.enable = true;
+
   xdg.portal = {
     enable = true;
     wlr.enable = true;

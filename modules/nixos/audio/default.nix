@@ -41,36 +41,14 @@ in
 
     sampleSize = mkOption {
       type = types.int;
-      default = 128;
+      default = 32;
     };
   };
 
   config = lib.mkIf cfg.enable {
-    security.pam.loginLimits = [
-      { domain = "*"; item = "rtprio"; type = "hard"; value = "0"; }
-      { domain = "*"; item = "rtprio"; type = "soft"; value = "0"; }
-      { domain = "@audio"; item = "rtprio"; type = "hard"; value = "99"; }
-      { domain = "@audio"; item = "rtprio"; type = "soft"; value = "20"; }
-      { domain = "@audio"; item = "memlock"; type = "-"; value = "unlimited"; }
-      { domain = "@rtkit"; item = "rtprio"; type = "hard"; value = "99"; }
-      { domain = "@rtkit"; item = "rtprio"; type = "soft"; value = "20"; }
-      { domain = "@rtkit"; item = "memlock"; type = "-"; value = "unlimited"; }
-    ];
-
-    systemd.services = {
-      rtkit-daemon = {
-        serviceConfig = {
-          ExecStart = [
-            ""
-            "-${pkgs.rtkit}/libexec/rtkit-daemon --our-realtime-priority=99 --max-realtime-priority=95"
-          ];
-        };
-      };
-    };
-
     environment.systemPackages = with pkgs; [
       helvum
-      pavucontrol
+      pwvucontrol
       pulseaudio
     ];
 
@@ -82,13 +60,14 @@ in
       package = cfg.package;
 
       jack = {
-        enable = true;
+        enable = false;
       };
       pulse = {
         enable = true;
       };
       alsa = {
         enable = true;
+        support32Bit = true;
       };
 
       wireplumber = {
@@ -96,67 +75,32 @@ in
       };
 
       extraConfig = {
-        pipewire = {
-          "10-default" = {
-            "context.properties" = {
-              "link.max-buffers" = 64;
-              "log.level" = 2;
-              "default.clock.rate" = 48000;
-              "default.clock.quantum" = cfg.sampleSize;
-              "default.clock.min-quantum" = cfg.sampleSize;
-              "default.clock.max-quantum" = cfg.sampleSize;
-              "core.daemon" = true;
-              "core.name" = "pipewire-0";
-            };
-
-            "context.modules" = [
-              {
-                name = "libpipewire-module-rtkit";
-                args = {
-                  "nice.level" = -15;
-                  "rt.prio" = 88;
-                  "rt.time.soft" = 200000;
-                  "rt.time.hard" = 200000;
-                };
-                flags = [
-                  "ifexists"
-                  "nofail"
-                ];
-              }
-            ];
+        pipewire."91-low-latency" = {
+          "context.properties" = {
+            "default.clock.rate" = 48000;
+            "default.clock.quantum" = 32;
+            "default.clock.min-quantum" = 32;
+            "default.clock.max-quantum" = 32;
           };
         };
 
-        pipewire-pulse = {
-          "10-default" = {
-            "pulse.properties" = {
-              "pulse.min.req" = "${toString cfg.sampleSize}/48000";
-              "pulse.default.req" = "${toString cfg.sampleSize}/48000";
-              "pulse.max.req" = "${toString cfg.sampleSize}/48000";
-              "pulse.min.quantum" = "${toString cfg.sampleSize}/48000";
-              "pulse.max.quantum" = "${toString cfg.sampleSize}/48000";
-              "server.address" = [ "unix:native" ];
-            };
-            "context.modules" = [
-              {
-                name = "libpipewire-module-rtkit";
-                args = {
-                  "nice.level" = -15;
-                  "rt.prio" = 88;
-                  "rt.time.soft" = 200000;
-                  "rt.time.hard" = 200000;
-                };
-                flags = [
-                  "ifexists"
-                  "nofail"
-                ];
-              }
-            ];
-
-            "stream.properties" = {
-              "node.latency" = "${toString cfg.sampleSize}/48000";
-              "resample.quality" = 1;
-            };
+        pipewire-pulse."92-low-latency" = {
+          "context.properties" = [
+            {
+              name = "libpipewire-module-protocol-pulse";
+              args = { };
+            }
+          ];
+          "pulse.properties" = {
+            "pulse.min.req" = "32/48000";
+            "pulse.default.req" = "32/48000";
+            "pulse.max.req" = "32/48000";
+            "pulse.min.quantum" = "32/48000";
+            "pulse.max.quantum" = "32/48000";
+          };
+          "stream.properties" = {
+            "node.latency" = "32/48000";
+            "resample.quality" = 1;
           };
         };
       };

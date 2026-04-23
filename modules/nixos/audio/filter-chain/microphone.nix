@@ -5,7 +5,9 @@
     "log.level" = 0;
 
     "default.clock.rate" = 48000;
-    "default.clock.quantum" = 256;
+    "default.clock.quantum" = 32;
+    "default.clock.min-quantum" = 32;
+    "default.clock.max-quantum" = 32;
   };
 
   "context.spa-libs" = {
@@ -14,19 +16,19 @@
   };
 
   "context.modules" = [
-    {
-      name = "libpipewire-module-rtkit";
-      args = {
-        "nice.level" = -15;
-        "rt.prio" = 88;
-        "rt.time.soft" = 200000;
-        "rt.time.hard" = 200000;
-      };
-      flags = [
-        "ifexists"
-        "nofail"
-      ];
-    }
+    # {
+    #   name = "libpipewire-module-rtkit";
+    #   args = {
+    #     "nice.level" = -15;
+    #     "rt.prio" = 88;
+    #     "rt.time.soft" = 200000;
+    #     "rt.time.hard" = 200000;
+    #   };
+    #   flags = [
+    #     "ifexists"
+    #     "nofail"
+    #   ];
+    # }
     { name = "libpipewire-module-protocol-native"; }
     { name = "libpipewire-module-client-node"; }
     { name = "libpipewire-module-adapter"; }
