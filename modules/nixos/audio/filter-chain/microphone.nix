@@ -5,9 +5,9 @@
     "log.level" = 0;
 
     "default.clock.rate" = 48000;
-    "default.clock.quantum" = 32;
-    "default.clock.min-quantum" = 32;
-    "default.clock.max-quantum" = 32;
+    "default.clock.quantum" = 64;
+    "default.clock.min-quantum" = 64;
+    "default.clock.max-quantum" = 64;
   };
 
   "context.spa-libs" = {

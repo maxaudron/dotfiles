@@ -41,7 +41,7 @@ in
 
     sampleSize = mkOption {
       type = types.int;
-      default = 32;
+      default = 64;
     };
   };
 
@@ -78,9 +78,9 @@ in
         pipewire."91-low-latency" = {
           "context.properties" = {
             "default.clock.rate" = 48000;
-            "default.clock.quantum" = 32;
-            "default.clock.min-quantum" = 32;
-            "default.clock.max-quantum" = 32;
+            "default.clock.quantum" = 64;
+            "default.clock.min-quantum" = 64;
+            "default.clock.max-quantum" = 64;
           };
         };
 
@@ -92,14 +92,14 @@ in
             }
           ];
           "pulse.properties" = {
-            "pulse.min.req" = "32/48000";
-            "pulse.default.req" = "32/48000";
-            "pulse.max.req" = "32/48000";
-            "pulse.min.quantum" = "32/48000";
-            "pulse.max.quantum" = "32/48000";
+            "pulse.min.req" = "64/48000";
+            "pulse.default.req" = "64/48000";
+            "pulse.max.req" = "64/48000";
+            "pulse.min.quantum" = "64/48000";
+            "pulse.max.quantum" = "64/48000";
           };
           "stream.properties" = {
-            "node.latency" = "32/48000";
+            "node.latency" = "64/48000";
             "resample.quality" = 1;
           };
         };
