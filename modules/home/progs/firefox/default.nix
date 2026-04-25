@@ -14,6 +14,8 @@
   };
 
   config = lib.mkIf config.my.progs.firefox.enable {
+    programs.chromium.enable = true;
+
     programs.firefox = {
       enable = true;
       nativeMessagingHosts = [ pkgs.browserpass ];

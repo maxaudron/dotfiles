@@ -12,17 +12,19 @@
   };
 
   config = lib.mkIf config.my.core.gpg.enable {
+    home.packages = [ pkgs.fido2-manage ];
+
     programs.gpg = {
       enable = true;
 
       mutableKeys = false;
-      mutableTrust = true;
+      mutableTrust = false;
 
       publicKeys = [
         {
           source = builtins.fetchurl {
             url = "https://keys.openpgp.org/vks/v1/by-fingerprint/81040D00839B1C5903D07D067828577F894C55C0";
-            sha256 = "097fl4kqlqn8129k6zwb7p4ciaixki9w48b109pj1v9gi3744laf";
+            sha256 = "1l0nszzj4j10z6p31z3crnr2ix68s6i1iv78n14wajabzs8n3axf";
           };
           trust = 5;
         }
@@ -88,11 +90,15 @@
     };
 
     programs.bash.initExtra = ''
-      export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+      if [[ -z "$SSH_CONNECTION" ]]; then
+        export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+      fi
     '';
 
     programs.fish.interactiveShellInit = ''
-      set --global SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
+      if not set -q SSH_CONNECTION;
+        set --global SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
+      end
     '';
   };
 }

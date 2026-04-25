@@ -15,6 +15,7 @@
     tools = {
       printing.enable = true;
       rust.enable = true;
+      latex.enable = true;
     };
 
     progs = {
