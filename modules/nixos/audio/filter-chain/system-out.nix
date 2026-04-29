@@ -22,19 +22,17 @@
   };
 
   "context.modules" = [
-    # {
-    #   name = "libpipewire-module-rtkit";
-    #   args = {
-    #     "nice.level" = -15;
-    #     "rt.prio" = 88;
-    #     "rt.time.soft" = 200000;
-    #     "rt.time.hard" = 200000;
-    #   };
-    #   flags = [
-    #     "ifexists"
-    #     "nofail"
-    #   ];
-    # }
+    {
+      name = "libpipewire-module-rtkit";
+      args = {
+        "nice.level" = -15;
+        "rt.prio" = 88;
+      };
+      flags = [
+        "ifexists"
+        "nofail"
+      ];
+    }
     { name = "libpipewire-module-protocol-native"; }
     { name = "libpipewire-module-client-node"; }
     { name = "libpipewire-module-adapter"; }

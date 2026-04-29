@@ -76,6 +76,19 @@ in
 
       extraConfig = {
         pipewire."91-low-latency" = {
+          "context.modules" = [
+            {
+              name = "libpipewire-module-rtkit";
+              args = {
+                "nice.level" = -15;
+                "rt.prio" = 88;
+              };
+              flags = [
+                "ifexists"
+                "nofail"
+              ];
+            }
+          ];
           "context.properties" = {
             "default.clock.rate" = 48000;
             "default.clock.quantum" = 64;
@@ -85,6 +98,19 @@ in
         };
 
         pipewire-pulse."92-low-latency" = {
+          "context.modules" = [
+            {
+              name = "libpipewire-module-rtkit";
+              args = {
+                "nice.level" = -15;
+                "rt.prio" = 88;
+              };
+              flags = [
+                "ifexists"
+                "nofail"
+              ];
+            }
+          ];
           "context.properties" = [
             {
               name = "libpipewire-module-protocol-pulse";
