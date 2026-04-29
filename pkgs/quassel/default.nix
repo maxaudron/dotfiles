@@ -45,8 +45,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "johu";
     repo = "quassel";
-    rev = "502dad3a00f106997f1b786284d514f8ef89df0a";
-    hash = "sha256-nrJizgxnfiFRp1ViBJ8G2uGy4BTb3VqBJLawGTCqRLc=";
+    rev = "31d0daa4301ee2af74bfc7fa0955ea0a8b3c31d6";
+    hash = "sha256-FkBtT/v5h47KCRqv5EU1yGTQOpdsnbDn/BNM7dLdpr0=";
     fetchSubmodules = true;
   };
 
@@ -77,6 +77,7 @@ stdenv.mkDerivation {
       kdePackages.sonnet
       kdePackages.mlt
       kdePackages.breeze-icons
+      kdePackages.qtwebengine
     ]
     ++ lib.optionals (buildClient && withKDE) [
       kdePackages.extra-cmake-modules
