@@ -16,6 +16,9 @@
 
     xdg.configFile."mcphub/servers.json".text = lib.generators.toJSON { } {
       mcpServers = {
+        git-search = {
+          url = "http://127.0.0.1:8080/mcp";
+        };
         serena = {
           args = [
             "--transport=stdio"

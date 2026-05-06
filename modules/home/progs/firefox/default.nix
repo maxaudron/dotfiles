@@ -14,7 +14,7 @@
   };
 
   config = lib.mkIf config.my.progs.firefox.enable {
-    programs.chromium.enable = true;
+    programs.chromium.enable = pkgs.stdenv.isLinux;
 
     programs.firefox = {
       enable = true;

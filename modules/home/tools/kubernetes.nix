@@ -5,6 +5,19 @@
   ...
 }:
 
+let
+  kubernetes-helm-wrapped =
+    with pkgs;
+    (wrapHelm kubernetes-helm {
+      plugins = with kubernetes-helmPlugins; [
+        helm-diff
+      ];
+    });
+
+  helmfile = pkgs.helmfile-wrapped.override {
+    inherit (kubernetes-helm-wrapped) pluginsDir;
+  };
+in
 {
   options.my.tools.kubernetes = {
     enable = lib.mkEnableOption "kubernetes";
@@ -17,8 +30,8 @@
       tanka
       kubectl
       helmfile
-      kubernetes-helm
-      kubernetes-helmPlugins.helm-diff
+      kubernetes-helm-wrapped
+
       kube-capacity
       jsonnet-bundler
       jsonnet
