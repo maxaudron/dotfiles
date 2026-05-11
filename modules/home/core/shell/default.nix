@@ -19,7 +19,7 @@ let
     ga = "git add";
     gc = "git commit -v";
     glg = "git glog";
-    gp = "git push";
+    gp = "git pushall";
 
     # systemctl
     sys = "sudo systemctl";
