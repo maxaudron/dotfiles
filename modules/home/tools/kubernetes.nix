@@ -38,6 +38,7 @@ in
 
       kubectl-ssh
       kubectl-netshoot
+      kubectl-rancher
 
       konstraint
       kube-review

@@ -1,0 +1,180 @@
+#!/usr/bin/env bash
+#
+# kubectl-rancher - Refresh kubectl kubeconfig from Rancher API
+#
+# Detects the Rancher host and cluster ID from the current kubectl context's
+# server URL, logs in via the Rancher API, and writes a fresh kubeconfig
+# to ~/.kube/configs/.
+#
+# Config: ~/.config/rancher/kubectl.json
+#
+#   {
+#     "rancher.example.com": {
+#       "credentials_file": "/path/to/rancher.yml",
+#       "provider": "local"
+#     },
+#     "rancher2.example.com": {
+#       "pass": "path/in/password-store",
+#       "username": "fallback-user",
+#       "provider": "activedirectory"
+#     }
+#   }
+#
+# Each key is a Rancher hostname. Fields:
+#
+#   credentials_file  Path to a YAML file with rancher_user / rancher_password keys.
+#                     Supports $HOME expansion.
+#   pass              Path in pass(1) password store. Password is the first line,
+#                     username is parsed from a "user:" or "username:" line.
+#   username          Fallback username if the pass entry has no username field.
+#   provider          Auth provider: "local" (default) or "activedirectory".
+#
+set -euo pipefail
+
+CONFIG_FILE="$HOME/.config/rancher/kubectl.json"
+KUBECONFIG_DIR="$HOME/.kube/configs"
+
+die() { echo "error: $*" >&2; exit 1; }
+
+load_config() {
+  [[ -f "$CONFIG_FILE" ]] || die "config file not found: $CONFIG_FILE
+Create it with contents like:
+{
+  \"rancher.example.com\": {
+    \"credentials_file\": \"/path/to/rancher.yml\"
+  },
+  \"rancher2.example.com\": {
+    \"pass\": \"path/in/password-store\"
+  }
+}"
+  jq empty "$CONFIG_FILE" 2>/dev/null || die "invalid JSON in $CONFIG_FILE"
+}
+
+find_credentials() {
+  local host="$1"
+  local entry
+  entry=$(jq -e --arg h "$host" '.[$h]' "$CONFIG_FILE" 2>/dev/null) \
+    || die "no credentials configured for rancher host: $host
+Add an entry to $CONFIG_FILE"
+
+  RANCHER_PROVIDER=$(echo "$entry" | jq -r '.provider // "local"')
+
+  local cred_file pass_path
+  cred_file=$(echo "$entry" | jq -r '.credentials_file // empty')
+  pass_path=$(echo "$entry" | jq -r '.pass // empty')
+
+  if [[ -n "$pass_path" ]]; then
+    local pass_output
+    pass_output=$(pass show "$pass_path" 2>/dev/null) || die "failed to read from password store: $pass_path"
+    RANCHER_PASS="${pass_output%%$'\n'*}"
+    local line
+    while IFS= read -r line; do
+      case "$line" in
+        user:*|username:*)
+          RANCHER_USER="${line#*:}"
+          RANCHER_USER="${RANCHER_USER# }"
+          return 0 ;;
+      esac
+    done <<< "$pass_output"
+    RANCHER_USER=$(echo "$entry" | jq -r '.username // empty')
+    [[ -n "$RANCHER_USER" ]] || die "no username found in pass entry or config for $host"
+  elif [[ -n "$cred_file" ]]; then
+    cred_file=$(eval echo "$cred_file")
+    [[ -f "$cred_file" ]] || die "credentials file not found: $cred_file"
+    local line
+    while IFS= read -r line; do
+      case "$line" in
+        rancher_user:*) RANCHER_USER="${line#rancher_user:}"; RANCHER_USER="${RANCHER_USER# }" ;;
+        rancher_password:*) RANCHER_PASS="${line#rancher_password:}"; RANCHER_PASS="${RANCHER_PASS# }" ;;
+      esac
+    done < "$cred_file"
+    [[ -n "${RANCHER_USER-}" && -n "${RANCHER_PASS-}" ]] || die "could not parse credentials from $cred_file"
+  else
+    die "entry for $host must have either \"credentials_file\" or \"pass\""
+  fi
+}
+
+get_current_context() {
+  local ctx
+  ctx=$(kubectl config current-context 2>/dev/null) || die "no current kubectl context set"
+  echo "$ctx"
+}
+
+get_cluster_server() {
+  local ctx="$1"
+  local cluster_name
+  cluster_name=$(kubectl config view -o jsonpath="{.contexts[?(@.name==\"$ctx\")].context.cluster}" 2>/dev/null)
+  [[ -n "$cluster_name" ]] || die "could not find cluster for context: $ctx"
+  local server
+  server=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$cluster_name\")].cluster.server}" 2>/dev/null)
+  [[ -n "$server" ]] || die "could not find server URL for cluster: $cluster_name"
+  echo "$server"
+}
+
+extract_rancher_host() {
+  local server="$1"
+  local host="${server#*://}"
+  echo "${host%%/*}"
+}
+
+extract_cluster_id() {
+  local server="$1"
+  local tail="${server##*/clusters/}"
+  [[ "$tail" != "$server" ]] || die "could not extract cluster ID from server URL: $server"
+  echo "${tail%%/*}"
+}
+
+find_kubeconfig_file() {
+  local ctx="$1"
+  local line
+  for f in "$KUBECONFIG_DIR"/*.yaml "$KUBECONFIG_DIR"/*.yml; do
+    [[ -f "$f" ]] || continue
+    while IFS= read -r line; do
+      [[ "$line" == *"name:"*"$ctx"* ]] && { echo "$f"; return 0; }
+    done < "$f"
+  done
+  echo "$KUBECONFIG_DIR/$ctx.yaml"
+}
+
+load_config
+
+ctx=$(get_current_context)
+server=$(get_cluster_server "$ctx")
+rancher_host=$(extract_rancher_host "$server")
+cluster_id=$(extract_cluster_id "$server")
+
+find_credentials "$rancher_host"
+echo "$ctx: Using credentials for $rancher_host (user: $RANCHER_USER, provider: $RANCHER_PROVIDER)"
+
+case "$RANCHER_PROVIDER" in
+  local)
+    login_url="https://${rancher_host}/v3-public/localProviders/local?action=login" ;;
+  activedirectory)
+    login_url="https://${rancher_host}/v3-public/activeDirectoryProviders/activedirectory?action=login" ;;
+  *)
+    die "unknown auth provider: $RANCHER_PROVIDER" ;;
+esac
+
+echo "Logging in to Rancher API..."
+login_response=$(curl -sSf \
+  "$login_url" \
+  -X POST \
+  -H 'Content-Type: application/json' \
+  -d "{\"username\":\"${RANCHER_USER}\",\"password\":\"${RANCHER_PASS}\",\"responseType\":\"json\"}") || die "failed to login to Rancher API"
+
+token=$(echo "$login_response" | jq -r '.token')
+[[ -n "$token" && "$token" != "null" ]] || die "failed to extract token from login response"
+
+echo "Fetching kubeconfig from Rancher API..."
+kubeconfig=$(curl -sSf \
+  "https://${rancher_host}/v3/clusters/${cluster_id}?action=generateKubeconfig" \
+  -X POST \
+  -H 'Content-Type: application/json' \
+  -H "Authorization: Bearer ${token}" | jq -r '.config') || die "failed to fetch kubeconfig from Rancher API"
+
+[[ -n "$kubeconfig" && "$kubeconfig" != "null" ]] || die "empty kubeconfig returned from Rancher API"
+
+kubeconfig_file=$(find_kubeconfig_file "$ctx")
+mkdir -p "$KUBECONFIG_DIR"
+echo "$kubeconfig" > "$kubeconfig_file"
+echo "Kubeconfig written to $kubeconfig_file"

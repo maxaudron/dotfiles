@@ -5,6 +5,7 @@ self: super:
   bootstrap = super.callPackage ./bootstrap {};
 
   kubectx = super.callPackage ./kubectx {};
+  kubectl-rancher = super.callPackage ./kubectl-rancher {};
   kubectl-ssh = super.callPackage ./kubectl-ssh {};
   kubectl-netshoot = super.callPackage ./kubectl-netshoot {};
 
