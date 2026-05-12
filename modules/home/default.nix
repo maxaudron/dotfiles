@@ -30,6 +30,7 @@ in
   home.packages = with pkgs; [
     nix-index
     nix-diff
+    home-manager
   ];
 
   programs.imv.enable = linux;
