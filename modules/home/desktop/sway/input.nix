@@ -13,6 +13,11 @@
         pointer_accel = "0.5";
         scroll_factor = "0.5";
       };
+
+      "2:10:TPPS/2_Elan_TrackPoint" = {
+        accel_profile = "adaptive";
+        pointer_accel = "0.5";
+      };
     };
   };
 }
