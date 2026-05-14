@@ -10,6 +10,7 @@ with lib;
     ./weechat
 
     ./pass.nix
+    ./kanidm.nix
   ];
 
   config.my.progs = {
@@ -17,5 +18,6 @@ with lib;
     weechat.enable = mkDefault false;
     mc.enable = mkDefault true;
     pass.enable = mkDefault true;
+    kanidm.enable = mkDefault true;
   };
 }
