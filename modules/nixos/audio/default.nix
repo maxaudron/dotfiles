@@ -41,7 +41,7 @@ in
 
     sampleSize = mkOption {
       type = types.int;
-      default = 64;
+      default = 128;
     };
   };
 
@@ -91,9 +91,9 @@ in
           ];
           "context.properties" = {
             "default.clock.rate" = 48000;
-            "default.clock.quantum" = 64;
-            "default.clock.min-quantum" = 64;
-            "default.clock.max-quantum" = 64;
+            "default.clock.quantum" = cfg.sampleSize;
+            "default.clock.min-quantum" = cfg.sampleSize;
+            "default.clock.max-quantum" = cfg.sampleSize;
           };
         };
 
@@ -118,14 +118,14 @@ in
             }
           ];
           "pulse.properties" = {
-            "pulse.min.req" = "64/48000";
-            "pulse.default.req" = "64/48000";
-            "pulse.max.req" = "64/48000";
-            "pulse.min.quantum" = "64/48000";
-            "pulse.max.quantum" = "64/48000";
+            "pulse.min.req" = "${toString cfg.sampleSize}/48000";
+            "pulse.default.req" = "${toString cfg.sampleSize}/48000";
+            "pulse.max.req" = "${toString cfg.sampleSize}/48000";
+            "pulse.min.quantum" = "${toString cfg.sampleSize}/48000";
+            "pulse.max.quantum" = "${toString cfg.sampleSize}/48000";
           };
           "stream.properties" = {
-            "node.latency" = "64/48000";
+            "node.latency" = "${toString cfg.sampleSize}/48000";
             "resample.quality" = 1;
           };
         };

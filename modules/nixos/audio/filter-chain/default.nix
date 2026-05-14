@@ -8,13 +8,13 @@
 let
   json = pkgs.formats.json { };
 
-  microphone_data = import ./microphone.nix;
-  system-out_data = import ./system-out.nix;
+  microphone_data = import ./microphone.nix { inherit config; };
+  system-out_data = import ./system-out.nix { inherit config; };
 
   pluginsEnv = "LV2_PATH=${pkgs.lsp-plugins}/lib/lv2";
 
-  microphone = json.generate "microphone.conf" (microphone_data pkgs);
-  system-out = json.generate "system-out.conf" (system-out_data pkgs);
+  microphone = json.generate "microphone.conf" microphone_data;
+  system-out = json.generate "system-out.conf" system-out_data;
 
   cfg = config.my.audio;
 in

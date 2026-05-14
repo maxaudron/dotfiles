@@ -1,13 +1,16 @@
-{ pkgs, ... }:
+{ config, ... }:
 
+let
+  cfg = config.my.audio;
+in
 {
   "context.properties" = {
     "log.level" = 0;
 
     "default.clock.rate" = 48000;
-    "default.clock.quantum" = 64;
-    "default.clock.min-quantum" = 64;
-    "default.clock.max-quantum" = 64;
+    "default.clock.quantum" = cfg.sampleSize;
+    "default.clock.min-quantum" = cfg.sampleSize;
+    "default.clock.max-quantum" = cfg.sampleSize;
   };
 
   "context.spa-libs" = {

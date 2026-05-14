@@ -1,19 +1,22 @@
-{ pkgs, ... }:
+{ config, ... }:
 
+let
+  cfg = config.my.audio;
+in
 {
   # System Output Sink
   #
   # One stereo pair input, two pairs output
   # Pair 1 (AUX0 AUX1) has speaker EQ applied via convoler
   # Pair 2 (AUX2 AUX3) is copy of input
-  #
+
   "context.properties" = {
     "log.level" = 0;
 
     "default.clock.rate" = 48000;
-    "default.clock.quantum" = 64;
-    "default.clock.min-quantum" = 64;
-    "default.clock.max-quantum" = 64;
+    "default.clock.quantum" = cfg.sampleSize;
+    "default.clock.min-quantum" = cfg.sampleSize;
+    "default.clock.max-quantum" = cfg.sampleSize;
   };
 
   "context.spa-libs" = {
