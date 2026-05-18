@@ -7,12 +7,32 @@
   ...
 }:
 
+let
+  opusTools = pkgs.opusTools.overrideAttrs (
+    final: prev: {
+      version = "2025-03-19";
+      src = pkgs.fetchFromGitHub {
+        owner = "xiph";
+        repo = "opus-tools";
+        rev = "bb045db2b479504702bf1f570476e2c3f0ceb678";
+        hash = "sha256-duY1dFG3XDql5+dEy3pRIo/MtMz/mgjkwQhbMKEuI20=";
+      };
+
+      nativeBuildInputs = with pkgs; [
+        pkg-config
+        autoreconfHook
+      ];
+    }
+  );
+in
 {
   options.my.music.beets = {
     enable = lib.mkEnableOption "beets";
   };
 
   config = lib.mkIf config.my.music.beets.enable {
+    home.packages = [ opusTools pkgs.id3v2 ];
+
     programs.beets = {
       enable = true;
       package =
@@ -42,7 +62,7 @@
                         hash = "sha256-C4EVJwzLhwQJz/iUKrIKUjhYHIpPrETqyQi0DByZM3Y=";
                       };
 
-                      patches = [];
+                      patches = [ ];
 
                       buildInputs = [ pkgs.python313Packages.hatchling ];
                       build-system = [ pkgs.python313Packages.hatchling ];
@@ -145,28 +165,9 @@
           format = "opus";
           formats = {
             opus = {
-              command =
-                let
-                  opusTools = pkgs.opusTools.overrideAttrs (
-                    final: prev: {
-                      version = "2025-03-19";
-                      src = pkgs.fetchFromGitHub {
-                        owner = "xiph";
-                        repo = "opus-tools";
-                        rev = "bb045db2b479504702bf1f570476e2c3f0ceb678";
-                        hash = "sha256-duY1dFG3XDql5+dEy3pRIo/MtMz/mgjkwQhbMKEuI20=";
-                      };
-
-                      nativeBuildInputs = with pkgs; [
-                        pkg-config
-                        autoreconfHook
-                      ];
-                    }
-                  );
-                in
-                ''
-                  ${opusTools}/bin/opusenc --music --bitrate 160 --vbr --comp 10 $source $dest
-                '';
+              command = ''
+                ${opusTools}/bin/opusenc --music --bitrate 160 --vbr --comp 10 $source $dest
+              '';
               extension = "opus";
             };
           };

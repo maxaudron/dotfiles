@@ -108,6 +108,7 @@ in
           himalaya-vim
 
           nvim-lspconfig
+          codesettings-nvim
 
           hex-nvim
           orgmode
