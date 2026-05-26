@@ -3,6 +3,7 @@ self: super:
 {
   ansible-run = super.callPackage ./ansible-run {};
   bootstrap = super.callPackage ./bootstrap {};
+  aws-adfs = super.python3Packages.callPackage ./aws-adfs {};
 
   kubectx = super.callPackage ./kubectx {};
   kubectl-rancher = super.callPackage ./kubectl-rancher {};

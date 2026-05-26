@@ -50,6 +50,7 @@ in
       black
 
       himalaya
+      pandoc
 
       asciidoctor-with-extensions
 
