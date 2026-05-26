@@ -58,52 +58,53 @@ stdenv.mkDerivation {
     makeWrapper
     wrapQtAppsHook
   ];
-  buildInputs =
+  buildInputs = [
+    kdePackages.qtbase
+    boost
+    zlib
+    git
+  ]
+  ++ lib.optionals buildCore [
+    # qtscript
+    # qca-qt5
+    openldap
+  ]
+  ++ lib.optionals buildClient (
     [
-      kdePackages.qtbase
-      boost
-      zlib
-      git
-    ]
-    ++ lib.optionals buildCore [
-      # qtscript
-      # qca-qt5
-      openldap
-    ]
-    ++ lib.optionals buildClient [
-      libdbusmenu
-      kdePackages.phonon
       kdePackages.qt5compat
-      kdePackages.sonnet
-      kdePackages.mlt
-      kdePackages.breeze-icons
       kdePackages.qtwebengine
     ]
-    ++ lib.optionals (buildClient && withKDE) [
-      kdePackages.extra-cmake-modules
-      kdePackages.kconfigwidgets
-      kdePackages.kcoreaddons
-      kdePackages.knotifications
-      kdePackages.knotifyconfig
-      kdePackages.ktextwidgets
-      kdePackages.kwidgetsaddons
-      kdePackages.kxmlgui
-    ];
-
-
-  cmakeFlags =
-    [
-      "-DEMBED_DATA=OFF"
-      "-DCMAKE_INSTALL_DATAROOTDIR=share"
-      "-DENABLE_SHARED=OFF"
-      "-DCMAKE_BUILD_TYPE=Release"
+    ++ lib.optionals (!stdenv.isDarwin) [
+      libdbusmenu
+      kdePackages.mlt
+      kdePackages.phonon
+      kdePackages.sonnet
+      kdePackages.breeze-icons
     ]
-    ++ edf static "STATIC"
-    ++ edf monolithic "WANT_MONO"
-    ++ edf enableDaemon "WANT_CORE"
-    ++ edf enableDaemon "WITH_LDAP"
-    ++ edf client "WANT_QTCLIENT"
-    ++ edf withKDE "WITH_KDE";
+  )
+  ++ lib.optionals (buildClient && withKDE) [
+    kdePackages.extra-cmake-modules
+    kdePackages.kconfigwidgets
+    kdePackages.kcoreaddons
+    kdePackages.knotifications
+    kdePackages.knotifyconfig
+    kdePackages.ktextwidgets
+    kdePackages.kwidgetsaddons
+    kdePackages.kxmlgui
+  ];
+
+  cmakeFlags = [
+    "-DEMBED_DATA=OFF"
+    "-DCMAKE_INSTALL_DATAROOTDIR=share"
+    "-DENABLE_SHARED=OFF"
+    "-DCMAKE_BUILD_TYPE=Release"
+  ]
+  ++ edf static "STATIC"
+  ++ edf monolithic "WANT_MONO"
+  ++ edf enableDaemon "WANT_CORE"
+  ++ edf enableDaemon "WITH_LDAP"
+  ++ edf client "WANT_QTCLIENT"
+  ++ edf withKDE "WITH_KDE";
 
   dontWrapQtApps = true;
 

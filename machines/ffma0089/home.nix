@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   my = {
@@ -12,4 +12,6 @@
       go.enable = true;
     };
   };
+
+  home.packages = [ pkgs.quasselClient ];
 }
