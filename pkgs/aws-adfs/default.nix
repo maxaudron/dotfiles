@@ -18,12 +18,17 @@
 
 buildPythonPackage rec {
   pname = "aws-adfs";
-  version = "2.12.1";
+  version = "3.0";
   pyproject = true;
 
   disabled = pythonOlder "3.7";
 
-  src = ./aws-adfs.tar.gz;
+  src = "${fetchGit {
+    name = "aws-adfs-${version}";
+    url = "git@git.eu.clara.net:de-cloud-tooling/aws/aws_saml_token.git";
+    ref = "refs/tags/${version}";
+    rev = "78e3a2c0af4058a487aece1a97faab1488c370d9";
+  }}/aws-adfs";
 
   build-system = [
     poetry-core
