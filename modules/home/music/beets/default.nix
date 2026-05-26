@@ -31,12 +31,15 @@ in
   };
 
   config = lib.mkIf config.my.music.beets.enable {
-    home.packages = [ opusTools pkgs.id3v2 ];
+    home.packages = [
+      opusTools
+      pkgs.id3v2
+    ];
 
     programs.beets = {
       enable = true;
       package =
-        (pkgs.python313Packages.beets.overrideAttrs (
+        (pkgs.unstable.python313Packages.beets.overrideAttrs (
           final: prev: {
             patches = [ ./single-artist.patch ];
             disabledTests = prev.disabledTests ++ [
@@ -50,29 +53,7 @@ in
             pluginOverrides = {
               alternatives = {
                 enable = true;
-                propagatedBuildInputs = [
-                  (pkgs.python313Packages.beets-alternatives.overrideAttrs (
-                    final: prev: {
-                      pyproject = true;
-                      version = "0.14.1";
-                      src = pkgs.fetchFromGitHub {
-                        repo = "beets-alternatives";
-                        owner = "geigerzaehler";
-                        rev = "v0.14.1";
-                        hash = "sha256-C4EVJwzLhwQJz/iUKrIKUjhYHIpPrETqyQi0DByZM3Y=";
-                      };
-
-                      patches = [ ];
-
-                      buildInputs = [ pkgs.python313Packages.hatchling ];
-                      build-system = [ pkgs.python313Packages.hatchling ];
-
-                      disabledTestPaths = [
-                        "dev/get_release_notes.py"
-                      ];
-                    }
-                  ))
-                ];
+                propagatedBuildInputs = [ pkgs.unstable.python313Packages.beets-alternatives ];
               };
               rockbox = {
                 enable = true;
