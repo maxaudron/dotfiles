@@ -12,8 +12,6 @@
 {
   imports = [ ./config.nix ./home-manager.nix ];
 
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -54,8 +52,6 @@
     (callPackage "${secrets}/fonts/TX-02/default.nix" { })
     (callPackage "${secrets}/fonts/TX-02-Variable/default.nix" { })
   ];
-
-  nixpkgs.overlays = [ (import ../../pkgs) ];
 
   environment.etc = {
     "nix/channels/nixpkgs".source = nixpkgs.outPath;
@@ -106,9 +102,4 @@
       ];
     };
   };
-
-  # FIXME
-  nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-  ];
 }

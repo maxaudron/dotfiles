@@ -63,13 +63,9 @@
   outputs =
     inputs@{
       self,
-      flake-parts,
       nixpkgs,
-      nixpkgs-unstable,
-      nixpkgs-master,
-      darwin,
+      flake-parts,
       home-manager,
-      catppuccin,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -78,138 +74,42 @@
         "aarch64-darwin"
       ];
 
-      flake =
-        let
-          specialArgs = inputs // {
-            inherit inputs;
-          };
-
-          overlay-unstable = final: prev: {
-            unstable = import nixpkgs-unstable {
-              system = prev.system;
-              config.allowUnfree = true;
-            };
-          };
-          overlay-master = final: prev: {
-            master = import nixpkgs-master {
-              system = prev.system;
-              config.allowUnfree = true;
-            };
-          };
-          overlays =
-            { config, pkgs, ... }:
-            {
-              nixpkgs.config.allowUnfree = true;
-              nixpkgs.overlays = [
-                overlay-unstable
-                overlay-master
-                (import ./pkgs)
-              ];
-            };
-
-          mkSystemCmd =
-            system:
-            if nixpkgs.lib.strings.hasSuffix "-linux" system then
-              nixpkgs.lib.nixosSystem
-            else
-              darwin.lib.darwinSystem;
-
-          mkSystem =
-            name: system: modules:
-            mkSystemCmd system {
-              inherit system;
-              specialArgs = specialArgs // {
-                inherit system;
-                machineName = name;
-              };
-              modules = [
-                overlays
-                ./machines/${name}/configuration.nix
-              ]
-              ++ modules;
-            };
-
-          linuxModules = [
-            home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
-            self.nixosModules.default
-          ];
-
-          darwinModules = [
-            home-manager.darwinModules.home-manager
-            self.darwinModules.default
-          ];
-        in
-        {
-          nixosModules = import ./modules/nixos { inherit (nixpkgs) lib; };
-          darwinModules = import ./modules/darwin { inherit (nixpkgs) lib; };
-
-          homeModules.default = import ./modules/home;
-          homeConfigurations.default =
-            let
-              system = "x86_64-linux";
-              machineName = "headless";
-            in
-            home-manager.lib.homeManagerConfiguration {
-              pkgs = nixpkgs.legacyPackages.${system};
-              extraSpecialArgs = inputs // {
-                inherit builtins system machineName;
-              };
-              modules = [
-                overlays
-                self.homeModules.default
-              ];
-            };
-
-          nixosConfigurations.liduur = mkSystem "liduur" "x86_64-linux" linuxModules;
-          nixosConfigurations.velcitna = mkSystem "velcitna" "x86_64-linux" linuxModules;
-          darwinConfigurations.ffma0089 = mkSystem "ffma0089" "aarch64-darwin" darwinModules;
-        };
+      imports = [
+        ./modules/flake/lib.nix
+        ./modules/flake/luarc.nix
+        ./modules/flake/overlays.nix
+        ./modules/flake/packages.nix
+      ];
 
       perSystem =
+        { system, pkgs, ... }:
         {
-          config,
-          self',
-          inputs',
-          pkgs,
-          system,
-          ...
-        }:
-        {
-          _module.args.pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ (import ./pkgs) ];
-            config.allowUnfree = true;
-          };
-
           formatter = pkgs.nixfmt-tree;
-
-          packages =
-            (import ./pkgs pkgs pkgs)
-            // (
-              let
-                qmk_redox = pkgs.callPackage ./misc/qmk;
-              in
-              {
-                redox_left = qmk_redox { left = true; };
-                redox_right = qmk_redox { left = false; };
-              }
-            );
-
-          apps = {
-            flash_redox_left = (
-              import ./misc/qmk/flash.nix {
-                inherit pkgs;
-                firmware = self'.packages.redox_left;
-              }
-            );
-            flash_redox_right = (
-              import ./misc/qmk/flash.nix {
-                inherit pkgs;
-                firmware = self'.packages.redox_right;
-              }
-            );
-          };
         };
+
+      flake = {
+        nixosModules = import ./modules/nixos { inherit (nixpkgs) lib; };
+        darwinModules = import ./modules/darwin { inherit (nixpkgs) lib; };
+
+        homeModules.default = import ./modules/home;
+        homeConfigurations.default =
+          let
+            system = "x86_64-linux";
+            machineName = "headless";
+          in
+          home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            extraSpecialArgs = inputs // {
+              inherit builtins system machineName;
+            };
+            modules = [
+              self.homeModules.default
+            ];
+          };
+
+        nixosConfigurations.liduur = self.lib.mkSystem "liduur" "x86_64-linux";
+        nixosConfigurations.velcitna = self.lib.mkSystem "velcitna" "x86_64-linux";
+        darwinConfigurations.ffma0089 = self.lib.mkSystem "ffma0089" "aarch64-darwin";
+      };
     };
 }
