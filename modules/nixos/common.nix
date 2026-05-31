@@ -35,7 +35,6 @@
   };
 
   programs.dconf.enable = true;
-  programs.adb.enable = true;
 
   programs.neovim = {
     enable = true;

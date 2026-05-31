@@ -41,10 +41,11 @@ in
       package =
         (pkgs.unstable.python313Packages.beets.overrideAttrs (
           final: prev: {
-            patches = [ ./single-artist.patch ];
+            patches = [ ./0001-only-populate-artist-fields-with-single-artist.patch ];
             disabledTests = prev.disabledTests ++ [
               "test_parse_recording_artist_multi"
               "test_track_artist_overrides_recording_artist_multi"
+              "test_track_overrides_recording"
               "test_two_artists"
             ];
           }
@@ -58,7 +59,7 @@ in
               rockbox = {
                 enable = true;
                 propagatedBuildInputs = [
-                  (beets-rockbox.packages."${system}".default)
+                  # (pkgs.unstable.python313Packages.callPackage "${beets-rockbox}/nix/package.nix" {})
                 ];
               };
               edit.enable = true;

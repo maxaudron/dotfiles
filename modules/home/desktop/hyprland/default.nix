@@ -26,7 +26,7 @@
 
       plugins = with pkgs.hyprlandPlugins; [
         hy3
-        hyprsplit
+        # hyprsplit FIXME
       ];
 
       systemd.enable = false;

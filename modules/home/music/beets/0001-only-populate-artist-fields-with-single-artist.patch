@@ -1,0 +1,30 @@
+From 0321bd7a4381116f5d01f96173fc7a76a5eb177f Mon Sep 17 00:00:00 2001
+From: Max Audron <me@audron.dev>
+Date: Sun, 31 May 2026 17:35:24 +0200
+Subject: [PATCH] only populate artist fields with single artist
+
+---
+ beetsplug/musicbrainz.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/beetsplug/musicbrainz.py b/beetsplug/musicbrainz.py
+index 9255dc2f6..941d50e4b 100644
+--- a/beetsplug/musicbrainz.py
++++ b/beetsplug/musicbrainz.py
+@@ -351,10 +351,10 @@ class MusicBrainzPlugin(
+                 multi.append(name)
+ 
+         return {
+-            "artist": "".join(artist_parts),
++            "artist": artist_parts[0],
+             "artist_id": artists_ids[0],
+-            "artist_sort": "".join(artist_sort_parts),
+-            "artist_credit": "".join(artist_credit_parts),
++            "artist_sort": artist_sort_parts[0],
++            "artist_credit": artist_credit_parts[0],
+             "artists": artists,
+             "artists_ids": artists_ids,
+             "artists_sort": artists_sort,
+-- 
+2.51.2
+

@@ -60,14 +60,14 @@ in
 
     programs.neovim = {
       enable = true;
-      package = pkgs.unstable.neovim-unwrapped;
+      package = pkgs.neovim-unwrapped;
 
       defaultEditor = true;
       vimAlias = true;
       vimdiffAlias = true;
 
       plugins =
-        with pkgs.unstable.vimPlugins;
+        with pkgs.vimPlugins;
         with vimPlugins;
         [
           lazy-nvim

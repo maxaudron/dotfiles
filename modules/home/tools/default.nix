@@ -11,6 +11,7 @@ with lib;
     ./kubernetes.nix
     ./embedded.nix
     ./golang.nix
+    # ./labels.nix
     ./latex.nix
     ./rust.nix
     ./work.nix
