@@ -10,6 +10,7 @@
           self.overlays.default
           self.overlays.unstable
           self.overlays.master
+          self.overlays.mk-luarc
         ];
         config.allowUnfree = true;
       };

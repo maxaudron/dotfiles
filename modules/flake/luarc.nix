@@ -1,23 +1,26 @@
 # sourced from https://github.com/mrcjkb/nix-gen-luarc-json
-{ ... }:
+{ self, ... }:
 
 {
 
   perSystem =
-    { system, pkgs, ... }:
+    {
+      system,
+      pkgs,
+      lib,
+      ...
+    }:
     {
       devShells.default = pkgs.mkShell (
         let
           luarc = pkgs.mk-luarc-json {
-            plugins = with pkgs.vimPlugins; [
-              telescope-nvim
-              fidget-nvim
-            ];
+            plugins = self.nixosConfigurations.liduur.config.home-manager.users.audron.programs.neovim.plugins ++ [ pkgs.hyprland.dev ];
           };
+
         in
         {
           shellHook = ''
-            ln -fs ${pkgs.luarc-to-json luarc} .luarc.json
+            ln -fs ${luarc} .luarc.json
           '';
         }
       );
@@ -25,6 +28,8 @@
 
   flake = {
     overlays.mk-luarc = final: prev: {
+      mk-luarc-json =
+        attrs: final.writeText ".luarc.json" (final.lib.generators.toJSON { } (final.mk-luarc attrs));
       mk-luarc =
         {
           # list of plugins that have a /lua directory
@@ -80,22 +85,6 @@
             disable = disabled-diagnostics;
           };
         };
-      luarc-to-json =
-        luarc:
-        final.runCommand ".luarc.json"
-          {
-            buildInputs = [
-              final.jq
-            ];
-            passAsFile = [ "rawJSON" ];
-            rawJSON = builtins.toJSON luarc;
-          }
-          ''
-            {
-              jq . <"$rawJSONPath"
-            } >$out
-          '';
-      mk-luarc-json = attrs: final.luarc-to-json (final.mk-luarc attrs);
     };
   };
 }
