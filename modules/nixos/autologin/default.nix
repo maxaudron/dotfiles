@@ -46,8 +46,10 @@ in
     services = {
       dbus.packages = [ cfg.package ];
       displayManager = {
-        enable = true;
-        execCmd = "${cfg.package}/bin/autologin ${cfg.user} ${cfg.command}";
+        generic = {
+          enable = true;
+          execCmd = "${cfg.package}/bin/autologin ${cfg.user} ${cfg.command}";
+        };
       };
       seatd.enable = true;
       xserver = {
