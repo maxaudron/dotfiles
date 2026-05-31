@@ -286,11 +286,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777380197,
-        "narHash": "sha256-JQIrgLe85TZnZfzFpJo8ay+LvyCRAJWBdlsxEcsTOf8=",
+        "lastModified": 1780257573,
+        "narHash": "sha256-IlXvugI14rN6HRVErRqt5gP2AUKStgy9Z0Kj2ASLUsY=",
         "owner": "maxaudron",
         "repo": "nixos-kintree",
-        "rev": "c9c59333f012efe600651a71385efe75d4395988",
+        "rev": "a751c4637e33f95cae5ba6a2886077f6e301e1de",
         "type": "github"
       },
       "original": {
