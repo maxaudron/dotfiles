@@ -36,6 +36,4 @@ in
   programs.imv.enable = linux;
   programs.mpv.enable = linux;
   programs.btop.enable = true;
-
-  home.stateVersion = "25.05";
 }

@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.displaycal ];
   my = {
     desktop = {
       enable = true;
@@ -16,4 +15,7 @@
       rust.enable = true;
     };
   };
+
+  home.packages = [ pkgs.displaycal ];
+  home.stateVersion = "25.05";
 }

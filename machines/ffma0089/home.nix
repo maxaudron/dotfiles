@@ -14,4 +14,5 @@
   };
 
   home.packages = [ pkgs.quasselClient ];
+  home.stateVersion = "25.05";
 }
