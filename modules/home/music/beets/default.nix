@@ -8,7 +8,7 @@
 }:
 
 let
-  opusTools = pkgs.opusTools.overrideAttrs (
+  opusTools = pkgs.opus-tools.overrideAttrs (
     final: prev: {
       version = "2025-03-19";
       src = pkgs.fetchFromGitHub {

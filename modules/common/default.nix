@@ -35,7 +35,7 @@
     mtr
     ipcalc
 
-    nixfmt-rfc-style
+    nixfmt
 
     aspell
     aspellDicts.de
