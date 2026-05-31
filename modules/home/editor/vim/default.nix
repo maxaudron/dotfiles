@@ -146,7 +146,7 @@ in
           nvim-treesitter-context
         ];
 
-      extraLuaConfig = ''
+      initLua = ''
         vim.g.mapleader = " "
         vim.g.maplocalleader = "\\"
 
