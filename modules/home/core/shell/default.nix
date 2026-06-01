@@ -1,10 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  builtins,
-  ...
-}:
+{ pkgs, ... }:
 
 let
   aliases = {
@@ -46,12 +40,16 @@ in
 
   home.packages = with pkgs; [
     fzf
-    eza
     tmux-cssh
     ack
   ];
 
   home.shellAliases = aliases;
+
+  programs.eza = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 
   programs.bash = {
     enable = true;
@@ -70,7 +68,7 @@ in
       function pastor -a file
         curl --progress-bar -F "c=@$file" "https://c-v.sh/?token=$(pass show general/c-v.sh | head -n1)"
       end
-      
+
       function screenshot
         grim -g "$(slurp)" - | pastor - | wl-copy
       end
