@@ -10,7 +10,7 @@
     lib.mkMerge [
       {
         programs.ghostty.settings.theme = "Ayu";
-        programs.noctalia-shell.settings.coloSchemes.predefinedScheme = "Ayu";
+        programs.noctalia-shell.settings.colorSchemes.predefinedScheme = "Ayu";
         programs.btop.settings.color_theme = "ayu";
 
         programs.fish.interactiveShellInit = ''
