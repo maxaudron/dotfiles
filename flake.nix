@@ -58,6 +58,11 @@
       url = "github:maxaudron/nixos-kintree";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      flake = false;
+    };
   };
 
   outputs =

@@ -40,6 +40,7 @@ require("config/input")
 require("config/rules")
 require("config/keybinds")
 require("config/hy3")
+require("config/hyprsplit")
 
 local function getHostname()
 	local f = io.popen("/usr/bin/env hostname")

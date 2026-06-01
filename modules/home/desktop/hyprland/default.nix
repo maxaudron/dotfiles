@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  hyprsplit,
   ...
 }:
 
@@ -25,7 +26,6 @@
 
       plugins = with pkgs.hyprlandPlugins; [
         hy3
-        # hyprsplit FIXME
       ];
 
       systemd.enable = false;
@@ -44,9 +44,9 @@
     };
 
     xdg.configFile = {
-      "hypr/config" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/desktop/hyprland/lua";
-      };
+      "hypr/config".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/desktop/hyprland/lua";
+      "hypr/hyprsplit/init.lua".source = "${hyprsplit}/init.lua";
     };
   };
 }
