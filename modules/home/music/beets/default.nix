@@ -59,7 +59,7 @@ in
               rockbox = {
                 enable = true;
                 propagatedBuildInputs = [
-                  # (pkgs.unstable.python313Packages.callPackage "${beets-rockbox}/nix/package.nix" {})
+                  (pkgs.unstable.python313Packages.callPackage "${beets-rockbox}/nix/package.nix" {})
                 ];
               };
               edit.enable = true;
@@ -168,7 +168,7 @@ in
           sources = [
             "filesystem"
             "itunes"
-            "coverart: releasegroup"
+            { coverart = "releasegroup"; }
           ];
           store_source = true;
           high_resolution = true;
@@ -195,7 +195,6 @@ in
         };
 
         musicbrainz = {
-          enabled = true;
           # host = "musicbrainz.vapor.systems";
           # ratelimit = 150;
           # https = true;

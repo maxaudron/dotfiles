@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762910435,
-        "narHash": "sha256-z6qB/mKtNHAqSSxF6opA75qDPrtVWquoL2/SZJ2SRbA=",
+        "lastModified": 1780349148,
+        "narHash": "sha256-wTb3cZTeTOIbROJvpJJOXdWHcLESv1KuavBjgGMVpQs=",
         "owner": "maxaudron",
         "repo": "beets-rockbox",
-        "rev": "919bfc13f5d8fef3c61db120aa34843fbb271665",
+        "rev": "ff353e22b6f8c401b705c6d4c5cda1637b6d7ac4",
         "type": "github"
       },
       "original": {
