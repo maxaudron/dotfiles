@@ -14,7 +14,9 @@
       devShells.default = pkgs.mkShell (
         let
           luarc = pkgs.mk-luarc-json {
-            plugins = self.nixosConfigurations.liduur.config.home-manager.users.audron.programs.neovim.plugins ++ [ pkgs.hyprland.dev ];
+            plugins =
+              self.nixosConfigurations.liduur.config.home-manager.users.audron.programs.neovim.plugins
+              ++ [ pkgs.hyprland.dev ];
           };
 
         in
@@ -34,6 +36,7 @@
         {
           # list of plugins that have a /lua directory
           nvim ? final.neovim-unwrapped,
+          hyprland ? final.hyprland,
           plugins ? [ ],
           meta ? { },
           # 5.1, 5.2, 5.3, 5.4, ... , jit51, jit52
@@ -65,6 +68,7 @@
           workspace = {
             library = [
               "${nvim}/share/nvim/runtime/lua"
+              "${hyprland}/share/hypr/stubs"
               "\${3rd}/busted/library"
               "\${3rd}/luassert/library"
             ]

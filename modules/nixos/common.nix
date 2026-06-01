@@ -153,7 +153,7 @@
 
   services.xserver.xkb = {
     layout = "us";
-    options = "compose:rctrl,ctrl:swapcaps";
+    options = "compose:rctrl";
   };
 
   networking.nftables.enable = true;

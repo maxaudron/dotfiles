@@ -8,7 +8,6 @@
 {
   imports = [
     ./hyprpaper
-    ./settings.nix
   ];
 
   options.my.desktop.hyprland = {
@@ -33,11 +32,22 @@
       xwayland = {
         enable = true;
       };
+
+      configType = "lua";
+      extraConfig = ''
+        require("config/settings")
+      '';
     };
 
     services.hyprpolkitagent = {
       enable = true;
       package = pkgs.hyprpolkitagent;
+    };
+
+    xdg.configFile = {
+      "hypr/config" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/desktop/hyprland/lua";
+      };
     };
   };
 }
