@@ -1,7 +1,1 @@
-{
-    "diagnostics.globals": [
-        "vim",
-        "Snacks",
-        "LazyVim"
-    ]
-}
+/nix/store/fvd464vwpjgw8844yrbwlrks6lkq5vbc-luarc.json
