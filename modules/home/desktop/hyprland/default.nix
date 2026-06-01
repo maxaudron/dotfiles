@@ -28,7 +28,6 @@
         hy3
       ];
 
-      systemd.enable = false;
       xwayland = {
         enable = true;
       };

@@ -1,50 +1,20 @@
 hl.config({
-	plugins = {
+	plugin = {
 		hy3 = {
-			-- group_inset = 50,
+			group_inset = 15,
 
-			-- tabs = {
-				-- height = 42,
-				-- padding = 0,
-				-- radius = 15,
-				-- border_width = 2,
+			tabs = {
+				height = 30,
+				padding = 5,
+				radius = 10,
+				border_width = 2,
+			},
 
-				-- # active tab bar segment colors
-				-- "col.active" = "$surface0";
-				-- "col.active.border" = "$mauve";
-				-- "col.active.text" = "$mauve";
-
-				-- # active tab bar segment colors for bars on an unfocused monitor
-				-- "col.active_alt_monitor" = "$surface0";
-				-- "col.active_alt_monitor.border" = "$mauve";
-				-- "col.active_alt_monitor.text" = "$mauve";
-
-				-- # focused tab bar segment colors (focused node in unfocused container)
-				-- "col.focused" = "$surface0";
-				-- "col.focused.border" = "$surface0";
-				-- "col.focused.text" = "$surface0";
-
-				-- # inactive tab bar segment colors
-				-- "col.inactive" = "$surface0";
-				-- "col.inactive.border" = "$surface0";
-				-- "col.inactive.text" = "$surface0";
-
-				-- # urgent tab bar segment colors
-				-- "col.urgent" = "$surface0";
-				-- "col.urgent.border" = "$red";
-				-- "col.urgent.text" = "$red";
-
-				-- # locked tab bar segment colors
-				-- "col.locked" = "$surface0";
-				-- "col.locked.border" = "$peach";
-				-- "col.locked.text" = "$peach";
-			-- },
-
-			-- autotile = {
-			-- 	enable = true,
-			-- 	trigger_width = 800,
-			-- 	trigger_height = 500,
-			-- },
+			autotile = {
+				enable = true,
+				trigger_width = 800,
+				trigger_height = 500,
+			},
 		},
 	},
 })

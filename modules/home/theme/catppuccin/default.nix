@@ -74,6 +74,7 @@
           };
         };
       })
+      (import ./hyprland.nix { inherit lib config; })
     ]
   );
 }

@@ -8,7 +8,7 @@ in
 {
   imports = [
     ./ayu
-    ./catppuccin.nix
+    ./catppuccin
   ];
 
   options.my.theme = {
