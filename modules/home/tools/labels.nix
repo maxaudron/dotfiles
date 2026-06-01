@@ -1,16 +1,20 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 
 {
-  home.packages = [
-    (pkgs.python312Packages.brother-ql.overrideAttrs (
-      prev: final: rec {
-        version = "1.3";
-        src = pkgs.fetchPypi {
-          pname = "brother-ql-inventree";
-          version = version;
-          hash = lib.fakeHash;
-        };
-      }
-    ))
-  ];
+  options.my.tools.labels = {
+    enable = lib.mkEnableOption "labels";
+  };
+
+  config = lib.mkIf config.my.tools.labels.enable {
+    home.packages = [ pkgs.brother-ql ];
+    home.sessionVariables = {
+      BROTHER_QL_PRINTER = "tcp://192.168.144.174";
+      BROTHER_QL_MODEL = "PT-P750W";
+    };
+  };
 }

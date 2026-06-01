@@ -16,6 +16,7 @@
       printing.enable = true;
       rust.enable = true;
       latex.enable = true;
+      labels.enable = true;
     };
 
     progs = {

@@ -18,6 +18,7 @@ self: super:
   spleen = super.callPackage ./spleen {};
 
   serena = super.python3Packages.callPackage ./serena {};
+  brother-ql = super.python314Packages.callPackage ./brother-ql {};
 
   mcp-hub = super.callPackage ./mcp-hub {};
 
