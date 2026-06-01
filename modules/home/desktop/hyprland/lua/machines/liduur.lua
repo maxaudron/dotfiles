@@ -6,7 +6,7 @@ hl.monitor({
 	bitdepth = 10,
 	cm = "dp3",
 	vrr = 1,
-	icc = "/home/audron/.dotfiles/misc/icc/liduur_dp1.icc",
+	-- icc = "/home/audron/.dotfiles/misc/icc/liduur_dp1.icc",
 })
 
 hl.monitor({
@@ -15,5 +15,5 @@ hl.monitor({
 	position = "3840x0",
 	scale = 1,
 	transform = 3,
-	icc = "/home/audron/.dotfiles/misc/icc/liduur_dp2.icc",
+	-- icc = "/home/audron/.dotfiles/misc/icc/liduur_dp2.icc",
 })

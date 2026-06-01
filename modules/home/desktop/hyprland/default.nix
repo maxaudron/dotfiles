@@ -33,7 +33,6 @@
         enable = true;
       };
 
-      configType = "lua";
       extraConfig = ''
         require("config/settings")
       '';
