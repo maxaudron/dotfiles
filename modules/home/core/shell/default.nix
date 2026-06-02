@@ -56,6 +56,14 @@ in
     shellAliases = aliases;
   };
 
+  programs.man = {
+    enable = true;
+    package = pkgs.mandoc;
+    man-db.enable = false;
+    mandoc.enable = true;
+    generateCaches = true;
+  };
+
   programs.fish = {
     enable = true;
     package = pkgs.unstable.fish;

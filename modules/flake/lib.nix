@@ -19,7 +19,7 @@
         if inputs.nixpkgs.lib.strings.hasSuffix "-linux" system then
           inputs.nixpkgs.lib.nixosSystem
         else
-          darwin.lib.darwinSystem;
+          inputs.darwin.lib.darwinSystem;
 
       mkSystem =
         name: system:

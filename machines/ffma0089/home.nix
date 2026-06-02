@@ -13,6 +13,6 @@
     };
   };
 
-  home.packages = [ pkgs.quasselClient ];
-  home.stateVersion = "25.05";
+  # home.packages = [ pkgs.quasselClient ];
+  home.stateVersion = "26.05";
 }
