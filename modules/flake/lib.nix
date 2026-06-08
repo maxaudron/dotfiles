@@ -1,7 +1,6 @@
 {
   withSystem,
   inputs,
-  darwin,
   self,
   ...
 }:
