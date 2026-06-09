@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  system,
   beets-rockbox,
   ...
 }:
@@ -52,6 +51,7 @@ in
         )).override
           {
             pluginOverrides = {
+              albumtypes.enable = true;
               alternatives = {
                 enable = true;
                 propagatedBuildInputs = [ pkgs.unstable.python313Packages.beets-alternatives ];
@@ -78,6 +78,7 @@ in
 
       settings = {
         plugins = [
+          "albumtypes"
           "alternatives"
           "convert"
           "edit"
@@ -100,9 +101,10 @@ in
 
         paths = {
           default = "$albumartist/$album%aunique{}/$track $title";
-          singleton = "$artist/Singles/$title";
+          singleton = "$artist/Singles/$title%sunique{}";
           comp = "Compilations/$album%aunique{}/$track $title";
           "albumtypes:soundtrack" = "Soundtracks/$album/$track $title";
+          "albumtypes:single" = "$artist/Singles/$title%sunique{}";
         };
 
         import = {
@@ -199,6 +201,10 @@ in
           # ratelimit = 150;
           # https = true;
           genres = true;
+          external_ids = {
+            discogs = true;
+            bandcamp = true;
+          };
         };
 
         replaygain = {
