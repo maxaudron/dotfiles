@@ -14,7 +14,9 @@
     home.packages = with pkgs; [
       rustc
       cargo
-      # rust-analyzer
+      clippy
+      rustfmt
+      rust-analyzer
 
       cargo-outdated
       cargo-expand

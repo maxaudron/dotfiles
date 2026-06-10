@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   my = {
     progs = {
       firefox.enable = true;
+      mail.enable = true;
     };
 
     tools = {

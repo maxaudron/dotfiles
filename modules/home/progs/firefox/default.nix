@@ -51,19 +51,5 @@
         };
       };
     };
-
-    programs.thunderbird = {
-      enable = true;
-      package = pkgs.thunderbird;
-
-      profiles = {
-        "audron" = {
-          isDefault = true;
-          settings = {
-            "extensions.autoDisableScopes" = 0;
-          };
-        };
-      };
-    };
   };
 }

@@ -21,6 +21,7 @@
 
     progs = {
       kicad.enable = true;
+      mail.enable = true;
     };
   };
 

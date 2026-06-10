@@ -11,6 +11,7 @@ with lib;
 
     ./pass.nix
     ./kanidm.nix
+    ./mail.nix
   ];
 
   config.my.progs = {
