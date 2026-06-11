@@ -59,7 +59,7 @@ in
               rockbox = {
                 enable = true;
                 propagatedBuildInputs = [
-                  (pkgs.unstable.python313Packages.callPackage "${beets-rockbox}/nix/package.nix" {})
+                  (pkgs.unstable.python313Packages.callPackage "${beets-rockbox}/nix/package.nix" { })
                 ];
               };
               edit.enable = true;
@@ -69,6 +69,7 @@ in
               lastgenre.enable = true;
               lyrics.enable = true;
               musicbrainz.enable = true;
+              mbsync.enable = true;
               mpdupdate.enable = true;
               convert.enable = true;
               replaygain.enable = true;
@@ -89,6 +90,8 @@ in
           "lastgenre"
           "lyrics"
           "musicbrainz"
+          # "mbpseudo"
+          "mbsync"
           "mpdupdate"
           "permissions"
           "replaygain"
@@ -110,6 +113,21 @@ in
         import = {
           write = true;
           move = true;
+
+          languages = "en";
+
+          match = {
+            preferred = {
+              countries = [
+                "XW"
+                "EU"
+              ];
+              media = [
+                "Digital Media|File"
+                "CD"
+              ];
+            };
+          };
         };
 
         alternatives = {
@@ -197,14 +215,28 @@ in
         };
 
         musicbrainz = {
-          # host = "musicbrainz.vapor.systems";
-          # ratelimit = 150;
-          # https = true;
-          genres = true;
+          host = "musicbrainz.vapor.systems";
+          ratelimit = 150;
+          https = true;
+          
+          genres = false;
           external_ids = {
             discogs = true;
             bandcamp = true;
           };
+        };
+
+        mbpseudo = {
+          # host = "musicbrainz.vapor.systems";
+          # ratelimit = 150;
+          # https = true;
+
+          # scripts = [ "Latn" ];
+          # genres = false;
+          # external_ids = {
+          #   discogs = true;
+          #   bandcamp = true;
+          # };
         };
 
         replaygain = {
@@ -257,7 +289,6 @@ in
               '^\.': _
               '[\x00-\x1f]': _
               '[<>"\?\*\|]': _
-              ':': ""
               '\.$': _
               '\s+$': ""
               '^\s+': ""
