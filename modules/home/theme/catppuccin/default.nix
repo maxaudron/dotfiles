@@ -24,7 +24,7 @@
           };
         };
 
-        programs.noctalia-shell.settings.colorSchemes.predefinedScheme = "Catppuccin";
+        programs.noctalia.settings.colorSchemes.predefinedScheme = "Catppuccin";
 
         programs.fish.interactiveShellInit = ''
           set --global hydro_color_pwd 'cba6f7'

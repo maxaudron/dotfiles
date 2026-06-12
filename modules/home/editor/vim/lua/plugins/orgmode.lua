@@ -26,5 +26,6 @@ return {
 	end,
 	keys = {
 		{ "<leader>ot", "<cmd>edit ~/.org/todo.org<cr>", desc = "Open Todo" },
+		{ "<leader>ob", "<cmd>Neotree ~/.org<cr>", desc = "Browse Org files" },
 	},
 }

@@ -19,12 +19,6 @@ vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<leader>bl", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-vim.keymap.set("n", "<leader>bd", function()
-  Snacks.bufdelete()
-end, { desc = "Delete Buffer" })
-vim.keymap.set("n", "<leader>bo", function()
-  Snacks.bufdelete.other()
-end, { desc = "Delete Other Buffers" })
 vim.keymap.set("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 
 
@@ -43,10 +37,6 @@ vim.keymap.set(
   { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
--- better indenting
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
-
 -- highlights under cursor
 vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 vim.keymap.set("n", "<leader>uI", function()
@@ -54,15 +44,10 @@ vim.keymap.set("n", "<leader>uI", function()
   vim.api.nvim_input("I")
 end, { desc = "Inspect Tree" })
 
--- floating terminal
-vim.keymap.set("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
-
 -- windows
 vim.keymap.set("n", "<leader>w-", "<C-W>s", { desc = "Split Window Below", remap = true })
 vim.keymap.set("n", "<leader>w|", "<C-W>v", { desc = "Split Window Right", remap = true })
 vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
-Snacks.toggle.zen():map("<leader>uz")
 
 -- tabs
 vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
@@ -83,3 +68,11 @@ vim.keymap.set("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>",
   { desc = "Rename Symbol", noremap = true, silent = true })
 vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.selection_range()<CR>",
   { desc = "Select LSP Range", noremap = true, silent = true })
+
+-- terminal
+vim.keymap.set("n", "<leader>\\", "<cmd>terminal<cr>", { noremap = true, silent = true })
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-N>", { noremap = true, silent = true })
+vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Go to Left Window", remap = true })
+vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Go to Lower Window", remap = true })
+vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Go to Upper Window", remap = true })
+vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l", { desc = "Go to Right Window", remap = true })

@@ -29,7 +29,7 @@ return {
 				opts = {
 					auto_save = true,
 					expiration_days = 30,
-					picker = "snacks",
+					picker = "telescope",
 					delete_on_clearing_chat = true,
 
 					auto_generate_title = false,

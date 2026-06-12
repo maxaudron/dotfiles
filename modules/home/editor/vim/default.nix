@@ -52,6 +52,8 @@ in
       himalaya
       pandoc
 
+      manix
+
       asciidoctor-with-extensions
 
       unstable.claude-code
@@ -60,24 +62,32 @@ in
 
     programs.neovim = {
       enable = true;
-      package = pkgs.neovim-unwrapped;
+      package = pkgs.unstable.neovim-unwrapped;
 
       defaultEditor = true;
       vimAlias = true;
       vimdiffAlias = true;
 
       plugins =
-        with pkgs.vimPlugins;
+        with pkgs.unstable.vimPlugins;
         with vimPlugins;
         [
+          # essentials
           lazy-nvim
-          catppuccin-nvim
-          snacks-nvim
+          mini-nvim
           conform-nvim
           plenary-nvim
 
+          neo-tree-nvim
+          telescope-nvim
+          telescope-fzf-native-nvim
+          telescope-manix
+          snipe-nvim
+
+          # color themes
+          catppuccin-nvim
+
           which-key-nvim
-          mini-icons
           nvim-web-devicons
 
           vim-fugitive
@@ -85,6 +95,7 @@ in
           blink-cmp
           blink-cmp-avante
           nvim-lint
+          toggleterm-nvim
 
           asciidoctor
           render-markdown-nvim
@@ -98,11 +109,7 @@ in
           trouble-nvim
           lualine-nvim
 
-          nvim-highlight-colors
           rainbow-delimiters-nvim
-          mini-surround
-          mini-pairs
-          mini-snippets
 
           nvim-decipher
 

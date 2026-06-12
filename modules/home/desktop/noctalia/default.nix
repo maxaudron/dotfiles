@@ -9,7 +9,6 @@
 
 let
   package = noctalia.packages."${system}".default;
-  target = "graphical-session.target";
 in
 {
   imports = [ noctalia.homeModules.default ];
@@ -19,8 +18,9 @@ in
   };
 
   config = lib.mkIf config.my.desktop.noctalia.enable {
-    programs.noctalia-shell = {
+    programs.noctalia = {
       enable = true;
+      systemd.enable = true;
       settings = {
         # configure noctalia here; defaults will
         # be deep merged with these attributes.
@@ -82,33 +82,6 @@ in
           fontDefault = "IBM Plex Sans";
           fontFixed = "IBM Plex Mono";
         };
-      };
-    };
-
-    systemd.user.services.noctalia-shell = {
-      Unit = {
-        description = "Noctalia Shell - Wayland desktop shell";
-        documentation = [ "https://github.com/noctalia-dev/noctalia-shell" ];
-        StartLimitIntervalSec = 60;
-        StartLimitBurst = 3;
-        After = [ target ];
-        PartOf = [ target ];
-      };
-
-      Install = {
-        WantedBy = [ target ];
-      };
-
-      Service = {
-        ExecStart = "${package}/bin/noctalia-shell";
-        Restart = "on-failure";
-        RestartSec = 3;
-        RestartTriggers = [ package ];
-        TimeoutStartSec = 10;
-        TimeoutStopSec = 5;
-        Environment = [
-          "NOCTALIA_SETTINGS_FALLBACK=%h/.config/noctalia/gui-settings.json"
-        ];
       };
     };
 
