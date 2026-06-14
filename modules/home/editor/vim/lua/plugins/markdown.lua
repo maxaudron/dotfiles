@@ -2,12 +2,11 @@ return {
   'MeanderingProgrammer/render-markdown.nvim',
   dependencies = {
     'nvim-treesitter/nvim-treesitter',
-    'echasnovski/mini.icons'
   },
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
-    file_types = { "markdown", "Avante", "codecompanion" },
+    file_types = { "markdown", "codecompanion" },
   },
-  ft = { "markdown", "Avante", "codecompanion" },
+  ft = { "markdown", "codecompanion" },
 }

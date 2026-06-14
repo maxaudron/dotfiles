@@ -9,6 +9,7 @@ return {
         { "<leader>a", group = "AI" },
         { "<leader>b", group = "buffers" },
         { "<leader>c", group = "code" },
+        { "<leader>ct", group = "tests" },
         { "<leader>f", group = "file" },
         { "<leader>g", group = "git" },
         { "<leader>gh", group = "hunks" },

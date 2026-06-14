@@ -47,7 +47,7 @@ return {
 		signature = { enabled = true },
 
 		sources = {
-			default = { "lsp", "avante", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets", "buffer" },
 			providers = {
 				avante = {
 					module = "blink-cmp-avante",

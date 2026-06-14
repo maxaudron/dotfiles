@@ -188,11 +188,11 @@ in
       "nvim/lua" = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/editor/vim/lua";
       };
-      "nvim/queries" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/editor/vim/queries";
-      };
       "nvim/snippets" = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/editor/vim/snippets";
+      };
+      "nvim/after" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/modules/home/editor/vim/after";
       };
     };
   };

@@ -5,7 +5,9 @@ return {
 	config = function()
     vim.g.rustaceanvim = {
       -- Plugin configuration
-      tools = {},
+      tools = {
+        test_executor = "background"
+      },
       -- LSP configuration
       server = {
         settings = {
@@ -32,10 +34,6 @@ return {
     }
 	end,
 	keys = {
-		{ "<leader>ct", desc = "Tests" },
-		{ "<leader>ctt", function () vim.cmd.RustLsp('testables') end, desc = "Run All Tests" },
-		{ "<leader>ctl", function () vim.cmd.RustLsp { 'testables', bang = true } end, desc = "Run All Tests" },
-		{ "<leader>ctr", function () vim.cmd.RustLsp('run') end, desc = "Run Under Cursor" },
 		{ "<leader>cm", function () vim.cmd.RustLsp('expandMacro') end, desc = "Expand Macro" },
 		{ "<leader>cd", desc = "Diagnostics" },
 		{ "<leader>cdr", function () vim.cmd.RustLsp('relatedDiagnostics') end, desc = "Related" },
