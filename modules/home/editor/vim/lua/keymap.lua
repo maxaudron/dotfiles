@@ -59,15 +59,12 @@ vim.keymap.set("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" 
 vim.keymap.set("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 -- lsp / code
-vim.keymap.set("n", "g.", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-  { desc = "Code Action", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-  { desc = "Code Action", noremap = true, silent = true })
+vim.keymap.set("n", "g.", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code Action", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "Code Action", noremap = true, silent = true })
 vim.keymap.set("n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Hover", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>",
-  { desc = "Rename Symbol", noremap = true, silent = true })
-vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.selection_range()<CR>",
-  { desc = "Select LSP Range", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "Rename Symbol", noremap = true, silent = true })
+vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.selection_range()<CR>", { desc = "Select LSP Range", noremap = true, silent = true })
+vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Select LSP Range", noremap = true, silent = true })
 
 -- terminal
 vim.keymap.set("n", "<leader>\\", "<cmd>terminal<cr>", { noremap = true, silent = true })
