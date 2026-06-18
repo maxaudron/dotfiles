@@ -1,6 +1,6 @@
 image:https://img.shields.io/badge/git-repo-cba6f7?logo=git[link=https://git.audron.dev/dotfiles.git]
 image:https://img.shields.io/badge/github-repo-blue?logo=github[link=https://github.com/maxaudron/dotfiles]
-image:https://img.shields.io/badge/gitlab-repo-orange?logo=github[link=https://gitlab.com/audron/dotfiles]
+image:https://img.shields.io/badge/gitlab-repo-orange?logo=gitlab[link=https://gitlab.com/audron/dotfiles]
 image:https://img.shields.io/badge/codeberg-repo-violet?logo=codeberg[link=https://codeberg.org/maxaudron/dotfiles]
 
 == audron's dotfiles
