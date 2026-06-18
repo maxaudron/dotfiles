@@ -4,6 +4,9 @@
   ...
 }:
 
+let
+  sign = config.my.user.signingkey != null;
+in
 {
   home.packages = with pkgs; [
     bfg-repo-cleaner
@@ -23,17 +26,15 @@
       user = {
         name = config.my.user.fullname;
         email = config.my.user.email;
-        # signingkey = "${pkgs.writeText "id_pub" user.pubkey}";
+        signingkey = config.my.user.signingkey;
       };
 
-      # signing = {
-      #   signByDefault = true;
-      #   format = "ssh";
-      # };
-      #
-      # commit.gpgSign = true;
-      # tag.gpgSign = true;
-      # gpg.format = "ssh";
+      signing = {
+        signByDefault = sign;
+      };
+
+      commit.gpgSign = sign;
+      tag.gpgSign = sign;
 
       init = {
         defaultBranch = "main";
