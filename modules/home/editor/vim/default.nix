@@ -11,6 +11,7 @@ let
   vimPlugins = {
     nvim-decipher = pkgs.callPackage ./plugins/decipher.nix { };
     asciidoctor = pkgs.callPackage ./plugins/asciidoctor.nix { };
+    git-link = pkgs.callPackage ./plugins/git-link.nix { };
     treesitter-asciidoc = pkgs.callPackage ./plugins/treesitter-asciidoc.nix {
       buildGrammar = pkgs.tree-sitter.buildGrammar;
     };
@@ -100,6 +101,7 @@ in
           asciidoctor
           render-markdown-nvim
           wrapping-nvim
+          git-link
 
           pkgs.unstable.vimPlugins.codecompanion-nvim
           pkgs.unstable.vimPlugins.codecompanion-spinner-nvim
