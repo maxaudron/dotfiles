@@ -4,6 +4,7 @@
   imports = [
     ./audio.nix
     ./hardware-configuration.nix
+    ./wireguard.nix
   ];
 
   boot.binfmt.emulatedSystems = [
@@ -105,42 +106,6 @@
     };
 
     firewall.enable = false;
-
-    wireguard = {
-      enable = true;
-      interfaces = {
-        wg0 = {
-          privateKeyFile = "/etc/wireguard/privatekey";
-          ips = [
-            "10.10.0.10/24"
-            "2a0f:9400:8020:beef::10/128"
-            "fd15:3d8c:d429:beef::10/128"
-          ];
-          peers = [
-            {
-              endpoint = "ettves.vapor.systems:51820";
-              publicKey = "5OTaf4MnSzTcCR10CGSrLFngGa3gdzajbqUKkRF+WlY=";
-              allowedIPs = [
-                # Wireguard peers
-                "10.10.0.0/24"
-                "2a0f:9400:8020:beef::/64"
-                "fd15:3d8c:d429:beef::/64"
-              ];
-            }
-            {
-              endpoint = "phaenn.vapor.systems:51820";
-              publicKey = "GmUvA3L8M2+N59my6MeoGwDD8puLOO5/Rbe29WtduBI=";
-              allowedIPs = [
-                # Wireguard peers
-                "10.10.0.2/32"
-                "2a0f:9400:8020:beef::2/128"
-                "fd15:3d8c:d429:beef::2/128"
-              ];
-            }
-          ];
-        };
-      };
-    };
   };
 
   services.tgt = {

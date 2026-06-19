@@ -6,6 +6,9 @@
   ...
 }:
 
+let
+  cat = config.catppuccin;
+in
 {
   imports = [ catppuccin.homeModules.catppuccin ];
   config = lib.mkIf (config.my.theme.style == "catppuccin") (
@@ -61,6 +64,21 @@
           };
         };
       }
+
+      (lib.mkIf config.programs.meli.enable (
+        let
+          theme = "catppuccin-${cat.flavor}-${cat.accent}";
+        in
+        {
+          programs.meli.settings.terminal.theme = theme;
+          xdg.configFile."meli/themes/${theme}.toml".source = "${
+            fetchGit {
+              url = "https://github.com/maxaudron/catppuccin-meli";
+              rev = "0e97a3f5a60a9213e45491d234c2c6edeff54652";
+            }
+          }/dist/${theme}.toml";
+        }
+      ))
 
       (lib.mkIf config.my.progs.mc.enable {
         xdg.dataFile."mc/skins/catppuccin.ini".source = "${

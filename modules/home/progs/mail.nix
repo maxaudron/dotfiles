@@ -15,7 +15,19 @@
     accounts.email.accounts = import "${secrets}/mail.nix" { inherit lib; };
     programs.meli = {
       enable = true;
-      settings = { };
+      settings = {
+        shortcuts = {
+          general = {
+            quit = "C-c";
+            commands = [
+              { command = [ "reload-config" ]; shortcut = "C-r"; }
+            ];
+          };
+          listing = {
+            exit_entry = "q";
+          };
+        };
+      };
     };
 
     home.packages = with pkgs; [ w3m ];

@@ -149,7 +149,7 @@ in
               ron
               treesitter-asciidoc
               ledger
-              tree-sitter-org-nvim
+              # pkgs.luajitPackages.tree-sitter-orgmode
             ]
           ))
           nvim-treesitter-context
