@@ -2,6 +2,7 @@
 
 {
   my = {
+    games.enable = true;
     desktop = {
       enable = true;
       hyprland.enable = true;

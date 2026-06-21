@@ -7,7 +7,7 @@
 }:
 
 let
-  factorio = pkgs.master.factorio-space-age.override (
+  factorio = pkgs.factorio-space-age.override (
     lib.importTOML ("${secrets}" + "/factorio.toml")
   );
 in
