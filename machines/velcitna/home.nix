@@ -2,6 +2,7 @@
 
 {
   my = {
+    games.enable = true;
     desktop = {
       enable = true;
       sway.enable = true;
@@ -13,6 +14,7 @@
 
     tools = {
       rust.enable = true;
+      wine.enable = true;
     };
   };
 

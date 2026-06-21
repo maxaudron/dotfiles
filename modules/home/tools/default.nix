@@ -14,6 +14,7 @@ with lib;
     ./labels.nix
     ./latex.nix
     ./rust.nix
+    ./wine.nix
     ./work.nix
     ./podman
   ];
