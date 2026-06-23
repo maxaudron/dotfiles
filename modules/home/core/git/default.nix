@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }:
 
@@ -26,7 +27,7 @@ in
       user = {
         name = config.my.user.fullname;
         email = config.my.user.email;
-        signingkey = config.my.user.signingkey;
+        signingkey = lib.mkIf (config.my.user.signingkey != null) config.my.user.signingkey;
       };
 
       signing = {

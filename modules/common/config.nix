@@ -7,7 +7,7 @@ with lib;
     email = mkOption { type = types.str; };
     fullname = mkOption { type = types.str; };
     pubkey = mkOption { type = types.str; };
-    signingkey = mkOption { type = types.str; };
+    signingkey = mkOption { type = types.nullOr types.str; };
   };
 
   config.my.user = {
