@@ -63,6 +63,6 @@ return {
 
 	keys = {
 		-- Top Pickers & Explorer
-		{ "<leader>bd", function() MiniBufremove.unshow() end, desc = "Delete Buffer" },
+		{ "<leader>bd", function() MiniBufremove.wipeout() end, desc = "Delete Buffer" },
 	},
 }
