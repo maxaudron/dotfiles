@@ -97,20 +97,7 @@
         darwinModules = import ./modules/darwin { inherit (nixpkgs) lib; };
 
         homeModules.default = import ./modules/home;
-        homeConfigurations.default =
-          let
-            system = "x86_64-linux";
-            machineName = "headless";
-          in
-          home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-            extraSpecialArgs = inputs // {
-              inherit builtins system machineName;
-            };
-            modules = [
-              self.homeModules.default
-            ];
-          };
+        homeConfigurations.default = self.lib.mkHomeConfig "headless" "x86_64-linux";
 
         nixosConfigurations.liduur = self.lib.mkSystem "liduur" "x86_64-linux";
         nixosConfigurations.velcitna = self.lib.mkSystem "velcitna" "x86_64-linux";

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, builtins, ... }:
+{ lib, ... }:
 
 let
   files = lib.mapAttrsToList (name: type: name) (builtins.readDir ./functions);

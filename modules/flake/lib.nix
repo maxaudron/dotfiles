@@ -43,6 +43,22 @@
           }
         );
 
+      mkHomeConfig =
+        name: system:
+        withSystem system (
+          { pkgs, system, ... }:
+          inputs.home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
+            extraSpecialArgs = self.lib.specialArgs // {
+              inherit system;
+              machineName = name;
+            };
+            modules = [
+              self.homeModules.default
+            ];
+          }
+        );
+
       linuxModules = [
         inputs.home-manager.nixosModules.home-manager
         inputs.catppuccin.nixosModules.catppuccin
