@@ -40,3 +40,34 @@ local lsp = {
 for _, s in ipairs(lsp) do
 	vim.lsp.enable(s)
 end
+
+
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {
+    test_executor = "background",
+  },
+  -- LSP configuration
+  server = {
+    settings = {
+      -- rust-analyzer language server configuration
+      ["rust-analyzer"] = {
+        diagnostics = {
+          disabled = {
+            "inactive-code",
+          },
+        },
+        cargo = {
+          buildScripts = {
+            enable = true,
+          },
+        },
+        procMacro = {
+          enable = true,
+        },
+      },
+    },
+  },
+  -- DAP configuration
+  dap = {},
+}

@@ -159,6 +159,8 @@ in
         vim.g.mapleader = " "
         vim.g.maplocalleader = "\\"
 
+        require("init")
+
         require("lazy").setup({
           spec = {
             -- import your plugins
@@ -181,8 +183,6 @@ in
             missing = false,
           }
         })
-
-        require("init")
       '';
     };
 
