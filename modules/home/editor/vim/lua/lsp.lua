@@ -43,10 +43,6 @@ end
 
 
 vim.g.rustaceanvim = {
-  -- Plugin configuration
-  tools = {
-    test_executor = "background",
-  },
   -- LSP configuration
   server = {
     settings = {
