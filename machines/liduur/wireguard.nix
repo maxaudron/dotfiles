@@ -2,7 +2,6 @@
 
 let
   ifname = "wg0";
-  endpoint = "ettves.vapor.systems";
 in
 {
   environment.systemPackages = [ pkgs.wireguard-tools ];

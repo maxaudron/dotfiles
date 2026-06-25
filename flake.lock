@@ -660,11 +660,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1781091650,
-        "narHash": "sha256-e90R69xlDaOgFl5hmyjPqV8Hw4VPM2xNeYsAJd7IrD4=",
+        "lastModified": 1782378159,
+        "narHash": "sha256-JsM9dnkpSCK076clzgimcmz2/G3AcU5l0scDCjxnZ1Q=",
         "ref": "refs/heads/main",
-        "rev": "78b14faa01e0475777f41617e8f71d1d5aa1f376",
-        "revCount": 49,
+        "rev": "b41f91f763eccf47daace1c870da05f462dcd2c7",
+        "revCount": 51,
         "type": "git",
         "url": "ssh://audron@audron.dev/home/audron/secrets.git"
       },

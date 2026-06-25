@@ -2,8 +2,10 @@
 with lib;
 rec {
   common = import ./common.nix;
+  secrets = import ./secrets.nix;
   udev = import ./udev.nix;
 
+  acme = import ./acme.nix;
   audio = import ./audio;
   autologin = import ./autologin;
   klipper = import ./klipper;
@@ -19,12 +21,14 @@ rec {
     {
       imports = [
         common
+        secrets
         udev
 
+        acme
+        audio
         autologin
         yubikey
         kmscon
-        audio
         uwsm
         tgt
       ];

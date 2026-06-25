@@ -210,6 +210,19 @@
     # };
   };
 
+  my.acme.enable = true;
+  pubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINAcxPWinEbmLUdJ2JsaGD0Y1nbFeQzf93/twg2WgnQd root@liduur";
+  security.acme.certs."wg" =
+    let
+      domain = "liduur.wg.vapor.systems";
+    in
+    {
+      inherit domain;
+      extraDomainNames = [
+        "*.${domain}"
+      ];
+    };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

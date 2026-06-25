@@ -52,6 +52,7 @@
       isNormalUser = true;
       password = "audron";
       extraGroups = [
+        "acme"
         "wheel"
         "input"
         "libvirtd"

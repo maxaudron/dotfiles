@@ -1,4 +1,4 @@
-{ ... }:
+{ osConfig, ... }:
 
 {
   programs.zellij = {
@@ -9,6 +9,15 @@
       pane_frames = false;
       simplified_ui = true;
       default_mode = "locked";
+
+      web_server_ip = "0.0.0.0";
+      web_server_port = 8293;
+      web_server_cert = "${osConfig.security.acme.certs.wg.directory}/fullchain.pem";
+      web_server_key = "${osConfig.security.acme.certs.wg.directory}/key.pem";
+
+      web_client = {
+        font = "TX-02-Variable";
+      };
     };
 
     extraConfig = ''
