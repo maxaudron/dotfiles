@@ -15,7 +15,7 @@
         let
           luarc = pkgs.mk-luarc-json {
             plugins =
-              self.nixosConfigurations.liduur.config.home-manager.users.audron.programs.neovim.plugins
+              self.homeConfigurations.default.config.programs.neovim.plugins
               ++ [ pkgs.hyprland.dev ];
           };
 
