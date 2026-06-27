@@ -48,6 +48,9 @@ vim.g.rustaceanvim = {
     settings = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
+        check = {
+          command = "clippy",
+        },
         diagnostics = {
           disabled = {
             "inactive-code",
