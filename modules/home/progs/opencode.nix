@@ -26,7 +26,7 @@
             npm = "@ai-sdk/openai-compatible";
             name = "Local";
             options = {
-              baseURL = "http://10.10.0.11:8888/v1";
+              baseURL = "http://192.168.144.11:8888/v1";
             };
             models = {
               "unsloth/Qwen3.6-27B-MTP-GGUF" = {

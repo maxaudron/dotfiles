@@ -1,4 +1,9 @@
-{ osConfig, lib, ... }:
+{
+  osConfig,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   programs.zellij = {
@@ -12,10 +17,8 @@
 
       web_server_ip = "0.0.0.0";
       web_server_port = 8293;
-      web_server_cert = lib.mkIf (
-        osConfig != null
-      ) "${osConfig.security.acme.certs.wg.directory}/fullchain.pem";
-      web_server_key = lib.mkIf (osConfig != null) "${osConfig.security.acme.certs.wg.directory}/key.pem";
+      web_server_cert = lib.mkIf pkgs.stdenv.isLinux "${osConfig.security.acme.certs.wg.directory}/fullchain.pem";
+      web_server_key = lib.mkIf pkgs.stdenv.isLinux "${osConfig.security.acme.certs.wg.directory}/key.pem";
 
       web_client = {
         font = "TX-02-Variable";

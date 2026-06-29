@@ -19,6 +19,9 @@
       terraform
 
       (azure-cli.override { withImmutableConfig = false; })
+      (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+      awscli2
+      aws-adfs
     ];
   };
 }
