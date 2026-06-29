@@ -23,6 +23,7 @@
     progs = {
       kicad.enable = true;
       mail.enable = true;
+      opencode.enable = true;
     };
   };
 
