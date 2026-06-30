@@ -72,18 +72,6 @@ in
 
       # Hydro
       set --global hydro_symbol_prompt '>'
-
-      function pastor -a file
-        curl --progress-bar -F "c=@$file" "https://c-v.sh/?token=$(pass show general/c-v.sh | head -n1)"
-      end
-
-      function screenshot
-        grim -g "$(slurp)" - | pastor - | wl-copy
-      end
-
-      function nix-prefetch-sri
-        nix-prefetch-url "$1" | xargs nix hash to-sri --type sha256
-      end
     '';
     plugins = [
       {
