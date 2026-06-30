@@ -1,10 +1,23 @@
 {
   osConfig,
+  secrets,
   lib,
-  pkgs,
   ...
 }:
 
+let
+  certDir = lib.attrByPath [ "security" "acme" "certs" "wg" "directory" ] null osConfig;
+  cert =
+    if certDir != null then
+      "${certDir}/fullchain.pem"
+    else
+      "${secrets}/ca/local.vapor.systems/cert.pem";
+  key =
+    if certDir != null then
+      "${certDir.security.acme.certs.wg.directory}/key.pem"
+    else
+      "${secrets}/ca/local.vapor.systems/key.pem";
+in
 {
   programs.zellij = {
     enable = true;
@@ -17,8 +30,8 @@
 
       web_server_ip = "0.0.0.0";
       web_server_port = 8293;
-      web_server_cert = lib.mkIf pkgs.stdenv.isLinux "${osConfig.security.acme.certs.wg.directory}/fullchain.pem";
-      web_server_key = lib.mkIf pkgs.stdenv.isLinux "${osConfig.security.acme.certs.wg.directory}/key.pem";
+      web_server_cert = cert;
+      web_server_key = key;
 
       web_client = {
         font = "TX-02-Variable";

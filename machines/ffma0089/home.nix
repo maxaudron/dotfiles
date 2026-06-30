@@ -5,6 +5,7 @@
     progs = {
       firefox.enable = true;
       mail.enable = true;
+      opencode.enable = true;
     };
 
     tools = {
