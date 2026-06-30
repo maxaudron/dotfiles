@@ -4,7 +4,7 @@
 {
 
   perSystem =
-    {
+    inputs@{
       system,
       pkgs,
       lib,
@@ -13,10 +13,10 @@
     {
       devShells.default = pkgs.mkShell (
         let
+          homeConfig = self.lib.mkHomeConfig "headless" system;
           luarc = pkgs.mk-luarc-json {
-            plugins =
-              self.homeConfigurations.default.config.programs.neovim.plugins
-              ++ [ pkgs.hyprland.dev ];
+            plugins = homeConfig.config.programs.neovim.plugins;
+            libraries = lib.optionals pkgs.stdenv.isLinux [ "${pkgs.hyprland.dev}/share/hypr/stubs" ];
           };
 
         in
@@ -36,7 +36,7 @@
         {
           # list of plugins that have a /lua directory
           nvim ? final.neovim-unwrapped,
-          hyprland ? final.hyprland,
+          libraries ? [ ],
           plugins ? [ ],
           meta ? { },
           # 5.1, 5.2, 5.3, 5.4, ... , jit51, jit52
@@ -68,10 +68,10 @@
           workspace = {
             library = [
               "${nvim}/share/nvim/runtime/lua"
-              "${hyprland}/share/hypr/stubs"
               "\${3rd}/busted/library"
               "\${3rd}/luassert/library"
             ]
+            ++ libraries
             ++ plugin-luadirs
             ++ pkg-libdirs
             ++ pkg-sharedirs;
