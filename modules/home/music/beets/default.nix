@@ -218,7 +218,7 @@ in
           host = "musicbrainz.vapor.systems";
           ratelimit = 150;
           https = true;
-          
+
           genres = false;
           external_ids = {
             discogs = true;
@@ -288,7 +288,7 @@ in
               '[\\/]': _
               '^\.': _
               '[\x00-\x1f]': _
-              '[<>"\?\*\|]': _
+              '[<>:"\?\*\|]': ""
               '\.$': _
               '\s+$': ""
               '^\s+': ""

@@ -33,7 +33,7 @@
     extraPackages = with pkgs; [ su ];
   };
 
-  environment.systemPackages = [ pkgs.simple-scan ];
+  environment.systemPackages = [ pkgs.simple-scan pkgs.wootility ];
   hardware.sane = {
     enable = true;
     extraBackends = [ ];
@@ -222,6 +222,8 @@
         "*.${domain}"
       ];
     };
+
+  hardware.wooting.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
