@@ -14,7 +14,7 @@ let
       "${secrets}/ca/local.vapor.systems/cert.pem";
   key =
     if certDir != null then
-      "${certDir.security.acme.certs.wg.directory}/key.pem"
+      "${certDir}/key.pem"
     else
       "${secrets}/ca/local.vapor.systems/key.pem";
 in
