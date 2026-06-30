@@ -2,9 +2,8 @@
 { self, ... }:
 
 {
-
   perSystem =
-    inputs@{
+    {
       system,
       pkgs,
       lib,
@@ -13,7 +12,7 @@
     {
       devShells.default = pkgs.mkShell (
         let
-          homeConfig = self.lib.mkHomeConfig "headless" system;
+          homeConfig = self.lib.mkHomeConfig "stub" system;
           luarc = pkgs.mk-luarc-json {
             plugins = homeConfig.config.programs.neovim.plugins;
             libraries = lib.optionals pkgs.stdenv.isLinux [ "${pkgs.hyprland.dev}/share/hypr/stubs" ];

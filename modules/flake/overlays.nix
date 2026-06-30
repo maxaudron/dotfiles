@@ -21,13 +21,13 @@
       default = import ../../pkgs;
       unstable = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
-          system = prev.system;
+          system = prev.stdenv.hostPlatform.system;
           config.allowUnfree = true;
         };
       };
       master = final: prev: {
         master = import inputs.nixpkgs-master {
-          system = prev.system;
+          system = prev.stdenv.hostPlatform.system;
           config.allowUnfree = true;
         };
       };
