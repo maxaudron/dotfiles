@@ -20,11 +20,20 @@
           general = {
             quit = "C-c";
             commands = [
-              { command = [ "reload-config" ]; shortcut = "C-r"; }
+              {
+                command = [ "reload-config" ];
+                shortcut = "C-r";
+              }
             ];
           };
           listing = {
             exit_entry = "q";
+            commands = [
+              {
+                command = [ "moveto 2026" ];
+                shortcut = "a";
+              }
+            ];
           };
         };
       };
