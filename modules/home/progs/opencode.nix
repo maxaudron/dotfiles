@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options.my.progs.opencode = {
@@ -8,6 +8,7 @@
   config = lib.mkIf config.my.progs.opencode.enable {
     programs.opencode = {
       enable = true;
+      package = pkgs.unstable.opencode;
       settings = {
         provider = {
           clovis = {
@@ -22,16 +23,21 @@
               };
             };
           };
-          local = {
+          clara = {
             npm = "@ai-sdk/openai-compatible";
-            name = "Local";
+            name = "clara";
             options = {
-              baseURL = "http://192.168.144.11:8888/v1";
+              baseURL = "https://public.llm.de.clara.net";
             };
             models = {
-              "unsloth/Qwen3.6-27B-MTP-GGUF" = {
-                name = "Qwen 3.6 27B MTP";
-              };
+              "claude-opus-4.8" = { };
+              "claude-opus-4.7" = { };
+              "claude-opus-4.6" = { };
+              "claude-opus-4.5" = { };
+              "claude-sonnet-5" = { };
+              "claude-sonnet-4.6" = { };
+              "claude-sonnet-4.7" = { };
+              "claude-haiku-4.5" = { };
             };
           };
         };

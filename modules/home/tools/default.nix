@@ -48,6 +48,8 @@ with lib;
       # gtree.packages.${system}.default
 
       llm-usage
+
+      tokei
     ];
 
     programs.direnv = {
