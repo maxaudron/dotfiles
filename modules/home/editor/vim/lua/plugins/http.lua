@@ -1,4 +1,11 @@
 local user = os.getenv("USER") or "audron"
+local bin_path = string.format("/etc/profiles/per-user/%s/bin/kulala-core", user)
+local file = io.open(bin_path, "r")
+if file then
+  file:close()
+else
+  bin_path = string.format("/home/%s/bin/kulala-core", user)
+end
 
 return {
 	"mistweaverco/kulala.nvim",
@@ -19,7 +26,7 @@ return {
 			-- When set, this path is used exclusively.
 			-- When nil (default), auto-download and
 			-- use kulala-core from GitHub releases based on the user's OS and architecture.
-			path = string.format("/etc/profiles/per-user/%s/bin/kulala-core", user),
+			path = bin_path,
 			-- Subprocess timeout (ms) for kulala-core.
 			-- Default is 60000 (1 minute).
 			-- 0 disables the vim.system timeout.
