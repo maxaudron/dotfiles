@@ -11,14 +11,13 @@ return {
 	"mistweaverco/kulala.nvim",
 	-- Load before session save/restore so VimLeavePre and SessionLoadPost hooks are registered.
 	event = { "SessionLoadPost", "VimLeavePre" },
-	keys = {
-		{ "<leader>Rs", desc = "Send request" },
-		{ "<leader>Ra", desc = "Send all requests" },
-		{ "<leader>Rb", desc = "Open scratchpad" },
-	},
 	-- See opts.lsp.enforce_external_script_naming_convention
 	-- to restrict LSP capabilities to *.http, *.http.js, *.http.ts and *.http.lua files.
-	ft = { "http", "rest", "javascript", "lua", "graphql" },
+	ft = { "http", "rest", "javascript", "lua" },
+  config = function ()
+    vim.treesitter.language.register('kulala_http', { 'http', 'rest' })
+    vim.treesitter.start()
+  end,
 	opts = {
 		kulala_core = {
 			-- Optional path to the kulala-core executable
@@ -191,14 +190,13 @@ return {
 				"javascript",
 				"typescript",
 				"lua",
-        "graphql"
 			},
 
 			---Only scripts ending in *.http.js, *.http.ts and *.http.lua will be treated as HTTP scripts and
 			---have LSP capabilities, unless `enforce_external_script_naming_convention` is set to false.
 			---This allows users to have non-HTTP scripts with the same filetypes without LSP interference.
 			---@type boolean
-			enforce_external_script_naming_convention = true,
+			enforce_external_script_naming_convention = false,
 
 			--enable/disable/customize  LSP keymaps
 			---@type boolean|table
@@ -216,29 +214,7 @@ return {
 		-- (see docs or lua/kulala/config/keymaps.lua)
 		-- or override default keymaps as shown in the example below.
 		---@type boolean|table
-		global_keymaps = false,
-		--[[
-        {
-          ["Send request"] = { -- sets global mapping
-            "<leader>Rs",
-            function() require("kulala").run() end,
-            mode = { "n", "v" }, -- optional mode, default is n
-            desc = "Send request" -- optional description, otherwise inferred from the key
-          },
-          ["Send all requests"] = {
-            "<leader>Ra",
-            function() require("kulala").run_all() end,
-            mode = { "n", "v" },
-            ft = "http", -- sets mapping for *.http files only
-          },
-          ["Replay the last request"] = {
-            "<leader>Rr",
-            function() require("kulala").replay() end,
-            ft = { "http", "rest" }, -- sets mapping for specified file types
-          },
-        ["Find request"] = false -- set to false to disable
-        },
-      ]]
+		global_keymaps = true,
 
 		-- Prefix for global keymaps
 		global_keymaps_prefix = "<leader>R",

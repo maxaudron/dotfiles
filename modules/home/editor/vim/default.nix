@@ -55,6 +55,7 @@ in
 
       manix
 
+      luajitPackages.tree-sitter-cli
       asciidoctor-with-extensions
 
       unstable.claude-code
@@ -152,11 +153,12 @@ in
               treesitter-asciidoc
               ledger
               graphql
-              pkgs.unstable.luajitPackages.tree-sitter-kulala_http
-              # pkgs.luajitPackages.tree-sitter-orgmode
             ]
           ))
           nvim-treesitter-context
+
+          pkgs.unstable.luajitPackages.tree-sitter-kulala_http
+          pkgs.luajitPackages.tree-sitter-orgmode
         ];
 
       initLua = ''

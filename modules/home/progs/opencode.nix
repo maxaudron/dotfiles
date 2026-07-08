@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.my.progs.opencode = {
@@ -39,6 +44,18 @@
               "claude-sonnet-4.7" = { };
               "claude-haiku-4.5" = { };
             };
+          };
+        };
+        mcp = {
+          # git-search = {
+          #   type = "remote";
+          #   url = "https://git-search.prod.cke.de.clara.net/mcp";
+          #   enabled = true;
+          # };
+          git-search-dev = {
+            type = "remote";
+            url = "https://git-search.dev.cke.de.clara.net/mcp";
+            enabled = true;
           };
         };
       };
