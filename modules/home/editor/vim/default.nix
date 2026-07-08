@@ -59,6 +59,7 @@ in
 
       unstable.claude-code
       unstable.claude-agent-acp
+      unstable.kulala-core
     ];
 
     programs.neovim = {
@@ -122,6 +123,7 @@ in
 
           hex-nvim
           orgmode
+          pkgs.unstable.vimPlugins.kulala-nvim
 
           # Languages
           rustaceanvim
@@ -149,6 +151,8 @@ in
               ron
               treesitter-asciidoc
               ledger
+              graphql
+              pkgs.unstable.luajitPackages.tree-sitter-kulala_http
               # pkgs.luajitPackages.tree-sitter-orgmode
             ]
           ))
