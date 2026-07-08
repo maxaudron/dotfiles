@@ -217,7 +217,7 @@ return {
 		global_keymaps = true,
 
 		-- Prefix for global keymaps
-		global_keymaps_prefix = "<leader>R",
+		global_keymaps_prefix = "r",
 
 		-- Kulala UI keymaps; override with custom keymaps as required
 		-- (see docs or lua/kulala/config/keymaps.lua)
