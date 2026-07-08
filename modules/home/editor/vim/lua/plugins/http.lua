@@ -2,9 +2,9 @@ local user = os.getenv("USER") or "audron"
 local bin_path = string.format("/etc/profiles/per-user/%s/bin/kulala-core", user)
 local file = io.open(bin_path, "r")
 if file then
-  file:close()
+	file:close()
 else
-  bin_path = string.format("/home/%s/.nix-profile/bin/kulala-core", user)
+	bin_path = string.format("/home/%s/.nix-profile/bin/kulala-core", user)
 end
 
 return {
@@ -14,13 +14,12 @@ return {
 	-- See opts.lsp.enforce_external_script_naming_convention
 	-- to restrict LSP capabilities to *.http, *.http.js, *.http.ts and *.http.lua files.
 	ft = { "http", "rest", "javascript", "lua" },
-  init = function ()
-    vim.treesitter.language.register('kulala_http', { 'http', 'rest' })
-    vim.treesitter.start()
-  end,
-  keys = {
+	init = function()
+		vim.treesitter.language.register("kulala_http", { "http", "rest" })
+	end,
+	keys = {
 		{ "<leader>h", desc = "kulala" },
-  },
+	},
 	opts = {
 		kulala_core = {
 			path = bin_path,
@@ -65,5 +64,22 @@ return {
 
 		-- Prefix for global keymaps
 		global_keymaps_prefix = "<leader>h",
+
+		kulala_keymaps = {
+			["Previous tab"] = {
+				"ml",
+				function()
+					require("kulala.ui").show_previous_tab()
+				end,
+				mode = { "n" },
+			},
+			["Next tab"] = {
+				"ml",
+				function()
+					require("kulala.ui").show_next_tab()
+				end,
+				mode = { "n" },
+			},
+		},
 	},
 }
