@@ -67,6 +67,7 @@ in
   programs.fish = {
     enable = true;
     package = pkgs.unstable.fish;
+    generateCompletions = false;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
 
