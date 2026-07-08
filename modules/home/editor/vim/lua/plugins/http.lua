@@ -4,7 +4,7 @@ local file = io.open(bin_path, "r")
 if file then
   file:close()
 else
-  bin_path = string.format("/home/%s/bin/kulala-core", user)
+  bin_path = string.format("/home/%s/.nix-profile/bin/kulala-core", user)
 end
 
 return {
