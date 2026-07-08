@@ -35,7 +35,15 @@ return {
 			-- split direction: possible values: "above", "right", "below", "left", fun(): "above"|"right"|"below"|"left"
 			split_direction = "right",
 			-- window options to override win_config: width/height/split/vertical.., buffer/window options
-			win_opts = { bo = {}, wo = {} }, ---@type kulala.ui.win_config
+			---@type kulala.ui.win_config
+			win_opts = {
+				bo = {},
+				wo = {
+					foldmethod = "indent",
+					foldminlines = 100,
+				},
+			},
+
 			-- default view: "body" or "headers" or "headers_body" or "verbose" or fun(response: Response)
 			default_view = "body", ---@type "body"|"headers"|"headers_body"|"verbose"|fun(response: Response)
 		},
