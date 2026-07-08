@@ -46,6 +46,9 @@ return {
 
 			-- default view: "body" or "headers" or "headers_body" or "verbose" or fun(response: Response)
 			default_view = "body", ---@type "body"|"headers"|"headers_body"|"verbose"|fun(response: Response)
+
+      -- do not show responses over maximum size, in bytes
+      max_response_size = 131072,
 		},
 
 		lsp = {
