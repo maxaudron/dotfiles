@@ -83,10 +83,19 @@
       };
     };
 
-    services.gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-    };
+    services.gpg-agent =
+      let
+        ttl = 28800;
+      in
+      {
+        enable = true;
+        enableSshSupport = true;
+
+        defaultCacheTtl = ttl;
+        defaultCacheTtlSsh = ttl;
+        maxCacheTtl = ttl;
+        maxCacheTtlSsh = ttl;
+      };
 
     programs.bash.initExtra = ''
       if [[ -z "$SSH_CONNECTION" ]]; then
