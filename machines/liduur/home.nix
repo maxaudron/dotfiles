@@ -27,6 +27,6 @@
     };
   };
 
-  home.packages = [ kintree.packages.${system}.default ];
+  # home.packages = [ kintree.packages.${system}.default ];
   home.stateVersion = "26.05";
 }
