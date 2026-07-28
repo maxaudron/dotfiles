@@ -26,6 +26,9 @@
               "ClovisLLM/glm5.1" = {
                 name = "GLM 5.1";
               };
+              "ClovisChat/Ornith-1.0-35B" = {
+                name = "Ornith 1.0 35B";
+              };
             };
           };
           clara = {
