@@ -33,6 +33,7 @@ in
 
     home.packages = with pkgs; [
       ruff
+      pyright
       lua-language-server
       stylua
       bash-language-server
