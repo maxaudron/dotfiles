@@ -32,6 +32,33 @@ in
 
         programs.fish.interactiveShellInit = ''
           set --global hydro_color_pwd 'cba6f7'
+
+          if set -q SSH_CONNECTION
+            set -l palette \
+                #89b4fa \
+                #74c7ec \
+                #89dceb \
+                #94e2d5 \
+                #a6e3a1 \
+                #f9e2af \
+                #fab387 \
+                #eba0ac \
+                #f38ba8 \
+                #f38ba8 \
+                #f5c2e7 \
+                #babbf1 \
+                #a6d189 \
+                #ef9f76 \
+                #ea999c \
+                #ca9ee6
+
+            set -l hash_val (echo (hostname) | md5sum | cut -c 1-8)
+            set -l index (math "0x$hash_val % "(count $palette))
+
+            set -g fish_color_host $palette[(math $index + 1)]
+            set --global hydro_color_pwd $fish_color_host
+          end
+
           set --global hydro_color_prompt 'cba6f7'
         '';
 
