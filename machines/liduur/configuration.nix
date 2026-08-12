@@ -30,7 +30,7 @@
     enable = true;
     enableNvidia = false;
     dockerSocket.enable = true;
-    extraPackages = with pkgs; [ su ];
+    extraPackages = with pkgs; [ su podman-compose ];
   };
 
   environment.systemPackages = [ pkgs.simple-scan pkgs.wootility ];

@@ -56,12 +56,12 @@ in
                 enable = true;
                 propagatedBuildInputs = [ pkgs.unstable.python313Packages.beets-alternatives ];
               };
-              # rockbox = {
-              #   enable = false;
-              #   propagatedBuildInputs = [
-              #     (pkgs.unstable.python313Packages.callPackage "${beets-rockbox}/nix/package.nix" { })
-              #   ];
-              # };
+              rockbox = {
+                enable = true;
+                propagatedBuildInputs = [
+                  (pkgs.unstable.python313Packages.callPackage "${beets-rockbox}/nix/package.nix" { })
+                ];
+              };
               edit.enable = true;
               embedart.enable = true;
               fetchart.enable = true;
@@ -95,7 +95,7 @@ in
           "mpdupdate"
           "permissions"
           "replaygain"
-          # "rockbox"
+          "rockbox"
           "zero"
         ];
 
@@ -249,16 +249,16 @@ in
           peak = "true";
         };
 
-        # rockbox = {
-        #   db = "/mnt/ipod/.rockbox";
-        #   rockbox = "/mnt/ipod/.rockbox";
-        #   music = "/<HDD0>/Music";
-        #
-        #   formats = [
-        #     "opus"
-        #     "mp3"
-        #   ];
-        # };
+        rockbox = {
+          db = "/mnt/ipod/.rockbox";
+          rockbox = "/mnt/ipod/.rockbox";
+          music = "/<HDD0>/Music";
+
+          formats = [
+            "opus"
+            "mp3"
+          ];
+        };
 
         permissions = {
           file = "644";

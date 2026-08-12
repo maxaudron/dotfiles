@@ -6,6 +6,8 @@
     SUBSYSTEM=="block", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", GROUP="users", MODE="0666"
     SUBSYSTEM=="block", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", ACTION=="add", SYMLINK+="rp2040upl%n"
 
+    # Meshtastic
+    ACTION=="add", ATTRS{idVendor}=="239a", ATTRS{idProduct}=="4405", MODE="0660", GROUP="dialout", TAG+="uaccess"
 
     # X-Rite Calibrite i1
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0765", ATTRS{idProduct}=="5020", GROUP="users", MODE="0666"
