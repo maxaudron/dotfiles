@@ -9,6 +9,7 @@ with lib;
     ./obs
     ./weechat
 
+    ./darktable.nix
     ./pass.nix
     ./kanidm.nix
     ./mail.nix
