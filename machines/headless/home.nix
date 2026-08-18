@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   my = {
@@ -15,6 +15,9 @@
       rust.enable = true;
     };
   };
+
+  catppuccin.cursors.enable = lib.mkForce false;
+  services.gpg-agent.enable = lib.mkForce false;
 
   home.stateVersion = "26.05";
 }
