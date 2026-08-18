@@ -12,21 +12,44 @@
 
     settings = {
       "Host *" = {
-        userKnownHostsFile = "/dev/null";
-        strictHostKeyChecking = "no";
+        UserKnownHostsFile = "/dev/null";
+        StrictHostKeyChecking = "no";
 
-        forwardAgent = false;
-        addKeysToAgent = "no";
-        compression = false;
-        serverAliveInterval = 0;
-        serverAliveCountMax = 3;
-        hashKnownHosts = false;
-        controlMaster = "no";
-        controlPath = "~/.ssh/master-%r@%n:%p";
-        controlPersist = "no";
+        ForwardAgent = false;
+        AddKeysToAgent = "no";
+        Compression = false;
+        ServerAliveInterval = 0;
+        ServerAliveCountMax = 3;
+        HashKnownHosts = false;
+        ControlMaster = "no";
+        ControlPath = "~/.ssh/master-%r@%n:%p";
+        ControlPersist = "no";
 
-        setEnv = "TERM=xterm-256color";
+        SetEnv = {
+          TERM = "xterm-256color";
+        };
       };
+
+      "Host *.vapor.systems" =
+        let
+          localDir =
+            if pkgs.stdenv.isDarwin then
+              "${config.home.homeDirectory}/.gnupg"
+            else
+              "/run/user/1000/gnupg/S.gpg-agent.extra";
+          remoteDir = "/run/user/1000/gnupg";
+        in
+        {
+          User = "audron";
+          ForwardAgent = true;
+          RemoteForward = [
+            "${remoteDir}/S.gpg-agent ${localDir}/S.gpg-agent.extra"
+            "${remoteDir}/S.gpg-agent.ssh ${localDir}/S.gpg-agent.ssh"
+          ];
+          SetEnv = {
+            SSH_AUTH_SOCK = "${remoteDir}/S.gpg-agent.ssh";
+          };
+        };
 
       "Host 10.53.10.* 10.53.11.* 10.53.0.* 10.51.0.* 10.52.0.*" = {
         proxyJump = "mgt01.rancher.shared-k8s.de.clara.net";
