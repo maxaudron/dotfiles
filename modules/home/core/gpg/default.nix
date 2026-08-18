@@ -98,14 +98,14 @@
       };
 
     programs.bash.initExtra = ''
-      if [[ -z "$SSH_CONNECTION" ]]; then
+      if [[ -z "$SSH_AUTH_SOCK" ]]; then
         export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
       fi
     '';
 
     programs.fish.interactiveShellInit = ''
-      if not set -q SSH_CONNECTION;
-        set --global SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
+      if not set -q SSH_AUTH_SOCK;
+        set -x SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
       end
     '';
   };
