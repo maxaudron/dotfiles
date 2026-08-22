@@ -18,7 +18,7 @@
 
 buildPythonPackage rec {
   pname = "aws-adfs";
-  version = "3.0";
+  version = "3.2";
   pyproject = true;
 
   disabled = pythonOlder "3.7";
@@ -27,7 +27,7 @@ buildPythonPackage rec {
     name = "aws-adfs-${version}";
     url = "git@git.eu.clara.net:de-cloud-tooling/aws/aws_saml_token.git";
     ref = "refs/tags/${version}";
-    rev = "78e3a2c0af4058a487aece1a97faab1488c370d9";
+    rev = "6ff503790a4af611eb8b4fb51ac359636c19bf65";
   }}/aws-adfs";
 
   build-system = [
