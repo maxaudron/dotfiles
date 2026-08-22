@@ -1,3 +1,5 @@
+local pointer = require("config/pointer")
+
 hl.config({
 	input = {
 		kb_layout = "us",
@@ -12,12 +14,10 @@ hl.config({
 
 hl.device({
 	name = "kensington-expert-wireless-tb-mouse",
-	accel_profile = "adaptive",
-	sensitivity = 0.2,
+	accel_profile = pointer.accel(400, 140, 1.0, 60, 1.6),
 })
 
 hl.device({
 	name = "keychron--keychron-link-km",
-	accel_profile = "adaptive",
-	sensitivity = 0.2,
+	accel_profile = pointer.accel(1600, 140, 1.0, 60, 1.6),
 })

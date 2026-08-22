@@ -39,7 +39,7 @@
           plugins ? [ ],
           meta ? { },
           # 5.1, 5.2, 5.3, 5.4, ... , jit51, jit52
-          lua-version ? "5.1",
+          lua-version ? "5.5",
           disabled-diagnostics ? [ ],
         }:
         let
