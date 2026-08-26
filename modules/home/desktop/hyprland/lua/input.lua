@@ -19,5 +19,5 @@ hl.device({
 
 hl.device({
 	name = "keychron--keychron-link-km",
-	accel_profile = pointer.accel(1600, 140, 1.0, 60, 1.6),
+	accel_profile = pointer.accel(1600, 140, 1.0, 60, 1.4),
 })

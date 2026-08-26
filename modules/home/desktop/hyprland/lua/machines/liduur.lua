@@ -5,7 +5,7 @@ hl.monitor({
 	scale = 1,
 	bitdepth = 10,
 	cm = "srgb",
-	vrr = 1,
+	-- vrr = 1,
 	icc = "/home/audron/.dotfiles/misc/icc/liduur_dp1_srgb.icc",
 })
 
