@@ -186,7 +186,7 @@
   };
 
   fileSystems."/mnt/ipod" = {
-    device = "/dev/disk/by-id/usb-Apple_iPod_Classic_3B3685654-0:0-part1";
+    device = "/dev/disk/by-id/usb-iFlash-P_latform_iPod_Ada_BD9D40000-0:0-part1";
     fsType = "vfat";
     options = [
       "noauto"
