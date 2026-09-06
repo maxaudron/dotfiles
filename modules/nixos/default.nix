@@ -13,6 +13,7 @@ rec {
   yubikey = import ./yubikey;
   uwsm = import ./uwsm.nix;
   kmscon = import ./kmscon.nix;
+  virt = import ./virt;
 
   # vfio = import ./vfio;
 
@@ -31,6 +32,7 @@ rec {
         kmscon
         uwsm
         tgt
+        virt
       ];
 
       config = {
@@ -38,6 +40,8 @@ rec {
           enable = mkDefault true;
           filter.output = mkDefault true;
         };
+
+        my.virt.enable = true;
       };
     };
 }
