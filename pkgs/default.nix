@@ -27,5 +27,10 @@ self: super:
   qmk_redox = super.callPackage ../misc/qmk {};
 
   firefox-webserial = super.callPackage ./firefox-webserial {};
+
+  prusa-slicer-3 = super.callPackage ./prusa-slicer {};
+  libassert = super.callPackage ./prusa-slicer/libassert.nix {};
+  prusa-fdm-mixer = super.callPackage ./prusa-slicer/prusa-fdm-mixer {};
+  yoga = super.callPackage ./prusa-slicer/yoga.nix {};
 }
 
