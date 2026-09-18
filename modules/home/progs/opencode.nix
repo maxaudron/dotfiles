@@ -23,11 +23,14 @@
               baseURL = "https://llm-gateway.clovis-ai.fr/v1";
             };
             models = {
-              "ClovisLLM/glm5.1" = {
-                name = "GLM 5.1";
+              "ClovisChat" = {
+                name = "GLM 5.2";
               };
-              "ClovisChat/Ornith-1.0-35B" = {
-                name = "Ornith 1.0 35B";
+              "ClovisLLM" = {
+                name = "Qwen3.8 Flash Next (Chat)";
+              };
+              "ClovisChat/Qwen3.8-Flash-Next" = {
+                name = "Qwen3.8 Flash Next";
               };
             };
           };

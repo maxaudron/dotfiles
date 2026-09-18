@@ -3,7 +3,7 @@
 {
   my = {
     progs = {
-      firefox.enable = true;
+      firefox.enable = false;
       mail.enable = true;
       opencode.enable = true;
     };

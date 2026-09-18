@@ -13,8 +13,8 @@
   config = lib.mkIf config.my.tools.work.enable {
     my.tools.kubernetes.enable = true;
     home.packages = with pkgs; [
-      bootstrap
-      ansible-run
+      # bootstrap
+      # ansible-run
       ansible
       terraform
 
