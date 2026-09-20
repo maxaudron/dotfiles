@@ -22,6 +22,7 @@ self: super:
   };
 
   spleen = super.callPackage ./spleen { };
+  gpsmaster = super.callPackage ./gpsmaster { };
 
   serena = super.python3Packages.callPackage ./serena { };
   brother-ql = super.python314Packages.callPackage ./brother-ql { };

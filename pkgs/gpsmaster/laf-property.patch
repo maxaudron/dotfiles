@@ -1,0 +1,13 @@
+diff --git a/src/org/gpsmaster/GpsMaster.java b/src/org/gpsmaster/GpsMaster.java
+index cc1b868..c9467f7 100644
+--- a/src/org/gpsmaster/GpsMaster.java
++++ b/src/org/gpsmaster/GpsMaster.java
+@@ -324,7 +324,7 @@ public class GpsMaster extends JComponent {
+      */
+     public static void main(final String[] args) {
+         try {
+-            lookAndFeel = UIManager.getSystemLookAndFeelClassName();
++            lookAndFeel = System.getProperty("swing.defaultlaf", UIManager.getSystemLookAndFeelClassName());
+             UIManager.setLookAndFeel(lookAndFeel);
+         } catch (Throwable e) {
+             e.printStackTrace();
