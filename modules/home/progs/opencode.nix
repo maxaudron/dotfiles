@@ -23,10 +23,10 @@
               baseURL = "https://llm-gateway.clovis-ai.fr/v1";
             };
             models = {
-              "ClovisChat" = {
+              "ClovisLLM" = {
                 name = "GLM 5.2";
               };
-              "ClovisLLM" = {
+              "ClovisChat" = {
                 name = "Qwen3.8 Flash Next (Chat)";
               };
               "ClovisChat/Qwen3.8-Flash-Next" = {
