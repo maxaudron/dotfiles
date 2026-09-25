@@ -87,6 +87,7 @@ in
           telescope-fzf-native-nvim
           telescope-manix
           snipe-nvim
+          fidget-nvim
 
           # color themes
           catppuccin-nvim
