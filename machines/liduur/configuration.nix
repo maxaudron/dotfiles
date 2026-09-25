@@ -30,10 +30,16 @@
     enable = true;
     enableNvidia = false;
     dockerSocket.enable = true;
-    extraPackages = with pkgs; [ su podman-compose ];
+    extraPackages = with pkgs; [
+      su
+      podman-compose
+    ];
   };
 
-  environment.systemPackages = [ pkgs.simple-scan pkgs.wootility ];
+  environment.systemPackages = [
+    pkgs.simple-scan
+    pkgs.wootility
+  ];
   hardware.sane = {
     enable = true;
     extraBackends = [ ];
@@ -224,6 +230,11 @@
     };
 
   hardware.wooting.enable = true;
+
+  virtualisation.waydroid = {
+    enable = true;
+    package = pkgs.waydroid-nftables;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
