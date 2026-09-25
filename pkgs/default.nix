@@ -40,4 +40,6 @@ self: super:
   prusa-fdm-mixer = super.callPackage ./prusa-slicer/prusa-fdm-mixer { };
   yoga = super.callPackage ./prusa-slicer/yoga.nix { };
 
+  rallynavigator = super.callPackage ./rallynavigator { };
+
 }

@@ -1,4 +1,4 @@
-{ kintree, system, ... }:
+{ kintree, system, pkgs, ... }:
 
 {
   my = {
@@ -29,5 +29,6 @@
   };
 
   # home.packages = [ kintree.packages.${system}.default ];
+  home.packages = [ pkgs.rallynavigator ];
   home.stateVersion = "26.05";
 }
