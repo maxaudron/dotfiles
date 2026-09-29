@@ -1,9 +1,9 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   my = {
     progs = {
-      firefox.enable = false;
+      firefox.enable = true;
       mail.enable = true;
       opencode.enable = true;
     };
@@ -17,4 +17,6 @@
 
   # home.packages = [ pkgs.quasselClient ];
   home.stateVersion = "26.05";
+
+  targets.darwin.copyApps.enable = true;
 }

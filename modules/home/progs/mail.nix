@@ -42,7 +42,7 @@
     home.packages = with pkgs; [ w3m ];
 
     programs.thunderbird = {
-      enable = true;
+      enable = !pkgs.stdenv.isDarwin;
       package = pkgs.thunderbird;
 
       profiles = {
