@@ -15,6 +15,6 @@ with lib;
     email = mkDefault "me@audron.dev";
     fullname = mkDefault "Max Audron";
     pubkey = mkDefault "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIBnsvdLYjsNTKeBf7pKdE7YEwzPmw+0NxE49IHVkFvnCAAAACnNzaDphdWRyb24= ssh:audron";
-    signingkey = mkDefault "7828577F894C55C0";
+    signingkey = mkDefault "0xDF87081FA2C1945A";
   };
 }

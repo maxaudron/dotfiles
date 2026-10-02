@@ -95,6 +95,10 @@
         defaultCacheTtlSsh = ttl;
         maxCacheTtl = ttl;
         maxCacheTtlSsh = ttl;
+
+        extraConfig = ''
+            allow-preset-passphrase
+        '';
       };
 
     programs.bash.initExtra = ''
