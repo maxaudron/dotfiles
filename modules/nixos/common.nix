@@ -17,7 +17,6 @@
 
   services.printing = {
     enable = true;
-    drivers = [ ];
   };
 
   services.nfs.server.enable = true;

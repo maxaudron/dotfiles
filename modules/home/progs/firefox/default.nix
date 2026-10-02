@@ -21,7 +21,7 @@
       package = pkgs.firefox-bin;
       nativeMessagingHosts = [ pkgs.browserpass ];
 
-      configPath = if pkgs.stdenv.hostPlatform.isDarwin then "Library/Application Support/org.nixos.firefox" else null;
+      configPath = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin "Library/Application Support/org.nixos.firefox";
 
       profiles = {
         "audron" = {

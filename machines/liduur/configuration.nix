@@ -40,9 +40,22 @@
     pkgs.simple-scan
     pkgs.wootility
   ];
+
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      epson-escpr2
+    ];
+  };
+
   hardware.sane = {
     enable = true;
-    extraBackends = [ ];
+    extraBackends = [
+      (pkgs.epsonscan2.override {
+        withNonFreePlugins = true;
+        withGui = true;
+      })
+    ];
   };
 
   hardware.graphics = {
