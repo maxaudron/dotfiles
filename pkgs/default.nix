@@ -42,4 +42,7 @@ self: super:
 
   rallynavigator = super.callPackage ./rallynavigator { };
   turboprint = super.callPackage ./turboprint { };
+  turboprint-cups-driver = super.callPackage ./turboprint/cups-driver.nix {
+    turboprint = self.turboprint;
+  };
 }

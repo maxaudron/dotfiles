@@ -17,6 +17,7 @@
   at-spi2-atk,
   gimp2,
   xdg-utils,
+  libusb1,
 }:
 
 let
@@ -120,6 +121,9 @@ stdenv.mkDerivation (finalAttrs: {
   qtWrapperArgs = [
     "--prefix PATH : ${cups}/bin:${placeholder "out"}/bin"
     "--set LD_PRELOAD ${placeholder "out"}/lib/pathshim.so"
+    # tpu and tprintdaemon dlopen libusb, invisible to autoPatchelfHook;
+    # autoPatchelf rewrites RUNPATHs of wrapped binaries, so inject it here
+    "--prefix LD_LIBRARY_PATH : ${libusb1}/lib"
   ];
 
   buildPhase = ''
@@ -196,5 +200,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     substituteInPlace $out/share/applications/*.desktop --replace-fail "@out@" "$out"
+
+    patchelf --add-rpath ${libusb1}/lib $out/lib/turboprint/tpu
   '';
 })
