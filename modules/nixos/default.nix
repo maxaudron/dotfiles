@@ -15,6 +15,8 @@ rec {
   kmscon = import ./kmscon.nix;
   virt = import ./virt;
 
+  turboprint = import ./turboprint.nix;
+
   # vfio = import ./vfio;
 
   default =
@@ -33,6 +35,8 @@ rec {
         uwsm
         tgt
         virt
+
+        turboprint
       ];
 
       config = {

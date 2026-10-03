@@ -62,6 +62,8 @@
     extraPackages = with pkgs; [ rocmPackages.clr.icd ];
   };
 
+  my.turboprint.enable = true;
+
   systemd.tmpfiles.rules =
     let
       rocmEnv = pkgs.symlinkJoin {

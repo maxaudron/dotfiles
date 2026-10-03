@@ -41,5 +41,5 @@ self: super:
   yoga = super.callPackage ./prusa-slicer/yoga.nix { };
 
   rallynavigator = super.callPackage ./rallynavigator { };
-
+  turboprint = super.callPackage ./turboprint { };
 }
