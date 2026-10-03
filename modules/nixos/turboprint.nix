@@ -33,14 +33,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ cfg.package ];
+
     environment.etc."turboprint/system.cfg".text = ''
-      TPBIN_BROWSER=${cfg.browser}
+      TPBIN_BROWSER=${pkgs.xdg-utils}/bin/xdg-open
       TPFILE_PRINTCAP=/etc/printcap
-      TPPATH_CONFIG=/etc/turboprint
+      TPPATH_CONFIG=/var/lib/turboprint
+      TPPATH_SHARE=${cfg.package}/share/turboprint
       TPPATH_SPOOL=/var/spool/lpd
+      TPPATH_BIN=${cfg.package}/bin
+      TPPATH_FILTERS=${cfg.package}/lib/turboprint
+      TPPATH_DOC=${cfg.package}/share/doc/turboprint
       TPPATH_LOG=/var/log
       TPPATH_VAR=/var/spool
       TPPATH_TEMP=/tmp
+      TPPATH_MAN=$out/share/man
       TPPATH_CUPSDRIVER=${cfg.cupsPackage}/share/cups/model
       TPPATH_CUPSSETTINGS=/etc/cups/ppd
       TPPATH_CUPSLIB=${cfg.cupsPackage}/lib/cups
@@ -69,12 +76,17 @@ in
 
     users.groups.${cfg.daemon.group} = { };
 
+    systemd.tmpfiles.rules = [
+      "d /var/lib/turboprint 0770 ${cfg.daemon.user} users -"
+    ];
+
     systemd.services.turboprint-daemon = {
       enable = true;
       wantedBy = [ "multi-user.target" ];
       description = "Turboprint Monitor Daemon";
       after = [ "cups.service" ];
       path = [ pkgs.procps ];
+
       serviceConfig = {
         Type = "forking";
         Restart = "on-failure";

@@ -5,6 +5,8 @@
 
   autoPatchelfHook,
   makeWrapper,
+  copyDesktopItems,
+  makeDesktopItem,
 
   rpm,
   cpio,
@@ -17,6 +19,68 @@
   xdg-utils,
 }:
 
+let
+  # @out@ is replaced by the package's own out path in postFixup,
+  # so the entries don't rely on the binaries being on $PATH
+  desktopItems = [
+    (makeDesktopItem {
+      name = "turboprint-control";
+      desktopName = "TurboPrint Control";
+      comment = "Setup & configure TurboPrint printers";
+      exec = "@out@/bin/turboprint";
+      icon = "turboprint-icon";
+      categories = [
+        "System"
+        "Settings"
+      ];
+      startupNotify = true;
+      terminal = false;
+      extraConfig = {
+        DocPath = "@out@/share/doc/turboprint/TurboPrint_Manual.pdf";
+      };
+    })
+    (makeDesktopItem {
+      name = "turboprint-composer";
+      desktopName = "TurboPrint Composer";
+      comment = "Print images and documents with TurboPrint printer";
+      exec = "@out@/bin/turboprint-composer %F";
+      icon = "turboprint-composer";
+      mimeTypes = [
+        "image/jpeg"
+        "image/png"
+        "image/tiff"
+        "application/postscript"
+        "application/pdf"
+      ];
+      categories = [
+        "Graphics"
+        "Photography"
+        "Printing"
+      ];
+      startupNotify = true;
+      terminal = false;
+      extraConfig = {
+        DocPath = "@out@/share/doc/turboprint/TurboPrint_Manual.pdf";
+      };
+    })
+    (makeDesktopItem {
+      name = "turboprint-monitor";
+      desktopName = "TurboPrint Monitor";
+      comment = "Monitor TurboPrint printers";
+      exec = "@out@/bin/turboprint-monitor";
+      icon = "turboprint-monitor";
+      categories = [
+        "System"
+        "Settings"
+      ];
+      startupNotify = false;
+      terminal = false;
+      extraConfig = {
+        DocPath = "@out@/share/doc/turboprint/TurboPrint_Manual.pdf";
+      };
+    })
+  ];
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "turboprint";
   version = "3.01-1";
@@ -30,6 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
     autoPatchelfHook
     libsForQt5.wrapQtAppsHook
     makeWrapper
+    copyDesktopItems
 
     rpm
     cpio
@@ -43,6 +108,8 @@ stdenv.mkDerivation (finalAttrs: {
     at-spi2-atk
     gimp2
   ];
+
+  inherit desktopItems;
 
   unpackPhase = ''
     runHook preUnpack
@@ -102,6 +169,32 @@ stdenv.mkDerivation (finalAttrs: {
     TPCONVERT_PDF=0
     EOF
 
+    # desktop entries are copied by the copyDesktopItems hook
+
+    mkdir -p $out/share/mime/packages
+
+    # hicolor icons, installed at runtime via xdg-icon-resource by lib/install-post
+
+    install -Dm644 $out/share/turboprint/img/turboprint-icon.png $out/share/icons/hicolor/48x48/apps/turboprint-icon.png
+    install -Dm644 $out/share/turboprint/img/turboprint-monitor.png $out/share/icons/hicolor/48x48/apps/turboprint-monitor.png
+    install -Dm644 $out/share/turboprint/img/turboprint-composer.png $out/share/icons/hicolor/48x48/apps/turboprint-composer.png
+    install -Dm644 $out/share/turboprint/img/turboprint-icon-128.png $out/share/icons/hicolor/128x128/apps/turboprint-icon.png
+    install -Dm644 $out/share/turboprint/img/turboprint-monitor-128.png $out/share/icons/hicolor/128x128/apps/turboprint-monitor.png
+    install -Dm644 $out/share/turboprint/img/turboprint-composer-128.png $out/share/icons/hicolor/128x128/apps/turboprint-composer.png
+    install -Dm644 $out/share/turboprint/img/turboprint-key.png $out/share/icons/hicolor/48x48/mimetypes/application-turboprint-key.png
+    install -Dm644 $out/share/turboprint/img/turboprint-profile.png $out/share/icons/hicolor/48x48/mimetypes/application-turboprint-profile.png
+    install -Dm644 $out/share/turboprint/img/turboprint-key-128.png $out/share/icons/hicolor/128x128/mimetypes/application-turboprint-key.png
+    install -Dm644 $out/share/turboprint/img/turboprint-profile-128.png $out/share/icons/hicolor/128x128/mimetypes/application-turboprint-profile.png
+
+    # TurboPrint mime types (.tpkey/.tp2key and .pfprofile files)
+
+    install -m644 $out/share/turboprint/img/turboprint-tpkey.xml $out/share/mime/packages/
+    install -m644 $out/share/turboprint/img/turboprint-profile.xml $out/share/mime/packages/
+
     runHook postInstall
+  '';
+
+  postFixup = ''
+    substituteInPlace $out/share/applications/*.desktop --replace-fail "@out@" "$out"
   '';
 })
