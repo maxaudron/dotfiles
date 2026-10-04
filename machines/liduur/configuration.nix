@@ -48,13 +48,11 @@
     ];
   };
 
+  services.ipp-usb.enable = true;
   hardware.sane = {
     enable = true;
     extraBackends = [
-      (pkgs.epsonscan2.override {
-        withNonFreePlugins = true;
-        withGui = true;
-      })
+      pkgs.sane-airscan
     ];
   };
 
