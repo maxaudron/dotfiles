@@ -20,7 +20,7 @@
       comment = "Camera feed for my 3d printer";
       icon = "mpv";
       type = "Application";
-      exec = ''${pkgs.mpv}/bin/mpv --cache=no --profile=low-latency --osc=no --geometry=427x240 --title="buddy3d" rtsp://192.168.144.188/live'';
+      exec = ''${pkgs.mpv}/bin/mpv --cache=no --profile=low-latency --osc=no --geometry=427x240 --title="buddy3d" rtsp://192.168.144.29/live'';
       terminal = false;
       categories = [
         "AudioVideo"

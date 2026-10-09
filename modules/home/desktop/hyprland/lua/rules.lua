@@ -24,3 +24,46 @@ hl.window_rule({
 	size = { 427, 240 },
 	animation = "popin",
 })
+
+-- DisplayCal
+hl.window_rule({
+	name = "Calibration",
+
+	match = {
+		class = "^displaycal$",
+		title = "^Calibration$",
+	},
+
+	float = true,
+	monitor = "DP-1",
+	move = { 20, 20 },
+	size = { 427, 240 },
+})
+
+hl.window_rule({
+	name = "Calibration",
+
+	match = {
+		class = "^displaycal$",
+		title = "^Interactive display adjustment$",
+	},
+
+	float = true,
+	monitor = "DP-1",
+	move = { 20, 20 },
+	size = { 427, 240 },
+})
+
+hl.window_rule({
+	name = "Calibration",
+
+  match = {
+		class = "^displaycal$",
+		title = "^DisplayCAL$",
+	},
+
+	float = true,
+	monitor = "DP-1",
+	move = { 20, 20 },
+	size = { 427, 240 },
+})

@@ -11,6 +11,7 @@
 
     # X-Rite Calibrite i1
     SUBSYSTEM=="usb", ATTRS{idVendor}=="0765", ATTRS{idProduct}=="5020", GROUP="users", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0971", ATTRS{idProduct}=="2000", GROUP="users", MODE="0666"
 
     SUBSYSTEM=="usb", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="6d026", GROUP="users", MODE="0666"
 

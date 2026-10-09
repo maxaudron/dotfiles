@@ -44,8 +44,8 @@ in
     environment.etc."turboprint/system.cfg".text = ''
       TPBIN_BROWSER=${pkgs.xdg-utils}/bin/xdg-open
       TPFILE_PRINTCAP=/etc/printcap
-      TPPATH_CONFIG=/var/lib/turboprint
-      TPPATH_SHARE=${cfg.package}/share/turboprint
+      TPPATH_CONFIG=/var/lib/turboprint/config
+      TPPATH_SHARE=/var/lib/turboprint
       TPPATH_SPOOL=/var/spool/lpd
       TPPATH_BIN=${cfg.package}/bin
       TPPATH_FILTERS=${cfg.package}/lib/turboprint
@@ -101,11 +101,44 @@ in
         "d /var/spool/turboprint 1777 ${cfg.daemon.user} users -"
       ];
 
+    systemd.services.turboprint-setup = {
+      enable = true;
+      wantedBy = ["turboprint-daemon.service"];
+
+      serviceConfig = let setup = pkgs.writeShellScript "turboprint-setup" ''
+        set -x
+
+        mkdir -p "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/colors" "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/dump" "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/gplsoftware" "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/img" "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/installprofiles" "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/lib" "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/locale" "$TPPATH_SHARE"
+        ln -sfn "${cfg.package}/share/turboprint/printers" "$TPPATH_SHARE"
+        echo "finished link creation"
+
+        mkdir -p "$TPPATH_SHARE/profiles"
+        chown -R :users "$TPPATH_SHARE/profiles"
+        chmod -R g+rw "$TPPATH_SHARE/profiles"
+        ln -sfn ${cfg.package}/share/turboprint/profiles/* "$TPPATH_SHARE/profiles/"
+        echo "finished creating profiles dir"
+      ''; in {
+        Type = "oneshot";
+        EnvironmentFile = [ "/etc/turboprint/system.cfg" ];
+        User = cfg.daemon.user;
+        Group = cfg.daemon.group;
+
+        ExecStart = setup;
+      };
+    };
+
     systemd.services.turboprint-daemon = {
       enable = true;
       wantedBy = [ "multi-user.target" ];
       description = "Turboprint Monitor Daemon";
-      after = [ "cups.service" ];
+      after = [ "cups.service" "turboprint-setup.service" ];
       path = [ pkgs.procps ];
 
       serviceConfig = {

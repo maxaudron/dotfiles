@@ -6,7 +6,7 @@ hl.monitor({
 	bitdepth = 10,
 	cm = "srgb",
 	-- vrr = 1,
-	icc = "/home/audron/.dotfiles/misc/icc/liduur_dp1_srgb.icc",
+	icc = "/home/audron/.dotfiles/misc/icc/liduur_dp1_srgb2.icc",
 })
 
 hl.monitor({
