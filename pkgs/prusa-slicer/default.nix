@@ -107,7 +107,7 @@ let
     desktopName = "PrusaSlicer 3";
     genericName = "3D Printing Software";
     icon = "com.prusa3d.PrusaSlicer";
-    exec = "prusa-slicer --single-instance-on-url %u";
+    exec = "prusa-slicer3 --single-instance-on-url %u";
     terminal = false;
     type = "Application";
     mimeTypes = [
@@ -136,7 +136,7 @@ let
       "SLA"
     ];
     startupNotify = false;
-    startupWMClass = "prusa-slicer";
+    startupWMClass = "prusa-slicer3";
   };
 in
 
@@ -162,11 +162,11 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/slic3r-platform-wx/CMakeLists.txt \
       --replace-fail 'find_package(wxWidgets 3.3 CONFIG' 'find_package(wxWidgets 3.3 MODULE'
 
-    # dlopen() by plain soname instead of "exe dir / OCCTWrapper.so": the
-    # library moves to $out/lib (see postInstall) where the gapps wrapper
-    # exposes it through LD_LIBRARY_PATH
-    substituteInPlace src/slic3r-shared/src/Slic3r/Biz/Format/STEP.cpp \
-      --replace-fail 'libpath /= "OCCTWrapper.so";' 'libpath = "OCCTWrapper.so";'
+    # ship resources in share/PrusaSlicer3 instead of share/PrusaSlicer, so
+    # the profile does not collide with prusa-slicer 2.x; this also updates
+    # the SLIC3R_FHS_RESOURCES macro baked into the binary
+    sed -i 's|DATAROOTDIR}/PrusaSlicer"|DATAROOTDIR}/PrusaSlicer3"|' \
+      src/slic3r-shared/CMakeLists.txt
   '';
 
   nativeBuildInputs = [
@@ -235,13 +235,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # runs before wrapGAppsHook3's fixup hook, so the wrapper is generated
-  # around the renamed prusa-slicer binary
+  # around the renamed prusa-slicer3 binary
   postInstall = ''
-    mv $out/bin/slic3r-app-launcher $out/bin/prusa-slicer
-
-    # keep shared libs out of bin: wrapGAppsHook3 would wrap OCCTWrapper.so
-    # into an executable stub and break dlopen()
-    mv $out/bin/OCCTWrapper.so $out/lib/
+    mv $out/bin/slic3r-app-launcher $out/bin/prusa-slicer3
 
     install -Dm644 ${desktopItem}/share/applications/com.prusa3d.PrusaSlicer.desktop \
       $out/share/applications/com.prusa3d.PrusaSlicer.desktop
@@ -250,5 +246,15 @@ stdenv.mkDerivation (finalAttrs: {
       $out/share/icons/hicolor/scalable/apps/com.prusa3d.PrusaSlicer.svg
     install -Dm644 ../resources/icons/PrusaSlicer_128px.png \
       $out/share/icons/hicolor/128x128/apps/com.prusa3d.PrusaSlicer.png
+  '';
+
+  # wrapGAppsHook3 also "wraps" OCCTWrapper.so into an executable stub, which
+  # would break dlopen() of the exe-dir-relative library. Undo that: the real
+  # library stays in bin/ under its own name (2.x keeps its copy in lib/, so
+  # the profile sees no collision).
+  postFixup = ''
+    if [ -f $out/bin/.OCCTWrapper.so-wrapped ]; then
+      mv -f $out/bin/.OCCTWrapper.so-wrapped $out/bin/OCCTWrapper.so
+    fi
   '';
 })
