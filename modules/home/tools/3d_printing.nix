@@ -13,6 +13,7 @@
   config = lib.mkIf config.my.tools.printing.enable {
     home.packages = with pkgs; [
       unstable.prusa-slicer
+      # prusa-slicer-3
     ];
 
     xdg.desktopEntries.buddy3d = {
