@@ -35,19 +35,21 @@
           };
         };
 
-        programs.neovim.plugins = [{
-          plugin = pkgs.vimPlugins.neovim-ayu;
-          config = ''
-            lua << EOF
-              require("catppuccin").setup({
-                mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
-                terminal = true, -- Set to `false` to let terminal manage its own colors.
-                overrides = {}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
-              })
-              vim.api.nvim_command("colorscheme ayu")
-            EOF
-          '';
-        }];
+        programs.neovim.plugins = [
+          {
+            plugin = pkgs.vimPlugins.neovim-ayu;
+            config = ''
+              lua << EOF
+                require("catppuccin").setup({
+                  mirage = false, -- Set to `true` to use `mirage` variant instead of `dark` for dark background.
+                  terminal = true, -- Set to `false` to let terminal manage its own colors.
+                  overrides = {}, -- A dictionary of group names, each associated with a dictionary of parameters (`bg`, `fg`, `sp` and `style`) and colors in hex.
+                })
+                vim.api.nvim_command("colorscheme ayu")
+              EOF
+            '';
+          }
+        ];
       }
 
       (lib.mkIf config.my.progs.mc.enable {
@@ -58,7 +60,7 @@
           }
         }/ayu-dark.ini";
 
-        xdg.configFile."mc/ini".text = lib.generators.toINI { } {
+        programs.mc.settings = {
           "Midnight-Commander" = {
             skin = "ayu-dark";
           };

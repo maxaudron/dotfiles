@@ -116,7 +116,7 @@ in
           }
         }/catppuccin.ini";
 
-        xdg.configFile."mc/ini".text = lib.generators.toINI { } {
+        programs.mc.settings = {
           "Midnight-Commander" = {
             skin = "catppuccin";
           };

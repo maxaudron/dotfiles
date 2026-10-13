@@ -44,6 +44,8 @@
     SUBSYSTEM=="usb", ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="6021", TAG+="uaccess", TAG+="udev-acl", GROUP="dialout"
     SUBSYSTEM=="usb", ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="04b5", ATTRS{idProduct}=="6021", TAG+="uaccess", TAG+="udev-acl", GROUP="dialout"
 
+    # arduino nano r4
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", MODE:="0666"
 
     # Proffieboard
     ATTRS{idVendor}=="1209", ATTRS{idProduct}=="6668", ENV{ID_MM_DEVICE_IGNORE}="1"
