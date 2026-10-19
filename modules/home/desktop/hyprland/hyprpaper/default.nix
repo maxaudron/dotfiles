@@ -9,6 +9,7 @@
         wallpaper = "~/.dotfiles/misc/wallpaper/evening-sky.png";
       in
       {
+        splash = false;
         preload = wallpaper;
         wallpaper = [
           {

@@ -29,6 +29,6 @@
   };
 
   # home.packages = [ kintree.packages.${system}.default ];
-  home.packages = with pkgs; [ rallynavigator inkscape ];
+  home.packages = with pkgs; [ rallynavigator inkscape krita ];
   home.stateVersion = "26.05";
 }
