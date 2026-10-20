@@ -11,7 +11,7 @@
   };
 
   config = lib.mkIf config.my.progs.kanidm.enable {
-    home.packages = [ pkgs.kanidm_1_10 ];
+    home.packages = [ pkgs.kanidm_1_11 ];
 
     home.sessionVariables = {
       KANIDM_URL = "https://id.vapor.systems";

@@ -51,7 +51,6 @@ in
       isort
       black
 
-      himalaya
       pandoc
 
       manix
@@ -119,14 +118,15 @@ in
 
           nvim-decipher
 
-          himalaya-vim
-
           nvim-lspconfig
           codesettings-nvim
 
           hex-nvim
           orgmode
           pkgs.unstable.vimPlugins.kulala-nvim
+
+          image-nvim
+          markview-nvim
 
           # Languages
           rustaceanvim
