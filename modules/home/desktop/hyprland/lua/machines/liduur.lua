@@ -5,6 +5,10 @@ hl.monitor({
 	scale = 1,
 	bitdepth = 10,
 	cm = "srgb",
+  -- sdrbrightness = 1.25,
+  -- sdrsaturation = 1,
+  -- sdr_max_luminance = 139,
+  -- sdr_min_luminance = 0,
 	-- vrr = 1,
 	icc = "/home/audron/.dotfiles/misc/icc/liduur_dp1_srgb2.icc",
 })

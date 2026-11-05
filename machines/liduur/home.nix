@@ -25,6 +25,7 @@
       mail.enable = true;
       opencode.enable = true;
       darktable.enable = true;
+      weechat.enable = true;
     };
   };
 
