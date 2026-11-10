@@ -6,7 +6,7 @@
 }:
 
 let
-  weechat-matrix = pkgs.callPackage ./weechat-matrix-rs.nix { };
+  # weechat-matrix = pkgs.callPackage ./weechat-matrix-rs.nix { };
   weechat = pkgs.unstable.weechat.override {
     configure =
       { availablePlugins, ... }:
@@ -16,6 +16,7 @@ let
           multiline
           weechat-autosort
         ];
+        plugins = builtins.attrValues (builtins.removeAttrs availablePlugins [ "php" ]);
       };
   };
 in
@@ -26,5 +27,9 @@ in
 
   config = lib.mkIf config.my.progs.weechat.enable {
     home.packages = [ weechat ];
+
+    home.xdg.configFiles = {
+      "weechat/"
+    }
   };
 }

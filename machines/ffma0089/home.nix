@@ -6,6 +6,7 @@
       firefox.enable = true;
       mail.enable = true;
       opencode.enable = true;
+      weechat.enable = true;
     };
 
     tools = {
