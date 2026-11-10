@@ -1,6 +1,6 @@
 --- a/src/slic3r-shared/src/Slic3r/Biz/Preset/IO/BundleLoader.cpp
 +++ b/src/slic3r-shared/src/Slic3r/Biz/Preset/IO/BundleLoader.cpp
-@@ -21,6 +21,25 @@
+@@ -21,6 +21,35 @@
  
  namespace fs = boost::filesystem;
  
@@ -9,16 +9,26 @@
 +// destination tree, so copy the entries one by one instead.
 +static void copy_tree_keep_writable(const fs::path& src, const fs::path& dst)
 +{
++    boost::system::error_code ec;
++    if (fs::is_regular_file(src, ec)) {
++        fs::copy_file(src, dst, fs::copy_options::overwrite_existing, ec);
++        if (!ec)
++            fs::permissions(dst, fs::owner_read | fs::owner_write, ec);
++        return;
++    }
++    if (!fs::is_directory(src, ec))
++        return;
++    fs::create_directories(dst, ec);
 +    for (const auto& entry : fs::recursive_directory_iterator(src)) {
 +        const auto rel = fs::relative(entry.path(), src);
-+        boost::system::error_code ec;
++        boost::system::error_code ecp;
 +        if (entry.is_directory()) {
-+            fs::create_directories(dst / rel, ec);
++            fs::create_directories(dst / rel, ecp);
 +        } else if (entry.is_regular_file()) {
-+            fs::create_directories((dst / rel).parent_path(), ec);
-+            fs::copy_file(entry.path(), dst / rel, fs::copy_options::overwrite_existing, ec);
-+            if (!ec)
-+                fs::permissions(dst / rel, fs::owner_read | fs::owner_write, ec);
++            fs::create_directories((dst / rel).parent_path(), ecp);
++            fs::copy_file(entry.path(), dst / rel, fs::copy_options::overwrite_existing, ecp);
++            if (!ecp)
++                fs::permissions(dst / rel, fs::owner_read | fs::owner_write, ecp);
 +        }
 +    }
 +}
@@ -26,16 +36,16 @@
  void populate_local_bundle(const BundlePaths& bundle_paths)
  {
      for (const auto& repo_entry : fs::directory_iterator(bundle_paths.app_bundle_path)) {
-@@ -46,11 +65,7 @@
-                     fs::remove_all(dest_path);
+@@ -53,11 +82,7 @@
+                         continue;
+                     }
+ 
+-                    fs::copy(
+-                        bundle_entry.path(),
+-                        dest_path / bundle_entry.path().filename(),
+-                        fs::copy_options::recursive | fs::copy_options::overwrite_existing
+-                    );
++                    copy_tree_keep_writable(bundle_entry.path(), dest_path / bundle_entry.path().filename());
                  }
-                 fs::create_directories(dest_path);
--                fs::copy(
--                    src_path,
--                    dest_path,
--                    fs::copy_options::recursive | fs::copy_options::overwrite_existing
--                );
-+                copy_tree_keep_writable(src_path, dest_path);
                  fs::copy_file(
                      src_path.string() + ".idx",
-                     dest_path.string() + ".idx",

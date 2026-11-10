@@ -1,6 +1,9 @@
 {
+  lib,
   stdenv,
   fetchFromGitHub,
+  fetchurl,
+  runCommand,
 
   cmake,
   pkg-config,
@@ -47,6 +50,12 @@
   range-v3,
   libdeflate,
   curl,
+  paho-mqtt-cpp,
+  # not propagated by paho-mqtt-cpp, but its PahoMqttCppConfig.cmake does a
+  # find_dependency(eclipse-paho-mqtt-c) on it
+  paho-mqtt-c,
+  hidapi,
+  libspnav,
   wxwidgets_3_3,
 
   libGLU,
@@ -90,6 +99,20 @@ let
     cmakeFlags = old.cmakeFlags ++ [ "-DJSON_ImplicitConversions=OFF" ];
     doCheck = false;
   });
+
+  # since alpha13, the build aborts unless a <prefix>/share/matdb containing
+  # the material database zip (normally installed by deps/+matdb) is found in
+  # CMAKE_PREFIX_PATH; the top-level CMakeLists copies it into resources/,
+  # from where the install step picks it up like any other resource.
+  matdb = runCommand "prusa-slicer-matdb" { } ''
+    mkdir -p $out/share/matdb
+    cp ${
+      fetchurl {
+        url = "https://slicer-assets.prusa3d.com/matdb.zip";
+        hash = "sha256-QhD8ymOkPNh5/IMBM88rQVqjM9FQ/F8OF5uVJDMhcr0=";
+      }
+    } $out/share/matdb/matdb.zip
+  '';
 
   # wxWidgets 3.3.3.1 added `wxColour(bool) = delete;`; as a deleted (but
   # declared) constructor it participates in overload resolution and makes
@@ -142,11 +165,11 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "prusa-slicer-3";
-  version = "3.0.0-alpha12";
+  version = "3.0.0-alpha13";
   src = fetchFromGitHub {
     owner = "prusa3d";
     repo = "PrusaSlicer";
-    hash = "sha256-T40R+K9h2o5QyAiLPQAnL/yx3HLzHWtgh0e8t3D1DHY=";
+    hash = "sha256-otpxpgO05uAqCbW93IocMQ1hePUFjuUDRfEYovDvTmo=";
     rev = "version_${finalAttrs.version}";
   };
 
@@ -167,6 +190,11 @@ stdenv.mkDerivation (finalAttrs: {
     # the SLIC3R_FHS_RESOURCES macro baked into the binary
     sed -i 's|DATAROOTDIR}/PrusaSlicer"|DATAROOTDIR}/PrusaSlicer3"|' \
       src/slic3r-shared/CMakeLists.txt
+
+    # deps build produces a static paho; nixpkgs builds the shared lib, whose
+    # exported target is PahoMqttCpp::paho-mqttpp3
+    substituteInPlace src/slic3r-shared/CMakeLists.txt \
+      --replace-fail 'PahoMqttCpp::paho-mqttpp3-static' 'PahoMqttCpp::paho-mqttpp3'
   '';
 
   nativeBuildInputs = [
@@ -217,6 +245,10 @@ stdenv.mkDerivation (finalAttrs: {
     range-v3
     libdeflate
     curl
+    paho-mqtt-cpp
+    paho-mqtt-c
+    hidapi
+    libspnav
     wxwidgets
 
     libGLU
@@ -232,12 +264,22 @@ stdenv.mkDerivation (finalAttrs: {
     # "bin/../resources" at runtime, which the gapps wrapper would break
     "-DSLIC3R_FHS=ON"
     "-DBOOST_ROOT=${boost186}"
+    # the material database check in the top-level CMakeLists iterates over the
+    # CMAKE_PREFIX_PATH variable itself, which the patched cmake's
+    # NIXPKGS_CMAKE_PREFIX_PATH search path does not populate
+    "-DCMAKE_PREFIX_PATH=${matdb}"
   ];
 
   # runs before wrapGAppsHook3's fixup hook, so the wrapper is generated
   # around the renamed prusa-slicer3 binary
   postInstall = ''
     mv $out/bin/slic3r-app-launcher $out/bin/prusa-slicer3
+
+    # collides with prusa-slicer 2.x in the same profile (same path, slightly
+    # different content); 2.x keeps providing its copy, and a udev rule from a
+    # user profile is inactive on NixOS anyway (udev reads the system config)
+    rm $out/lib/udev/rules.d/90-3dconnexion.rules
+    rmdir -p --ignore-fail-on-non-empty $out/lib/udev/rules.d
 
     install -Dm644 ${desktopItem}/share/applications/com.prusa3d.PrusaSlicer.desktop \
       $out/share/applications/com.prusa3d.PrusaSlicer.desktop
