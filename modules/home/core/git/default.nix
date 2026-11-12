@@ -21,6 +21,7 @@ in
 
   programs.git = {
     enable = true;
+    package = pkgs.unstable.git;
     lfs.enable = true;
 
     settings = {

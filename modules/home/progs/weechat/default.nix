@@ -27,9 +27,5 @@ in
 
   config = lib.mkIf config.my.progs.weechat.enable {
     home.packages = [ weechat ];
-
-    home.xdg.configFiles = {
-      "weechat/"
-    }
   };
 }
