@@ -63,6 +63,11 @@
       url = "github:shezdy/hyprsplit";
       flake = false;
     };
+
+    omp = {
+      url = "github:can1357/oh-my-pi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

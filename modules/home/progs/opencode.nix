@@ -2,15 +2,59 @@
   config,
   lib,
   pkgs,
+  omp,
   ...
 }:
 
 {
+  imports = [
+    omp.homeManagerModules.default
+  ];
+
   options.my.progs.opencode = {
     enable = lib.mkEnableOption "opencode";
   };
 
   config = lib.mkIf config.my.progs.opencode.enable {
+    programs.omp = {
+      enable = true;
+    };
+
+    home.sessionVariables = {
+      PI_CONFIG_DIR = ".config/omp";
+    };
+
+    xdg.configFile."omp/agent/models.yml".source = (
+      (pkgs.formats.yaml { }).generate "models.yml" {
+        providers = {
+          sglang = {
+            baseUrl = "http://10.10.0.7:8000/v1";
+            api = "openai-responses";
+            auth = "none";
+            discovery = {
+              type = "openai-models-list";
+            };
+          };
+          clara = {
+            baseUrl = "https://public.llm.de.clara.net/v1";
+            apiKey = "!pass show work/litellm_claude | head -n1";
+            api = "openai-responses";
+            discovery = {
+              type = "litellm";
+            };
+          };
+          clovis = {
+            baseUrl = "https://llm-gateway.clovis-ai.fr/v1";
+            apiKey = "!pass show work/clovis";
+            api = "openai-responses";
+            discovery = {
+              type = "litellm";
+            };
+          };
+        };
+      }
+    );
+
     programs.opencode = {
       enable = true;
       package = pkgs.unstable.opencode;
