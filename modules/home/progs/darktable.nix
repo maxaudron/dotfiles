@@ -19,7 +19,7 @@ in
   config = lib.mkIf config.my.progs.darktable.enable {
     home.packages = with pkgs; [
       darktable
-      spectral_film_lut
+      # spectral_film_lut
     ];
   };
 }

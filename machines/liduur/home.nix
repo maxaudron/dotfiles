@@ -1,4 +1,9 @@
-{ kintree, system, pkgs, ... }:
+{
+  kintree,
+  system,
+  pkgs,
+  ...
+}:
 
 {
   my = {
@@ -30,6 +35,11 @@
   };
 
   # home.packages = [ kintree.packages.${system}.default ];
-  home.packages = with pkgs; [ rallynavigator inkscape krita ];
+  home.packages = with pkgs; [
+    rallynavigator
+    inkscape
+    krita
+    (google-cloud-sdk.withExtraComponents [ google-cloud-sdk.components.gke-gcloud-auth-plugin ])
+  ];
   home.stateVersion = "26.05";
 }

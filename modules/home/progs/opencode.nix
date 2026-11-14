@@ -16,6 +16,18 @@
       package = pkgs.unstable.opencode;
       settings = {
         provider = {
+          sglang = {
+            npm = "@ai-sdk/openai-compatible";
+            name = "SGLang @ vllm-max";
+            options = {
+              baseURL = "http://10.10.0.7:8000/v1";
+            };
+            models = {
+              "orcarouter/Qwen3.8-27B-Uncensored-FP8" = {
+                name = "Qwen3.8 27B FP8";
+              };
+            };
+          };
           clovis = {
             npm = "@ai-sdk/openai-compatible";
             name = "Clovis";
