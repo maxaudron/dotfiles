@@ -16,7 +16,7 @@
     };
   };
 
-  # home.packages = [ pkgs.quasselClient ];
+  home.packages = [ pkgs.unstable.quasselClient ];
   home.stateVersion = "26.05";
 
   targets.darwin.copyApps.enable = true;

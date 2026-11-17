@@ -1,4 +1,5 @@
 {
+  system,
   config,
   lib,
   pkgs,
@@ -18,6 +19,7 @@
   config = lib.mkIf config.my.progs.opencode.enable {
     programs.omp = {
       enable = true;
+      package = omp.packages.${system}.default.override { withAppleFm = false; };
     };
 
     home.sessionVariables = {
