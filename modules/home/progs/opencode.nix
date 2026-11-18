@@ -24,6 +24,7 @@
 
     home.sessionVariables = {
       PI_CONFIG_DIR = ".config/omp";
+      OLLAMA_BASE_URL = "http://192.168.144.11:11434";
     };
 
     xdg.configFile."omp/agent/mcp.json".source = (
