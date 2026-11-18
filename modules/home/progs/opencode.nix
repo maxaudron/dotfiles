@@ -26,6 +26,17 @@
       PI_CONFIG_DIR = ".config/omp";
     };
 
+    xdg.configFile."omp/agent/mcp.json".source = (
+      (pkgs.formats.json { }).generate "mcp.json" {
+        mcpServers = {
+          git-search = {
+            type = "http";
+            url = "https://git-search.prod.cke.de.clara.net/mcp";
+          };
+        };
+      }
+    );
+
     xdg.configFile."omp/agent/models.yml".source = (
       (pkgs.formats.yaml { }).generate "models.yml" {
         providers = {
@@ -38,6 +49,14 @@
             };
           };
           clara = {
+            baseUrl = "https://ai-llm.prod.cke.de.clara.net/v1";
+            apiKey = "!pass show work/llm";
+            api = "openai-responses";
+            discovery = {
+              type = "litellm";
+            };
+          };
+          clara-old = {
             baseUrl = "https://public.llm.de.clara.net/v1";
             apiKey = "!pass show work/litellm_claude | head -n1";
             api = "openai-responses";

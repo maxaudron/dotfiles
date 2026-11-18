@@ -24,6 +24,7 @@
       aws-adfs
 
       vault
+      openstackclient
     ];
 
     home.sessionVariables = {
