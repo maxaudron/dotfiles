@@ -129,7 +129,7 @@ in
           markview-nvim
 
           # Languages
-          # rustaceanvim
+          rustaceanvim
           neotest
           nvim-nio
           vim-ledger
