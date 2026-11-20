@@ -30,6 +30,7 @@ self: super:
   mcp-hub = super.callPackage ./mcp-hub { };
 
   llm-usage = super.callPackage ./llm-usage { };
+  redmine-tui = super.callPackage ./redmine-tui { };
 
   qmk_redox = super.callPackage ../misc/qmk { };
 

@@ -50,6 +50,7 @@ with lib;
       llm-usage
 
       tokei
+      redmine-tui
     ];
 
     programs.direnv = {
