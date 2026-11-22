@@ -73,6 +73,13 @@
               type = "litellm";
             };
           };
+          unsloth = {
+            baseUrl = "http://192.168.144.11:8888/v1";
+            api = "openai-responses";
+            discovery = {
+              type = "openai-models-list";
+            };
+          };
         };
       }
     );

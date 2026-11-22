@@ -1,0 +1,17 @@
+[package]
+name = "round"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+rtic = { version = "2", features = ["thumbv8main-backend"] }
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+embedded-hal = "1"
+embedded-time = "0.12"
+
+defmt = "1"
+defmt-rtt = "1"
+panic-probe = { version = "1", features = ["print-defmt"] }
+
+rp235x-hal = { git = "https://github.com/rp-rs/rp-hal", features = ["binary-info", "critical-section-impl", "rt", "defmt"] }
